@@ -1,0 +1,1517 @@
+[
+ {
+  "id": "FE-M-P-001",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "javascript",
+  "difficulty": 5,
+  "question": "Функция должна вернуть массив загруженных отчётов, но возвращает пустой массив. Какое исправление корректно?",
+  "language": "javascript",
+  "code": "async function loadReports(ids) {\n  const reports = [];\n  ids.forEach(async (id) => {\n    const report = await fetchReport(id);\n    reports.push(report);\n  });\n  return reports;\n}",
+  "options": [
+   {
+    "id": "A",
+    "text": "Объявить reports через let и присваивать результат внутри асинхронного колбэка"
+   },
+   {
+    "id": "B",
+    "text": "Добавить await перед ids.forEach(...)"
+   },
+   {
+    "id": "C",
+    "text": "Добавить await перед reports.push(report)"
+   },
+   {
+    "id": "D",
+    "text": "Заменить forEach на for...of с await либо reports = await Promise.all(ids.map(fetchReport))"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 2,
+  "explanation": "forEach не ждёт асинхронные колбэки: он запускает их все и сразу возвращает undefined, поэтому return происходит до заполнения массива. Нужен либо последовательный for..of с await, либо параллельный Promise.all. await перед forEach бессмысленен, так как forEach возвращает не промис.",
+  "tags": [
+   "javascript",
+   "async",
+   "foreach",
+   "bug-fixing"
+  ],
+  "version_group": "FE-MP-ASYNC-FOREACH",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "async function totalPrice(skus) {\n  let total = 0;\n  skus.forEach(async (sku) => {\n    const price = await getPrice(sku);\n    total += price;\n  });\n  return total;\n}",
+    "options": [
+     {
+      "id": "A",
+      "text": "Инициализировать total значением null вместо 0"
+     },
+     {
+      "id": "B",
+      "text": "Объявить total через var, чтобы он был виден в колбэке"
+     },
+     {
+      "id": "C",
+      "text": "for...of с await или Promise.all"
+     },
+     {
+      "id": "D",
+      "text": "Добавить await перед skus.forEach(...)"
+     }
+    ],
+    "correct_answer": [
+     "C"
+    ],
+    "question": "Функция должна вернуть сумму цен всех товаров, но всегда возвращает 0. Какое исправление корректно?",
+    "explanation": "forEach не ждёт асинхронные колбэки и сразу возвращает управление, поэтому return выполняется до прибавления цен. Нужен последовательный for...of с await или параллельный Promise.all с последующим сложением результатов."
+   },
+   {
+    "variant_id": "v3",
+    "code": "async function removeAll(ids) {\n  const failed = [];\n  ids.forEach(async (id) => {\n    try { await deleteItem(id); } catch { failed.push(id); }\n  });\n  console.log('не удалено:', failed.length);\n}",
+    "options": [
+     {
+      "id": "A",
+      "text": "Заменить failed.push(id) на failed[id] = true, чтобы не терять идентификаторы"
+     },
+     {
+      "id": "B",
+      "text": "Добавить await перед console.log"
+     },
+     {
+      "id": "C",
+      "text": "await Promise.allSettled(ids.map(deleteItem)) и разбор статусов"
+     },
+     {
+      "id": "D",
+      "text": "Перенести try/catch за пределы forEach, чтобы ловить ошибки всех удалений"
+     }
+    ],
+    "correct_answer": [
+     "C"
+    ],
+    "question": "Функция должна вывести число неудачных удалений, но всегда выводит 0. Какое исправление корректно?",
+    "explanation": "forEach запускает асинхронные удаления и не ждёт их, поэтому подсчёт выполняется раньше, чем заполнится массив ошибок. Нужно дождаться всех операций, например через Promise.allSettled, и посчитать отклонённые."
+   }
+  ]
+ },
+ {
+  "id": "FE-M-P-002",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "javascript",
+  "difficulty": 4,
+  "question": "Что выведет код? Введите результат одним числом.",
+  "language": "javascript",
+  "code": "const orders = [\n  { sum: 120, paid: true },\n  { sum: 80, paid: false },\n  { sum: 200, paid: true }\n];\nconst total = orders\n  .filter(o => o.paid)\n  .reduce((acc, o) => acc + o.sum, 0);\nconsole.log(total);",
+  "options": [],
+  "correct_answer": [
+   "320"
+  ],
+  "score": 2,
+  "explanation": "После фильтрации остаются заказы на 120 и 200, их сумма равна 320. Начальное значение 0 обязательно: без него reduce на пустом массиве выбросит исключение, а первый элемент стал бы начальным аккумулятором.",
+  "tags": [
+   "javascript",
+   "reduce",
+   "numeric"
+  ],
+  "version_group": "FE-MP-REDUCE-SUM",
+  "seedable": true,
+  "seed_parameters": [
+   "input_values"
+  ],
+  "validation_type": "numeric",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "const items = [\n  { price: 50, qty: 2 },\n  { price: 30, qty: 0 },\n  { price: 15, qty: 4 }\n];\nconst total = items.reduce((acc, i) => acc + i.price * i.qty, 0);\nconsole.log(total);",
+    "options": [],
+    "correct_answer": [
+     "160"
+    ],
+    "explanation": "Сумма произведений цены на количество: 50·2 + 30·0 + 15·4 = 100 + 0 + 60 = 160."
+   },
+   {
+    "variant_id": "v3",
+    "code": "const marks = [5, 3, 4, 5, 2];\nconst total = marks.filter(m => m >= 4).reduce((a, b) => a + b, 0);\nconsole.log(total);",
+    "options": [],
+    "correct_answer": [
+     "14"
+    ],
+    "explanation": "Фильтр оставляет оценки 5, 4 и 5, их сумма равна 14."
+   }
+  ]
+ },
+ {
+  "id": "FE-M-P-003",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "javascript",
+  "difficulty": 4,
+  "question": "Сортировка цен даёт неверный порядок: [100, 25, 3] вместо [3, 25, 100]. В какой строке причина?",
+  "language": "javascript",
+  "code": "1  const prices = [25, 100, 3];\n2  const sorted = prices.sort();\n3  console.log(sorted);",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 3: перед выводом массив нужно преобразовать методом map(Number)"
+   },
+   {
+    "id": "B",
+    "text": "Строка 2: sort без функции сравнения сортирует элементы как строки, нужно sort((a, b) => a - b)"
+   },
+   {
+    "id": "C",
+    "text": "Строка 1: массив нужно объявить через let"
+   },
+   {
+    "id": "D",
+    "text": "Строка 2: sort возвращает новый массив, поэтому результат нужно получать через slice перед сортировкой"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 2,
+  "explanation": "По умолчанию sort приводит элементы к строкам и сравнивает их посимвольно, поэтому \"100\" оказывается меньше \"25\". Для чисел нужна функция сравнения. Дополнительно стоит помнить, что sort изменяет исходный массив.",
+  "tags": [
+   "javascript",
+   "sort",
+   "bug-finding"
+  ],
+  "version_group": "FE-MP-SORT-NUMBERS",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "1  const ids = [9, 80, 7, 100];\n2  ids.sort((a, b) => a > b);\n3  console.log(ids);",
+    "options": [
+     {
+      "id": "A",
+      "text": "Строка 2: компаратор должен возвращать число, а не boolean"
+     },
+     {
+      "id": "B",
+      "text": "Строка 3: вывод массива требует JSON.stringify"
+     },
+     {
+      "id": "C",
+      "text": "Строка 2: аргументы функции сравнения нужно поменять местами: b > a"
+     },
+     {
+      "id": "D",
+      "text": "Строка 1: массив чисел нельзя сортировать на месте, нужна копия"
+     }
+    ],
+    "correct_answer": [
+     "A"
+    ],
+    "question": "Сортировка идентификаторов по возрастанию даёт неверный порядок. В какой строке причина?",
+    "explanation": "Функция сравнения должна возвращать отрицательное число, ноль или положительное число. Логическое значение превращается в 0 или 1 и никогда не бывает отрицательным, поэтому порядок зависит от реализации движка. Нужно (a, b) => a - b."
+   }
+  ]
+ },
+ {
+  "id": "FE-M-P-004",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "javascript",
+  "difficulty": 6,
+  "question": "Эта реализация debounce вызывает функцию при каждом событии, а не после паузы. В какой строке ошибка?",
+  "language": "javascript",
+  "code": "1  function debounce(fn, delay) {\n2    let timer;\n3    return function (...args) {\n4      timer = setTimeout(() => fn.apply(this, args), delay);\n5    };\n6  }",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 2: timer нужно объявить внутри возвращаемой функции"
+   },
+   {
+    "id": "B",
+    "text": "Строка 4: перед установкой нового таймера не отменяется предыдущий — нужен clearTimeout(timer)"
+   },
+   {
+    "id": "C",
+    "text": "Строка 3: нельзя использовать остаточные параметры вместе с методом apply у функции"
+   },
+   {
+    "id": "D",
+    "text": "Строка 4: вместо setTimeout следует использовать setInterval"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 2,
+  "explanation": "Смысл debounce — откладывать вызов и сбрасывать отсчёт при каждом новом событии, поэтому перед созданием нового таймера старый нужно отменить. Объявление timer внутри возвращаемой функции тоже сломало бы механизм: переменная должна жить в замыкании между вызовами.",
+  "tags": [
+   "javascript",
+   "debounce",
+   "bug-finding"
+  ],
+  "version_group": "FE-MP-DEBOUNCE",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "1  function throttle(fn, interval) {\n2    let last = 0;\n3    return function (...args) {\n4      const now = Date.now();\n5      if (now - last > interval) {\n6        fn.apply(this, args);\n7      }\n8    };\n9  }",
+    "options": [
+     {
+      "id": "A",
+      "text": "Строка 4: Date.now() нужно вызывать до создания функции"
+     },
+     {
+      "id": "B",
+      "text": "Строка 2: last нужно инициализировать значением Date.now(), иначе первый вызов пропускается"
+     },
+     {
+      "id": "C",
+      "text": "Строка 5: условие должно использовать >= вместо >"
+     },
+     {
+      "id": "D",
+      "text": "Строка 6: после вызова не обновляется last, поэтому ограничение частоты не работает"
+     }
+    ],
+    "correct_answer": [
+     "D"
+    ],
+    "question": "Эта реализация throttle вызывает функцию при каждом событии, не ограничивая частоту. В какой строке ошибка?",
+    "explanation": "Throttle пропускает вызовы, пока с последнего срабатывания не прошёл интервал, поэтому после вызова нужно запомнить время: last = now. Без этого last всегда равен 0, и условие выполняется при каждом событии."
+   }
+  ]
+ },
+ {
+  "id": "FE-M-P-005",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "javascript",
+  "difficulty": 5,
+  "question": "После обновления настроек профиля меняется и исходный объект defaults, хотя этого не ожидали. Какое исправление устранит причину?",
+  "language": "javascript",
+  "code": "const defaults = { theme: 'light', notify: { email: true, sms: false } };\n\nfunction withOverrides(overrides) {\n  const result = { ...defaults };\n  result.notify.email = overrides.email;\n  return result;\n}",
+  "options": [
+   {
+    "id": "A",
+    "text": "Применить Object.freeze к result перед возвратом"
+   },
+   {
+    "id": "B",
+    "text": "Создавать копию вложенного объекта: { ...defaults, notify: { ...defaults.notify, email: overrides.email } }"
+   },
+   {
+    "id": "C",
+    "text": "Использовать Object.assign({}, defaults) вместо расширения объекта через оператор spread"
+   },
+   {
+    "id": "D",
+    "text": "Объявить defaults через const, чтобы объект нельзя было изменить"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 2,
+  "explanation": "Расширение объекта копирует только верхний уровень, поэтому поле notify в копии ссылается на тот же объект. Нужно копировать и вложенный объект (или использовать structuredClone). const запрещает лишь переприсваивание, Object.assign ведёт себя так же поверхностно, а заморозка результата не защитит уже общий вложенный объект.",
+  "tags": [
+   "javascript",
+   "immutability",
+   "shallow-copy",
+   "bug-fixing"
+  ],
+  "version_group": "FE-MP-SHALLOW-COPY",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-P-006",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "react",
+  "difficulty": 5,
+  "question": "После нескольких переходов между экранами в консоли копятся обновления от уже закрытых подписок. Какое исправление корректно?",
+  "language": "javascript",
+  "code": "useEffect(() => {\n  const socket = connect(roomId);\n  socket.on('message', (m) => setMessages(prev => [...prev, m]));\n}, [roomId]);",
+  "options": [
+   {
+    "id": "A",
+    "text": "Перенести подключение в useMemo, чтобы соединение создавалось только один раз за жизнь компонента"
+   },
+   {
+    "id": "B",
+    "text": "Добавить в массив зависимостей setMessages"
+   },
+   {
+    "id": "C",
+    "text": "Вернуть из эффекта функцию очистки, которая снимает обработчик и закрывает соединение"
+   },
+   {
+    "id": "D",
+    "text": "Обернуть обработчик в useCallback"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 2,
+  "explanation": "Эффект перезапускается при смене roomId, и без очистки каждое прежнее соединение остаётся открытым со своим обработчиком. Функция очистки должна снять обработчик и закрыть соединение. setMessages стабилен и в зависимостях не нужен, а useMemo и useCallback к освобождению ресурсов отношения не имеют.",
+  "tags": [
+   "react",
+   "useEffect",
+   "cleanup",
+   "bug-fixing"
+  ],
+  "version_group": "FE-MP-EFFECT-CLEANUP",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-P-007",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "react",
+  "difficulty": 6,
+  "question": "Таймер показывает 1 и больше не меняется, хотя интервал работает. В чём причина и как исправить?",
+  "language": "javascript",
+  "code": "function Timer() {\n  const [seconds, setSeconds] = useState(0);\n\n  useEffect(() => {\n    const id = setInterval(() => setSeconds(seconds + 1), 1000);\n    return () => clearInterval(id);\n  }, []);\n\n  return <span>{seconds}</span>;\n}",
+  "options": [
+   {
+    "id": "A",
+    "text": "Нужно хранить seconds в useRef и обновлять .current"
+   },
+   {
+    "id": "B",
+    "text": "Колбэк интервала замкнул значение seconds первого рендера: нужно setSeconds(prev => prev + 1)"
+   },
+   {
+    "id": "C",
+    "text": "Нужно добавить seconds в массив зависимостей эффекта, а остальной код таймера оставить без изменений"
+   },
+   {
+    "id": "D",
+    "text": "Нужно заменить setInterval на setTimeout с рекурсивным вызовом"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 2,
+  "explanation": "Эффект с пустым массивом зависимостей создаёт интервал один раз, и его колбэк навсегда видит seconds равным 0, поэтому каждую секунду устанавливается 0 + 1. Функция обновления получает актуальное состояние и устраняет причину. Вариант с добавлением зависимости работает, но пересоздаёт интервал каждую секунду, а ref лишит компонент перерисовки.",
+  "tags": [
+   "react",
+   "stale-closure",
+   "hooks",
+   "bug-fixing"
+  ],
+  "version_group": "FE-MP-STALE-CLOSURE",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-P-008",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "react",
+  "difficulty": 5,
+  "question": "Дочерний компонент обёрнут в React.memo, но перерисовывается при каждом рендере родителя. Какая строка этому причина?",
+  "language": "javascript",
+  "code": "1  function Parent({ user }) {\n2    const [query, setQuery] = useState('');\n3    const config = { compact: true };\n4    const onSelect = useCallback((id) => select(id), []);\n5    return <Child config={config} onSelect={onSelect} userId={user.id} />;\n6  }",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 5: передача user.id вместо целого объекта user"
+   },
+   {
+    "id": "B",
+    "text": "Строка 2: объявление собственного состояния в родителе"
+   },
+   {
+    "id": "C",
+    "text": "Строка 4: использование useCallback с пустым массивом зависимостей"
+   },
+   {
+    "id": "D",
+    "text": "Строка 3: config пересоздаётся на каждом рендере"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 2,
+  "explanation": "React.memo сравнивает props поверхностно: литерал объекта в теле компонента даёт новую ссылку на каждом рендере и сравнение всегда даёт различие. Объект нужно вынести за пределы компонента или обернуть в useMemo. Обработчик стабилизирован корректно, а примитив user.id сравнивается по значению.",
+  "tags": [
+   "react",
+   "memo",
+   "referential-equality",
+   "bug-finding"
+  ],
+  "version_group": "FE-REACT-MEMO",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "1  function List({ items }) {\n2    const sorted = useMemo(() => [...items].sort(byName), [items]);\n3    const columns = ['name', 'date'];\n4    const handler = useCallback(onPick, []);\n5    return <Table rows={sorted} columns={columns} onPick={handler} />;\n6  }",
+    "options": [
+     {
+      "id": "A",
+      "text": "Строка 4: useCallback нельзя применять к функции, объявленной вне компонента"
+     },
+     {
+      "id": "B",
+      "text": "Строка 2: useMemo с зависимостью от items бесполезен"
+     },
+     {
+      "id": "C",
+      "text": "Строка 5: нельзя передавать результат useMemo в props"
+     },
+     {
+      "id": "D",
+      "text": "Строка 3: массив columns пересоздаётся при каждом рендере и ломает сравнение props"
+     }
+    ],
+    "correct_answer": [
+     "D"
+    ],
+    "explanation": "Литерал массива columns создаётся заново при каждом рендере, и поверхностное сравнение props в React.memo всегда видит новую ссылку. Массив нужно вынести за пределы компонента или обернуть в useMemo; sorted и handler стабилизированы корректно."
+   }
+  ]
+ },
+ {
+  "id": "FE-M-P-009",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "react",
+  "difficulty": 4,
+  "question": "Когда корзина пуста, на экране вместо блока появляется цифра 0. В какой строке ошибка?",
+  "language": "javascript",
+  "code": "1  function Cart({ items }) {\n2    return (\n3      <div>\n4        {items.length && <CartList items={items} />}\n5      </div>\n6    );\n7  }",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 4: при пустом массиве && возвращает 0, и React выводит его"
+   },
+   {
+    "id": "B",
+    "text": "Строка 3: div нельзя использовать как корневой элемент функционального компонента"
+   },
+   {
+    "id": "C",
+    "text": "Строка 1: items нужно объявить со значением по умолчанию — пустым массивом"
+   },
+   {
+    "id": "D",
+    "text": "Строка 4: нужно заменить && на ||"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 2,
+  "explanation": "Оператор && возвращает левое значение, если оно ложно, а React отображает число 0 как текст (в отличие от false, null и undefined). Нужна проверка, дающая логическое значение, либо тернарный оператор.",
+  "tags": [
+   "react",
+   "conditional-rendering",
+   "bug-finding"
+  ],
+  "version_group": "FE-MP-ZERO-RENDER",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "1  function Badge({ count }) {\n2    return (\n3      <span className=\"badge\">\n4        {count && <strong>{count}</strong>}\n5      </span>\n6    );\n7  }",
+    "options": [
+     {
+      "id": "A",
+      "text": "Строка 1: count должен иметь тип string"
+     },
+     {
+      "id": "B",
+      "text": "Строка 3: className нужно задавать через style, иначе класс не применится к span"
+     },
+     {
+      "id": "C",
+      "text": "Строка 4: при count равном 0 выводится ноль — нужна проверка count > 0"
+     },
+     {
+      "id": "D",
+      "text": "Строка 4: strong нельзя вкладывать в span"
+     }
+    ],
+    "correct_answer": [
+     "C"
+    ],
+    "question": "Когда непрочитанных уведомлений нет, в значке вместо пустоты отображается цифра 0. В какой строке ошибка?",
+    "explanation": "При count, равном 0, выражение && возвращает сам 0, а React выводит число как текст. Нужна проверка с логическим результатом, например count > 0 && ..., или тернарный оператор."
+   }
+  ]
+ },
+ {
+  "id": "FE-M-P-010",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "css",
+  "difficulty": 5,
+  "question": "Шапка таблицы с position: sticky не прилипает при прокрутке. Какая строка мешает?",
+  "language": "css",
+  "code": "1  .page { height: 100vh; overflow: auto; }\n2  .table-wrap { overflow: hidden; }\n3  .thead { position: sticky; top: 0; z-index: 2; }\n4  .thead th { background: #fff; }",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 1: контейнеру нельзя задавать overflow: auto"
+   },
+   {
+    "id": "B",
+    "text": "Строка 4: непрозрачный фон отключает прилипание"
+   },
+   {
+    "id": "C",
+    "text": "Строка 3: вместе с position: sticky нельзя использовать z-index, так как он отменяет прилипание элемента"
+   },
+   {
+    "id": "D",
+    "text": "Строка 2: overflow: hidden у предка обрезает контекст прокрутки, и элемент перестаёт прилипать"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 2,
+  "explanation": "Элемент с position: sticky позиционируется относительно ближайшего предка с прокруткой; overflow: hidden у промежуточного контейнера создаёт собственный контекст, в котором прокрутки нет, и прилипание не работает. z-index и фон здесь нужны как раз для корректного отображения.",
+  "tags": [
+   "css",
+   "sticky",
+   "overflow",
+   "bug-finding"
+  ],
+  "version_group": "FE-MP-STICKY",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-P-011",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "css",
+  "difficulty": 5,
+  "question": "Нужна раскладка: шапка на всю ширину, слева боковая панель 240px, справа содержимое, снизу подвал на всю ширину. Какой вариант кода решает задачу?",
+  "language": "css",
+  "code": "<div class=\"layout\">\n  <header>…</header><aside>…</aside><main>…</main><footer>…</footer>\n</div>",
+  "options": [
+   {
+    "id": "A",
+    "text": ".layout { display: grid; grid-template-columns: 240px 1fr } header, footer { grid-column: 1 / -1 }"
+   },
+   {
+    "id": "B",
+    "text": ".layout { display: grid; grid-template-columns: 240px 1fr; } header, footer { width: 100%; display: block }"
+   },
+   {
+    "id": "C",
+    "text": ".layout { display: flex; flex-direction: row; flex-wrap: wrap } aside { flex: 0 0 240px } main { flex: 1 }"
+   },
+   {
+    "id": "D",
+    "text": ".layout { display: grid; grid-template-rows: auto 1fr auto } aside { float: left; width: 240px; height: 100% }"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 2,
+  "explanation": "Сетка из двух колонок, в которой шапка и подвал растянуты на всю ширину через grid-column: 1 / -1, а панель и содержимое автоматически занимают среднюю строку; то же можно выразить именованными областями grid-template-areas. Ширина 100% у шапки и подвала не растягивает их на две колонки сетки, во flex-варианте шапка окажется в одном ряду с панелью, а смешивание grid и float даёт непредсказуемый результат.",
+  "tags": [
+   "css",
+   "grid",
+   "layout"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-P-012",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "css",
+  "difficulty": 6,
+  "question": "Анимация выпадающей панели заметно дёргается на мобильных. Какое изменение уберёт основную причину?",
+  "language": "css",
+  "code": ".panel {\n  transition: height 0.3s ease, top 0.3s ease;\n  height: 0;\n  top: -40px;\n}\n.panel.open { height: 320px; top: 0; }",
+  "options": [
+   {
+    "id": "A",
+    "text": "Уменьшить длительность перехода до 0.15s"
+   },
+   {
+    "id": "B",
+    "text": "Анимировать transform и opacity"
+   },
+   {
+    "id": "C",
+    "text": "Заменить transition на animation с ключевыми кадрами"
+   },
+   {
+    "id": "D",
+    "text": "Добавить will-change: height, top"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 2,
+  "explanation": "Изменение height и top вызывает перекомпоновку и перерисовку на каждом кадре, что на слабых устройствах не укладывается в бюджет кадра. transform и opacity обрабатываются на этапе композиции и не требуют пересчёта раскладки. will-change лишь подсказывает браузеру о намерении, но не отменяет перекомпоновку, а сокращение длительности делает рывки короче, а не плавнее.",
+  "tags": [
+   "css",
+   "animation",
+   "performance"
+  ],
+  "version_group": "FE-MP-ANIM-PERF",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-P-013",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "typescript",
+  "difficulty": 5,
+  "question": "Какой код внутри функции позволит компилятору безопасно обратиться к полю data?",
+  "language": "typescript",
+  "code": "type Result =\n  | { status: 'ok'; data: string[] }\n  | { status: 'error'; message: string };\n\nfunction handle(result: Result) {\n  // ?\n}",
+  "options": [
+   {
+    "id": "A",
+    "text": "if (result.status === 'ok') console.log(result.data.length)"
+   },
+   {
+    "id": "B",
+    "text": "if (typeof result.data !== 'undefined') { console.log(result.data.length) }"
+   },
+   {
+    "id": "C",
+    "text": "if (result.data?.length > 0) { console.log(result.data.length) }"
+   },
+   {
+    "id": "D",
+    "text": "console.log((result as { status: 'ok'; data: string[] }).data.length)"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 2,
+  "explanation": "Сравнение поля-дискриминанта с литералом сужает объединение до нужной ветви, и дальше поле data доступно без приведения. Обращение к result.data до сужения вызывает ошибку компиляции: у ветви с ошибкой такого поля нет, и проверки typeof или опциональная цепочка это не меняют. Приведение через as компилируется, но отключает проверку и при ответе с ошибкой упадёт в рантайме.",
+  "tags": [
+   "typescript",
+   "narrowing",
+   "discriminated-union"
+  ],
+  "version_group": "FE-MP-TS-NARROW",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-P-014",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "typescript",
+  "difficulty": 4,
+  "question": "Нужна функция, которая принимает массив объектов и имя поля этих объектов, а возвращает массив значений этого поля с сохранением типа. Какая подпись корректна?",
+  "language": "typescript",
+  "code": "// pluck(users, 'name') -> string[]\n// pluck(users, 'age')  -> number[]",
+  "options": [
+   {
+    "id": "A",
+    "text": "function pluck<T, K extends keyof T>(items: T[], key: K): T[K][]"
+   },
+   {
+    "id": "B",
+    "text": "function pluck<T extends object>(items: T[], key: string): T[keyof T][]"
+   },
+   {
+    "id": "C",
+    "text": "function pluck(items: Record<string, unknown>[], key: string): unknown[]"
+   },
+   {
+    "id": "D",
+    "text": "function pluck<T, K>(items: T[], key: K): K[]"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 2,
+  "explanation": "Ограничение K extends keyof T гарантирует, что передано существующее имя поля, а возвращаемый тип T[K][] сохраняет тип значений. Сигнатура с key: string допускает любое имя поля и теряет точность, Record<string, unknown> возвращает unknown, а K[] — массив имён, а не значений.",
+  "tags": [
+   "typescript",
+   "generics",
+   "keyof"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-P-015",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "typescript",
+  "difficulty": 6,
+  "question": "Нужен тип для данных формы редактирования: все поля пользователя, кроме id и createdAt, и все они необязательные. Какой вариант верен?",
+  "language": "typescript",
+  "code": "type User = { id: number; name: string; email: string; createdAt: string; active: boolean };",
+  "options": [
+   {
+    "id": "A",
+    "text": "type EditForm = Partial<Pick<User, 'name' | 'email' | 'active'>>"
+   },
+   {
+    "id": "B",
+    "text": "type EditForm = Omit<Partial<User>, 'id'>"
+   },
+   {
+    "id": "C",
+    "text": "type EditForm = Partial<Omit<User, 'id' | 'createdAt'>>"
+   },
+   {
+    "id": "D",
+    "text": "type EditForm = Required<Omit<User, 'id' | 'createdAt'>>"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 2,
+  "explanation": "Omit убирает служебные поля, Partial делает оставшиеся необязательными — это прямое выражение требования. Если убрать только id, поле createdAt останется в типе формы. Ручное перечисление полей через Pick разойдётся с типом User при добавлении нового поля, а Required даёт противоположный результат: все поля станут обязательными.",
+  "tags": [
+   "typescript",
+   "utility-types",
+   "mapped-types"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-P-016",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "state_management",
+  "difficulty": 5,
+  "question": "После добавления товара список в интерфейсе не обновляется. Какая строка редьюсера нарушает правило неизменяемости?",
+  "language": "javascript",
+  "code": "1  function cartReducer(state, action) {\n2    switch (action.type) {\n3        case 'add':\n4          state.items.push(action.item);\n5          return state;\n6        case 'clear':\n7          return { ...state, items: [] };\n8        default:\n9          return state;\n10   }\n11 }",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 9: ветвь default должна выбрасывать ошибку"
+   },
+   {
+    "id": "B",
+    "text": "Строка 5: редьюсер не должен возвращать state"
+   },
+   {
+    "id": "C",
+    "text": "Строка 7: расширение объекта создаёт лишнюю копию состояния и замедляет работу редьюсера"
+   },
+   {
+    "id": "D",
+    "text": "Строка 4: состояние изменяется на месте, нужно вернуть новый объект с новым массивом"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 2,
+  "explanation": "push изменяет существующий массив, и ссылка на состояние остаётся прежней, поэтому подписчики не увидят изменения. Корректно вернуть { ...state, items: [...state.items, action.item] }. Возврат того же состояния в ветви default — нормальная практика.",
+  "tags": [
+   "state_management",
+   "reducer",
+   "immutability",
+   "bug-finding"
+  ],
+  "version_group": "FE-MP-REDUCER-MUTATION",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "1  function filtersReducer(state, action) {\n2    switch (action.type) {\n3        case 'setRange':\n4          return { ...state, range: action.range };\n5        case 'toggleTag':\n6          state.tags[action.tag] = !state.tags[action.tag];\n7          return { ...state };\n8        default:\n9          return state;\n10   }\n11 }",
+    "options": [
+     {
+      "id": "A",
+      "text": "Строка 7: расширение объекта здесь недопустимо"
+     },
+     {
+      "id": "B",
+      "text": "Строка 4: нужно возвращать state без копирования, чтобы не создавать лишних объектов"
+     },
+     {
+      "id": "C",
+      "text": "Строка 9: нужно возвращать undefined"
+     },
+     {
+      "id": "D",
+      "text": "Строка 6: вложенный объект tags изменяется на месте, поэтому подписчики на него не получат обновление"
+     }
+    ],
+    "correct_answer": [
+     "D"
+    ],
+    "question": "После переключения тега компоненты, подписанные на объект тегов, не обновляются. Какая строка редьюсера нарушает правило неизменяемости?",
+    "explanation": "Шестая строка изменяет вложенный объект tags на месте: верхний уровень состояния копируется, но ссылка на tags остаётся прежней, и подписчики на него не видят изменений. Нужно вернуть { ...state, tags: { ...state.tags, [action.tag]: !state.tags[action.tag] } }."
+   }
+  ]
+ },
+ {
+  "id": "FE-M-P-017",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "state_management",
+  "difficulty": 6,
+  "question": "После подключения этого селектора компонент впал в бесконечный цикл обновлений. Какое исправление корректно?",
+  "language": "javascript",
+  "code": "const { items, total } = useStore(state => ({\n  items: state.cart.items,\n  total: state.cart.items.reduce((s, i) => s + i.price, 0)\n}));",
+  "options": [
+   {
+    "id": "A",
+    "text": "Обернуть селектор в useCallback"
+   },
+   {
+    "id": "B",
+    "text": "Выбирать items и total отдельными вызовами или передать сравнение"
+   },
+   {
+    "id": "C",
+    "text": "Добавить в селектор условие, возвращающее прежний объект при равных длинах массива"
+   },
+   {
+    "id": "D",
+    "text": "Перенести расчёт total в useEffect и хранить его в состоянии компонента"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 2,
+  "explanation": "Селектор создаёт новый объект при каждом вызове, поэтому сравнение по ссылке всегда даёт различие и подписка инициирует новый рендер. Решение — выбирать значения по отдельности или задать поверхностное сравнение результата. useCallback стабилизирует саму функцию, но не её результат, а перенос расчёта в эффект добавляет лишний цикл рендера.",
+  "tags": [
+   "state_management",
+   "selector",
+   "referential-equality",
+   "bug-fixing"
+  ],
+  "version_group": "FE-MP-SELECTOR-LOOP",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-P-018",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "api_integration",
+  "difficulty": 5,
+  "question": "В поиске иногда отображаются результаты предыдущего запроса. Какое исправление решает проблему?",
+  "language": "javascript",
+  "code": "useEffect(() => {\n  fetch(`/api/search?q=${query}`)\n    .then(r => r.json())\n    .then(setResults);\n}, [query]);",
+  "options": [
+   {
+    "id": "A",
+    "text": "Создавать AbortController, передавать его signal в fetch и прерывать запрос в функции очистки эффекта"
+   },
+   {
+    "id": "B",
+    "text": "Добавить задержку перед запросом через setTimeout"
+   },
+   {
+    "id": "C",
+    "text": "Добавить results в массив зависимостей эффекта"
+   },
+   {
+    "id": "D",
+    "text": "Сохранять результаты в ref и копировать их в состояние после каждого ответа"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 2,
+  "explanation": "Ответы могут приходить в произвольном порядке, поэтому устаревший запрос способен перезаписать актуальный результат. Отмена предыдущего запроса в функции очистки эффекта (или проверка актуальности по флагу) устраняет гонку. Задержка лишь снижает частоту, а добавление results в зависимости создаст цикл обновлений.",
+  "tags": [
+   "api_integration",
+   "race-condition",
+   "abort",
+   "bug-fixing"
+  ],
+  "version_group": "FE-MP-SEARCH-RACE",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-P-019",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "api_integration",
+  "difficulty": 6,
+  "question": "При подгрузке следующей страницы в списке появляются дубликаты. Какой вариант объединения страниц корректен?",
+  "language": "javascript",
+  "code": "// prev — уже загруженные элементы, page — элементы новой страницы\n// элементы имеют уникальное поле id",
+  "options": [
+   {
+    "id": "A",
+    "text": "setItems(prev => prev.concat(page).filter((i, idx, arr) => arr.indexOf(i) === idx))"
+   },
+   {
+    "id": "B",
+    "text": "setItems(prev => [...new Set([...prev, ...page])])"
+   },
+   {
+    "id": "C",
+    "text": "setItems(prev => [...prev, ...page])"
+   },
+   {
+    "id": "D",
+    "text": "setItems(prev => [...new Map([...prev, ...page].map(item => [item.id, item])).values()])"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 2,
+  "explanation": "Дубликаты нужно отсеивать по идентификатору, а не по ссылке: Map по id сохраняет порядок и заменяет устаревшую версию элемента свежей. Set и indexOf сравнивают объекты по ссылке, поэтому два объекта с одинаковым id останутся оба, а простое объединение массивов проблему не решает.",
+  "tags": [
+   "api_integration",
+   "pagination",
+   "deduplication"
+  ],
+  "version_group": "FE-MP-PAGE-MERGE",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-P-020",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "performance",
+  "difficulty": 5,
+  "question": "Функция вызывается на каждое нажатие клавиши в поле ввода и заметно тормозит при 5000 элементах. Какая строка создаёт проблему производительности?",
+  "language": "javascript",
+  "code": "1  function findMatches(items, query) {\n2    const re = new RegExp(query, 'i');\n3    return items.filter(item => {\n4      const labels = item.tags.join(' ').toLowerCase();\n5      return re.test(labels) || items.some(other => other.parentId === item.id);\n6    });\n7  }",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 2: регулярное выражение создаётся заново на каждый вызов функции и компилируется каждый раз"
+   },
+   {
+    "id": "B",
+    "text": "Строка 4: объединение массива тегов в строку"
+   },
+   {
+    "id": "C",
+    "text": "Строка 5: вложенный перебор всех элементов внутри фильтра даёт квадратичную сложность"
+   },
+   {
+    "id": "D",
+    "text": "Строка 3: использование filter вместо цикла for"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 2,
+  "explanation": "some внутри filter означает проход по всем элементам для каждого элемента: при 5000 записях это 25 миллионов сравнений. Решение — заранее построить множество или индекс по parentId. Создание регулярного выражения и склейка тегов линейны и на фоне квадратичного перебора незначительны.",
+  "tags": [
+   "performance",
+   "complexity",
+   "bug-finding"
+  ],
+  "version_group": "FE-MP-N2",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "1  function enrich(orders, users) {\n2    return orders.map(order => {\n3      const user = users.find(u => u.id === order.userId);\n4      return { ...order, userName: user ? user.name : '—' };\n5    });\n6  }",
+    "options": [
+     {
+      "id": "A",
+      "text": "Строка 4: тернарный оператор замедляет выполнение"
+     },
+     {
+      "id": "B",
+      "text": "Строка 3: поиск по массиву внутри map даёт квадратичную сложность — нужен индекс Map по id"
+     },
+     {
+      "id": "C",
+      "text": "Строка 2: map следует заменить на forEach"
+     },
+     {
+      "id": "D",
+      "text": "Строка 4: расширение объекта создаёт лишнюю копию заказа на каждой итерации"
+     }
+    ],
+    "correct_answer": [
+     "B"
+    ],
+    "question": "Функция обогащает 5000 заказов данными 5000 пользователей и работает несколько секунд. Какая строка создаёт проблему производительности?",
+    "explanation": "find внутри map проходит по массиву пользователей для каждого заказа: при 5000 записях это до 25 миллионов сравнений. Нужно заранее построить Map по id и искать за константное время."
+   }
+  ]
+ },
+ {
+  "id": "FE-M-P-021",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "performance",
+  "difficulty": 6,
+  "question": "Нужно ускорить проверку наличия идентификатора среди 100 000 записей, выполняемую в цикле по 10 000 элементам. Какой вариант даст наибольший выигрыш?",
+  "language": "javascript",
+  "code": "// allowedIds — массив из 100 000 строк\n// rows — массив из 10 000 объектов с полем id\nconst visible = rows.filter(r => allowedIds.includes(r.id));",
+  "options": [
+   {
+    "id": "A",
+    "text": "const sorted = [...allowedIds].sort(); const visible = rows.filter(r => sorted.includes(r.id));"
+   },
+   {
+    "id": "B",
+    "text": "const s = new Set(allowedIds); const visible = rows.filter(r => s.has(r.id));"
+   },
+   {
+    "id": "C",
+    "text": "const visible = rows.filter(r => allowedIds.indexOf(r.id) !== -1);"
+   },
+   {
+    "id": "D",
+    "text": "const visible = rows.filter(row => allowedIds.some(allowedId => allowedId === row.id));"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 2,
+  "explanation": "Set даёт проверку принадлежности за константное время, поэтому суммарная сложность становится линейной вместо произведения размеров. indexOf и some — те же линейные проходы, что и includes, а сортировка не ускоряет includes, который всё равно перебирает массив.",
+  "tags": [
+   "performance",
+   "data-structures",
+   "optimization"
+  ],
+  "version_group": "FE-MP-SET-LOOKUP",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-P-022",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "security",
+  "difficulty": 5,
+  "question": "Какая строка позволяет пользователю выполнить произвольный код при клике по ссылке профиля?",
+  "language": "javascript",
+  "code": "1  const profile = await loadProfile(userId);\n2  const link = document.createElement('a');\n3  link.textContent = profile.siteTitle;\n4  link.href = profile.siteUrl;\n5  link.rel = 'noopener noreferrer';\n6  container.append(link);",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 3: запись заголовка сайта в textContent"
+   },
+   {
+    "id": "B",
+    "text": "Строка 4: href без проверки схемы"
+   },
+   {
+    "id": "C",
+    "text": "Строка 6: добавление элемента методом append"
+   },
+   {
+    "id": "D",
+    "text": "Строка 5: атрибут rel указан неполностью"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 2,
+  "explanation": "Пользовательский адрес нужно проверять по разрешённому списку схем (http и https) до присваивания в href: иначе ссылка вида javascript:... исполнит код в контексте страницы. textContent разметку не интерпретирует, а rel здесь задан корректно.",
+  "tags": [
+   "security",
+   "xss",
+   "url-validation",
+   "bug-finding"
+  ],
+  "version_group": "FE-MP-URL-SCHEME",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "1  const img = document.createElement('img');\n2  img.alt = post.title;\n3  img.src = post.imageUrl;\n4  img.onerror = () => img.remove();\n5  img.setAttribute('loading', 'lazy');\n6  wrap.append(img);",
+    "options": [
+     {
+      "id": "A",
+      "text": "Строка 5: атрибут задан через setAttribute"
+     },
+     {
+      "id": "B",
+      "text": "Строка 4: обработчик ошибки удаляет элемент и может выполнить произвольный код"
+     },
+     {
+      "id": "C",
+      "text": "Строка 2: запись заголовка в alt"
+     },
+     {
+      "id": "D",
+      "text": "Строка 3: адрес изображения из пользовательских данных подставляется без проверки схемы и источника"
+     }
+    ],
+    "correct_answer": [
+     "D"
+    ],
+    "question": "Какая строка небезопасна при выводе публикации с изображением из пользовательских данных?",
+    "explanation": "Адрес изображения из пользовательских данных подставляется без проверки: он может указывать на внутренние адреса, сторонние трекеры или небезопасную схему. Адрес нужно проверять по разрешённым схемам и источникам или раздавать изображения из собственного хранилища. alt, onerror и loading угрозы не создают."
+   }
+  ]
+ },
+ {
+  "id": "FE-M-P-023",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "security",
+  "difficulty": 6,
+  "question": "В коде клиента скрывают раздел администратора. Что здесь принципиально неверно?",
+  "language": "javascript",
+  "code": "const payload = JSON.parse(atob(token.split('.')[1]));\nif (payload.role === 'admin') {\n  renderAdminPanel();\n}",
+  "options": [
+   {
+    "id": "A",
+    "text": "Доступ к админским операциям обязан проверять сервер"
+   },
+   {
+    "id": "B",
+    "text": "Нужно хранить роль в localStorage, чтобы не разбирать токен при каждом рендере"
+   },
+   {
+    "id": "C",
+    "text": "Нужно проверять подпись токена на клиенте перед чтением полей"
+   },
+   {
+    "id": "D",
+    "text": "Нужно использовать проверенную библиотеку разбора токена вместо atob"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 2,
+  "explanation": "Содержимое токена читается и подменяется на клиенте без труда, поэтому клиентская проверка — это удобство интерфейса, а не контроль доступа. Решение о праве выполнить операцию принимает сервер, проверяя подпись и права на каждом запросе. Проверка подписи на клиенте смысла не имеет: секрет клиенту не принадлежит.",
+  "tags": [
+   "security",
+   "authorization",
+   "jwt"
+  ],
+  "version_group": "FE-MP-CLIENT-AUTHZ",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-P-024",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "http",
+  "difficulty": 5,
+  "question": "Сервер отвечает 415 Unsupported Media Type. Что нужно исправить в запросе?",
+  "language": "javascript",
+  "code": "await fetch('/api/orders', {\n  method: 'POST',\n  headers: { 'Content-Type': 'text/plain' },\n  body: JSON.stringify({ items: [12, 44] })\n});",
+  "options": [
+   {
+    "id": "A",
+    "text": "Передать тело как объект, без вызова JSON.stringify"
+   },
+   {
+    "id": "B",
+    "text": "Указать Content-Type: application/json"
+   },
+   {
+    "id": "C",
+    "text": "Заменить метод POST на PUT"
+   },
+   {
+    "id": "D",
+    "text": "Добавить заголовок Accept: application/json"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 2,
+  "explanation": "415 означает, что сервер не поддерживает указанный тип содержимого запроса. Тело здесь действительно JSON, поэтому заголовок должен это отражать. Метод выбран корректно, тело обязано быть строкой, а Accept описывает желаемый формат ответа и на 415 не влияет.",
+  "tags": [
+   "http",
+   "headers",
+   "status_codes"
+  ],
+  "version_group": "FE-MP-HTTP-415",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-P-025",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "testing",
+  "difficulty": 5,
+  "question": "Тест проверяет, что после клика появляется сообщение, загружаемое из API. Какой вариант написан корректно?",
+  "language": "javascript",
+  "code": "// render(<Form />) уже выполнен, запрос замокан",
+  "options": [
+   {
+    "id": "A",
+    "text": "await user.click(button); expect(screen.queryByText('Готово', { exact: true })).not.toBeNull();"
+   },
+   {
+    "id": "B",
+    "text": "fireEvent.click(button); expect(screen.getByText('Готово', { exact: true })).toBeInTheDocument();"
+   },
+   {
+    "id": "C",
+    "text": "await user.click(button); expect(await screen.findByText('Готово')).toBeInTheDocument();"
+   },
+   {
+    "id": "D",
+    "text": "fireEvent.click(button); setTimeout(() => expect(screen.getByText('Готово')).toBeInTheDocument(), 1000);"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 2,
+  "explanation": "Сообщение появляется асинхронно, поэтому нужен поиск с ожиданием — findBy, который повторяет попытку до таймаута. Синхронный getBy упадёт сразу, проверка внутри setTimeout выполнится после завершения теста и ничего не проверит, а queryBy сразу после клика вернёт null.",
+  "tags": [
+   "testing",
+   "async",
+   "testing-library"
+  ],
+  "version_group": "FE-MP-TEST-ASYNC",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-P-026",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "accessibility",
+  "difficulty": 5,
+  "question": "Автоматическая проверка доступности сообщает, что у поля нет доступного имени. Какая строка содержит ошибку?",
+  "language": "html",
+  "code": "1  <div class=\"field\">\n2    <span id=\"hint-city\">Город доставки</span>\n3    <input type=\"text\" aria-labelledby=\"city-hint\" />\n4    <small>Например: Казань</small>\n5  </div>",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 2: подпись нужно оформлять элементом p или label, а не span, иначе она не читается"
+   },
+   {
+    "id": "B",
+    "text": "Строка 4: пояснение должно иметь атрибут role=\"note\""
+   },
+   {
+    "id": "C",
+    "text": "Строка 1: контейнер должен быть элементом fieldset"
+   },
+   {
+    "id": "D",
+    "text": "Строка 3: aria-labelledby ссылается на несуществующий id — нужно hint-city"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 2,
+  "explanation": "aria-labelledby работает только при точном совпадении значения с id существующего элемента; опечатка оставляет поле без доступного имени. Надёжнее использовать label с атрибутом for, а пояснение связывать через aria-describedby.",
+  "tags": [
+   "accessibility",
+   "aria",
+   "bug-finding"
+  ],
+  "version_group": "FE-MP-ARIA-IDREF",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "1  <div class=\"field\">\n2    <label for=\"phone-input\">Телефон</label>\n3    <input id=\"phone\" type=\"tel\" />\n4    <small id=\"phone-hint\">С кодом города</small>\n5  </div>",
+    "options": [
+     {
+      "id": "A",
+      "text": "Строка 1: нужен контейнер form"
+     },
+     {
+      "id": "B",
+      "text": "Строка 4: пояснение нужно связать с полем через aria-labelledby"
+     },
+     {
+      "id": "C",
+      "text": "Строка 3: у поля типа tel не может быть собственного идентификатора"
+     },
+     {
+      "id": "D",
+      "text": "Строка 2: for ссылается на phone-input, а у поля id=\"phone\""
+     }
+    ],
+    "correct_answer": [
+     "D"
+    ],
+    "explanation": "Атрибут for у label должен совпадать с id поля. Здесь он ссылается на несуществующий phone-input, и поле остаётся без доступного имени. Нужно for=\"phone\"; пояснение связывают через aria-describedby."
+   }
+  ]
+ }
+]

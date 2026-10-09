@@ -1,0 +1,1329 @@
+[
+ {
+  "id": "QA-M-P-001",
+  "specialization": "qa",
+  "level": "middle",
+  "type": "practical",
+  "competency": "sql",
+  "difficulty": 5,
+  "question": "Сколько заказов имеют расхождение между полем total и суммой своих позиций? Введите число.",
+  "language": "sql",
+  "code": "-- orders:                order_items:\n-- id  | total             order_id | price | qty\n-- 100 | 1150              100      | 500   | 2\n-- 101 | 950               100      | 150   | 1\n-- 102 | 400               101      | 300   | 3\n--                         102      | 200   | 1\n--                         102      | 200   | 1",
+  "options": [],
+  "correct_answer": [
+   "1"
+  ],
+  "score": 2,
+  "explanation": "Заказ 100: 500·2 + 150·1 = 1150 — совпадает с полем total. Заказ 101: 300·3 = 900, а в total указано 950 — расхождение. Заказ 102: 200·1 + 200·1 = 400 — совпадает. Итого расхождение у одного заказа. На практике такую сверку выполняют запросом с группировкой по заказу, а не вручную.",
+  "tags": [
+   "sql",
+   "data-consistency",
+   "numeric"
+  ],
+  "version_group": "QA-MP-SQL-MISMATCH",
+  "seedable": true,
+  "seed_parameters": [
+   "input_values"
+  ],
+  "validation_type": "numeric",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "-- orders:                order_items:\n-- id  | total             order_id | price | qty\n-- 200 | 1000              200      | 500   | 2\n-- 201 | 500               201      | 100   | 3\n-- 202 | 600               202      | 300   | 2",
+    "options": [],
+    "correct_answer": [
+     "1"
+    ],
+    "explanation": "Заказ 200: 500·2 = 1000 — совпадает. Заказ 201: 100·3 = 300 при total 500 — расхождение. Заказ 202: 300·2 = 600 — совпадает. Итого один заказ."
+   },
+   {
+    "variant_id": "v3",
+    "code": "-- orders:                order_items:\n-- id  | total             order_id | price | qty\n-- 300 | 700               300      | 350   | 2\n-- 301 | 450               301      | 150   | 3\n-- 302 | 999               302      | 500   | 2\n-- 303 | 100               303      | 50    | 3",
+    "options": [],
+    "correct_answer": [
+     "2"
+    ],
+    "explanation": "Заказы 300 (350·2 = 700) и 301 (150·3 = 450) совпадают. У заказа 302 сумма позиций 1000 при total 999, у 303 — 150 при total 100. Итого два заказа."
+   }
+  ]
+ },
+ {
+  "id": "QA-M-P-002",
+  "specialization": "qa",
+  "level": "middle",
+  "type": "practical",
+  "competency": "sql",
+  "difficulty": 5,
+  "question": "После импорта нужно найти клиентов с повторяющимся адресом электронной почты и число повторов. Какой запрос подходит?",
+  "language": "sql",
+  "code": "-- clients(id, email, created_at)",
+  "options": [
+   {
+    "id": "A",
+    "text": "SELECT DISTINCT email FROM clients"
+   },
+   {
+    "id": "B",
+    "text": "SELECT email, count(*) AS cnt FROM clients WHERE count(*) > 1 GROUP BY email"
+   },
+   {
+    "id": "C",
+    "text": "SELECT email, count(*) FROM clients GROUP BY email HAVING count(*) > 1"
+   },
+   {
+    "id": "D",
+    "text": "SELECT count(DISTINCT email), count(*) FROM clients WHERE email IS NOT NULL"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 2,
+  "explanation": "Группировка по адресу с условием на количество даёт и сами повторяющиеся значения, и число повторов. Выборка уникальных значений не показывает повторы, условие с агрегатом в WHERE недопустимо (для этого существует HAVING), а сравнение двух счётчиков лишь говорит о наличии дубликатов, не указывая, каких именно.",
+  "tags": [
+   "sql",
+   "duplicates",
+   "group-by"
+  ],
+  "version_group": "QA-SQL-DUPES",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "QA-M-P-003",
+  "specialization": "qa",
+  "level": "middle",
+  "type": "practical",
+  "competency": "sql",
+  "difficulty": 6,
+  "question": "Нужно найти заказы, у которых поле total не совпадает с суммой позиций. Какой запрос корректен?",
+  "language": "sql",
+  "code": "-- orders(id, total)\n-- order_items(id, order_id, price, qty)",
+  "options": [
+   {
+    "id": "A",
+    "text": "SELECT o.id, o.total, i.price * i.qty AS line_total FROM orders o JOIN order_items i ON i.order_id = o.id WHERE o.total <> i.price * i.qty ORDER BY o.id"
+   },
+   {
+    "id": "B",
+    "text": "SELECT o.id FROM orders o LEFT JOIN order_items i ON i.order_id = o.id GROUP BY o.id, o.total HAVING o.total <> COALESCE(SUM(i.price * i.qty), 0)"
+   },
+   {
+    "id": "C",
+    "text": "SELECT o.id, o.total FROM orders o WHERE o.total <> (SELECT COALESCE(SUM(i.price * i.qty), 0) FROM order_items i WHERE i.price > 0) ORDER BY o.id DESC"
+   },
+   {
+    "id": "D",
+    "text": "SELECT o.id, o.total FROM orders o, order_items i WHERE o.id = i.order_id AND o.total <> SUM(i.price * i.qty) GROUP BY o.id, o.total ORDER BY o.total DESC"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 2,
+  "explanation": "Сравнивать нужно итог заказа с суммой его позиций, то есть после группировки по заказу; левое соединение с заменой пустого значения нулём ловит и заказы вообще без позиций. Сравнение с каждой позицией по отдельности даёт ложные расхождения, подзапрос без связи с заказом берёт сумму по всей таблице, а агрегат в WHERE недопустим.",
+  "tags": [
+   "sql",
+   "aggregation",
+   "data-consistency"
+  ],
+  "version_group": "QA-MP-SQL-MISMATCH-QUERY",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "QA-M-P-004",
+  "specialization": "qa",
+  "level": "middle",
+  "type": "practical",
+  "competency": "sql",
+  "difficulty": 4,
+  "question": "Сколько строк вернёт запрос? Введите число.",
+  "language": "sql",
+  "code": "-- clients:            orders:\n-- id | name            id | client_id\n-- 1  | A               1  | 1\n-- 2  | B               2  | 1\n-- 3  | C               3  | 1\n--                      4  | 2\n\nSELECT c.name, o.id\nFROM clients c\nLEFT JOIN orders o ON o.client_id = c.id;",
+  "options": [],
+  "correct_answer": [
+   "5"
+  ],
+  "score": 2,
+  "explanation": "У клиента 1 три заказа, у клиента 2 — один, у клиента 3 заказов нет, но левое соединение сохраняет его строку со значением NULL: 3 + 1 + 1 = 5. Это типичная причина «размножения» строк в отчётах при соединении «один ко многим».",
+  "tags": [
+   "sql",
+   "joins",
+   "numeric"
+  ],
+  "version_group": "QA-MP-JOIN-ROWS",
+  "seedable": true,
+  "seed_parameters": [
+   "input_values"
+  ],
+  "validation_type": "numeric",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "-- clients:            orders:\n-- id | name            id | client_id\n-- 1  | A               1  | 1\n-- 2  | B               2  | 1\n-- 3  | C               3  | 1\n--                      4  | 2\n\nSELECT c.name, o.id\nFROM clients c\nJOIN orders o ON o.client_id = c.id;",
+    "options": [],
+    "correct_answer": [
+     "4"
+    ],
+    "explanation": "Внутреннее соединение: у клиента A три заказа, у B — один, клиент C без заказов в результат не попадает. Итого 4."
+   },
+   {
+    "variant_id": "v3",
+    "code": "-- users:              roles:\n-- id | email           user_id | role\n-- 1  | a@x             1       | admin\n-- 2  | b@x             1       | manager\n-- 3  | c@x             2       | support\n\nSELECT u.email, r.role\nFROM users u\nLEFT JOIN roles r ON r.user_id = u.id;",
+    "options": [],
+    "correct_answer": [
+     "4"
+    ],
+    "explanation": "Левое соединение: у a@x две роли, у b@x — одна, у c@x ролей нет, но строка сохраняется с NULL. Итого 4."
+   }
+  ]
+ },
+ {
+  "id": "QA-M-P-005",
+  "specialization": "qa",
+  "level": "middle",
+  "type": "practical",
+  "competency": "sql",
+  "difficulty": 6,
+  "question": "Проверочный запрос должен найти заказы без позиций, но всегда возвращает пустой результат. Что исправить?",
+  "language": "sql",
+  "code": "SELECT o.id\nFROM orders o\nLEFT JOIN order_items i ON i.order_id = o.id\nWHERE i.order_id IS NULL AND i.qty > 0;",
+  "options": [
+   {
+    "id": "A",
+    "text": "Убрать i.qty > 0: оно противоречит проверке отсутствия"
+   },
+   {
+    "id": "B",
+    "text": "Заменить LEFT JOIN на RIGHT JOIN, сохранив остальное условие"
+   },
+   {
+    "id": "C",
+    "text": "Добавить GROUP BY o.id и условие HAVING count(i.id) = 0"
+   },
+   {
+    "id": "D",
+    "text": "Заменить условие на i.order_id IS NOT NULL AND i.qty > 0"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 2,
+  "explanation": "При отсутствии связанной строки все поля правой таблицы равны NULL, поэтому сравнение i.qty > 0 никогда не выполняется и выборка оказывается пустой. Условия по полям правой таблицы несовместимы с проверкой её отсутствия: нужно оставить только проверку на NULL.",
+  "tags": [
+   "sql",
+   "null",
+   "anti-join",
+   "bug-fixing"
+  ],
+  "version_group": "QA-SQL-ORPHANS",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "QA-M-P-006",
+  "specialization": "qa",
+  "level": "middle",
+  "type": "practical",
+  "competency": "api_testing",
+  "difficulty": 5,
+  "question": "Требование: в ответе возвращается список позиций и итоговая сумма числом. Какой дефект есть в ответе?",
+  "language": "json",
+  "code": "GET /api/orders/8812\n\n{\n  \"id\": 8812,\n  \"status\": \"new\",\n  \"total\": \"1150.00\",\n  \"items\": [\n    { \"sku\": \"A-1\", \"price\": 500, \"qty\": 2 },\n    { \"sku\": \"B-7\", \"price\": 150, \"qty\": 1 }\n  ],\n  \"items_count\": 2\n}",
+  "options": [
+   {
+    "id": "A",
+    "text": "Поле total передано строкой вместо числа — это нарушение контракта"
+   },
+   {
+    "id": "B",
+    "text": "В ответе лишнее поле items_count"
+   },
+   {
+    "id": "C",
+    "text": "Дефекта нет: значение суммы верное"
+   },
+   {
+    "id": "D",
+    "text": "Поле status должно передаваться числовым кодом, а не строкой"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 2,
+  "explanation": "Значение суммы правильное, но тип не соответствует контракту: строка вынуждает потребителя выполнять преобразование, ломает сравнение и сортировку и при смене формата разделителя даёт ошибки. Несоответствие типа — такой же дефект, как неверное значение. Поле с количеством позиций избыточно, но не является нарушением.",
+  "tags": [
+   "api_testing",
+   "contract",
+   "types"
+  ],
+  "version_group": "QA-MP-API-TYPES",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "Требование: при отсутствии скидки поле discount возвращается со значением 0.\n\nGET /api/orders/9001\n\n{\n  \"id\": 9001,\n  \"total\": 800,\n  \"discount\": null\n}",
+    "options": [
+     {
+      "id": "A",
+      "text": "Сумма заказа должна передаваться строкой"
+     },
+     {
+      "id": "B",
+      "text": "Поле discount равно null вместо нуля"
+     },
+     {
+      "id": "C",
+      "text": "Отсутствует поле со статусом заказа"
+     },
+     {
+      "id": "D",
+      "text": "Дефекта нет: null означает отсутствие скидки"
+     }
+    ],
+    "correct_answer": [
+     "B"
+    ],
+    "question": "Сравните ответ API с требованием. Какой дефект есть в ответе?",
+    "explanation": "Требование задаёт значение 0 при отсутствии скидки, а ответ содержит null. Это нарушение контракта: потребителю придётся обрабатывать два варианта отсутствия скидки, а арифметика с null даёт ошибки."
+   },
+   {
+    "variant_id": "v3",
+    "code": "Требование: даты возвращаются в формате ISO 8601 с указанием часового пояса.\n\nGET /api/orders/9100\n\n{\n  \"id\": 9100,\n  \"created_at\": \"15.03.2026 14:22\",\n  \"total\": 500\n}",
+    "options": [
+     {
+      "id": "A",
+      "text": "Дефекта нет: дата читаема"
+     },
+     {
+      "id": "B",
+      "text": "Дата в локальном формате без часового пояса"
+     },
+     {
+      "id": "C",
+      "text": "Идентификатор должен быть строкой"
+     },
+     {
+      "id": "D",
+      "text": "Отсутствует обязательное поле со статусом заказа"
+     }
+    ],
+    "correct_answer": [
+     "B"
+    ],
+    "question": "Сравните ответ API с требованием. Какой дефект есть в ответе?",
+    "explanation": "Дата возвращена в локальном формате без часового пояса, тогда как контракт требует ISO 8601 с часовым поясом. Такое значение неоднозначно и по-разному разбирается клиентами."
+   }
+  ]
+ },
+ {
+  "id": "QA-M-P-007",
+  "specialization": "qa",
+  "level": "middle",
+  "type": "practical",
+  "competency": "api_testing",
+  "difficulty": 5,
+  "question": "Эндпоинт PATCH /api/users/{id} меняет отдельные поля профиля. Какой набор проверок наиболее полный?",
+  "language": "http",
+  "code": "PATCH /api/users/42\nContent-Type: application/json\n\n{ \"name\": \"Ира\" }",
+  "options": [
+   {
+    "id": "A",
+    "text": "Изменение одного поля и проверка кода ответа 200"
+   },
+   {
+    "id": "B",
+    "text": "Изменение одного и нескольких полей, пустое тело, запрещённые поля, чужой профиль и повтор"
+   },
+   {
+    "id": "C",
+    "text": "Изменение поля и проверка, что в базе данных значение действительно обновилось"
+   },
+   {
+    "id": "D",
+    "text": "Изменение всех полей профиля одним запросом"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 2,
+  "explanation": "Для частичного обновления ключевая проверка — что незатронутые поля сохранились: именно здесь появляются дефекты, когда реализация подменяет объект целиком. Дополнительно проверяются попытки изменить запрещённые поля и чужой профиль, обработка неизвестных полей, границы значений и повторная отправка. Проверка кода ответа и записи в базе — часть этих проверок, но сами по себе они покрывают лишь успешный путь.",
+  "tags": [
+   "api_testing",
+   "patch",
+   "coverage"
+  ],
+  "version_group": "QA-MP-API-PATCH",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "QA-M-P-008",
+  "specialization": "qa",
+  "level": "middle",
+  "type": "practical",
+  "competency": "api_testing",
+  "difficulty": 6,
+  "question": "Нужно проверить, что создание платежа идемпотентно по ключу Idempotency-Key. Какой сценарий это проверяет?",
+  "language": "http",
+  "code": "POST /api/payments\nIdempotency-Key: 4f1c-ab90\nContent-Type: application/json\n\n{ \"order_id\": 8812, \"amount\": 1150 }",
+  "options": [
+   {
+    "id": "A",
+    "text": "Тот же ключ и тело — один платёж, другое тело — отказ, новый ключ — новый платёж"
+   },
+   {
+    "id": "B",
+    "text": "Отправить запрос дважды с одинаковым ключом и убедиться, что второй ответ содержит код 409"
+   },
+   {
+    "id": "C",
+    "text": "Отправить запрос без ключа и убедиться, что сервер возвращает ошибку"
+   },
+   {
+    "id": "D",
+    "text": "Отправить два запроса с разными ключами и убедиться, что созданы два отдельных платежа"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 2,
+  "explanation": "Идемпотентность проверяется по итоговому состоянию: один платёж, одинаковый результат в обоих ответах и отсутствие побочных эффектов. Важны и два пограничных случая: тот же ключ с другим телом должен отклоняться, а новый ключ — создавать новый платёж. Ожидание именно кода 409 на повтор — частная реализация, которая может не соответствовать контракту, где повтор возвращает прежний успешный ответ.",
+  "tags": [
+   "api_testing",
+   "idempotency",
+   "scenario"
+  ],
+  "version_group": "QA-API-IDEMPOTENCY",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "QA-M-P-009",
+  "specialization": "qa",
+  "level": "middle",
+  "type": "practical",
+  "competency": "api_testing",
+  "difficulty": 4,
+  "question": "Какой код ответа должен вернуть сервер? Введите число.",
+  "language": "http",
+  "code": "Требование: нельзя создать два отзыва на один товар от одного пользователя.\n\nPOST /api/products/55/reviews HTTP/1.1\nAuthorization: Bearer <валидный токен пользователя 7>\nContent-Type: application/json\n\n{ \"rating\": 5, \"text\": \"Отлично\" }\n\n(пользователь 7 уже оставил отзыв на товар 55)",
+  "options": [],
+  "correct_answer": [
+   "409"
+  ],
+  "score": 2,
+  "explanation": "Запрос корректен и пользователь имеет право оставлять отзывы, но операция конфликтует с текущим состоянием ресурса — для этого предназначен код 409 Conflict. Код 400 означал бы ошибку в самом запросе, 403 — отсутствие прав, а 201 нарушил бы требование.",
+  "tags": [
+   "api_testing",
+   "status_codes",
+   "numeric"
+  ],
+  "version_group": "QA-MP-API-CONFLICT",
+  "seedable": true,
+  "seed_parameters": [
+   "input_values"
+  ],
+  "validation_type": "numeric",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "Требование: обновить профиль может только его владелец.\n\nPATCH /api/users/19 HTTP/1.1\nAuthorization: Bearer <валидный токен пользователя 7>\nContent-Type: application/json\n\n{ \"name\": \"Новое имя\" }",
+    "options": [],
+    "correct_answer": [
+     "403"
+    ],
+    "explanation": "Пользователь аутентифицирован, но пытается изменить чужой профиль — прав на операцию нет, поэтому 403."
+   },
+   {
+    "variant_id": "v3",
+    "code": "Требование: тело запроса должно содержать поле rating со значением от 1 до 5.\n\nPOST /api/products/55/reviews HTTP/1.1\nAuthorization: Bearer <валидный токен>\nContent-Type: application/json\n\n{ \"rating\": 9, \"text\": \"Хорошо\" }",
+    "options": [],
+    "correct_answer": [
+     "400"
+    ],
+    "explanation": "Значение rating вне допустимого диапазона — ошибка в данных запроса, для неё предназначен 400 (иногда применяют 422)."
+   },
+   {
+    "variant_id": "v4",
+    "code": "Запрос к существующему эндпоинту без заголовка авторизации,\nэндпоинт требует аутентификации.\n\nGET /api/orders HTTP/1.1\nHost: api.example.com",
+    "options": [],
+    "correct_answer": [
+     "401"
+    ],
+    "explanation": "Запрос без учётных данных к эндпоинту, требующему аутентификации, получает 401: клиенту нужно аутентифицироваться."
+   }
+  ]
+ },
+ {
+  "id": "QA-M-P-010",
+  "specialization": "qa",
+  "level": "middle",
+  "type": "practical",
+  "competency": "api_testing",
+  "difficulty": 6,
+  "question": "Какое замечание по безопасности следует оформить по этому ответу?",
+  "language": "json",
+  "code": "GET /api/users/42 HTTP/1.1\nAuthorization: Bearer <валидный токен пользователя 42>\n\n--- ответ ---\n{\n  \"id\": 42,\n  \"email\": \"ira@example.ru\",\n  \"password_hash\": \"$2b$12$K9x...\",\n  \"internal_score\": 87,\n  \"role\": \"user\",\n  \"last_login_ip\": \"10.1.4.22\"\n}",
+  "options": [
+   {
+    "id": "A",
+    "text": "Роль пользователя не должна передаваться клиенту"
+   },
+   {
+    "id": "B",
+    "text": "В ответе отсутствует поле с датой регистрации"
+   },
+   {
+    "id": "C",
+    "text": "Адрес электронной почты пользователя в ответе следует маскировать, даже если он запрашивает свой профиль"
+   },
+   {
+    "id": "D",
+    "text": "В ответе лишние внутренние данные — хеш пароля, оценка и адрес; нужна явная схема ответа"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 2,
+  "explanation": "Отдача хеша пароля даёт материал для подбора вне системы, внутренняя оценка раскрывает бизнес-логику, а внутренний адрес — сведения об инфраструктуре. Причина у всех трёх одна: ответ формируется из модели базы данных целиком, поэтому любое новое поле автоматически становится публичным. Решение — явная схема с перечнем отдаваемых полей.",
+  "tags": [
+   "api_testing",
+   "data-exposure",
+   "security"
+  ],
+  "version_group": "QA-MP-API-LEAK",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "QA-M-P-011",
+  "specialization": "qa",
+  "level": "middle",
+  "type": "practical",
+  "competency": "test_design",
+  "difficulty": 5,
+  "question": "Сколько строк будет в полной таблице решений для этих условий? Введите число.",
+  "language": "text",
+  "code": "условия начисления скидки:\n  есть подписка (да / нет)\n  сумма заказа >= 5000 (да / нет)\n  введён промокод (да / нет)",
+  "options": [],
+  "correct_answer": [
+   "8"
+  ],
+  "score": 2,
+  "explanation": "Три независимых условия с двумя значениями каждое дают 2³ = 8 сочетаний. Полная таблица решений перечисляет все восемь и сопоставляет каждому ожидаемый результат, что сразу показывает неопределённые и противоречивые правила в требованиях.",
+  "tags": [
+   "test_design",
+   "decision-table",
+   "numeric"
+  ],
+  "version_group": "QA-MP-DECISION-TABLE",
+  "seedable": true,
+  "seed_parameters": [
+   "input_values"
+  ],
+  "validation_type": "numeric",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "условия:\n  пользователь авторизован (да / нет)\n  товар в наличии (да / нет)",
+    "options": [],
+    "correct_answer": [
+     "4"
+    ],
+    "explanation": "Два независимых условия с двумя значениями дают 2² = 4 сочетания."
+   },
+   {
+    "variant_id": "v3",
+    "code": "условия:\n  есть подписка (да / нет)\n  сумма заказа >= 5000 (да / нет)\n  введён промокод (да / нет)\n  первый заказ (да / нет)",
+    "options": [],
+    "correct_answer": [
+     "16"
+    ],
+    "explanation": "Четыре независимых условия с двумя значениями дают 2⁴ = 16 сочетаний."
+   }
+  ]
+ },
+ {
+  "id": "QA-M-P-012",
+  "specialization": "qa",
+  "level": "middle",
+  "type": "practical",
+  "competency": "test_design",
+  "difficulty": 6,
+  "question": "Какое минимальное число тестов требуется для покрытия всех пар значений у трёх параметров с двумя значениями каждый? Введите число.",
+  "language": "text",
+  "code": "параметры:\n  A: a1 / a2\n  B: b1 / b2\n  C: c1 / c2\nтребуется покрыть все пары значений любых двух параметров",
+  "options": [],
+  "correct_answer": [
+   "4"
+  ],
+  "score": 2,
+  "explanation": "Для трёх двузначных параметров достаточно четырёх тестов, например (a1,b1,c1), (a1,b2,c2), (a2,b1,c2), (a2,b2,c1): в них встречаются все четыре сочетания каждой пары параметров. Полный перебор потребовал бы восьми тестов, то есть попарное покрытие даёт двукратную экономию уже на таком малом наборе.",
+  "tags": [
+   "test_design",
+   "pairwise",
+   "numeric"
+  ],
+  "version_group": "QA-MP-PAIRWISE-COUNT",
+  "seedable": true,
+  "seed_parameters": [
+   "input_values"
+  ],
+  "validation_type": "numeric",
+  "variants": []
+ },
+ {
+  "id": "QA-M-P-013",
+  "specialization": "qa",
+  "level": "middle",
+  "type": "practical",
+  "competency": "test_design",
+  "difficulty": 5,
+  "question": "Какой набор проверок корректен для этой модели состояний?",
+  "language": "text",
+  "code": "состояния заказа и разрешённые переходы:\n  created -> paid, cancelled\n  paid    -> shipped, refunded\n  shipped -> delivered\n  delivered, cancelled, refunded — конечные",
+  "options": [
+   {
+    "id": "A",
+    "text": "Проверить все возможные последовательности состояний"
+   },
+   {
+    "id": "B",
+    "text": "Все разрешённые переходы и попытки запрещённых, включая переходы из конечных состояний"
+   },
+   {
+    "id": "C",
+    "text": "Проверить все разрешённые переходы по одному разу"
+   },
+   {
+    "id": "D",
+    "text": "Проверить путь created → paid → shipped → delivered как основной сценарий и считать модель покрытой"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 2,
+  "explanation": "Дефекты в управлении состоянием чаще всего проявляются именно в запрещённых переходах: отмена отправленного заказа, повторная оплата, действия из конечного состояния. Поэтому проверяют и разрешённые переходы, и отклонение запрещённых с сохранением состояния. Только основной путь или только разрешённые переходы оставляют эту часть непокрытой, а перебор всех последовательностей избыточен.",
+  "tags": [
+   "test_design",
+   "state-transition",
+   "invalid-transitions"
+  ],
+  "version_group": "QA-MP-STATE-TESTS",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "QA-M-P-014",
+  "specialization": "qa",
+  "level": "middle",
+  "type": "practical",
+  "competency": "test_automation",
+  "difficulty": 5,
+  "question": "Тест проходит, хотя функциональность сломана. Что не так?",
+  "language": "javascript",
+  "code": "test('скидка применяется', async () => {\n  const res = await api.post('/cart/promo', { code: 'SALE10' });\n  expect(res.status).toBe(200);\n  expect(res.body).toBeDefined();\n});",
+  "options": [
+   {
+    "id": "A",
+    "text": "Тест должен проверять также время ответа сервера на запрос промокода"
+   },
+   {
+    "id": "B",
+    "text": "Промокод нужно передавать в строке запроса"
+   },
+   {
+    "id": "C",
+    "text": "Проверяется только код и наличие тела, но не размер скидки"
+   },
+   {
+    "id": "D",
+    "text": "Тест не использует корректное ожидание завершения асинхронного запроса"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 2,
+  "explanation": "Утверждения должны проверять то, что заявлено в названии теста: применённую скидку и итоговую сумму относительно подготовленных данных. Проверка кода ответа и существования тела выполняется при любом ответе, поэтому такой тест создаёт ложную уверенность — это частая причина зелёных сборок при сломанной функциональности.",
+  "tags": [
+   "test_automation",
+   "assertions",
+   "false-positive"
+  ],
+  "version_group": "QA-MP-WEAK-ASSERT",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "test('заказ создаётся', async () => {\n  const res = await api.post('/orders', { items: [{ sku: 'A-1', qty: 2 }] });\n  expect(res.status).toBeLessThan(500);\n  expect(res.body.id).toBeTruthy();\n});",
+    "options": [
+     {
+      "id": "A",
+      "text": "Идентификатор заказа нужно сравнивать со строкой определённого формата, а не проверять на истинность"
+     },
+     {
+      "id": "B",
+      "text": "Нужно передавать больше позиций в заказе"
+     },
+     {
+      "id": "C",
+      "text": "Тест должен выполняться после других тестов"
+     },
+     {
+      "id": "D",
+      "text": "Проверка кода пропускает 400 и 403, а состав заказа не проверяется"
+     }
+    ],
+    "correct_answer": [
+     "D"
+    ],
+    "explanation": "Условие «код меньше 500» выполняется и при ошибках клиента 400 и 403, а наличие поля id в теле не подтверждает состав и сумму заказа. Нужно проверять ожидаемый код 201 и содержимое созданного заказа."
+   }
+  ]
+ },
+ {
+  "id": "QA-M-P-015",
+  "specialization": "qa",
+  "level": "middle",
+  "type": "practical",
+  "competency": "test_automation",
+  "difficulty": 5,
+  "question": "Какая структура автотеста предпочтительна?",
+  "language": "javascript",
+  "code": "// проверка: после добавления товара сумма корзины равна 1000",
+  "options": [
+   {
+    "id": "A",
+    "text": "Цепочка действий с проверками после каждого шага"
+   },
+   {
+    "id": "B",
+    "text": "Подготовка данных в отдельном предыдущем тесте"
+   },
+   {
+    "id": "C",
+    "text": "Подготовка, одно действие, проверки и очистка"
+   },
+   {
+    "id": "D",
+    "text": "Проверка результата в начале теста для сравнения"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 2,
+  "explanation": "Разделение на подготовку, действие и проверку делает причину падения однозначной, а очистка данных сохраняет независимость прогонов. Множество действий с проверками в одном тесте скрывает, что именно сломалось, и останавливает остальные проверки на первом падении, а подготовка данных отдельным тестом создаёт зависимость от порядка выполнения.",
+  "tags": [
+   "test_automation",
+   "structure",
+   "practices"
+  ],
+  "version_group": "QA-MP-TEST-STRUCTURE",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "QA-M-P-016",
+  "specialization": "qa",
+  "level": "middle",
+  "type": "practical",
+  "competency": "test_automation",
+  "difficulty": 6,
+  "question": "Эти два теста проходят по отдельности, но второй падает при параллельном запуске. В чём причина?",
+  "language": "javascript",
+  "code": "test('создание клиента', async () => {\n  const res = await api.post('/clients', { email: 'test@example.com' });\n  expect(res.status).toBe(201);\n});\n\ntest('повторный email отклоняется', async () => {\n  const res = await api.post('/clients', { email: 'test@example.com' });\n  expect(res.status).toBe(409);\n});",
+  "options": [
+   {
+    "id": "A",
+    "text": "Тесты делят один email и зависят от порядка: каждому нужны свои уникальные данные"
+   },
+   {
+    "id": "B",
+    "text": "Второй тест должен ожидать код 400 вместо 409 при повторном адресе"
+   },
+   {
+    "id": "C",
+    "text": "Тесты нужно объединить в один"
+   },
+   {
+    "id": "D",
+    "text": "Нужно добавить задержку между тестами"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 2,
+  "explanation": "Общее значение адреса делает результат второго теста зависимым от того, выполнился ли первый, и от остатков данных предыдущих прогонов. Каждый тест должен создавать уникальные данные и самостоятельно готовить нужное состояние: тогда они проходят в любом порядке и параллельно. Задержка и объединение тестов лишь скрывают зависимость.",
+  "tags": [
+   "test_automation",
+   "test-independence",
+   "parallel"
+  ],
+  "version_group": "QA-MP-TEST-COUPLING",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "QA-M-P-017",
+  "specialization": "qa",
+  "level": "middle",
+  "type": "practical",
+  "competency": "test_automation",
+  "difficulty": 6,
+  "question": "Тест работал месяц, а теперь падает каждый прогон. Что исправить?",
+  "language": "javascript",
+  "code": "test('отображение заказа', async () => {\n  await page.goto('/orders/10452');\n  await expect(page.getByText('Иванов Иван')).toBeVisible();\n  await expect(page.getByText('1 150 ₽')).toBeVisible();\n});",
+  "options": [
+   {
+    "id": "A",
+    "text": "Заменить поиск по видимому тексту на поиск по идентификаторам элементов на странице заказа"
+   },
+   {
+    "id": "B",
+    "text": "Указать в проверке сумму без символа валюты"
+   },
+   {
+    "id": "C",
+    "text": "Добавить явное ожидание полной загрузки страницы заказа и всех её данных перед проверками"
+   },
+   {
+    "id": "D",
+    "text": "Тест опирается на фиксированный заказ в общей среде — создавать заказ в подготовке"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 2,
+  "explanation": "Привязка к существующей записи и жёстко заданным значениям делает тест зависимым от состояния общей среды: запись удалили или изменили — тест падает. Подготовка собственного заказа через API и проверка его же данных устраняет причину. Ожидание загрузки и выбор локаторов — отдельные улучшения, которые эту зависимость не снимают.",
+  "tags": [
+   "test_automation",
+   "test-data",
+   "stability"
+  ],
+  "version_group": "QA-MP-HARDCODED-DATA",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "QA-M-P-018",
+  "specialization": "qa",
+  "level": "middle",
+  "type": "practical",
+  "competency": "bug_reports",
+  "difficulty": 5,
+  "question": "Оцените баг-репорт. Какое замечание наиболее существенно?",
+  "language": "text",
+  "code": "Заголовок: При оплате заказа списывается сумма дважды\nОкружение: прод, Chrome 141, пользователь ira@example.ru\nШаги:\n  1. Оформить заказ на 1150 руб.\n  2. Оплатить картой\n  3. Открыть историю платежей\nФактический результат: два платежа по 1150 руб.\nОжидаемый результат: один платёж\nСерьёзность: высокая, Приоритет: высокий",
+  "options": [
+   {
+    "id": "A",
+    "text": "Нет версии сборки, времени операции и идентификаторов платежей и запросов для поиска в журналах"
+   },
+   {
+    "id": "B",
+    "text": "Не указано, какой банк выпустил карту"
+   },
+   {
+    "id": "C",
+    "text": "Не приложен скриншот истории платежей"
+   },
+   {
+    "id": "D",
+    "text": "Серьёзность и приоритет завышены, так как дефект проявился у одного пользователя и только один раз"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 2,
+  "explanation": "Репорт в целом оформлен хорошо, но для дефекта с двойным списанием критичны версия сборки, точное время и идентификаторы платежей и запросов: по ним разбирают, что именно произошло, и оценивают число затронутых клиентов. Скриншот полезен, но идентификаторы важнее. Оценки серьёзности и приоритета для двойного списания денег обоснованы.",
+  "tags": [
+   "bug_reports",
+   "review",
+   "traceability"
+  ],
+  "version_group": "QA-MP-BR-REVIEW",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "QA-M-P-019",
+  "specialization": "qa",
+  "level": "middle",
+  "type": "practical",
+  "competency": "bug_reports",
+  "difficulty": 6,
+  "question": "По журналу определите, на каком этапе возникла проблема, и выберите корректный вывод.",
+  "language": "text",
+  "code": "12:04:11 web  POST /api/orders request_id=a71 body_ok=true\n12:04:11 api  create_order start request_id=a71 client_id=42\n12:04:11 api  stock_reserve ok request_id=a71 sku=A-1 qty=2\n12:04:12 api  payment_charge request_id=a71 provider_status=timeout\n12:04:42 api  payment_charge retry request_id=a71 provider_status=ok payment_id=p-55\n12:04:42 api  create_order done request_id=a71 order_id=8812\n12:05:10 api  payment_webhook received payment_id=p-54 order_id=8812 status=paid\n12:05:10 api  payment_webhook received payment_id=p-55 order_id=8812 status=paid",
+  "options": [
+   {
+    "id": "A",
+    "text": "Дефект в обработке уведомлений: сервис принял и обработал два уведомления по одному заказу"
+   },
+   {
+    "id": "B",
+    "text": "Первый запрос с таймаутом фактически прошёл, а повтор без ключа идемпотентности создал второй платёж"
+   },
+   {
+    "id": "C",
+    "text": "Дефект в интерфейсе: пользователь дважды нажал кнопку оплаты"
+   },
+   {
+    "id": "D",
+    "text": "Дефект в резервировании товара: оно выполнено до оплаты"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 2,
+  "explanation": "В журнале один идентификатор запроса, то есть пользователь нажал кнопку однократно. Таймаут не означает отказ: платёж p-54 был создан, а повтор создал p-55, что и подтверждают два уведомления об оплате одного заказа. Правильное решение — ключ идемпотентности и проверка состояния операции перед повтором. Два уведомления здесь следствие, а не причина.",
+  "tags": [
+   "bug_reports",
+   "log-analysis",
+   "root-cause"
+  ],
+  "version_group": "QA-MP-LOG-ANALYSIS",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "QA-M-P-020",
+  "specialization": "qa",
+  "level": "middle",
+  "type": "practical",
+  "competency": "integration_testing",
+  "difficulty": 5,
+  "question": "По трассировке запроса определите, где источник замедления.",
+  "language": "text",
+  "code": "GET /api/dashboard  всего 2 140 мс\n  ├─ auth.verify              8 мс\n  ├─ orders.list             95 мс\n  ├─ recommendations.get  1 860 мс\n  ├─ profile.get             40 мс\n  └─ рендер ответа          137 мс",
+  "options": [
+   {
+    "id": "A",
+    "text": "Проблема в выборке заказов: 95 мс при норме 20 мс"
+   },
+   {
+    "id": "B",
+    "text": "Рекомендации дают 87% времени: разбирать их и ограничить ожидание блока"
+   },
+   {
+    "id": "C",
+    "text": "Нужно распараллелить все вызовы, а остальное в обработчике оставить без изменений"
+   },
+   {
+    "id": "D",
+    "text": "Проблема в формировании ответа: 137 мс на рендер слишком много для такого объёма"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 2,
+  "explanation": "Трассировка прямо показывает, что 1860 из 2140 мс приходится на один вызов, поэтому работа с остальными частями не изменит результат. Помимо обращения к владельцу сервиса рекомендаций, собственный сервис должен ограничивать время ожидания и уметь отдавать страницу без необязательного блока. Распараллеливание сократит время лишь до длительности самого медленного вызова.",
+  "tags": [
+   "integration_testing",
+   "tracing",
+   "performance"
+  ],
+  "version_group": "QA-MP-TRACE",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "POST /api/checkout  всего 3 400 мс\n  ├─ validate                 12 мс\n  ├─ stock.reserve           150 мс\n  ├─ payment.charge          420 мс\n  ├─ loyalty.calculate     2 650 мс\n  └─ order.save              168 мс",
+    "options": [
+     {
+      "id": "A",
+      "text": "Расчёт лояльности: 78% времени запроса"
+     },
+     {
+      "id": "B",
+      "text": "Проблема в проведении платежа: 420 мс недопустимо много"
+     },
+     {
+      "id": "C",
+      "text": "Проблема в сохранении заказа в базу данных"
+     },
+     {
+      "id": "D",
+      "text": "Нужно увеличить таймауты всех внешних вызовов"
+     }
+    ],
+    "correct_answer": [
+     "A"
+    ],
+    "explanation": "Трассировка показывает, что 2650 из 3400 мс приходится на расчёт лояльности. Его нужно разобрать с владельцем сервиса, ограничить время ожидания и рассмотреть выполнение после подтверждения заказа. Платёж и сохранение заказа на этом фоне незначительны."
+   }
+  ]
+ },
+ {
+  "id": "QA-M-P-021",
+  "specialization": "qa",
+  "level": "middle",
+  "type": "practical",
+  "competency": "integration_testing",
+  "difficulty": 6,
+  "question": "Сервис публикует событие order.paid, другой сервис начисляет бонусы. Какой набор проверок необходим?",
+  "language": "json",
+  "code": "{\n  \"event_id\": \"e-9981\",\n  \"type\": \"order.paid\",\n  \"order_id\": 8812,\n  \"client_id\": 42,\n  \"amount\": 1150,\n  \"occurred_at\": \"2026-03-15T11:22:03Z\"\n}",
+  "options": [
+   {
+    "id": "A",
+    "text": "Проверка структуры события по схеме"
+   },
+   {
+    "id": "B",
+    "text": "Начисление по корректному событию и проверка, что баланс клиента увеличился ровно на нужную сумму бонусов"
+   },
+   {
+    "id": "C",
+    "text": "Проверка скорости обработки событий под нагрузкой"
+   },
+   {
+    "id": "D",
+    "text": "Корректное событие, повтор event_id, неизвестный заказ и поля, недоступность и порядок событий"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 2,
+  "explanation": "Событийная интеграция обычно гарантирует доставку не менее одного раза и не гарантирует порядок, поэтому обязательны проверки устойчивости к повторам, к неизвестным полям и к недоступности потребителя, а также согласованности итогового состояния. Проверка успешного начисления и соответствия схеме необходима, но покрывает лишь часть рисков.",
+  "tags": [
+   "integration_testing",
+   "events",
+   "idempotency"
+  ],
+  "version_group": "QA-MP-EVENT-TESTS",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "QA-M-P-022",
+  "specialization": "qa",
+  "level": "middle",
+  "type": "practical",
+  "competency": "load_testing",
+  "difficulty": 5,
+  "question": "По результатам нагрузочного теста выберите корректный вывод.",
+  "language": "text",
+  "code": "целевые показатели: 300 запросов/с, 95-й процентиль не более 400 мс, ошибок не более 0,1%\n\nрезультат теста:\n  пропускная способность: 310 запросов/с\n  среднее время ответа:   180 мс\n  95-й процентиль:        920 мс\n  99-й процентиль:      2 400 мс\n  доля ошибок:            0,05%\n  загрузка процессора БД: 94%",
+  "options": [
+   {
+    "id": "A",
+    "text": "Результат неприменим, так как доля ошибок слишком низкая для нагрузочного теста"
+   },
+   {
+    "id": "B",
+    "text": "Нужно повторить тест с большей нагрузкой, чтобы найти предел системы"
+   },
+   {
+    "id": "C",
+    "text": "Цель не достигнута: 95-й процентиль вдвое выше нормы при загрузке БД 94% — искать узкое место в базе"
+   },
+   {
+    "id": "D",
+    "text": "Цели достигнуты: пропускная способность и доля ошибок в норме, среднее время ответа лучше целевого"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 2,
+  "explanation": "Среднее время ответа не является критерием: цель задана по 95-му процентилю, и он нарушен втрое. Загрузка процессора базы данных на уровне 94% указывает на место, где теряется время. Пропускная способность и доля ошибок соответствуют цели, но этого недостаточно для вывода об успехе.",
+  "tags": [
+   "load_testing",
+   "interpretation",
+   "percentiles"
+  ],
+  "version_group": "QA-MP-LOAD-RESULT",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "QA-M-P-023",
+  "specialization": "qa",
+  "level": "middle",
+  "type": "practical",
+  "competency": "load_testing",
+  "difficulty": 6,
+  "question": "Какую нагрузку в запросах в секунду нужно задать в тесте? Введите число.",
+  "language": "text",
+  "code": "ожидается 180 000 посещений в час в пиковый период,\nкаждое посещение выполняет в среднем 4 запроса к API,\nнагрузку нужно воспроизвести с двукратным запасом",
+  "options": [],
+  "correct_answer": [
+   "400"
+  ],
+  "score": 2,
+  "explanation": "180 000 посещений в час — это 50 посещений в секунду, по 4 запроса каждое даёт 200 запросов в секунду, с двукратным запасом — 400. Отдельно следует учесть, что внутри часа нагрузка распределена неравномерно, поэтому запас по пику обычно задают явно, а не только множителем.",
+  "tags": [
+   "load_testing",
+   "calculation",
+   "numeric"
+  ],
+  "version_group": "QA-MP-LOAD-CALC",
+  "seedable": true,
+  "seed_parameters": [
+   "input_values"
+  ],
+  "validation_type": "numeric",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "ожидается 90 000 посещений в час в пиковый период,\nкаждое посещение выполняет в среднем 6 запросов к API,\nнагрузку нужно воспроизвести с двукратным запасом",
+    "options": [],
+    "correct_answer": [
+     "300"
+    ],
+    "explanation": "90 000 посещений в час — это 25 посещений в секунду, по 6 запросов каждое — 150 запросов в секунду, с двукратным запасом — 300."
+   },
+   {
+    "variant_id": "v3",
+    "code": "ожидается 36 000 посещений в час в пиковый период,\nкаждое посещение выполняет в среднем 5 запросов к API,\nнагрузку нужно воспроизвести с трёхкратным запасом",
+    "options": [],
+    "correct_answer": [
+     "150"
+    ],
+    "explanation": "36 000 посещений в час — это 10 посещений в секунду, по 5 запросов — 50 запросов в секунду, с трёхкратным запасом — 150."
+   }
+  ]
+ },
+ {
+  "id": "QA-M-P-024",
+  "specialization": "qa",
+  "level": "middle",
+  "type": "practical",
+  "competency": "regression_testing",
+  "difficulty": 5,
+  "question": "По составу изменений выберите набор регрессионных проверок.",
+  "language": "text",
+  "code": "изменённые файлы релиза:\n  src/pricing/discount.py         (расчёт скидок)\n  src/pricing/tests/...           (тесты расчёта)\n  src/checkout/summary.py         (итоговая сумма)\n  templates/email/order_paid.html (письмо об оплате)\n  docs/README.md",
+  "options": [
+   {
+    "id": "A",
+    "text": "Полный регрессионный набор по всему приложению целиком"
+   },
+   {
+    "id": "B",
+    "text": "Только расчёт скидок: остальные файлы изменены незначительно"
+   },
+   {
+    "id": "C",
+    "text": "Расчёт скидок и проверка обновлённой документации проекта"
+   },
+   {
+    "id": "D",
+    "text": "Скидки, итог, письмо, сквозная покупка и отчёты"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 2,
+  "explanation": "Набор отбирается по изменённым модулям и по тем местам, где используется их результат: скидка влияет на итоговую сумму, сумма попадает в письмо и в отчёты, а сквозной сценарий проверяет цепочку целиком. Изменение документации на поведение не влияет. Полный набор по всему приложению несоразмерен объёму изменений, а проверка только расчёта пропускает отображение и агрегаты.",
+  "tags": [
+   "regression_testing",
+   "impact-analysis",
+   "diff"
+  ],
+  "version_group": "QA-MP-DIFF-SELECTION",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "QA-M-P-025",
+  "specialization": "qa",
+  "level": "middle",
+  "type": "practical",
+  "competency": "defect_prioritization",
+  "difficulty": 5,
+  "question": "Какой дефект следует исправлять первым?",
+  "language": "text",
+  "code": "Д1: при оплате картой заказ иногда оплачивается дважды.\n    Частота: ~2 случая в день. Обходного пути нет, возврат вручную.\nД2: в административном отчёте неверно считается средний чек.\n    Отчёт смотрят раз в неделю. Можно посчитать вручную.\nД3: на странице товара съезжает блок отзывов в старом браузере.\n    Доля таких браузеров 0,3%. Отзывы читаются, но выглядят плохо.\nД4: при вводе промокода с пробелом в конце выдаётся ошибка «Промокод не найден».\n    Встречается часто, пользователь может убрать пробел сам.",
+  "options": [
+   {
+    "id": "A",
+    "text": "Д1: деньги клиентов, ежедневно и без обходного пути"
+   },
+   {
+    "id": "B",
+    "text": "Д2: неверные данные в отчётности ведут к ошибочным управленческим решениям"
+   },
+   {
+    "id": "C",
+    "text": "Д4: встречается чаще всего, значит затрагивает больше пользователей"
+   },
+   {
+    "id": "D",
+    "text": "Д3: дефект видят все посетители страницы товара в браузере"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 2,
+  "explanation": "Приоритет определяется произведением ущерба и вероятности с учётом наличия обходного пути. Двойное списание денег без обходного пути и с ежедневной частотой даёт максимальный ущерб. Дефект Д4 част, но обходится пользователем самостоятельно и устраняется простой обрезкой пробелов, Д2 имеет обходной путь и редкое использование, Д3 затрагивает 0,3% посетителей и не мешает чтению.",
+  "tags": [
+   "defect_prioritization",
+   "impact",
+   "assessment"
+  ],
+  "version_group": "QA-MP-PRIORITIZE",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "QA-M-P-026",
+  "specialization": "qa",
+  "level": "middle",
+  "type": "practical",
+  "competency": "test_documentation",
+  "difficulty": 5,
+  "question": "Найдите главный недостаток этого тест-плана.",
+  "language": "text",
+  "code": "Тест-план релиза 4.2\n  Объём: протестировать все новые функции релиза\n  Сроки: 10–17 марта\n  Исполнители: два тестировщика\n  Виды тестирования: функциональное, регрессионное\n  Критерии завершения: все тесты выполнены",
+  "options": [
+   {
+    "id": "A",
+    "text": "Объём и критерии завершения не проверяемы: нет границ объёма, критериев входа и выхода, сред и рисков"
+   },
+   {
+    "id": "B",
+    "text": "Не указано распределение задач между двумя исполнителями по дням и по функциональным областям"
+   },
+   {
+    "id": "C",
+    "text": "Не указан используемый инструмент управления тестами"
+   },
+   {
+    "id": "D",
+    "text": "Не указан порядок оформления дефектов"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 2,
+  "explanation": "«Все новые функции» и «все тесты выполнены» не позволяют определить ни объём работ, ни момент завершения: выполнение тестов не говорит об их результате и о состоянии открытых дефектов. Полезный план перечисляет включённое и исключённое, задаёт критерии входа и выхода, фиксирует среды, данные и риски. Инструменты и расписание по дням — вторичные детали.",
+  "tags": [
+   "test_documentation",
+   "test-plan",
+   "review"
+  ],
+  "version_group": "QA-MP-TESTPLAN-REVIEW",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ }
+]

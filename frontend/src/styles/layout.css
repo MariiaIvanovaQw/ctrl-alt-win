@@ -1,0 +1,481 @@
+/* Каркас страниц: шапка, боковое меню, контейнеры, публичные блоки. */
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- шапка ---------- */
+
+/* Шапка графитовая: на главной она без шва переходит в тёмную обложку,
+   на остальных страницах обрамляет светлое содержимое вместе с подвалом. */
+.hdr {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  height: var(--header-h);
+  background: rgb(27 28 33 / 92%);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--ink-line);
+  color: var(--ink-text);
+}
+.hdr-in {
+  max-width: var(--page-max);
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 var(--sp-5);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+}
+.hdr-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  flex-shrink: 0;
+}
+.hdr-logo:hover {
+  text-decoration: none;
+}
+.hdr-logo img {
+  height: 30px;
+  width: auto;
+  display: block;
+}
+.hdr-product {
+  padding-left: var(--sp-3);
+  border-left: 1px solid var(--ink-line);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--ink-text);
+  letter-spacing: -0.02em;
+}
+.hdr-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-1);
+}
+.hdr-link {
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--ink-text-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.hdr-link:hover {
+  background: var(--ink-bg-soft);
+  color: var(--ink-text);
+  text-decoration: none;
+}
+.hdr-link-on {
+  color: #fff;
+  background: var(--violet-500);
+}
+
+/* Почта пользователя — подпись, а не управление: на узком экране прячем,
+   иначе шапка не влезает и вся страница получает горизонтальную прокрутку. */
+.hdr-user {
+  color: var(--ink-text-muted);
+  max-width: 22ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  .hdr-in {
+    padding: 0 var(--sp-4);
+    gap: var(--sp-3);
+  }
+  .hdr-product {
+    display: none;
+  }
+  .hdr-nav {
+    overflow-x: auto;
+    scrollbar-width: none;
+    min-width: 0;
+  }
+  .hdr-nav::-webkit-scrollbar {
+    display: none;
+  }
+  .hdr-logo img {
+    height: 24px;
+  }
+  .hdr-user {
+    display: none;
+  }
+  .hdr-logo img {
+    height: 26px;
+  }
+}
+
+/* ---------- кабинет: боковое меню + контент ---------- */
+
+.cab {
+  flex: 1;
+  display: grid;
+  grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
+  max-width: var(--page-max);
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 var(--sp-5);
+  gap: var(--sp-6);
+  align-items: start;
+}
+/* Меню прилипает под шапкой, отступив от неё на --sp-5. Тот же отступ
+   задан сверху обычным полем: иначе на страницах, где меню выше контента,
+   прилипанию некуда сдвигать блок, и панель встаёт на 24px выше, чем на
+   длинных страницах. С одинаковым отступом верх панели везде совпадает с
+   первой строкой контента. */
+.side {
+  position: sticky;
+  top: calc(var(--header-h) + var(--sp-5));
+  margin-top: var(--sp-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+  /* внутренние поля задаёт оформление панели (.rail в surfaces.css) */
+}
+.side-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.side-cap {
+  padding: 0 var(--sp-3) var(--sp-2);
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-faint);
+}
+.side-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--radius);
+  font-size: var(--text-sm);
+  color: var(--ink-700);
+}
+.side-link:hover {
+  background: var(--line-100);
+  text-decoration: none;
+}
+.side-link-on {
+  background: var(--violet-050);
+  color: var(--violet-700);
+  font-weight: 600;
+}
+.side-count {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.main {
+  padding: var(--sp-5) 0 var(--sp-8);
+  min-width: 0;
+}
+
+@media (max-width: 980px) {
+  .cab {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    padding: 0 var(--sp-4);
+  }
+  .side {
+    position: static;
+    margin-top: 0;
+    padding: var(--sp-4) 0 0;
+    flex-direction: row;
+    gap: var(--sp-4);
+    overflow-x: auto;
+  }
+  .side-group {
+    flex-direction: row;
+    gap: var(--sp-1);
+  }
+  .side-cap {
+    display: none;
+  }
+  .side-link {
+    white-space: nowrap;
+  }
+}
+
+/* ---------- заголовок страницы ---------- */
+
+.page-hd {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-5);
+}
+.page-eyebrow {
+  margin-bottom: var(--sp-3);
+  max-width: 320px;
+}
+.page-title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+.page-sub {
+  margin-top: var(--sp-2);
+  color: var(--text-muted);
+  max-width: 68ch;
+}
+
+/* ---------- публичная страница ---------- */
+
+.pub {
+  flex: 1;
+  width: 100%;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: var(--sp-6) var(--sp-5) var(--sp-8);
+}
+/* Без автоматических отступов узкая колонка прижималась бы влево, и
+   полосы во всю ширину окна считались бы от смещённого центра. */
+.pub-narrow {
+  max-width: 940px;
+  margin-inline: auto;
+}
+
+.hero {
+  position: relative;
+  padding: var(--sp-8) 0 var(--sp-7);
+  overflow: hidden;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-1) var(--sp-3);
+  border: 1px solid var(--violet-100);
+  background: var(--violet-050);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--violet-700);
+}
+.hero-title {
+  margin-top: var(--sp-4);
+  max-width: 18ch;
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.045em;
+}
+.hero-accent {
+  color: var(--violet-500);
+}
+.hero-lede {
+  margin-top: var(--sp-5);
+  max-width: 54ch;
+  font-size: var(--text-md);
+  color: var(--ink-700);
+}
+.hero-cta {
+  margin-top: var(--sp-6);
+  display: flex;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+}
+
+/* Декоративная линия из брендбука: тонкая дорожка с точками-узлами. */
+.hero-art {
+  position: absolute;
+  right: -40px;
+  top: 0;
+  width: 420px;
+  max-width: 45%;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+@media (max-width: 860px) {
+  .hero {
+    padding: var(--sp-6) 0 var(--sp-5);
+  }
+  .hero-title {
+    font-size: var(--text-2xl);
+    max-width: none;
+  }
+  .hero-art {
+    display: none;
+  }
+}
+
+/* Вход и регистрация: слева фирменный разворот, справа форма. */
+.auth-wrap {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 520px);
+}
+/* Панель держится в поле зрения, пока прокручивается форма справа:
+   иначе она растягивается под длинный список демо-доступов, и портрет
+   уезжает за нижний край. */
+.auth-side {
+  position: sticky;
+  top: var(--header-h);
+  align-self: start;
+  height: calc(100vh - var(--header-h));
+  display: flex;
+  flex-direction: column;
+  padding: var(--sp-7) var(--sp-7) var(--sp-6);
+  overflow: hidden;
+  background: var(--ink-bg);
+  color: var(--ink-text);
+}
+/* Текст и композиция делят всё, что осталось под рубрикой: заголовок
+   встаёт сразу под ней, композиция — на нижнем крае панели. Колонка
+   текста — по самому длинному слову заголовка: шире он всё равно не
+   станет (переносится по словам), а разница уходит композиции. Остаток
+   ширины — её колонка. */
+.auth-side-in {
+  flex: 1;
+  min-height: 0;
+  margin-top: var(--sp-5);
+  display: grid;
+  grid-template-columns: minmax(0, min-content) minmax(0, 1fr);
+  gap: var(--sp-6);
+  align-items: end;
+}
+.auth-copy {
+  align-self: start;
+}
+.auth-side::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--mesh);
+  background-size: var(--mesh-size);
+}
+.auth-side > * {
+  position: relative;
+  z-index: 1;
+}
+.auth-claim {
+  max-width: 16ch;
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+}
+.auth-claim em {
+  font-style: normal;
+  color: #8f85ff;
+}
+.auth-note {
+  margin-top: var(--sp-4);
+  max-width: 44ch;
+  font-size: var(--text-sm);
+  color: var(--ink-text-muted);
+}
+/* Композиция с обложки (HeroArt) стоит на нижнем крае своей колонки — как
+   на главной, где она тоже стоит на полосе обложки рядом с заголовком.
+   Колонка объявлена контейнером, чтобы мерить композицию по её настоящему
+   размеру, а не по формуле от ширины окна: ширина заголовка зависит от
+   кегля, а тот — от вьюпорта. */
+.auth-art {
+  position: relative;
+  align-self: stretch;
+  min-width: 0;
+  container-type: size;
+}
+.auth-art .art {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 560px;
+  height: 520px;
+  /* Во сколько раз композиция влезает в колонку. calc() не делит длину на
+     длину, поэтому отношение берём как тангенс угла, у которого эти длины —
+     катеты. 571 — ширина композиции вместе с плашкой, выходящей за левый
+     край; правая плашка выходит в поле панели и ничего не задевает.
+     Потолок 1.41 — это 664/470: во столько голова растягивается до своего
+     размера в исходном webp, дальше пошло бы мыло. */
+  transform: scale(clamp(0.25, min(tan(atan2(100cqw, 571px)), tan(atan2(100cqh, 520px))), 1.41));
+  transform-origin: 100% 100%;
+}
+
+.auth-main {
+  display: grid;
+  place-items: center;
+  padding: var(--sp-6) var(--sp-5) var(--sp-8);
+  overflow-y: auto;
+}
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+}
+
+/* Узкая панель: заголовок забирает больше половины ширины, и колонка
+   справа от него выходит уже, чем полоса над ним. Композиция переезжает
+   наверх и берёт всю ширину панели. Порог — примерно там, где эти два
+   варианта дают одинаковый размер при типичной высоте окна. */
+@media (max-width: 1320px) {
+  .auth-side-in {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+  }
+  .auth-art {
+    grid-area: 1 / 1;
+  }
+  .auth-copy {
+    grid-area: 2 / 1;
+  }
+}
+@media (max-width: 980px) {
+  .auth-wrap {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .auth-side {
+    display: none;
+  }
+}
+
+/* ---------- подвал ---------- */
+
+/* Подвал повторяет шапку: страница зажата между двумя графитовыми
+   полосами, как разворот брендбука. */
+.ftr {
+  border-top: 1px solid var(--ink-line);
+  background: var(--ink-bg);
+  color: var(--ink-text-muted);
+  padding: var(--sp-5) 0;
+  margin-top: auto;
+}
+.ftr a {
+  color: #b9b2ff;
+}
+.ftr .faint {
+  color: #6f717c;
+}
+.ftr-in {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 var(--sp-5);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}

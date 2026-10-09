@@ -1,0 +1,1160 @@
+[
+ {
+  "id": "FE-J-S-001",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "situational",
+  "competency": "css",
+  "difficulty": 3,
+  "question": "На телефоне у страницы появилась горизонтальная прокрутка: содержимое выходит за край экрана. На десктопе всё в порядке. Какое действие логичнее выполнить первым?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Уменьшить базовый размер шрифта для мобильных разрешений"
+   },
+   {
+    "id": "B",
+    "text": "Добавить всем контейнерам max-width: 100vw"
+   },
+   {
+    "id": "C",
+    "text": "Найти в инспекторе элемент шире области просмотра и понять, какая ширина или отступ его распирают"
+   },
+   {
+    "id": "D",
+    "text": "Добавить body { overflow-x: hidden }, чтобы горизонтальная прокрутка на телефоне исчезла"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 1,
+  "explanation": "Сначала нужно найти конкретный элемент-виновник: обычно это фиксированная ширина, длинное неразрывное слово, отрицательный margin или таблица. overflow-x: hidden и максимальные ширины наугад прячут симптом, оставляя обрезанное содержимое и ломая прокрутку внутренних блоков.",
+  "tags": [
+   "css",
+   "responsive",
+   "diagnostics"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-S-002",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "situational",
+  "competency": "css",
+  "difficulty": 2,
+  "question": "Нужно расположить три карточки в один ряд с одинаковыми промежутками и переносом на узких экранах. Какой подход выбрать в новом проекте?",
+  "options": [
+   {
+    "id": "A",
+    "text": "float: left у карточек и clearfix у родительского контейнера"
+   },
+   {
+    "id": "B",
+    "text": "position: absolute с вычисленными значениями left для каждой карточки"
+   },
+   {
+    "id": "C",
+    "text": "display: flex; flex-wrap: wrap; gap у контейнера"
+   },
+   {
+    "id": "D",
+    "text": "display: inline-block с margin-right и подгонкой пробелов в разметке"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 1,
+  "explanation": "Flexbox с wrap и gap решает задачу штатно: промежутки задаются одним свойством, перенос работает без дополнительных правил. float и inline-block требуют обходных приёмов и чувствительны к пробелам в разметке, а абсолютное позиционирование вообще не адаптируется к ширине экрана.",
+  "tags": [
+   "css",
+   "flexbox",
+   "layout"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-S-003",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "situational",
+  "competency": "css",
+  "difficulty": 3,
+  "question": "Подключили шрифт из макета, прописали font-family: \"Inter Tight\", но текст отображается системным шрифтом. Что проверить в первую очередь?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Указать !important у font-family во всех правилах"
+   },
+   {
+    "id": "B",
+    "text": "Загружается ли файл шрифта и совпадает ли имя с указанным в @font-face"
+   },
+   {
+    "id": "C",
+    "text": "Увеличить font-size, потому что при малом размере браузер подставляет системный шрифт"
+   },
+   {
+    "id": "D",
+    "text": "Добавить font-weight: 400, потому что без явной насыщенности шрифт не применяется"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 1,
+  "explanation": "На вкладке сети видно, запрашивается ли файл шрифта и не отдаёт ли сервер ошибку, а в правилах — совпадает ли строка font-family с объявленным именем семейства. Вес и размер шрифта к подстановке системного не относятся, а !important лишь замаскирует проблему, если причина в конфликте правил.",
+  "tags": [
+   "css",
+   "fonts",
+   "diagnostics"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-S-004",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "situational",
+  "competency": "html",
+  "difficulty": 2,
+  "question": "Тестировщик пишет: при вводе телефона на мобильном открывается обычная буквенная клавиатура, попадать по цифрам неудобно. Как исправить правильно?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Задать полю type=\"tel\" для цифровой клавиатуры"
+   },
+   {
+    "id": "B",
+    "text": "Добавить обработчик, который подменяет раскладку при фокусе"
+   },
+   {
+    "id": "C",
+    "text": "Задать полю type=\"number\", потому что телефон состоит из цифр"
+   },
+   {
+    "id": "D",
+    "text": "Добавить placeholder с примером"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "type=\"tel\" — штатный способ сообщить браузеру о назначении поля: открывается телефонная клавиатура, при этом допускаются плюс, скобки и пробелы. type=\"number\" добавит стрелки изменения значения и будет мешать вводу форматированного номера, а раскладкой из JavaScript управлять нельзя.",
+  "tags": [
+   "html",
+   "forms",
+   "mobile"
+  ],
+  "version_group": "FE-INPUT-TYPE",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-S-005",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "situational",
+  "competency": "html",
+  "difficulty": 3,
+  "question": "При нажатии Enter в поле поиска страница перезагружается, а введённый текст теряется. Поиск реализован обработчиком на кнопке. В чём причина и что сделать?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Убрать поле из формы и обрабатывать нажатие Enter собственным обработчиком keydown"
+   },
+   {
+    "id": "B",
+    "text": "Заменить кнопку на ссылку, чтобы форма не отправлялась"
+   },
+   {
+    "id": "C",
+    "text": "Добавить полю атрибут readonly до нажатия кнопки"
+   },
+   {
+    "id": "D",
+    "text": "Поле внутри form, и Enter отправляет форму: обработать submit и вызвать preventDefault()"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 1,
+  "explanation": "Enter в текстовом поле внутри формы вызывает отправку, то есть переход по текущему адресу и потерю состояния. Правильный приём — перехватить submit и отменить действие по умолчанию, оставив единый путь обработки и для кнопки, и для Enter. Вынос поля из формы ломает семантику и автозаполнение.",
+  "tags": [
+   "html",
+   "forms",
+   "events"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-S-006",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "situational",
+  "competency": "javascript",
+  "difficulty": 2,
+  "question": "При открытии страницы в консоли появляется ошибка «Cannot read properties of undefined (reading 'name')», а через секунду данные отображаются корректно. Какое исправление уместно?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Проверять наличие данных перед обращением к полям и показывать состояние загрузки, пока ответ не получен"
+   },
+   {
+    "id": "B",
+    "text": "Инициализировать переменную значением null вместо undefined"
+   },
+   {
+    "id": "C",
+    "text": "Обернуть весь рендер компонента в try/catch, чтобы эта ошибка больше не попадала в консоль"
+   },
+   {
+    "id": "D",
+    "text": "Добавить задержку перед первым рендером через setTimeout"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "Ошибка означает, что код обращается к полю объекта, которого на момент первого рендера ещё нет. Корректное решение — явно обработать состояние «данных пока нет»: показать загрузку или заглушку. try/catch и задержки прячут причину, а замена undefined на null ошибку не устраняет.",
+  "tags": [
+   "javascript",
+   "async",
+   "errors"
+  ],
+  "version_group": "FE-JS-UNDEFINED-ACCESS",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-S-007",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "situational",
+  "competency": "javascript",
+  "difficulty": 3,
+  "question": "Ссылка «Показать подробнее» должна раскрывать блок на той же странице, но при клике происходит переход и страница прокручивается наверх. Что сделать?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Вызвать event.preventDefault() в обработчике клика либо заменить ссылку на button, если перехода нет"
+   },
+   {
+    "id": "B",
+    "text": "Задать ссылке target=\"_self\""
+   },
+   {
+    "id": "C",
+    "text": "Прописать в href значение javascript:void(0)"
+   },
+   {
+    "id": "D",
+    "text": "Добавить ссылке обработчик onmousedown вместо onclick, чтобы он срабатывал раньше, чем произойдёт переход"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "У ссылки есть действие по умолчанию — переход по href, в том числе по \"#\", что прокручивает страницу. Его отменяют через preventDefault, но для элемента управления без перехода семантически верно использовать button. javascript:void(0) — устаревший приём, а смена события на onmousedown ломает работу с клавиатуры.",
+  "tags": [
+   "javascript",
+   "events",
+   "dom"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-S-008",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "situational",
+  "competency": "javascript",
+  "difficulty": 3,
+  "question": "В корзине сумма товаров по 0.1 и 0.2 отображается как 0.30000000000000004. Как исправить правильно?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Использовать parseFloat перед каждым сложением"
+   },
+   {
+    "id": "B",
+    "text": "Заменить сложение на умножение каждого значения на 1.0 перед операцией сложения"
+   },
+   {
+    "id": "C",
+    "text": "Округлять итог через toFixed(2) только при выводе и продолжать складывать дробные значения"
+   },
+   {
+    "id": "D",
+    "text": "Хранить и складывать суммы в целых копейках, деля на 100 только при выводе"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 1,
+  "explanation": "Погрешность возникает из-за двоичного представления дробей, и при накоплении многих слагаемых она растёт. Денежные суммы хранят и считают в целых копейках, переводя в рубли только для вывода. toFixed скрывает расхождение в одном месте, но не защищает от ошибки в накопленной сумме.",
+  "tags": [
+   "javascript",
+   "numbers",
+   "money"
+  ],
+  "version_group": "FE-JS-FLOAT-MONEY",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-S-009",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "situational",
+  "competency": "react",
+  "difficulty": 2,
+  "question": "В консоли предупреждение: «Each child in a list should have a unique key prop». Список строится из массива заказов, у каждого есть поле id. Что сделать?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Отключить предупреждение в настройках сборки"
+   },
+   {
+    "id": "B",
+    "text": "Передать в key индекс"
+   },
+   {
+    "id": "C",
+    "text": "Передать в key значение order.id"
+   },
+   {
+    "id": "D",
+    "text": "Передать в key результат Math.random()"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 1,
+  "explanation": "key должен быть стабильным идентификатором элемента данных, и order.id для этого подходит. Индекс ломается при вставке и удалении в середине списка, а случайное значение меняется на каждом рендере, заставляя React пересоздавать узлы и терять состояние полей ввода.",
+  "tags": [
+   "react",
+   "lists",
+   "keys"
+  ],
+  "version_group": "FE-REACT-KEYS-J",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-S-010",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "situational",
+  "competency": "react",
+  "difficulty": 3,
+  "question": "В поле ввода имени невозможно ничего напечатать: символы не появляются. В коде задано value={name}. Какая причина наиболее вероятна?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Поле нужно объявить как неконтролируемое, добавив defaultValue"
+   },
+   {
+    "id": "B",
+    "text": "У поля отсутствует атрибут name"
+   },
+   {
+    "id": "C",
+    "text": "Переменная name объявлена через const, и поэтому React не может изменить её значение при вводе символов"
+   },
+   {
+    "id": "D",
+    "text": "У поля нет обработчика onChange, который обновлял бы состояние, поэтому value остаётся прежним"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 1,
+  "explanation": "Контролируемое поле отображает ровно то, что лежит в состоянии. Если изменения не записываются обратно через onChange, React при каждом рендере возвращает прежнее значение и ввод выглядит заблокированным. Добавление defaultValue убрало бы контроль над полем, а const и атрибут name здесь ни при чём.",
+  "tags": [
+   "react",
+   "forms",
+   "controlled"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-S-011",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "situational",
+  "competency": "react",
+  "difficulty": 3,
+  "question": "После добавления загрузки данных в useEffect на вкладке сети видно, что запрос уходит непрерывно, десятки раз в секунду. Что это означает и как поступить?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Запрос нужно перенести прямо в тело компонента, чтобы он выполнялся только один раз при монтировании"
+   },
+   {
+    "id": "B",
+    "text": "Сервер отвечает слишком медленно, нужно добавить таймаут"
+   },
+   {
+    "id": "C",
+    "text": "У эффекта нет массива зависимостей, и он перезапускается после каждого обновления состояния"
+   },
+   {
+    "id": "D",
+    "text": "Нужно отключить StrictMode, потому что он дублирует запросы"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 1,
+  "explanation": "Эффект без массива зависимостей выполняется после каждого рендера, а запись ответа в состояние вызывает новый рендер — получается цикл. Нужен корректный список зависимостей, обычно пустой для загрузки при монтировании. Запрос в теле компонента недопустим, а StrictMode лишь удваивает эффект в разработке.",
+  "tags": [
+   "react",
+   "useEffect",
+   "diagnostics"
+  ],
+  "version_group": "FE-REACT-EFFECT-LOOP",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-S-012",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "situational",
+  "competency": "components",
+  "difficulty": 2,
+  "question": "Одинаковый блок с аватаром и именем пользователя скопирован в три разных экрана. Пришла задача добавить к нему статус «онлайн» везде. Как лучше поступить?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Внести правку в три места и оставить структуру как есть"
+   },
+   {
+    "id": "B",
+    "text": "Скопировать блок в четвёртое место и подключать его условно"
+   },
+   {
+    "id": "C",
+    "text": "Описать блок один раз и вставлять его через innerHTML из общей строки разметки"
+   },
+   {
+    "id": "D",
+    "text": "Вынести блок в отдельный компонент с нужными props и использовать его на всех трёх экранах"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 1,
+  "explanation": "Повторяющийся фрагмент интерфейса — повод выделить компонент: правка делается в одном месте, поведение остаётся единым. Правка в трёх местах создаёт расхождения уже при следующей задаче, а вставка разметки строкой лишает приложение контроля над деревом и открывает путь к XSS.",
+  "tags": [
+   "components",
+   "reuse",
+   "refactoring"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-S-013",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "situational",
+  "competency": "components",
+  "difficulty": 3,
+  "question": "В макете у кнопки три вида оформления: основная, второстепенная и опасная. Поведение одинаковое. Как разумнее организовать код?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Один компонент с пропсами isPrimary, isSecondary и isDanger"
+   },
+   {
+    "id": "B",
+    "text": "Один компонент, принимающий готовую строку класса снаружи"
+   },
+   {
+    "id": "C",
+    "text": "Один компонент Button с пропсом variant, который выбирает нужный набор классов"
+   },
+   {
+    "id": "D",
+    "text": "Три отдельных компонента PrimaryButton, SecondaryButton и DangerButton с продублированной разметкой"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 1,
+  "explanation": "Один компонент с перечислимым пропсом variant задаёт понятный контракт, не допускает несовместимых комбинаций и позволяет менять оформление централизованно. Три копии разметки придётся править синхронно, передача произвольного класса снаружи ломает систему стилей, а три булевых пропса допускают бессмысленные сочетания.",
+  "tags": [
+   "components",
+   "api-design",
+   "variants"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-S-014",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "situational",
+  "competency": "state_management",
+  "difficulty": 3,
+  "question": "Кнопка «Добавить задачу» не обновляет список на экране, хотя в консоли видно, что массив пополняется. В коде: tasks.push(newTask); setTasks(tasks). Что исправить?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Передать новый массив: setTasks([...tasks, newTask])"
+   },
+   {
+    "id": "B",
+    "text": "Добавить вызов принудительного обновления компонента после push"
+   },
+   {
+    "id": "C",
+    "text": "Заменить push на unshift, чтобы новый элемент попадал в начало"
+   },
+   {
+    "id": "D",
+    "text": "Перенести массив задач в переменную модуля, чтобы он не терялся между рендерами"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "push изменяет тот же массив, поэтому ссылка не меняется и React считает состояние прежним. Нужно передать новый массив. Принудительное обновление — обход симптома, переменная модуля выносит состояние из React, а unshift остаётся такой же мутацией.",
+  "tags": [
+   "state_management",
+   "immutability",
+   "react"
+  ],
+  "version_group": "FE-STATE-MUTATION",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-S-015",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "situational",
+  "competency": "state_management",
+  "difficulty": 3,
+  "question": "В обработчике кнопки «+2» дважды подряд вызван setCount(count + 1), но счётчик увеличивается только на единицу. Как получить корректное поведение?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Передавать функцию обновления: setCount(prev => prev + 1)"
+   },
+   {
+    "id": "B",
+    "text": "Добавить await перед каждым вызовом setCount"
+   },
+   {
+    "id": "C",
+    "text": "Хранить счётчик в useRef"
+   },
+   {
+    "id": "D",
+    "text": "Вызвать setCount(count + 2) один раз, потому что два вызова подряд недопустимы"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "Внутри одного обработчика count остаётся значением текущего рендера, поэтому оба вызова вычисляют одно и то же число. Функция обновления получает актуальное состояние из очереди, и обновления складываются. Вариант setCount(count + 2) решает частный случай, но проблема вернётся при любых независимых обновлениях.",
+  "tags": [
+   "state_management",
+   "react",
+   "updater"
+  ],
+  "version_group": "FE-STATE-UPDATER",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-S-016",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "situational",
+  "competency": "api_integration",
+  "difficulty": 3,
+  "question": "При запросе к API с локального адреса в консоли: «No 'Access-Control-Allow-Origin' header is present». Как действовать?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Добавить в сам запрос заголовок Access-Control-Allow-Origin: * на стороне клиента"
+   },
+   {
+    "id": "B",
+    "text": "Отправлять запрос с mode: \"no-cors\", чтобы браузер не проверял заголовки и ошибка не возникала"
+   },
+   {
+    "id": "C",
+    "text": "Договориться с бэкендом о CORS-заголовках или использовать прокси dev-сервера"
+   },
+   {
+    "id": "D",
+    "text": "Перейти с fetch на XMLHttpRequest, где такой проверки нет"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 1,
+  "explanation": "CORS-заголовки выдаёт сервер, клиент на них влиять не может. Решение — настройка на бэкенде либо прокси в dev-сервере, который делает запрос одноисточниковым. mode: \"no-cors\" возвращает непрозрачный ответ, который нельзя прочитать, а XMLHttpRequest подчиняется той же политике.",
+  "tags": [
+   "api_integration",
+   "cors",
+   "diagnostics"
+  ],
+  "version_group": "FE-API-CORS",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-S-017",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "situational",
+  "competency": "api_integration",
+  "difficulty": 2,
+  "question": "Пока ответ API не пришёл, на экране пустая белая область, и пользователи считают, что страница сломалась. Что сделать?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Выполнять запрос синхронно, чтобы страница отрисовалась уже с данными"
+   },
+   {
+    "id": "B",
+    "text": "Отрисовывать десять пустых карточек, которые затем заполнятся данными"
+   },
+   {
+    "id": "C",
+    "text": "Показывать последние данные из localStorage без отметки об их давности"
+   },
+   {
+    "id": "D",
+    "text": "Показывать скелет загрузки, а при ошибке — кнопку повтора"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 1,
+  "explanation": "У асинхронной загрузки есть три наблюдаемых состояния: ожидание, успех и ошибка, и каждое должно быть отражено в интерфейсе. Синхронных запросов в браузере избегают, поскольку они блокируют страницу; показ устаревших данных без пометки вводит в заблуждение, а пустые карточки без признака загрузки не отличимы от поломки.",
+  "tags": [
+   "api_integration",
+   "ux",
+   "loading-state"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-S-018",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "situational",
+  "competency": "http",
+  "difficulty": 3,
+  "question": "При отправке формы сервер отвечает 500, в интерфейсе ничего не происходит. Какой порядок действий правильный?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Отправлять данные по частям, чтобы уменьшить размер запроса"
+   },
+   {
+    "id": "B",
+    "text": "Повторять отправку, пока сервер не ответит успешно"
+   },
+   {
+    "id": "C",
+    "text": "Добавить клиентскую валидацию полей, чтобы ошибочный запрос не уходил на сервер вовсе"
+   },
+   {
+    "id": "D",
+    "text": "Изучить ответ и id запроса во вкладке сети, показать ошибку пользователю и передать детали бэкенду"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 1,
+  "explanation": "500 — ошибка на стороне сервера, и исправить её на клиенте нельзя. Задача фронтенда — собрать диагностические данные (тело ответа, код, идентификатор запроса), корректно сообщить пользователю и передать информацию коллегам. Повторы при серверной ошибке лишь увеличивают нагрузку.",
+  "tags": [
+   "http",
+   "errors",
+   "teamwork"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-S-019",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "situational",
+  "competency": "browser",
+  "difficulty": 2,
+  "question": "Вы поправили CSS, файл сохранён, сборщик отработал без ошибок, но в браузере изменений нет. Что проверить в первую очередь?",
+  "options": [
+   {
+    "id": "A",
+    "text": "На вкладке сети посмотреть, какой файл стилей фактически отдан, и выполнить обновление с очисткой кэша"
+   },
+   {
+    "id": "B",
+    "text": "Перенести нужные стили в атрибут style элемента, чтобы они гарантированно применились поверх файла стилей"
+   },
+   {
+    "id": "C",
+    "text": "Перезапустить компьютер, чтобы освободить память"
+   },
+   {
+    "id": "D",
+    "text": "Переписать правило с !important"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "Типичные причины — отдача старого файла из кэша, обращение к другой сборке или перекрытие правила более специфичным селектором; всё это видно на вкладках сети и стилей. !important и инлайновые стили заглушают проблему и портят каскад.",
+  "tags": [
+   "browser",
+   "cache",
+   "devtools"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-S-020",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "situational",
+  "competency": "browser",
+  "difficulty": 3,
+  "question": "Функциональность работает в вашем браузере, но у коллеги на другом браузере страница падает с ошибкой «... is not a function». Как поступить?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Проверить поддержку метода в целевых браузерах и заменить его или подключить полифил"
+   },
+   {
+    "id": "B",
+    "text": "Обернуть вызов в try/catch и ничего не делать в ветке ошибки, чтобы страница больше не падала"
+   },
+   {
+    "id": "C",
+    "text": "Попросить коллегу обновить браузер и считать вопрос закрытым"
+   },
+   {
+    "id": "D",
+    "text": "Определять браузер по userAgent и показывать в нём упрощённую версию страницы без новой функциональности"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "Сообщение указывает на отсутствующий в этом движке метод. Нужно сверить используемый API со списком поддерживаемых браузеров проекта и либо взять совместимую альтернативу, либо подключить полифил. Просьба обновиться не решает задачу для пользователей, пустой catch скрывает поломку, а ветвление по userAgent ненадёжно.",
+  "tags": [
+   "browser",
+   "compatibility",
+   "polyfill"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-S-021",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "situational",
+  "competency": "performance",
+  "difficulty": 3,
+  "question": "На странице каталога 40 карточек, в каждой изображение 3000×2000 пикселей, отображаемое в блоке 300×200. Страница грузится долго. Что даст наибольший эффект?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Добавить всем изображениям атрибут decoding=\"async\""
+   },
+   {
+    "id": "B",
+    "text": "Перенести изображения в CSS как background-image"
+   },
+   {
+    "id": "C",
+    "text": "Уменьшить изображения правилом width: 300px в CSS, чтобы браузер отображал их в нужном размере"
+   },
+   {
+    "id": "D",
+    "text": "Отдавать изображения близкого размера в современном формате с отложенной загрузкой"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 1,
+  "explanation": "Основную долю времени занимает загрузка и декодирование лишних пикселей, поэтому помогает именно уменьшение исходных файлов, выбор эффективного формата и отложенная загрузка внеэкранных карточек. Правило в CSS и перенос в фон не меняют объём загружаемого файла, а decoding влияет только на момент декодирования.",
+  "tags": [
+   "performance",
+   "images",
+   "loading"
+  ],
+  "version_group": "FE-PERF-IMAGES",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-S-022",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "situational",
+  "competency": "security",
+  "difficulty": 3,
+  "question": "Коллега предлагает положить ключ платёжного сервиса прямо в код фронтенда, чтобы не ждать эндпоинт от бэкенда. Какой ответ корректен?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Так можно, если ключ дополнительно закодировать в base64"
+   },
+   {
+    "id": "B",
+    "text": "Так нельзя: всё в клиентском бандле видно любому пользователю, запрос с ключом делает бэкенд"
+   },
+   {
+    "id": "C",
+    "text": "Так можно, если ограничить доступ к файлу бандла через robots.txt"
+   },
+   {
+    "id": "D",
+    "text": "Так можно, если ключ записан в переменную окружения сборки, а не в исходный код"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 1,
+  "explanation": "Код фронтенда исполняется у пользователя и полностью читаем, поэтому секретов в нём быть не может. Переменные сборки лишь подставляют значение в бандл, base64 — это кодирование, а не защита, и robots.txt не ограничивает доступ. Операции с секретным ключом выполняет сервер.",
+  "tags": [
+   "security",
+   "secrets",
+   "api-keys"
+  ],
+  "version_group": "FE-SEC-SECRETS",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-S-023",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "situational",
+  "competency": "accessibility",
+  "difficulty": 3,
+  "question": "Тестировщик сообщает: по карточке товара нельзя перейти с клавиатуры, хотя мышью всё работает. В разметке карточка — это <div> с обработчиком onClick. Как исправить?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Использовать button или ссылку: они получают фокус и срабатывают по Enter и пробелу"
+   },
+   {
+    "id": "B",
+    "text": "Добавить карточке role=\"button\" и оставить div без изменений"
+   },
+   {
+    "id": "C",
+    "text": "Добавить обработчик onKeyDown на document и отслеживать нажатия вручную"
+   },
+   {
+    "id": "D",
+    "text": "Добавить div атрибут tabindex=\"0\" и больше ничего не менять"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "Нативные интерактивные элементы бесплатно дают попадание в порядок обхода, активацию с клавиатуры и корректную роль для скринридера. Для div пришлось бы добавлять tabindex, role и собственные обработчики клавиш — всё перечисленное по отдельности задачу не закрывает.",
+  "tags": [
+   "accessibility",
+   "keyboard",
+   "semantics"
+  ],
+  "version_group": "FE-A11Y-CLICKABLE-DIV",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-S-024",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "situational",
+  "competency": "git",
+  "difficulty": 2,
+  "question": "Вы сделали два коммита напрямую в main, но ещё ничего не отправляли на сервер. По правилам проекта работа ведётся в отдельных ветках. Как поступить?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Отменить коммиты через revert в main и переписать код заново в новой ветке"
+   },
+   {
+    "id": "B",
+    "text": "Создать ветку здесь, а main вернуть на origin/main"
+   },
+   {
+    "id": "C",
+    "text": "Отправить коммиты в main и создать задачу на исправление истории"
+   },
+   {
+    "id": "D",
+    "text": "Скопировать изменённые файлы, удалить локальный репозиторий и клонировать его заново"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 1,
+  "explanation": "Коммиты ещё локальные, поэтому достаточно создать ветку на текущем коммите и сдвинуть main назад к состоянию удалённой ветки: работа сохраняется, правила соблюдены. Отправка в main нарушает процесс, повторное клонирование и revert с переписыванием кода — лишняя работа и риск потерять изменения.",
+  "tags": [
+   "git",
+   "branching",
+   "workflow"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-S-025",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "situational",
+  "competency": "git",
+  "difficulty": 3,
+  "question": "При слиянии ветки возник конфликт в файле, который правили и вы, и коллега. Как действовать?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Удалить конфликтующий файл и восстановить его из основной ветки"
+   },
+   {
+    "id": "B",
+    "text": "Взять свою версию файла целиком, чтобы быстрее завершить слияние"
+   },
+   {
+    "id": "C",
+    "text": "Отменить слияние и попросить коллегу перенести его правки в вашу ветку вручную"
+   },
+   {
+    "id": "D",
+    "text": "Разобрать конфликт, сохранив обе правки, и проверить тесты"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 1,
+  "explanation": "Конфликт означает, что в одном месте есть две осмысленные правки, и обе нужно сохранить. Выбор «своей версии» целиком молча удаляет работу коллеги, как и восстановление файла из другой ветки, а перенос правок руками создаёт лишнюю работу и новые расхождения.",
+  "tags": [
+   "git",
+   "merge-conflict",
+   "teamwork"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-S-026",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "situational",
+  "competency": "testing",
+  "difficulty": 3,
+  "question": "Один из тестов компонента падает примерно в каждом третьем прогоне и мешает сборке. До релиза два дня. Что сделать?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Перенести тест в отдельную сборку, которая не влияет на результат проверки"
+   },
+   {
+    "id": "B",
+    "text": "Выяснить, нестабилен ли тест или он нашёл реальную ошибку"
+   },
+   {
+    "id": "C",
+    "text": "Запускать сборку повторно, пока прогон не окажется успешным"
+   },
+   {
+    "id": "D",
+    "text": "Удалить тест: он всё равно ненадёжен и только мешает сборке"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 1,
+  "explanation": "Плавающее падение может быть и дефектом теста, и настоящей гонкой в коде, поэтому сначала нужно посмотреть, что именно не выполнилось. Если времени нет, тест осознанно помечают как пропущенный с зафиксированной задачей. Удаление, повторные прогоны и вынос в необязательную сборку просто убирают сигнал.",
+  "tags": [
+   "testing",
+   "flaky",
+   "process"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ }
+]

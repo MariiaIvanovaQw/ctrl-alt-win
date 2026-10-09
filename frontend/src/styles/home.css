@@ -1,0 +1,585 @@
+/* Главная страница: разворот в духе обложки брендбука ФСП. */
+
+/* ---------- обложка ---------- */
+
+.hero {
+  margin-top: calc(-1 * var(--sp-6));
+  padding: var(--sp-7) 0 var(--sp-6);
+}
+/* Фиолетовое свечение под композицией: оживляет графит, не превращая
+   обложку в градиент. */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(760px 460px at 76% 18%, rgb(90 70 255 / 30%), transparent 70%);
+  pointer-events: none;
+}
+.hero-in {
+  position: relative;
+  z-index: 1;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 var(--sp-5);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 560px);
+  gap: var(--sp-6);
+  align-items: center;
+}
+
+.hero-h {
+  margin-top: var(--sp-4);
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+  color: var(--ink-text);
+}
+.hero-h-accent {
+  color: #8f85ff;
+}
+
+.hero-sub {
+  margin-top: var(--sp-5);
+  max-width: 48ch;
+  font-size: var(--text-md);
+  color: var(--ink-text-muted);
+}
+
+.hero-cta {
+  margin-top: var(--sp-6);
+  display: flex;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+}
+
+/* Кнопка с кружком-стрелкой: подсказывает направление, не добавляя текста. */
+.btn-arrow {
+  padding-right: var(--sp-2);
+  gap: var(--sp-4);
+}
+.btn-arrow-i {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 18%);
+}
+.btn-arrow-i svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ---------- композиция справа ---------- */
+
+/* Голова на орбите и стеклянные плашки (HeroArt.tsx). Слои по глубине:
+   свечение → задняя дуга орбиты → голова → передняя дуга → плашки.
+   Размеры здесь базовые: под узкую колонку обложки их правят `.hero .art…`
+   ниже, а панель входа ужимает блок целиком (`.auth-art` в layout.css). */
+.art {
+  position: relative;
+  height: 520px;
+}
+
+.art-glow {
+  position: absolute;
+  inset: 8% 2% 4% 10%;
+  background: radial-gradient(closest-side, rgb(111 97 255 / 42%), rgb(64 47 255 / 14%) 55%, transparent 78%);
+  filter: blur(8px);
+}
+
+.art-orbit {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.art-orbit-back {
+  z-index: 1;
+  filter: drop-shadow(0 0 4px rgb(143 133 255 / 55%));
+}
+.art-orbit-front {
+  z-index: 3;
+  filter: drop-shadow(0 0 6px rgb(143 133 255 / 80%));
+}
+.art-orbit-dot {
+  fill: #e4e1ff;
+  filter: drop-shadow(0 0 5px #8f85ff);
+}
+
+.art-head {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: 0;
+  width: 470px;
+  height: auto;
+  transform: translateX(-46%);
+  /* голова «светится» сеткой, а не плиткой: только мягкая тень в фиолет */
+  filter: drop-shadow(0 0 28px rgb(64 47 255 / 28%));
+}
+
+.art-plate {
+  position: absolute;
+  z-index: 4;
+  height: auto;
+  will-change: transform;
+}
+.art-plate-testing {
+  width: 214px;
+  left: 4%;
+  top: 0;
+  --float-delay: 0s;
+}
+.art-plate-matching {
+  width: 200px;
+  right: -4%;
+  top: 92px;
+  --float-delay: -2.4s;
+}
+.art-plate-qualification {
+  width: 250px;
+  left: -2%;
+  bottom: 54px;
+  --float-delay: -4.6s;
+}
+
+/* Лёгкое покачивание плашек — только если пользователь не отключил анимацию. */
+@media (prefers-reduced-motion: no-preference) {
+  .art-plate {
+    animation: plate-float 7s ease-in-out infinite;
+    animation-delay: var(--float-delay);
+  }
+}
+@keyframes plate-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* ---------- полоса фактов ---------- */
+
+.hero-facts-wrap {
+  position: relative;
+  z-index: 1;
+  max-width: var(--page-max);
+  margin: var(--sp-7) auto 0;
+  padding: 0 var(--sp-5);
+}
+.hero-facts {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  background: rgb(255 255 255 / 4%);
+  border: 1px solid var(--ink-line);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.hero-fact {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-4);
+  border-right: 1px solid var(--ink-line);
+}
+.hero-fact:last-child {
+  border-right: 0;
+}
+.hero-fact-i {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: rgb(143 133 255 / 16%);
+  color: #a79dff;
+  flex-shrink: 0;
+}
+.hero-fact-i svg {
+  width: 19px;
+  height: 19px;
+}
+.hero-fact-n {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-text);
+}
+.hero-fact-l {
+  margin: 2px 0 0;
+  font-size: var(--text-xs);
+  color: var(--ink-text-muted);
+  line-height: 1.35;
+}
+
+@media (max-width: 1180px) {
+  .hero .art {
+    height: 460px;
+  }
+  .hero .art-head {
+    width: 410px;
+  }
+  .hero .art-plate-testing {
+    width: 186px;
+  }
+  .hero .art-plate-matching {
+    width: 172px;
+    right: -2%;
+  }
+  .hero .art-plate-qualification {
+    width: 214px;
+  }
+}
+
+@media (max-width: 1040px) {
+  .hero-in {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  /* на планшете и телефоне композиция уходит под текст и уменьшается */
+  .hero .art {
+    width: 100%;
+    max-width: 560px;
+    height: 440px;
+    margin: var(--sp-2) auto 0;
+  }
+  .hero-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .hero-fact:nth-child(2n) {
+    border-right: 0;
+  }
+  .hero-fact {
+    border-bottom: 1px solid var(--ink-line);
+  }
+}
+
+@media (max-width: 560px) {
+  .hero .art {
+    height: 330px;
+  }
+  .hero .art-head {
+    width: 300px;
+  }
+  .hero .art-plate-testing {
+    width: 138px;
+    left: 0;
+  }
+  .hero .art-plate-matching {
+    width: 126px;
+    right: 0;
+    top: 64px;
+  }
+  .hero .art-plate-qualification {
+    width: 158px;
+    left: 0;
+    bottom: 26px;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero {
+    padding: var(--sp-6) 0 var(--sp-5);
+  }
+  .hero-in {
+    padding: 0 var(--sp-4);
+  }
+  .hero-h {
+    font-size: var(--text-2xl);
+    letter-spacing: -0.045em;
+  }
+  .hero-facts-wrap {
+    padding: 0 var(--sp-4);
+  }
+  .hero-facts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .hero-fact {
+    border-right: 0;
+  }
+}
+
+/* ---------- как это работает ---------- */
+
+.how {
+  margin-top: var(--sp-6);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
+  gap: var(--sp-7);
+  align-items: start;
+}
+.how-aside {
+  position: sticky;
+  top: calc(var(--header-h) + var(--sp-5));
+}
+.how-demo {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow);
+}
+.how-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-3);
+}
+.how-rank {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--text-faint);
+}
+.how-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.how-meta {
+  margin-top: 2px;
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+.how-why {
+  margin-top: var(--sp-3);
+  font-size: var(--text-xs);
+  color: var(--violet-700);
+}
+.how-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+.how-note {
+  margin-top: var(--sp-5);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--line-100);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+@media (max-width: 980px) {
+  .how {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-5);
+  }
+  .how-aside {
+    position: static;
+  }
+}
+
+/* ---------- возможности для двух сторон ---------- */
+
+.sides {
+  margin-top: var(--sp-5);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  border-top: 1px solid var(--border);
+}
+.side-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-4);
+  padding: var(--sp-5) var(--sp-6) var(--sp-6) 0;
+}
+.side-col:first-child {
+  border-right: 1px solid var(--border);
+}
+.side-col:last-child {
+  padding-left: var(--sp-6);
+  padding-right: 0;
+}
+.side-h {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.side-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  font-size: var(--text-sm);
+  color: var(--ink-700);
+}
+/* Галочка рисуется псевдоэлементом: список остаётся списком для
+   скринридера, без лишней разметки. */
+.side-list li {
+  position: relative;
+  padding-left: var(--sp-5);
+  max-width: 46ch;
+}
+.side-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 9px;
+  height: 5px;
+  border-left: 1.8px solid var(--violet-500);
+  border-bottom: 1.8px solid var(--violet-500);
+  transform: rotate(-45deg);
+}
+
+@media (max-width: 860px) {
+  .sides {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .side-col,
+  .side-col:last-child {
+    padding: var(--sp-5) 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+}
+
+/* ---------- витрина вакансий ---------- */
+
+.vac-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
+}
+.vac-grid {
+  margin-top: var(--sp-5);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-4);
+}
+.vac-card {
+  display: block;
+  color: inherit;
+}
+.vac-card:hover {
+  text-decoration: none;
+}
+.vac-salary {
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+.vac-title {
+  margin-top: var(--sp-3);
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+.vac-meta {
+  margin-top: var(--sp-2);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+@media (max-width: 900px) {
+  .vac-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- география ---------- */
+
+.geo {
+  margin-top: var(--sp-8);
+  padding: var(--sp-8) 0;
+}
+.geo-in {
+  position: relative;
+  z-index: 1;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 var(--sp-5);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 470px);
+  gap: var(--sp-7);
+  align-items: center;
+}
+.geo .section-title {
+  max-width: 24ch;
+}
+.geo-figures {
+  margin-top: var(--sp-6);
+  display: flex;
+  gap: var(--sp-7);
+  flex-wrap: wrap;
+}
+.geo-map {
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 980px) {
+  .geo-in {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .geo-map {
+    max-width: 420px;
+  }
+}
+
+/* ---------- призыв ---------- */
+
+.cta {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-6);
+  flex-wrap: wrap;
+  padding-bottom: var(--sp-6);
+}
+
+/* ---------- разворот страницы «Как формируется тест» ---------- */
+
+.howto-hero {
+  margin-top: calc(-1 * var(--sp-6));
+  padding: var(--sp-7) 0;
+}
+.howto-hero-in {
+  position: relative;
+  z-index: 1;
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 0 var(--sp-5);
+}
+.howto-h {
+  margin-top: var(--sp-4);
+  max-width: 20ch;
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: var(--ink-text);
+}
+.howto-cols {
+  margin-top: var(--sp-6);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sp-6);
+  color: var(--ink-text-muted);
+  font-size: var(--text-sm);
+}
+
+@media (max-width: 760px) {
+  .howto-cols {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--sp-4);
+  }
+  .howto-h {
+    font-size: var(--text-xl);
+  }
+}

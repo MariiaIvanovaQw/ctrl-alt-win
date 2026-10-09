@@ -1,0 +1,552 @@
+{
+ "checks": [
+  {
+   "check": "S1_reproducibility",
+   "passed": true,
+   "detail": "повторный расчёт с тем же сидом даёт тот же документ"
+  },
+  {
+   "check": "S2_comparable_variants",
+   "passed": true,
+   "detail": "сумма баллов и состав по типам одинаковы у всех вариантов одного уровня"
+  },
+  {
+   "check": "S2_variant_diversity",
+   "passed": true,
+   "detail": "среднее перекрытие заданий 31.9%, максимальное 69.2%"
+  },
+  {
+   "check": "S3_monotonicity",
+   "passed": true,
+   "detail": "средний балл не убывает при росте уровня кандидата"
+  },
+  {
+   "check": "S4_scenario_J_to_J",
+   "passed": true,
+   "detail": "сценарий J->J достигается в 79% прогонов (минимум по специализациям, порог калибровки 45%)"
+  },
+  {
+   "check": "S4_scenario_J_to_M",
+   "passed": true,
+   "detail": "сценарий J->M достигается в 88% прогонов (минимум по специализациям, порог калибровки 45%)"
+  },
+  {
+   "check": "S4_scenario_M_to_M",
+   "passed": true,
+   "detail": "сценарий M->M достигается в 79% прогонов (минимум по специализациям, порог калибровки 45%)"
+  },
+  {
+   "check": "S4_scenario_M_to_J",
+   "passed": true,
+   "detail": "сценарий M->J достигается в 54% прогонов (минимум по специализациям, порог калибровки 45%)"
+  },
+  {
+   "check": "S4_scenario_S_to_S",
+   "passed": true,
+   "detail": "сценарий S->S достигается в 75% прогонов (минимум по специализациям, порог калибровки 45%)"
+  },
+  {
+   "check": "S4_scenario_S_to_M",
+   "passed": true,
+   "detail": "сценарий S->M достигается в 46% прогонов (минимум по специализациям, порог калибровки 45%)"
+  },
+  {
+   "check": "S4_guessing_rejected",
+   "passed": true,
+   "detail": "ложное подтверждение при случайных ответах: максимум 12.5% (порог 15%), из них выше junior 8.3% (порог 10%); разрешение теста из 26 заданий – см. docs/specification.md, раздел 9"
+  },
+  {
+   "check": "S4_no_senior_from_middle_test",
+   "passed": true,
+   "detail": "senior не подтверждается по тесту уровня middle"
+  },
+  {
+   "check": "S5_stability",
+   "passed": true,
+   "detail": "для согласованных пар «заявлено/истинный уровень» доминирующий грейд не ниже 75%%"
+  },
+  {
+   "check": "S6_heuristic_attacks",
+   "passed": true,
+   "detail": "стратегии по внешним признакам (longest, shortest, second_longest, question_overlap) не подтверждают уровень чаще порогов угадывания"
+  }
+ ],
+ "grade_matrix": {
+  "backend|junior|guesser": {
+   "below_junior": 24
+  },
+  "backend|junior|solid_junior": {
+   "junior": 19,
+   "below_junior": 3,
+   "middle": 2
+  },
+  "backend|junior|solid_middle": {
+   "middle": 22,
+   "junior": 2
+  },
+  "backend|junior|solid_senior": {
+   "middle": 24
+  },
+  "backend|junior|strong_junior": {
+   "middle": 12,
+   "junior": 12
+  },
+  "backend|junior|strong_middle": {
+   "middle": 24
+  },
+  "backend|junior|weak_junior": {
+   "below_junior": 22,
+   "junior": 2
+  },
+  "backend|junior|weak_middle": {
+   "junior": 19,
+   "middle": 2,
+   "below_junior": 3
+  },
+  "backend|junior|weak_senior": {
+   "middle": 23,
+   "junior": 1
+  },
+  "backend|middle|guesser": {
+   "below_junior": 24
+  },
+  "backend|middle|solid_junior": {
+   "junior": 13,
+   "below_junior": 11
+  },
+  "backend|middle|solid_middle": {
+   "middle": 21,
+   "junior": 3
+  },
+  "backend|middle|solid_senior": {
+   "middle": 24
+  },
+  "backend|middle|strong_junior": {
+   "junior": 15,
+   "middle": 9
+  },
+  "backend|middle|strong_middle": {
+   "middle": 24
+  },
+  "backend|middle|weak_junior": {
+   "below_junior": 23,
+   "junior": 1
+  },
+  "backend|middle|weak_middle": {
+   "junior": 20,
+   "below_junior": 4
+  },
+  "backend|middle|weak_senior": {
+   "middle": 24
+  },
+  "backend|senior|guesser": {
+   "below_junior": 21,
+   "middle": 2,
+   "junior": 1
+  },
+  "backend|senior|solid_junior": {
+   "below_junior": 24
+  },
+  "backend|senior|solid_middle": {
+   "below_junior": 5,
+   "middle": 12,
+   "junior": 7
+  },
+  "backend|senior|solid_senior": {
+   "senior": 21,
+   "middle": 2,
+   "junior": 1
+  },
+  "backend|senior|strong_junior": {
+   "below_junior": 19,
+   "middle": 3,
+   "junior": 2
+  },
+  "backend|senior|strong_middle": {
+   "junior": 3,
+   "senior": 2,
+   "middle": 19
+  },
+  "backend|senior|weak_junior": {
+   "below_junior": 24
+  },
+  "backend|senior|weak_middle": {
+   "below_junior": 23,
+   "middle": 1
+  },
+  "backend|senior|weak_senior": {
+   "below_junior": 1,
+   "junior": 6,
+   "middle": 17
+  },
+  "frontend|junior|guesser": {
+   "below_junior": 24
+  },
+  "frontend|junior|solid_junior": {
+   "junior": 22,
+   "below_junior": 1,
+   "middle": 1
+  },
+  "frontend|junior|solid_middle": {
+   "middle": 21,
+   "junior": 3
+  },
+  "frontend|junior|solid_senior": {
+   "middle": 24
+  },
+  "frontend|junior|strong_junior": {
+   "middle": 13,
+   "junior": 11
+  },
+  "frontend|junior|strong_middle": {
+   "middle": 22,
+   "junior": 2
+  },
+  "frontend|junior|weak_junior": {
+   "below_junior": 22,
+   "junior": 2
+  },
+  "frontend|junior|weak_middle": {
+   "middle": 6,
+   "junior": 17,
+   "below_junior": 1
+  },
+  "frontend|junior|weak_senior": {
+   "middle": 21,
+   "junior": 3
+  },
+  "frontend|middle|guesser": {
+   "below_junior": 24
+  },
+  "frontend|middle|solid_junior": {
+   "junior": 18,
+   "below_junior": 6
+  },
+  "frontend|middle|solid_middle": {
+   "middle": 20,
+   "junior": 4
+  },
+  "frontend|middle|solid_senior": {
+   "middle": 24
+  },
+  "frontend|middle|strong_junior": {
+   "junior": 16,
+   "below_junior": 1,
+   "middle": 7
+  },
+  "frontend|middle|strong_middle": {
+   "middle": 24
+  },
+  "frontend|middle|weak_junior": {
+   "below_junior": 24
+  },
+  "frontend|middle|weak_middle": {
+   "junior": 22,
+   "below_junior": 2
+  },
+  "frontend|middle|weak_senior": {
+   "middle": 22,
+   "junior": 2
+  },
+  "frontend|senior|guesser": {
+   "below_junior": 24
+  },
+  "frontend|senior|solid_junior": {
+   "below_junior": 24
+  },
+  "frontend|senior|solid_middle": {
+   "middle": 11,
+   "junior": 6,
+   "below_junior": 7
+  },
+  "frontend|senior|solid_senior": {
+   "senior": 18,
+   "middle": 6
+  },
+  "frontend|senior|strong_junior": {
+   "below_junior": 20,
+   "middle": 4
+  },
+  "frontend|senior|strong_middle": {
+   "middle": 19,
+   "junior": 2,
+   "senior": 2,
+   "below_junior": 1
+  },
+  "frontend|senior|weak_junior": {
+   "below_junior": 24
+  },
+  "frontend|senior|weak_middle": {
+   "below_junior": 24
+  },
+  "frontend|senior|weak_senior": {
+   "middle": 16,
+   "below_junior": 3,
+   "junior": 4,
+   "senior": 1
+  },
+  "qa|junior|guesser": {
+   "below_junior": 24
+  },
+  "qa|junior|solid_junior": {
+   "junior": 22,
+   "middle": 2
+  },
+  "qa|junior|solid_middle": {
+   "middle": 22,
+   "junior": 2
+  },
+  "qa|junior|solid_senior": {
+   "middle": 24
+  },
+  "qa|junior|strong_junior": {
+   "middle": 17,
+   "junior": 7
+  },
+  "qa|junior|strong_middle": {
+   "middle": 24
+  },
+  "qa|junior|weak_junior": {
+   "below_junior": 19,
+   "junior": 5
+  },
+  "qa|junior|weak_middle": {
+   "junior": 19,
+   "middle": 5
+  },
+  "qa|junior|weak_senior": {
+   "middle": 23,
+   "junior": 1
+  },
+  "qa|middle|guesser": {
+   "below_junior": 24
+  },
+  "qa|middle|solid_junior": {
+   "junior": 16,
+   "below_junior": 8
+  },
+  "qa|middle|solid_middle": {
+   "middle": 19,
+   "junior": 5
+  },
+  "qa|middle|solid_senior": {
+   "middle": 24
+  },
+  "qa|middle|strong_junior": {
+   "junior": 18,
+   "middle": 6
+  },
+  "qa|middle|strong_middle": {
+   "middle": 23,
+   "junior": 1
+  },
+  "qa|middle|weak_junior": {
+   "below_junior": 21,
+   "junior": 3
+  },
+  "qa|middle|weak_middle": {
+   "junior": 21,
+   "below_junior": 2,
+   "middle": 1
+  },
+  "qa|middle|weak_senior": {
+   "middle": 23,
+   "junior": 1
+  },
+  "qa|senior|guesser": {
+   "below_junior": 22,
+   "middle": 2
+  },
+  "qa|senior|solid_junior": {
+   "below_junior": 24
+  },
+  "qa|senior|solid_middle": {
+   "below_junior": 9,
+   "middle": 13,
+   "junior": 2
+  },
+  "qa|senior|solid_senior": {
+   "senior": 19,
+   "middle": 5
+  },
+  "qa|senior|strong_junior": {
+   "below_junior": 22,
+   "middle": 2
+  },
+  "qa|senior|strong_middle": {
+   "middle": 20,
+   "below_junior": 2,
+   "senior": 2
+  },
+  "qa|senior|weak_junior": {
+   "below_junior": 24
+  },
+  "qa|senior|weak_middle": {
+   "below_junior": 24
+  },
+  "qa|senior|weak_senior": {
+   "middle": 21,
+   "below_junior": 2,
+   "junior": 1
+  }
+ },
+ "overlap": {
+  "frontend/junior": {
+   "point_totals": [
+    34
+   ],
+   "distinct_difficulty_profiles": 17
+  },
+  "frontend/middle": {
+   "point_totals": [
+    54
+   ],
+   "distinct_difficulty_profiles": 22
+  },
+  "frontend/senior": {
+   "point_totals": [
+    81
+   ],
+   "distinct_difficulty_profiles": 22
+  },
+  "backend/junior": {
+   "point_totals": [
+    34
+   ],
+   "distinct_difficulty_profiles": 15
+  },
+  "backend/middle": {
+   "point_totals": [
+    54
+   ],
+   "distinct_difficulty_profiles": 24
+  },
+  "backend/senior": {
+   "point_totals": [
+    81
+   ],
+   "distinct_difficulty_profiles": 22
+  },
+  "qa/junior": {
+   "point_totals": [
+    34
+   ],
+   "distinct_difficulty_profiles": 17
+  },
+  "qa/middle": {
+   "point_totals": [
+    54
+   ],
+   "distinct_difficulty_profiles": 24
+  },
+  "qa/senior": {
+   "point_totals": [
+    81
+   ],
+   "distinct_difficulty_profiles": 22
+  },
+  "mean_share": 0.319,
+  "max_share": 0.692
+ },
+ "monotonicity": {
+  "frontend/junior": {
+   "guesser": 29.7,
+   "weak_junior": 51.6,
+   "solid_junior": 69.8,
+   "solid_middle": 94.9,
+   "solid_senior": 98.3
+  },
+  "frontend/middle": {
+   "guesser": 23.8,
+   "weak_junior": 23.1,
+   "solid_junior": 39.0,
+   "solid_middle": 71.2,
+   "solid_senior": 93.8
+  },
+  "frontend/senior": {
+   "guesser": 25.1,
+   "weak_junior": 10.5,
+   "solid_junior": 17.9,
+   "solid_middle": 43.0,
+   "solid_senior": 83.3
+  },
+  "backend/junior": {
+   "guesser": 27.6,
+   "weak_junior": 48.0,
+   "solid_junior": 71.2,
+   "solid_middle": 91.2,
+   "solid_senior": 96.7
+  },
+  "backend/middle": {
+   "guesser": 20.6,
+   "weak_junior": 21.1,
+   "solid_junior": 33.5,
+   "solid_middle": 71.1,
+   "solid_senior": 92.4
+  },
+  "backend/senior": {
+   "guesser": 28.9,
+   "weak_junior": 9.1,
+   "solid_junior": 14.8,
+   "solid_middle": 44.1,
+   "solid_senior": 82.7
+  },
+  "qa/junior": {
+   "guesser": 26.4,
+   "weak_junior": 46.4,
+   "solid_junior": 67.8,
+   "solid_middle": 91.5,
+   "solid_senior": 98.3
+  },
+  "qa/middle": {
+   "guesser": 29.2,
+   "weak_junior": 26.1,
+   "solid_junior": 36.5,
+   "solid_middle": 72.5,
+   "solid_senior": 91.5
+  },
+  "qa/senior": {
+   "guesser": 24.4,
+   "weak_junior": 9.8,
+   "solid_junior": 14.8,
+   "solid_middle": 38.4,
+   "solid_senior": 82.2
+  }
+ },
+ "scenarios": {
+  "J->J": 0.792,
+  "J->M": 0.875,
+  "M->M": 0.792,
+  "M->J": 0.542,
+  "S->S": 0.75,
+  "S->M": 0.458
+ },
+ "guessing": {
+  "false_positive_max": 0.125,
+  "false_positive_mean": 0.023,
+  "above_junior_max": 0.083
+ },
+ "attacks": {
+  "longest": {
+   "mean_score": 24.2,
+   "false_confirm_max": 0.1,
+   "above_junior_max": 0.075
+  },
+  "shortest": {
+   "mean_score": 23.1,
+   "false_confirm_max": 0.025,
+   "above_junior_max": 0.025
+  },
+  "second_longest": {
+   "mean_score": 24.5,
+   "false_confirm_max": 0.087,
+   "above_junior_max": 0.075
+  },
+  "question_overlap": {
+   "mean_score": 22.8,
+   "false_confirm_max": 0.062,
+   "above_junior_max": 0.05
+  }
+ },
+ "failures": []
+}

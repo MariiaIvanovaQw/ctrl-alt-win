@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Переменные окружения с паролями: в репозитории только примеры
+.env
+!.env.example
+
+# Локальные данные бэкенда: база SQLite, ключ подписи токенов, резюме, демо-данные
+backend/data/
+
+# Фронтенд
+frontend/node_modules/
+frontend/dist/
+
+# IDE, ОС, инструменты
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+~$*
+*.log

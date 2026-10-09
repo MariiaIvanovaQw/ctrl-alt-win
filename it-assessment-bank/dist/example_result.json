@@ -1,0 +1,864 @@
+{
+ "schema_version": "1.0",
+ "candidate_id": "c7f1e2d0-4a6b-4c21-9e8f-0b1d2c3e4f55",
+ "test_id": "BE-M-66FF244680EC8979",
+ "specialization": "backend",
+ "declared_level": "middle",
+ "confirmed_level": "middle",
+ "outcome": "confirmed",
+ "score": 70,
+ "points_earned": 38,
+ "points_possible": 54,
+ "competencies": {
+  "algorithms": 100,
+  "architecture": 100,
+  "auth": 40,
+  "caching": 0,
+  "concurrency": 40,
+  "data_structures": 100,
+  "databases": 100,
+  "git": 100,
+  "http": 100,
+  "performance": 100,
+  "programming_language": 100,
+  "rest_api": 33,
+  "scalability": 100,
+  "security": 50,
+  "sql": 100,
+  "testing": 100
+ },
+ "competency_details": {
+  "testing": {
+   "score": 100,
+   "points_earned": 2,
+   "points_possible": 2,
+   "items": 1,
+   "correct": 1,
+   "confidence": "low"
+  },
+  "performance": {
+   "score": 100,
+   "points_earned": 4,
+   "points_possible": 4,
+   "items": 2,
+   "correct": 2,
+   "confidence": "normal"
+  },
+  "caching": {
+   "score": 0,
+   "points_earned": 0,
+   "points_possible": 6,
+   "items": 2,
+   "correct": 0,
+   "confidence": "normal"
+  },
+  "git": {
+   "score": 100,
+   "points_earned": 3,
+   "points_possible": 3,
+   "items": 1,
+   "correct": 1,
+   "confidence": "low"
+  },
+  "programming_language": {
+   "score": 100,
+   "points_earned": 3,
+   "points_possible": 3,
+   "items": 2,
+   "correct": 2,
+   "confidence": "low"
+  },
+  "data_structures": {
+   "score": 100,
+   "points_earned": 2,
+   "points_possible": 2,
+   "items": 1,
+   "correct": 1,
+   "confidence": "low"
+  },
+  "http": {
+   "score": 100,
+   "points_earned": 2,
+   "points_possible": 2,
+   "items": 1,
+   "correct": 1,
+   "confidence": "low"
+  },
+  "algorithms": {
+   "score": 100,
+   "points_earned": 1,
+   "points_possible": 1,
+   "items": 1,
+   "correct": 1,
+   "confidence": "low"
+  },
+  "security": {
+   "score": 50,
+   "points_earned": 2,
+   "points_possible": 4,
+   "items": 2,
+   "correct": 1,
+   "confidence": "normal"
+  },
+  "rest_api": {
+   "score": 33,
+   "points_earned": 1,
+   "points_possible": 3,
+   "items": 2,
+   "correct": 1,
+   "confidence": "low"
+  },
+  "concurrency": {
+   "score": 40,
+   "points_earned": 2,
+   "points_possible": 5,
+   "items": 2,
+   "correct": 1,
+   "confidence": "normal"
+  },
+  "sql": {
+   "score": 100,
+   "points_earned": 3,
+   "points_possible": 3,
+   "items": 2,
+   "correct": 2,
+   "confidence": "low"
+  },
+  "auth": {
+   "score": 40,
+   "points_earned": 2,
+   "points_possible": 5,
+   "items": 2,
+   "correct": 1,
+   "confidence": "normal"
+  },
+  "architecture": {
+   "score": 100,
+   "points_earned": 2,
+   "points_possible": 2,
+   "items": 1,
+   "correct": 1,
+   "confidence": "low"
+  },
+  "scalability": {
+   "score": 100,
+   "points_earned": 5,
+   "points_possible": 5,
+   "items": 2,
+   "correct": 2,
+   "confidence": "normal"
+  },
+  "databases": {
+   "score": 100,
+   "points_earned": 4,
+   "points_possible": 4,
+   "items": 2,
+   "correct": 2,
+   "confidence": "normal"
+  }
+ },
+ "difficulty_buckets": {
+  "easy": {
+   "points_earned": 4,
+   "points_possible": 4,
+   "items": 4,
+   "correct": 4,
+   "rate": 1.0
+  },
+  "mid": {
+   "points_earned": 28,
+   "points_possible": 32,
+   "items": 16,
+   "correct": 14,
+   "rate": 0.875
+  },
+  "hard": {
+   "points_earned": 6,
+   "points_possible": 18,
+   "items": 6,
+   "correct": 2,
+   "rate": 0.3333
+  },
+  "top": {
+   "points_earned": 0,
+   "points_possible": 0,
+   "items": 0,
+   "correct": 0,
+   "rate": null
+  }
+ },
+ "grade_decision": {
+  "confirmed_level": "middle",
+  "level_satisfied_by_rules": "middle",
+  "levels_available_for_declared": [
+   "junior",
+   "middle"
+  ],
+  "capped_by_declared_level": false,
+  "outcome": "confirmed",
+  "grade_confidence": "low",
+  "metrics": {
+   "overall": 70,
+   "chance_baseline": 25,
+   "overall_above_chance": 45,
+   "easy_rate": 1.0,
+   "mid_rate": 0.875,
+   "mid_plus_rate": 0.68,
+   "mid_plus_solved": 16,
+   "mid_plus_points_possible": 50,
+   "hard_rate": 0.3333,
+   "hard_solved": 2,
+   "hard_points_possible": 18,
+   "top_rate": null,
+   "key_competency_scores": [
+    100
+   ],
+   "key_competencies_counted": 1,
+   "critical_competency_scores": [
+    40,
+    50,
+    100,
+    100
+   ],
+   "critical_competencies_counted": 4
+  },
+  "checks": {
+   "middle": [
+    {
+     "check": "chance_margin_min",
+     "passed": true,
+     "detail": "превышение случайного уровня 45 при требуемом 32 (базовый уровень 25)"
+    },
+    {
+     "check": "overall_min",
+     "passed": true,
+     "detail": "70 >= 62"
+    },
+    {
+     "check": "mid_plus_rate_min",
+     "passed": true,
+     "detail": "0.680 >= 0.58"
+    },
+    {
+     "check": "mid_plus_solved_min",
+     "passed": true,
+     "detail": "16 >= 10"
+    },
+    {
+     "check": "key_competencies",
+     "passed": true,
+     "detail": "ниже порога 40: 0 из 1 учтённых, допустимо 1"
+    }
+   ],
+   "junior": [
+    {
+     "check": "chance_margin_min",
+     "passed": true,
+     "detail": "превышение случайного уровня 45 при требуемом 6 (базовый уровень 25)"
+    },
+    {
+     "check": "overall_min",
+     "passed": true,
+     "detail": "70 >= 28"
+    },
+    {
+     "check": "easy_rate_min",
+     "passed": true,
+     "detail": "1.000 >= 0.70"
+    },
+    {
+     "check": "mid_rate_min",
+     "passed": true,
+     "detail": "0.875 >= 0.33"
+    },
+    {
+     "check": "key_competencies",
+     "passed": true,
+     "detail": "ниже порога 20: 0 из 1 учтённых, допустимо 3"
+    }
+   ]
+  }
+ },
+ "seed": 184729,
+ "blueprint": [
+  [
+   "theory",
+   2,
+   3,
+   2
+  ],
+  [
+   "theory",
+   4,
+   6,
+   5
+  ],
+  [
+   "theory",
+   7,
+   8,
+   1
+  ],
+  [
+   "situational",
+   2,
+   3,
+   1
+  ],
+  [
+   "situational",
+   4,
+   6,
+   6
+  ],
+  [
+   "situational",
+   7,
+   8,
+   3
+  ],
+  [
+   "practical",
+   2,
+   3,
+   1
+  ],
+  [
+   "practical",
+   4,
+   6,
+   5
+  ],
+  [
+   "practical",
+   7,
+   8,
+   2
+  ]
+ ],
+ "items": [
+  {
+   "position": 0,
+   "item_id": "BE-M-S-025",
+   "variant_id": "v1",
+   "type": "situational",
+   "competency": "testing",
+   "difficulty": 5,
+   "score": 2,
+   "validation_type": "single_choice"
+  },
+  {
+   "position": 1,
+   "item_id": "BE-M-P-019",
+   "variant_id": "v1",
+   "type": "practical",
+   "competency": "performance",
+   "difficulty": 6,
+   "score": 2,
+   "validation_type": "single_choice"
+  },
+  {
+   "position": 2,
+   "item_id": "BE-S-T-020",
+   "variant_id": "v1",
+   "type": "theory",
+   "competency": "caching",
+   "difficulty": 8,
+   "score": 3,
+   "validation_type": "single_choice"
+  },
+  {
+   "position": 3,
+   "item_id": "BE-S-S-027",
+   "variant_id": "v1",
+   "type": "situational",
+   "competency": "git",
+   "difficulty": 8,
+   "score": 3,
+   "validation_type": "single_choice"
+  },
+  {
+   "position": 4,
+   "item_id": "BE-M-P-009",
+   "variant_id": "v1",
+   "type": "practical",
+   "competency": "programming_language",
+   "difficulty": 5,
+   "score": 2,
+   "validation_type": "single_choice"
+  },
+  {
+   "position": 5,
+   "item_id": "BE-M-T-006",
+   "variant_id": "v1",
+   "type": "theory",
+   "competency": "data_structures",
+   "difficulty": 5,
+   "score": 2,
+   "validation_type": "single_choice"
+  },
+  {
+   "position": 6,
+   "item_id": "BE-M-S-027",
+   "variant_id": "v1",
+   "type": "situational",
+   "competency": "http",
+   "difficulty": 5,
+   "score": 2,
+   "validation_type": "single_choice"
+  },
+  {
+   "position": 7,
+   "item_id": "BE-J-P-012",
+   "variant_id": "v4",
+   "type": "practical",
+   "competency": "algorithms",
+   "difficulty": 2,
+   "score": 1,
+   "validation_type": "numeric"
+  },
+  {
+   "position": 8,
+   "item_id": "BE-M-T-020",
+   "variant_id": "v1",
+   "type": "theory",
+   "competency": "security",
+   "difficulty": 6,
+   "score": 2,
+   "validation_type": "single_choice"
+  },
+  {
+   "position": 9,
+   "item_id": "BE-M-S-007",
+   "variant_id": "v1",
+   "type": "situational",
+   "competency": "rest_api",
+   "difficulty": 5,
+   "score": 2,
+   "validation_type": "single_choice"
+  },
+  {
+   "position": 10,
+   "item_id": "BE-S-P-011",
+   "variant_id": "v1",
+   "type": "practical",
+   "competency": "concurrency",
+   "difficulty": 8,
+   "score": 3,
+   "validation_type": "single_choice"
+  },
+  {
+   "position": 11,
+   "item_id": "BE-J-T-017",
+   "variant_id": "v1",
+   "type": "theory",
+   "competency": "rest_api",
+   "difficulty": 2,
+   "score": 1,
+   "validation_type": "single_choice"
+  },
+  {
+   "position": 12,
+   "item_id": "BE-M-S-021",
+   "variant_id": "v1",
+   "type": "situational",
+   "competency": "concurrency",
+   "difficulty": 4,
+   "score": 2,
+   "validation_type": "single_choice"
+  },
+  {
+   "position": 13,
+   "item_id": "BE-M-P-015",
+   "variant_id": "v2",
+   "type": "practical",
+   "competency": "security",
+   "difficulty": 5,
+   "score": 2,
+   "validation_type": "single_choice"
+  },
+  {
+   "position": 14,
+   "item_id": "BE-J-T-013",
+   "variant_id": "v1",
+   "type": "theory",
+   "competency": "sql",
+   "difficulty": 3,
+   "score": 1,
+   "validation_type": "single_choice"
+  },
+  {
+   "position": 15,
+   "item_id": "BE-J-S-002",
+   "variant_id": "v1",
+   "type": "situational",
+   "competency": "programming_language",
+   "difficulty": 3,
+   "score": 1,
+   "validation_type": "single_choice"
+  },
+  {
+   "position": 16,
+   "item_id": "BE-S-P-027",
+   "variant_id": "v1",
+   "type": "practical",
+   "competency": "auth",
+   "difficulty": 8,
+   "score": 3,
+   "validation_type": "single_choice"
+  },
+  {
+   "position": 17,
+   "item_id": "BE-M-T-021",
+   "variant_id": "v1",
+   "type": "theory",
+   "competency": "performance",
+   "difficulty": 4,
+   "score": 2,
+   "validation_type": "single_choice"
+  },
+  {
+   "position": 18,
+   "item_id": "BE-M-S-010",
+   "variant_id": "v1",
+   "type": "situational",
+   "competency": "auth",
+   "difficulty": 6,
+   "score": 2,
+   "validation_type": "single_choice"
+  },
+  {
+   "position": 19,
+   "item_id": "BE-M-P-005",
+   "variant_id": "v1",
+   "type": "practical",
+   "competency": "sql",
+   "difficulty": 6,
+   "score": 2,
+   "validation_type": "single_choice"
+  },
+  {
+   "position": 20,
+   "item_id": "BE-M-T-027",
+   "variant_id": "v1",
+   "type": "theory",
+   "competency": "architecture",
+   "difficulty": 6,
+   "score": 2,
+   "validation_type": "single_choice"
+  },
+  {
+   "position": 21,
+   "item_id": "BE-M-S-024",
+   "variant_id": "v1",
+   "type": "situational",
+   "competency": "scalability",
+   "difficulty": 6,
+   "score": 2,
+   "validation_type": "single_choice"
+  },
+  {
+   "position": 22,
+   "item_id": "BE-M-P-007",
+   "variant_id": "v1",
+   "type": "practical",
+   "competency": "databases",
+   "difficulty": 6,
+   "score": 2,
+   "validation_type": "single_choice"
+  },
+  {
+   "position": 23,
+   "item_id": "BE-M-T-007",
+   "variant_id": "v1",
+   "type": "theory",
+   "competency": "databases",
+   "difficulty": 4,
+   "score": 2,
+   "validation_type": "single_choice"
+  },
+  {
+   "position": 24,
+   "item_id": "BE-S-S-005",
+   "variant_id": "v1",
+   "type": "situational",
+   "competency": "scalability",
+   "difficulty": 8,
+   "score": 3,
+   "validation_type": "single_choice"
+  },
+  {
+   "position": 25,
+   "item_id": "BE-S-S-020",
+   "variant_id": "v1",
+   "type": "situational",
+   "competency": "caching",
+   "difficulty": 8,
+   "score": 3,
+   "validation_type": "single_choice"
+  }
+ ],
+ "answers": [
+  {
+   "item_id": "BE-M-S-025",
+   "variant_id": "v1",
+   "competency": "testing",
+   "difficulty": 5,
+   "score": 2,
+   "submitted": "C",
+   "is_correct": true,
+   "points_earned": 2
+  },
+  {
+   "item_id": "BE-M-P-019",
+   "variant_id": "v1",
+   "competency": "performance",
+   "difficulty": 6,
+   "score": 2,
+   "submitted": "D",
+   "is_correct": true,
+   "points_earned": 2
+  },
+  {
+   "item_id": "BE-S-T-020",
+   "variant_id": "v1",
+   "competency": "caching",
+   "difficulty": 8,
+   "score": 3,
+   "submitted": "A",
+   "is_correct": false,
+   "points_earned": 0
+  },
+  {
+   "item_id": "BE-S-S-027",
+   "variant_id": "v1",
+   "competency": "git",
+   "difficulty": 8,
+   "score": 3,
+   "submitted": "A",
+   "is_correct": true,
+   "points_earned": 3
+  },
+  {
+   "item_id": "BE-M-P-009",
+   "variant_id": "v1",
+   "competency": "programming_language",
+   "difficulty": 5,
+   "score": 2,
+   "submitted": "A",
+   "is_correct": true,
+   "points_earned": 2
+  },
+  {
+   "item_id": "BE-M-T-006",
+   "variant_id": "v1",
+   "competency": "data_structures",
+   "difficulty": 5,
+   "score": 2,
+   "submitted": "A",
+   "is_correct": true,
+   "points_earned": 2
+  },
+  {
+   "item_id": "BE-M-S-027",
+   "variant_id": "v1",
+   "competency": "http",
+   "difficulty": 5,
+   "score": 2,
+   "submitted": "A",
+   "is_correct": true,
+   "points_earned": 2
+  },
+  {
+   "item_id": "BE-J-P-012",
+   "variant_id": "v4",
+   "competency": "algorithms",
+   "difficulty": 2,
+   "score": 1,
+   "submitted": "24",
+   "is_correct": true,
+   "points_earned": 1
+  },
+  {
+   "item_id": "BE-M-T-020",
+   "variant_id": "v1",
+   "competency": "security",
+   "difficulty": 6,
+   "score": 2,
+   "submitted": "D",
+   "is_correct": true,
+   "points_earned": 2
+  },
+  {
+   "item_id": "BE-M-S-007",
+   "variant_id": "v1",
+   "competency": "rest_api",
+   "difficulty": 5,
+   "score": 2,
+   "submitted": "A",
+   "is_correct": false,
+   "points_earned": 0
+  },
+  {
+   "item_id": "BE-S-P-011",
+   "variant_id": "v1",
+   "competency": "concurrency",
+   "difficulty": 8,
+   "score": 3,
+   "submitted": "C",
+   "is_correct": false,
+   "points_earned": 0
+  },
+  {
+   "item_id": "BE-J-T-017",
+   "variant_id": "v1",
+   "competency": "rest_api",
+   "difficulty": 2,
+   "score": 1,
+   "submitted": "A",
+   "is_correct": true,
+   "points_earned": 1
+  },
+  {
+   "item_id": "BE-M-S-021",
+   "variant_id": "v1",
+   "competency": "concurrency",
+   "difficulty": 4,
+   "score": 2,
+   "submitted": "D",
+   "is_correct": true,
+   "points_earned": 2
+  },
+  {
+   "item_id": "BE-M-P-015",
+   "variant_id": "v2",
+   "competency": "security",
+   "difficulty": 5,
+   "score": 2,
+   "submitted": "A",
+   "is_correct": false,
+   "points_earned": 0
+  },
+  {
+   "item_id": "BE-J-T-013",
+   "variant_id": "v1",
+   "competency": "sql",
+   "difficulty": 3,
+   "score": 1,
+   "submitted": "C",
+   "is_correct": true,
+   "points_earned": 1
+  },
+  {
+   "item_id": "BE-J-S-002",
+   "variant_id": "v1",
+   "competency": "programming_language",
+   "difficulty": 3,
+   "score": 1,
+   "submitted": "B",
+   "is_correct": true,
+   "points_earned": 1
+  },
+  {
+   "item_id": "BE-S-P-027",
+   "variant_id": "v1",
+   "competency": "auth",
+   "difficulty": 8,
+   "score": 3,
+   "submitted": "B",
+   "is_correct": false,
+   "points_earned": 0
+  },
+  {
+   "item_id": "BE-M-T-021",
+   "variant_id": "v1",
+   "competency": "performance",
+   "difficulty": 4,
+   "score": 2,
+   "submitted": "B",
+   "is_correct": true,
+   "points_earned": 2
+  },
+  {
+   "item_id": "BE-M-S-010",
+   "variant_id": "v1",
+   "competency": "auth",
+   "difficulty": 6,
+   "score": 2,
+   "submitted": "B",
+   "is_correct": true,
+   "points_earned": 2
+  },
+  {
+   "item_id": "BE-M-P-005",
+   "variant_id": "v1",
+   "competency": "sql",
+   "difficulty": 6,
+   "score": 2,
+   "submitted": "C",
+   "is_correct": true,
+   "points_earned": 2
+  },
+  {
+   "item_id": "BE-M-T-027",
+   "variant_id": "v1",
+   "competency": "architecture",
+   "difficulty": 6,
+   "score": 2,
+   "submitted": "A",
+   "is_correct": true,
+   "points_earned": 2
+  },
+  {
+   "item_id": "BE-M-S-024",
+   "variant_id": "v1",
+   "competency": "scalability",
+   "difficulty": 6,
+   "score": 2,
+   "submitted": "B",
+   "is_correct": true,
+   "points_earned": 2
+  },
+  {
+   "item_id": "BE-M-P-007",
+   "variant_id": "v1",
+   "competency": "databases",
+   "difficulty": 6,
+   "score": 2,
+   "submitted": "C",
+   "is_correct": true,
+   "points_earned": 2
+  },
+  {
+   "item_id": "BE-M-T-007",
+   "variant_id": "v1",
+   "competency": "databases",
+   "difficulty": 4,
+   "score": 2,
+   "submitted": "C",
+   "is_correct": true,
+   "points_earned": 2
+  },
+  {
+   "item_id": "BE-S-S-005",
+   "variant_id": "v1",
+   "competency": "scalability",
+   "difficulty": 8,
+   "score": 3,
+   "submitted": "D",
+   "is_correct": true,
+   "points_earned": 3
+  },
+  {
+   "item_id": "BE-S-S-020",
+   "variant_id": "v1",
+   "competency": "caching",
+   "difficulty": 8,
+   "score": 3,
+   "submitted": "B",
+   "is_correct": false,
+   "points_earned": 0
+  }
+ ],
+ "finished_at": "2026-10-05T12:00:00Z"
+}

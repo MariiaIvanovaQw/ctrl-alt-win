@@ -1,0 +1,1353 @@
+[
+ {
+  "id": "FE-S-P-001",
+  "specialization": "frontend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "javascript",
+  "difficulty": 8,
+  "question": "Что выведет код? Введите метки в порядке вывода через запятую без пробелов.",
+  "language": "javascript",
+  "code": "console.log('A');\nsetTimeout(() => console.log('B'), 0);\nPromise.resolve().then(() => console.log('C'));\nqueueMicrotask(() => console.log('D'));\nconsole.log('E');",
+  "options": [],
+  "correct_answer": [
+   "A,E,C,D,B"
+  ],
+  "score": 3,
+  "explanation": "Синхронный код выполняется первым: A и E. Затем опустошается очередь микрозадач в порядке постановки: C (then) и D (queueMicrotask). Макрозадача таймера B выполняется последней, несмотря на нулевую задержку.",
+  "tags": [
+   "javascript",
+   "event-loop",
+   "code_output"
+  ],
+  "version_group": "FE-SP-EVENTLOOP-ORDER",
+  "seedable": true,
+  "seed_parameters": [
+   "input_values"
+  ],
+  "validation_type": "exact_match",
+  "answer_normalization": [
+   "trim",
+   "uppercase",
+   "remove_spaces"
+  ],
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "setTimeout(() => console.log('T'), 0);\n(async () => {\n  console.log('S');\n  await null;\n  console.log('M');\n})();\nconsole.log('L');",
+    "options": [],
+    "correct_answer": [
+     "S,L,M,T"
+    ],
+    "explanation": "Синхронно выполняются S (тело асинхронной функции до первого await) и L. После await продолжение M попадает в очередь микрозадач и выполняется раньше таймера T."
+   },
+   {
+    "variant_id": "v3",
+    "code": "console.log('1');\nPromise.resolve().then(() => {\n  console.log('2');\n  setTimeout(() => console.log('3'), 0);\n});\nsetTimeout(() => console.log('4'), 0);\nconsole.log('5');",
+    "options": [],
+    "correct_answer": [
+     "1,5,2,4,3"
+    ],
+    "explanation": "Синхронно выводятся 1 и 5. Затем микрозадача печатает 2 и ставит таймер 3 в очередь после уже запланированного таймера 4, поэтому порядок: 1, 5, 2, 4, 3."
+   }
+  ]
+ },
+ {
+  "id": "FE-S-P-002",
+  "specialization": "frontend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "javascript",
+  "difficulty": 7,
+  "question": "Профилирование памяти показывает, что экземпляры ChartWidget не освобождаются после закрытия экрана. Какая строка создаёт утечку?",
+  "language": "javascript",
+  "code": "1  class ChartWidget {\n2    constructor(node) {\n3      this.node = node;\n4      this.onResize = this.onResize.bind(this);\n5      window.addEventListener('resize', this.onResize);\n6      this.observer = new ResizeObserver(this.onResize);\n7      this.observer.observe(node);\n8    }\n9    destroy() {\n10     this.observer.disconnect();\n11     this.node = null;\n12   }\n13 }",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 4: привязка метода через bind создаёт новую функцию при каждом создании экземпляра"
+   },
+   {
+    "id": "B",
+    "text": "Строка 5: обработчик добавлен на window, но в destroy он не снимается, поэтому window держит ссылку на экземпляр"
+   },
+   {
+    "id": "C",
+    "text": "Строка 11: присваивание null не освобождает DOM-узел"
+   },
+   {
+    "id": "D",
+    "text": "Строка 6: ResizeObserver нельзя создавать с привязанным методом"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 3,
+  "explanation": "window живёт всё время работы страницы, и зарегистрированный на нём обработчик держит сильную ссылку на экземпляр вместе со всем, что тот захватил. Каждая регистрация должна иметь парное снятие в destroy. Отключение ResizeObserver сделано правильно, bind сам по себе утечки не создаёт.",
+  "tags": [
+   "javascript",
+   "memory-leak",
+   "bug-finding"
+  ],
+  "version_group": "FE-SP-LISTENER-LEAK",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "1  function mountPoller(store) {\n2    const id = setInterval(() => store.refresh(), 5000);\n3    const onVisible = () => store.refresh();\n4    document.addEventListener('visibilitychange', onVisible);\n5    return () => {\n6      document.removeEventListener('visibilitychange', onVisible);\n7    };\n8  }",
+    "options": [
+     {
+      "id": "A",
+      "text": "Строка 3: обработчик нужно объявить как метод стора"
+     },
+     {
+      "id": "B",
+      "text": "Строка 4: вместо document следует использовать window, иначе обработчик не снимается при закрытии"
+     },
+     {
+      "id": "C",
+      "text": "Строка 2: интервал в 5000 мс слишком частый"
+     },
+     {
+      "id": "D",
+      "text": "Строка 5: очистка не снимает интервал, и опрос со ссылкой на store живёт дальше"
+     }
+    ],
+    "correct_answer": [
+     "D"
+    ],
+    "question": "Профилирование показывает, что после размонтирования виджета продолжаются запросы обновления, а store не освобождается. Какая строка создаёт утечку?",
+    "explanation": "Функция очистки снимает обработчик события, но не останавливает интервал: таймер продолжает вызывать store.refresh и удерживает ссылку на store. В очистке нужен clearInterval(id)."
+   }
+  ]
+ },
+ {
+  "id": "FE-S-P-003",
+  "specialization": "frontend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "javascript",
+  "difficulty": 9,
+  "question": "Функция должна выполнять задачи с ограничением параллелизма, но фактически запускает все задачи сразу. В какой строке ошибка?",
+  "language": "javascript",
+  "code": "1  async function runLimited(tasks, limit) {\n2    const results = [];\n3    const running = [];\n4    for (const task of tasks) {\n5      const p = task();\n6      results.push(p);\n7      running.push(p);\n8      if (running.length >= limit) {\n9        running.splice(0, running.length);\n10     }\n11   }\n12   return Promise.all(results);\n13 }",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 6: промисы нельзя складывать в массив результатов"
+   },
+   {
+    "id": "B",
+    "text": "Строка 5: задачу нужно вызывать через await task()"
+   },
+   {
+    "id": "C",
+    "text": "Строка 12: вместо Promise.all нужен Promise.allSettled, чтобы дождаться всех задач"
+   },
+   {
+    "id": "D",
+    "text": "Строка 9: список очищается без ожидания — нужно дождаться слота через await Promise.race(running)"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 4,
+  "explanation": "Ограничение параллелизма требует ожидания: при заполнении окна нужно дождаться завершения любого из выполняющихся промисов и убрать из списка именно его. Очистка массива без ожидания никак не сдерживает запуск. Вариант с await task() сделал бы выполнение строго последовательным, то есть параллелизм равным единице.",
+  "tags": [
+   "javascript",
+   "concurrency",
+   "bug-finding"
+  ],
+  "version_group": "FE-SP-CONCURRENCY-LIMIT",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-S-P-004",
+  "specialization": "frontend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "javascript",
+  "difficulty": 8,
+  "question": "Ошибка внутри setTimeout не попадает в блок catch, и приложение падает. Почему и как это исправить?",
+  "language": "javascript",
+  "code": "try {\n  setTimeout(() => {\n    throw new Error('fail');\n  }, 100);\n} catch (e) {\n  report(e);\n}",
+  "options": [
+   {
+    "id": "A",
+    "text": "Колбэк выполняется позже, когда try уже завершён: ловить ошибку нужно внутри колбэка"
+   },
+   {
+    "id": "B",
+    "text": "Нужно заменить setTimeout на queueMicrotask, тогда исключение попадёт в блок catch вокруг вызова"
+   },
+   {
+    "id": "C",
+    "text": "Нужно сделать колбэк асинхронным и добавить await перед throw, чтобы внешний catch его увидел"
+   },
+   {
+    "id": "D",
+    "text": "Нужно обернуть вызов setTimeout в Promise.resolve()"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 3,
+  "explanation": "try/catch охватывает только синхронное выполнение своего блока. К моменту срабатывания таймера стек уже раскручен, и исключение уходит в глобальный обработчик. Нужен try/catch внутри колбэка или перевод операции в промис, отказ которого можно обработать. Микрозадача выполняется так же вне блока try.",
+  "tags": [
+   "javascript",
+   "error-handling",
+   "async"
+  ],
+  "version_group": "FE-SP-ASYNC-TRY",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-S-P-005",
+  "specialization": "frontend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "react",
+  "difficulty": 8,
+  "question": "Эффект выполняется в бесконечном цикле. Какое исправление устраняет причину, сохраняя поведение?",
+  "language": "javascript",
+  "code": "function Report({ from, to }) {\n  const [data, setData] = useState(null);\n  const params = { from, to, tz: 'Europe/Moscow' };\n\n  useEffect(() => {\n    load(params).then(setData);\n  }, [params]);\n\n  return <Chart data={data} />;\n}",
+  "options": [
+   {
+    "id": "A",
+    "text": "Перенести создание params в useRef и читать .current"
+   },
+   {
+    "id": "B",
+    "text": "Убрать params из зависимостей и оставить пустой массив, чтобы эффект шёл один раз"
+   },
+   {
+    "id": "C",
+    "text": "Сравнивать params через JSON.stringify прямо в массиве зависимостей эффекта"
+   },
+   {
+    "id": "D",
+    "text": "Зависеть от примитивов from и to, а объект собирать внутри эффекта"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 3,
+  "explanation": "Объект params создаётся заново при каждом рендере, его ссылка всегда новая, и эффект перезапускается после каждой записи данных. Зависимости должны состоять из примитивов, от которых реально зависит запрос. Сравнение через строку работает, но прячет зависимости от линтера и дорожает на больших объектах; пустой массив сломает обновление при смене периода, а ref не отслеживает изменения.",
+  "tags": [
+   "react",
+   "useEffect",
+   "dependencies",
+   "bug-fixing"
+  ],
+  "version_group": "FE-SP-EFFECT-DEPS",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-S-P-006",
+  "specialization": "frontend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "react",
+  "difficulty": 7,
+  "question": "Граница ошибок обёрнута вокруг формы, но при сбое отправки приложение всё равно показывает белый экран. Какое утверждение верно?",
+  "language": "javascript",
+  "code": "<ErrorBoundary fallback={<Oops />}>\n  <OrderForm onSubmit={async (v) => { await api.send(v); }} />\n</ErrorBoundary>",
+  "options": [
+   {
+    "id": "A",
+    "text": "Граница ошибок не работает с асинхронными компонентами, нужно обернуть форму в Suspense"
+   },
+   {
+    "id": "B",
+    "text": "Граница ошибок должна объявлять метод componentDidCatch как асинхронный"
+   },
+   {
+    "id": "C",
+    "text": "Граница ошибок не срабатывает, потому что fallback передан элементом, а не функцией"
+   },
+   {
+    "id": "D",
+    "text": "Граница ловит ошибки рендера, но не отказы промисов в обработчиках событий"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 3,
+  "explanation": "Границы ошибок ловят исключения, возникшие во время рендера, в методах жизненного цикла и в конструкторах потомков. Необработанный отказ промиса из обработчика события к ним не относится и уходит в глобальный обработчик. Такие ошибки обрабатывают явно: показывают сообщение и оставляют форму заполненной.",
+  "tags": [
+   "react",
+   "error-boundary",
+   "async"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-S-P-007",
+  "specialization": "frontend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "react",
+  "difficulty": 9,
+  "question": "Подсказка позиционируется по измеренной высоте и заметно мерцает: сначала появляется не на месте, затем прыгает. Какое исправление корректно?",
+  "language": "javascript",
+  "code": "const ref = useRef(null);\nconst [offset, setOffset] = useState(0);\n\nuseEffect(() => {\n  const h = ref.current.getBoundingClientRect().height;\n  setOffset(-h - 8);\n}, [content]);",
+  "options": [
+   {
+    "id": "A",
+    "text": "Перенести измерение и установку смещения в useLayoutEffect, до отрисовки кадра"
+   },
+   {
+    "id": "B",
+    "text": "Заменить useState на useRef и записывать смещение в .current, чтобы избежать лишнего рендера"
+   },
+   {
+    "id": "C",
+    "text": "Добавить ref.current в массив зависимостей"
+   },
+   {
+    "id": "D",
+    "text": "Обернуть setOffset в requestAnimationFrame"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 4,
+  "explanation": "useEffect выполняется после того, как браузер отрисовал кадр, поэтому пользователь успевает увидеть промежуточное положение. useLayoutEffect выполняется синхронно после изменений DOM и до отрисовки, так что перемещение незаметно. requestAnimationFrame откладывает обновление ещё сильнее, ref в зависимостях не отслеживается, а запись в ref не вызовет перерисовку с новым смещением.",
+  "tags": [
+   "react",
+   "useLayoutEffect",
+   "measurement"
+  ],
+  "version_group": "FE-SP-LAYOUT-EFFECT",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-S-P-008",
+  "specialization": "frontend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "react",
+  "difficulty": 8,
+  "question": "В виртуализированной таблице при прокрутке состояние раскрытых строк перескакивает между записями. Какая строка содержит причину?",
+  "language": "javascript",
+  "code": "1  const visible = rows.slice(start, start + count);\n2  return visible.map((row, i) => (\n3    <Row\n4      key={i}\n5      row={row}\n6      expanded={expandedIds.has(row.id)}\n7    />\n8  ));",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 4: key равен индексу в окне, и при прокрутке состояние переходит к другой записи"
+   },
+   {
+    "id": "B",
+    "text": "Строка 1: срез массива нужно мемоизировать"
+   },
+   {
+    "id": "C",
+    "text": "Строка 6: проверку принадлежности к раскрытым нужно выполнять по индексу строки, а не по id"
+   },
+   {
+    "id": "D",
+    "text": "Строка 2: при виртуализации нельзя использовать map"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 3,
+  "explanation": "При виртуализации окно смещается, и индекс внутри окна не идентифицирует запись: по key={i} React считает, что в позиции осталась та же строка, и сохраняет её внутреннее состояние и DOM-узел. key должен быть идентификатором записи, например row.id.",
+  "tags": [
+   "react",
+   "virtualization",
+   "keys",
+   "bug-finding"
+  ],
+  "version_group": "FE-REACT-KEYS-S",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-S-P-009",
+  "specialization": "frontend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "performance",
+  "difficulty": 8,
+  "question": "Код отслеживает появление карточек в области видимости для отправки события показа. Какую проблему производительности он создаёт и как её устранить?",
+  "language": "javascript",
+  "code": "window.addEventListener('scroll', () => {\n  document.querySelectorAll('.card').forEach(card => {\n    const r = card.getBoundingClientRect();\n    if (r.top < window.innerHeight && !card.dataset.seen) {\n      card.dataset.seen = '1';\n      track('card_view', card.dataset.id);\n    }\n  });\n});",
+  "options": [
+   {
+    "id": "A",
+    "text": "Обработчик нужно обернуть в throttle с интервалом 200 мс, а остальной код оставить без изменений"
+   },
+   {
+    "id": "B",
+    "text": "Нужно кэшировать результат querySelectorAll в переменную модуля"
+   },
+   {
+    "id": "C",
+    "text": "Вместо выборки и расчёта геометрии на каждой прокрутке использовать IntersectionObserver"
+   },
+   {
+    "id": "D",
+    "text": "Нужно перенести обработчик с window на document и добавить опцию passive: true при подписке"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 3,
+  "explanation": "Чтение getBoundingClientRect в обработчике прокрутки заставляет браузер пересчитывать раскладку, и стоимость растёт пропорционально числу карточек на каждом событии. IntersectionObserver вычисляет пересечения вне главного потока отрисовки и вызывает колбэк только при изменении видимости. Ограничение частоты и passive уменьшают, но не устраняют лишнюю работу, а кэширование выборки не решает проблему расчёта геометрии.",
+  "tags": [
+   "performance",
+   "intersection-observer",
+   "layout"
+  ],
+  "version_group": "FE-SP-SCROLL-OBSERVER",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-S-P-010",
+  "specialization": "frontend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "performance",
+  "difficulty": 9,
+  "question": "Профиль показывает, что при вводе одного символа в фильтр перерисовываются все 800 строк таблицы, хотя строки обёрнуты в React.memo. Какая строка — источник проблемы?",
+  "language": "javascript",
+  "code": "1  function TableProvider({ children }) {\n2    const [query, setQuery] = useState('');\n3    const [rows, setRows] = useState(initialRows);\n4    const value = { query, setQuery, rows, setRows };\n5    return <TableCtx.Provider value={value}>{children}</TableCtx.Provider>;\n6  }\n7  // Row читает useContext(TableCtx) и берёт из него только rows",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 1: children нужно передавать через отдельный проп, а не как содержимое провайдера"
+   },
+   {
+    "id": "B",
+    "text": "Строка 5: провайдер нужно обернуть в React.memo"
+   },
+   {
+    "id": "C",
+    "text": "Строка 4: значение контекста включает часто меняющийся query, и обновляются все потребители"
+   },
+   {
+    "id": "D",
+    "text": "Строка 3: начальные данные нужно загружать в эффекте"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 4,
+  "explanation": "React.memo сравнивает props, но подписка на контекст — отдельный канал обновления: при изменении значения контекста потребители перерисовываются всегда. Здесь в одно значение собраны данные и быстро меняющийся запрос. Решение — разделить контексты по частоте изменения или подписываться на срезы через внешний стор. Мемоизация провайдера не поможет, так как меняется само значение.",
+  "tags": [
+   "performance",
+   "react",
+   "context",
+   "diagnostics"
+  ],
+  "version_group": "FE-STATE-CONTEXT-SPLIT-S",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-S-P-011",
+  "specialization": "frontend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "performance",
+  "difficulty": 7,
+  "question": "Ответ API весит 9 МБ, и его разбор на слабых устройствах блокирует интерфейс почти на секунду. Какое решение наиболее уместно, если формат ответа изменить можно?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Разбивать строку ответа на части и вызывать JSON.parse для каждой части в setTimeout"
+   },
+   {
+    "id": "B",
+    "text": "Включить сжатие ответа на сервере, чтобы объём передаваемых данных уменьшился"
+   },
+   {
+    "id": "C",
+    "text": "Разбирать ответ в Web Worker и отдавать в главный поток готовые данные"
+   },
+   {
+    "id": "D",
+    "text": "Обернуть JSON.parse в Promise, чтобы разбор ответа стал асинхронным и не блокировал"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 3,
+  "explanation": "JSON.parse синхронен, и обёртка в промис не делает его прерываемым: работа всё равно выполняется в главном потоке целиком. Вынос разбора в отдельный поток убирает блокировку, а постраничная или потоковая выдача уменьшает сам объём работы. Произвольно разбить JSON на независимо разбираемые части нельзя, а сжатие уменьшает трафик, но не время разбора.",
+  "tags": [
+   "performance",
+   "parsing",
+   "web-worker"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-S-P-012",
+  "specialization": "frontend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "performance",
+  "difficulty": 10,
+  "question": "Определите асимптотическую сложность функции по размеру входного массива n. Введите ответ в форме O(...) без пробелов.",
+  "language": "javascript",
+  "code": "function process(items) {\n  const sorted = [...items].sort((a, b) => a.ts - b.ts);\n  const index = new Map(sorted.map(i => [i.id, i]));\n  let merged = 0;\n  for (const item of sorted) {\n    if (index.has(item.parentId)) merged++;\n  }\n  return { sorted, merged };\n}",
+  "options": [],
+  "correct_answer": [
+   "O(nlogn)"
+  ],
+  "score": 4,
+  "explanation": "Копирование и построение Map линейны, сортировка сравнением даёт n·log n, последующий проход с проверками по хеш-таблице линеен. Суммарная сложность определяется самым дорогим шагом — сортировкой, то есть O(n log n).",
+  "tags": [
+   "performance",
+   "complexity",
+   "exact_match"
+  ],
+  "version_group": "FE-SP-COMPLEXITY",
+  "seedable": true,
+  "seed_parameters": [
+   "variable_names"
+  ],
+  "validation_type": "exact_match",
+  "answer_normalization": [
+   "trim",
+   "uppercase",
+   "remove_spaces"
+  ],
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "function pairs(items) {\n  const result = [];\n  for (let i = 0; i < items.length; i++) {\n    for (let j = i + 1; j < items.length; j++) {\n      if (items[i].groupId === items[j].groupId) result.push([i, j]);\n    }\n  }\n  return result;\n}",
+    "options": [],
+    "correct_answer": [
+     "O(N^2)"
+    ],
+    "explanation": "Вложенные циклы сравнивают каждую пару элементов, число сравнений растёт как n·(n−1)/2 — O(n²). Группировку можно выполнить за линейное время через Map по groupId."
+   },
+   {
+    "variant_id": "v3",
+    "code": "function lookupAll(items, ids) {\n  const set = new Set(ids);\n  return items.filter(i => set.has(i.id));\n}\n// n = items.length, при условии ids.length <= n",
+    "options": [],
+    "correct_answer": [
+     "O(N)"
+    ],
+    "explanation": "Построение множества линейно по числу идентификаторов, проверка has выполняется в среднем за константное время, поэтому фильтрация линейна: O(n)."
+   }
+  ]
+ },
+ {
+  "id": "FE-S-P-013",
+  "specialization": "frontend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "security",
+  "difficulty": 8,
+  "question": "Виджет во встроенном фрейме обменивается сообщениями с родительской страницей. Какая строка содержит уязвимость?",
+  "language": "javascript",
+  "code": "1  window.addEventListener('message', (event) => {\n2    const data = JSON.parse(event.data);\n3    if (data.type === 'setToken') {\n4      session.token = data.token;\n5    }\n6    event.source.postMessage('ok', '*');\n7  });",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 1: обработчик не проверяет event.origin, и команду может прислать любой сайт"
+   },
+   {
+    "id": "B",
+    "text": "Строка 3: сравнение типа сообщения должно быть нестрогим"
+   },
+   {
+    "id": "C",
+    "text": "Строка 2: разбор строки через JSON.parse без try/catch, из-за чего обработчик может упасть"
+   },
+   {
+    "id": "D",
+    "text": "Строка 4: токен нужно хранить в localStorage"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 3,
+  "explanation": "Сообщения через postMessage может прислать любое окно, поэтому обработчик обязан проверять event.origin по списку доверенных источников, а при ответе указывать конкретный целевой источник вместо '*'. Отсутствие try/catch приведёт лишь к исключению, а не к компрометации.",
+  "tags": [
+   "security",
+   "postmessage",
+   "origin",
+   "bug-finding"
+  ],
+  "version_group": "FE-SP-POSTMESSAGE",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "1  window.addEventListener('message', (e) => {\n2    if (e.origin !== 'https://partner.example') return;\n3    const { action, payload } = e.data;\n4    if (action === 'navigate') location.href = payload.url;\n5  });",
+    "options": [
+     {
+      "id": "A",
+      "text": "Строка 3: деструктуризация данных сообщения недопустима"
+     },
+     {
+      "id": "B",
+      "text": "Строка 1: обработчик нужно регистрировать на document"
+     },
+     {
+      "id": "C",
+      "text": "Строка 4: адрес из сообщения идёт в location без проверки, и возможен переход на javascript:"
+     },
+     {
+      "id": "D",
+      "text": "Строка 2: проверку источника нужно выполнять через includes, чтобы учесть поддомены"
+     }
+    ],
+    "correct_answer": [
+     "C"
+    ],
+    "explanation": "Источник сообщения проверяется, но адрес из сообщения передаётся в location без проверки схемы: скомпрометированный или ошибочный партнёр может перенаправить на javascript: или фишинговый сайт. Адрес нужно проверять по разрешённым схемам и доменам."
+   }
+  ]
+ },
+ {
+  "id": "FE-S-P-014",
+  "specialization": "frontend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "security",
+  "difficulty": 9,
+  "question": "Политика безопасности настроена с nonce, но XSS по-прежнему воспроизводится. Что сделано неверно?",
+  "language": "http",
+  "code": "Content-Security-Policy: script-src 'nonce-abc123' 'unsafe-eval' https: ;\n  object-src 'none'; base-uri 'none'\n\n<script nonce=\"abc123\">initApp()</script>\n<!-- значение nonce одинаково для всех ответов и кэшируется вместе со страницей -->",
+  "options": [
+   {
+    "id": "A",
+    "text": "Нужно убрать object-src 'none', так как эта директива конфликтует с использованием nonce"
+   },
+   {
+    "id": "B",
+    "text": "Нужно перенести политику из заголовка в мета-тег"
+   },
+   {
+    "id": "C",
+    "text": "Nonce одинаков для всех ответов, а https: и 'unsafe-eval' сводят защиту на нет"
+   },
+   {
+    "id": "D",
+    "text": "Нужно добавить директиву default-src 'self', без которой nonce не учитывается браузером"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 4,
+  "explanation": "Nonce работает только если он криптографически случаен и генерируется заново на каждый ответ, иначе атакующий просто подставит известное значение. Кроме того, широкий источник https: разрешает подключение скрипта с произвольного сайта, а 'unsafe-eval' позволяет выполнять код из строк. Правильная политика перечисляет только nonce (при необходимости со 'strict-dynamic') и не содержит небезопасных ключевых слов.",
+  "tags": [
+   "security",
+   "csp",
+   "nonce"
+  ],
+  "version_group": "FE-SEC-CSP",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-S-P-015",
+  "specialization": "frontend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "security",
+  "difficulty": 7,
+  "question": "Эта функция слияния настроек используется для объединения ответа сервера с настройками по умолчанию. Какая уязвимость в ней есть?",
+  "language": "javascript",
+  "code": "function merge(target, source) {\n  for (const key in source) {\n    if (typeof source[key] === 'object' && source[key] !== null) {\n      target[key] = merge(target[key] || {}, source[key]);\n    } else {\n      target[key] = source[key];\n    }\n  }\n  return target;\n}",
+  "options": [
+   {
+    "id": "A",
+    "text": "Не отфильтрован __proto__: возможно загрязнение прототипа"
+   },
+   {
+    "id": "B",
+    "text": "Отсутствует проверка на циклические ссылки, поэтому возможно переполнение стека"
+   },
+   {
+    "id": "C",
+    "text": "Используется for..in, который перебирает и унаследованные свойства"
+   },
+   {
+    "id": "D",
+    "text": "Функция изменяет target на месте, из-за чего настройки по умолчанию портятся"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 3,
+  "explanation": "Рекурсивное слияние без фильтрации служебных ключей допускает загрязнение прототипа: запись в __proto__ отражается на всех объектах, что меняет логику проверок и может привести к обходу ограничений. Нужно пропускать опасные ключи, использовать Object.create(null) или Map и проверять принадлежность свойства самому объекту. Изменение target и особенности for..in — реальные замечания, но не уязвимость.",
+  "tags": [
+   "security",
+   "prototype-pollution",
+   "bug-finding"
+  ],
+  "version_group": "FE-SP-PROTO-POLLUTION",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-S-P-016",
+  "specialization": "frontend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "security",
+  "difficulty": 8,
+  "question": "Какая строка в этой схеме работы с токенами создаёт наибольший риск?",
+  "language": "javascript",
+  "code": "1  const { access, refresh } = await login(credentials);\n2  localStorage.setItem('refresh', refresh);\n3  memoryStore.access = access;\n4  api.interceptors.request.use(cfg => {\n5    cfg.headers.Authorization = `Bearer ${memoryStore.access}`;\n6    return cfg;\n7  });",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 3: access-токен в памяти теряется при обновлении страницы"
+   },
+   {
+    "id": "B",
+    "text": "Строка 2: refresh-токен в localStorage доступен XSS"
+   },
+   {
+    "id": "C",
+    "text": "Строка 5: заголовок Authorization формируется шаблонной строкой"
+   },
+   {
+    "id": "D",
+    "text": "Строка 1: учётные данные передаются в login одним объектом"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 3,
+  "explanation": "Refresh-токен долгоживущий и позволяет выпускать новые access-токены, поэтому его утечка опаснее всего; в localStorage он доступен любому скрипту страницы. Правильнее держать его в cookie с флагами HttpOnly, Secure и SameSite и привязывать к устройству или сессии. Потеря access-токена из памяти при перезагрузке — ожидаемый компромисс, устраняемый обновлением по refresh-токену.",
+  "tags": [
+   "security",
+   "tokens",
+   "storage"
+  ],
+  "version_group": "FE-SEC-TOKEN-STORAGE",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-S-P-017",
+  "specialization": "frontend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "architecture",
+  "difficulty": 8,
+  "question": "Сборка сообщает о циклической зависимости между модулями, а в рантайме одно из значений оказывается undefined. Какое исправление устраняет причину, а не симптом?",
+  "language": "typescript",
+  "code": "// entities/user/model.ts\nimport { formatOrder } from '../order/lib';\nexport const userLabel = (u: User) => `${u.name} ${formatOrder(u.lastOrder)}`;\n\n// entities/order/lib.ts\nimport { userLabel } from '../user/model';\nexport const formatOrder = (o: Order) => `${o.id} (${userLabel(o.user)})`;",
+  "options": [
+   {
+    "id": "A",
+    "text": "Объединить оба модуля в один общий файл, чтобы цикла не было"
+   },
+   {
+    "id": "B",
+    "text": "Вынести общее форматирование в отдельный модуль"
+   },
+   {
+    "id": "C",
+    "text": "Заменить статические импорты на динамические в одном из модулей"
+   },
+   {
+    "id": "D",
+    "text": "Перенести импорты в конец файлов, чтобы они разрешались позже"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 3,
+  "explanation": "Цикл означает, что две сущности знают друг о друге; надёжное решение — выделить независимый слой форматирования и передавать данные параметрами, вернув односторонний граф зависимостей. Динамический импорт и перестановка импортов лишь маскируют проблему и оставляют хрупкий порядок инициализации, а слияние модулей ломает границы сущностей и переносит цикл внутрь файла.",
+  "tags": [
+   "architecture",
+   "circular-dependency",
+   "modules"
+  ],
+  "version_group": "FE-SP-CIRCULAR-DEP",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-S-P-018",
+  "specialization": "frontend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "architecture",
+  "difficulty": 9,
+  "question": "Компонент из общей библиотеки интерфейса написан так. Какое замечание на код-ревью наиболее существенно?",
+  "language": "javascript",
+  "code": "// packages/ui/src/UserBadge.jsx\nimport { useAppStore } from 'app/store';\nimport { trackEvent } from 'app/analytics';\n\nexport function UserBadge() {\n  const user = useAppStore(s => s.currentUser);\n  return <span onClick={() => trackEvent('badge_click')}>{user.name}</span>;\n}",
+  "options": [
+   {
+    "id": "A",
+    "text": "Обработчик клика нужно обернуть в useCallback для стабильности"
+   },
+   {
+    "id": "B",
+    "text": "Библиотека зависит от стора и аналитики приложения"
+   },
+   {
+    "id": "C",
+    "text": "Вместо span следует использовать button с доступным именем"
+   },
+   {
+    "id": "D",
+    "text": "Компонент должен проверять user на null перед обращением к полю name"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 4,
+  "explanation": "Библиотека интерфейса не может зависеть от конкретного приложения: такие импорты делают пакет непереиспользуемым, тянут приложение в тесты библиотеки и создают обратное направление зависимостей. Данные передают через props, а события — через колбэк, оставляя решение за приложением. Остальные замечания справедливы, но локальны и не меняют пригодность пакета к переиспользованию.",
+  "tags": [
+   "architecture",
+   "dependencies",
+   "code-review"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-S-P-019",
+  "specialization": "frontend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "state_management",
+  "difficulty": 8,
+  "question": "Состояние нормализовано. Какой вариант корректно обновляет статус одного заказа без лишних перерисовок?",
+  "language": "javascript",
+  "code": "// state = { orders: { byId: { 'o1': {...}, 'o2': {...} }, allIds: ['o1','o2'] } }\n// нужно изменить status у заказа action.id",
+  "options": [
+   {
+    "id": "A",
+    "text": "const o = state.orders; return { ...state, orders: { ...o, byId: { ...o.byId, [action.id]: { ...o.byId[action.id], status: action.status } } } }"
+   },
+   {
+    "id": "B",
+    "text": "state.orders.byId[action.id].status = action.status; return { ...state }"
+   },
+   {
+    "id": "C",
+    "text": "return { ...state, orders: { allIds: [...state.orders.allIds], byId: { [action.id]: { ...state.orders.byId[action.id], status: action.status } } } }"
+   },
+   {
+    "id": "D",
+    "text": "return { ...state, orders: { ...state.orders, allIds: [...state.orders.allIds] } }"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 3,
+  "explanation": "Копируются только узлы на пути к изменяемой сущности, а остальные записи сохраняют прежние ссылки — поэтому подписчики других заказов не перерисовываются. Прямое присваивание изменяет вложенный объект на месте, новый byId только из изменённой записи теряет все прочие заказы, а пересоздание одного allIds ничего не меняет по существу.",
+  "tags": [
+   "state_management",
+   "normalization",
+   "immutability"
+  ],
+  "version_group": "FE-SP-NORMALIZED-UPDATE",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-S-P-020",
+  "specialization": "frontend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "state_management",
+  "difficulty": 9,
+  "question": "В редакторе реализованы отмена и повтор действий. После отмены и нового изменения повтор возвращает устаревшее состояние. Какая строка содержит ошибку?",
+  "language": "javascript",
+  "code": "1  function apply(state, change) {\n2    return {\n3      past: [...state.past, state.present],\n4      present: change,\n5      future: state.future\n6    };\n7  }\n8  function undo(state) {\n9    const prev = state.past[state.past.length - 1];\n10   return { past: state.past.slice(0, -1), present: prev, future: [state.present, ...state.future] };\n11 }",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 10: при отмене нельзя добавлять текущее состояние в список повторов"
+   },
+   {
+    "id": "B",
+    "text": "Строка 9: нужно брать первый элемент истории, а не последний добавленный"
+   },
+   {
+    "id": "C",
+    "text": "Строка 3: историю нужно хранить в обратном порядке"
+   },
+   {
+    "id": "D",
+    "text": "Строка 5: при новом изменении список повторов нужно очищать"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 4,
+  "explanation": "Классическая семантика отмены и повтора: новое изменение после отмены создаёт новую ветвь истории, поэтому накопленный список повторов перестаёт быть согласованным и должен обнуляться. Остальные операции в коде выполнены верно: при отмене текущее состояние как раз переносится в список повторов.",
+  "tags": [
+   "state_management",
+   "undo-redo",
+   "bug-finding"
+  ],
+  "version_group": "FE-SP-UNDO-REDO",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-S-P-021",
+  "specialization": "frontend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "typescript",
+  "difficulty": 8,
+  "question": "Какой тип получится у Result? Введите ответ одним словом или литералом так, как он отображается компилятором.",
+  "language": "typescript",
+  "code": "type Unwrap<T> = T extends Promise<infer U> ? U : T;\ntype Result = Unwrap<Promise<Promise<string>>>;",
+  "options": [],
+  "correct_answer": [
+   "Promise<string>"
+  ],
+  "score": 3,
+  "explanation": "Условный тип снимает только один уровень обёртки: T сопоставляется с Promise<infer U>, где U выводится как Promise<string>. Для полного разворачивания нужен рекурсивный тип вида T extends Promise<infer U> ? Unwrap<U> : T.",
+  "tags": [
+   "typescript",
+   "conditional-types",
+   "infer",
+   "exact_match"
+  ],
+  "version_group": "FE-SP-TS-UNWRAP",
+  "seedable": true,
+  "seed_parameters": [
+   "input_values"
+  ],
+  "validation_type": "exact_match",
+  "answer_normalization": [
+   "trim",
+   "remove_spaces"
+  ],
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "type Unwrap<T> = T extends Promise<infer U> ? Unwrap<U> : T;\ntype Result = Unwrap<Promise<Promise<number>>>;",
+    "options": [],
+    "correct_answer": [
+     "number"
+    ],
+    "explanation": "Тип Unwrap рекурсивно снимает обёртки Promise, пока T не перестанет быть промисом: Promise<Promise<number>> разворачивается до number."
+   },
+   {
+    "variant_id": "v3",
+    "code": "type ElementOf<T> = T extends (infer U)[] ? U : never;\ntype Result = ElementOf<string[][]>;",
+    "options": [],
+    "correct_answer": [
+     "string[]"
+    ],
+    "explanation": "ElementOf снимает один уровень массива: элементом string[][] является string[]."
+   }
+  ]
+ },
+ {
+  "id": "FE-S-P-022",
+  "specialization": "frontend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "typescript",
+  "difficulty": 9,
+  "question": "Нужен хук useForm, который принимает начальные значения и возвращает типизированный сеттер: setField('age', 30) допустим, setField('age', 'x') — ошибка, setField('nope', 1) — ошибка. Какая подпись это обеспечивает?",
+  "language": "typescript",
+  "code": "const form = useForm({ name: 'Ира', age: 30, active: true });",
+  "options": [
+   {
+    "id": "A",
+    "text": "function useForm<T extends object>(init: T): { setField: (key: keyof T, value: T[keyof T]) => void }"
+   },
+   {
+    "id": "B",
+    "text": "function useForm<T extends object>(init: T): { setField: <K extends keyof T>(key: K, value: T[K]) => void }"
+   },
+   {
+    "id": "C",
+    "text": "function useForm<T extends object>(init: T): { setField: (key: string, value: unknown) => void }"
+   },
+   {
+    "id": "D",
+    "text": "function useForm<T>(init: T): { setField: (key: keyof T, value: any) => void }"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 4,
+  "explanation": "Связь между именем поля и типом его значения выражается вторым типовым параметром метода: K фиксируется на вызове, и value получает тип T[K]. С типом T[keyof T] значение становится объединением всех типов полей, поэтому setField('age', 'x') пройдёт проверку. Сигнатуры с unknown и any теряют типизацию значения вовсе.",
+  "tags": [
+   "typescript",
+   "generics",
+   "api-design"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-S-P-023",
+  "specialization": "frontend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "css",
+  "difficulty": 7,
+  "question": "Метрика CLS в красной зоне: содержимое страницы прыгает при загрузке. Какая строка — основная причина?",
+  "language": "html",
+  "code": "1  <div class=\"promo\"><img src=\"/banner.jpg\" alt=\"\"></div>\n2  <h1>Каталог</h1>\n3  <style>\n4    .promo img { width: 100%; height: auto; }\n5    @font-face { font-family: Brand; src: url(/brand.woff2); font-display: swap; }\n6  </style>",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 1: у изображения нет width и height, и до загрузки браузер не знает высоту блока"
+   },
+   {
+    "id": "B",
+    "text": "Строка 5: font-display: swap запрещён при использовании собственных шрифтов"
+   },
+   {
+    "id": "C",
+    "text": "Строка 2: заголовок должен находиться выше блока с изображением"
+   },
+   {
+    "id": "D",
+    "text": "Строка 4: правило height: auto недопустимо для изображений"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 3,
+  "explanation": "Без известных пропорций браузер резервирует нулевую высоту и пересчитывает раскладку после загрузки изображения, что и даёт сдвиг. Указание width и height (или aspect-ratio) вместе с height: auto позволяет зарезервировать место заранее. font-display: swap может вызвать смену начертания, но его вклад в сдвиг несопоставимо меньше и устраняется подбором метрик запасного шрифта.",
+  "tags": [
+   "css",
+   "cls",
+   "layout-stability"
+  ],
+  "version_group": "FE-SP-CLS",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-S-P-024",
+  "specialization": "frontend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "css",
+  "difficulty": 8,
+  "question": "Карточка товара используется и в узкой боковой колонке, и в широкой сетке на той же странице, и должна менять раскладку в зависимости от доступной ей ширины, а не ширины окна. Какой код решает задачу?",
+  "language": "css",
+  "code": "/* .card-wrap — контейнер карточки, .card — сама карточка */",
+  "options": [
+   {
+    "id": "A",
+    "text": ".card-wrap { container-type: inline-size } @container (min-width: 400px) { .card { display: grid; grid-template-columns: 120px 1fr } }"
+   },
+   {
+    "id": "B",
+    "text": "@media (min-width: 400px) { .card { display: grid; grid-template-columns: 120px 1fr } }"
+   },
+   {
+    "id": "C",
+    "text": ".card { display: grid; grid-template-columns: minmax(120px, 30%) 1fr }"
+   },
+   {
+    "id": "D",
+    "text": ".card { container-type: size; contain: layout } @container (min-width: 400px) { .card { display: grid; grid-template-columns: 120px 1fr; gap: 12px } }"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 3,
+  "explanation": "Контейнерные запросы реагируют на размер контейнера, а не окна: родителю задают container-type: inline-size, и правила в @container применяются к содержимому. Медиазапрос не различает две колонки на одной странице. Сетка с minmax даёт гибкие пропорции, но не меняет раскладку по порогу. Когда элемент сам объявлен контейнером, он пытается запрашивать собственный размер, а container-type: size дополнительно требует заданной высоты.",
+  "tags": [
+   "css",
+   "container-queries",
+   "responsive"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-S-P-025",
+  "specialization": "frontend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "browser",
+  "difficulty": 8,
+  "question": "Запись офлайн-черновиков в IndexedDB иногда теряется без ошибок. Какая строка содержит причину?",
+  "language": "javascript",
+  "code": "1  const tx = db.transaction('drafts', 'readwrite');\n2  const store = tx.objectStore('drafts');\n3  const payload = await buildPayload();\n4  store.put(payload);\n5  tx.oncomplete = () => console.log('saved');",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 5: обработчик oncomplete нужно назначать до создания транзакции"
+   },
+   {
+    "id": "B",
+    "text": "Строка 1: режим readwrite нужно указывать для базы, а не для транзакции"
+   },
+   {
+    "id": "C",
+    "text": "Строка 3: await внутри открытой транзакции даёт ей автоматически завершиться до записи"
+   },
+   {
+    "id": "D",
+    "text": "Строка 4: результат put нужно дождаться через await"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 3,
+  "explanation": "Транзакция IndexedDB живёт, пока к ней идут запросы в рамках текущей задачи; любое ожидание постороннего промиса приводит к её автоматическому завершению, и следующая операция относится к уже закрытой транзакции. Все данные нужно подготовить до открытия транзакции, а внутри выполнять только операции с хранилищем.",
+  "tags": [
+   "browser",
+   "indexeddb",
+   "transactions",
+   "bug-finding"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-S-P-026",
+  "specialization": "frontend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "api_integration",
+  "difficulty": 9,
+  "question": "Клиент переподключается к потоку событий. При кратковременном сбое сервера 300 клиентов создают залп запросов, и сервер не успевает подняться. Какая строка требует исправления?",
+  "language": "javascript",
+  "code": "1  let attempt = 0;\n2  function connect() {\n3    const es = new EventSource('/api/stream');\n4    es.onopen = () => { attempt = 0; };\n5    es.onerror = () => {\n6      es.close();\n7      attempt++;\n8      setTimeout(connect, 1000);\n9    };\n10 }",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 4: сбрасывать счётчик попыток при открытии нельзя"
+   },
+   {
+    "id": "B",
+    "text": "Строка 6: соединение не нужно закрывать, EventSource переподключается сам"
+   },
+   {
+    "id": "C",
+    "text": "Строка 8: фиксированная задержка одинакова для всех — нужна экспоненциальная с разбросом"
+   },
+   {
+    "id": "D",
+    "text": "Строка 3: адрес потока нужно передавать с параметром текущего времени, чтобы обойти кэш прокси"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 4,
+  "explanation": "Фиксированная задержка синхронизирует клиентов, и сервер получает периодические залпы, мешающие восстановлению. Нужны растущая задержка, случайный разброс и предел, а при возобновлении — передача последнего полученного идентификатора, чтобы не потерять события. Закрытие соединения перед собственным переподключением здесь уместно, иначе к встроенному механизму добавится ещё один.",
+  "tags": [
+   "api_integration",
+   "reconnect",
+   "backoff",
+   "bug-finding"
+  ],
+  "version_group": "FE-HTTP-BACKOFF",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-S-P-027",
+  "specialization": "frontend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "testing",
+  "difficulty": 8,
+  "question": "Тест с фейковыми таймерами зависает и падает по таймауту. Что исправить?",
+  "language": "javascript",
+  "code": "jest.useFakeTimers();\n\ntest('повтор после задержки', async () => {\n  const promise = retryWithDelay(fetchMock, 3);\n  await promise;\n  expect(fetchMock).toHaveBeenCalledTimes(3);\n});",
+  "options": [
+   {
+    "id": "A",
+    "text": "Обернуть await promise в act() из библиотеки тестирования"
+   },
+   {
+    "id": "B",
+    "text": "Добавить jest.useRealTimers() в конце теста после проверки"
+   },
+   {
+    "id": "C",
+    "text": "Заменить фейковые таймеры на реальные и увеличить таймаут теста"
+   },
+   {
+    "id": "D",
+    "text": "Продвигать фейковые таймеры до ожидания промиса"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 3,
+  "explanation": "С фейковыми таймерами время не идёт само: ожидание промиса, который ждёт таймер, блокирует тест навсегда. Нужно сначала инициировать операцию, затем продвинуть виртуальное время (например, advanceTimersByTimeAsync или комбинацией продвижения и ожидания микрозадач) и лишь после этого дождаться результата. Возврат к реальным таймерам в конце — полезная гигиена, но зависание не устраняет.",
+  "tags": [
+   "testing",
+   "fake-timers",
+   "async",
+   "bug-fixing"
+  ],
+  "version_group": "FE-SP-FAKE-TIMERS",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ }
+]

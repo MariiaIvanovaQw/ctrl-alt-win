@@ -1,0 +1,575 @@
+{
+ "total_items": 720,
+ "total_rendered_forms": 856,
+ "by_specialization": {
+  "backend": 240,
+  "frontend": 240,
+  "qa": 240
+ },
+ "by_level": {
+  "junior": 240,
+  "middle": 240,
+  "senior": 240
+ },
+ "by_type": {
+  "practical": 240,
+  "situational": 240,
+  "theory": 240
+ },
+ "by_specialization_level_type": {
+  "backend": {
+   "junior": {
+    "practical": 27,
+    "situational": 26,
+    "theory": 27
+   },
+   "middle": {
+    "practical": 26,
+    "situational": 27,
+    "theory": 27
+   },
+   "senior": {
+    "practical": 27,
+    "situational": 27,
+    "theory": 26
+   }
+  },
+  "frontend": {
+   "junior": {
+    "practical": 27,
+    "situational": 26,
+    "theory": 27
+   },
+   "middle": {
+    "practical": 26,
+    "situational": 27,
+    "theory": 27
+   },
+   "senior": {
+    "practical": 27,
+    "situational": 27,
+    "theory": 26
+   }
+  },
+  "qa": {
+   "junior": {
+    "practical": 27,
+    "situational": 26,
+    "theory": 27
+   },
+   "middle": {
+    "practical": 26,
+    "situational": 27,
+    "theory": 27
+   },
+   "senior": {
+    "practical": 27,
+    "situational": 27,
+    "theory": 26
+   }
+  }
+ },
+ "by_competency": {
+  "frontend": {
+   "accessibility": 9,
+   "api_integration": 16,
+   "architecture": 10,
+   "browser": 12,
+   "components": 8,
+   "css": 21,
+   "git": 6,
+   "html": 8,
+   "http": 12,
+   "javascript": 31,
+   "performance": 18,
+   "react": 29,
+   "security": 18,
+   "state_management": 17,
+   "testing": 9,
+   "typescript": 16
+  },
+  "backend": {
+   "algorithms": 9,
+   "architecture": 15,
+   "auth": 14,
+   "caching": 14,
+   "concurrency": 18,
+   "data_structures": 8,
+   "databases": 24,
+   "git": 4,
+   "http": 10,
+   "performance": 22,
+   "programming_language": 15,
+   "rest_api": 18,
+   "scalability": 12,
+   "security": 24,
+   "sql": 24,
+   "testing": 9
+  },
+  "qa": {
+   "api_testing": 28,
+   "bug_reports": 15,
+   "checklists": 9,
+   "defect_prioritization": 9,
+   "functional_testing": 11,
+   "integration_testing": 17,
+   "load_testing": 17,
+   "regression_testing": 15,
+   "requirements_analysis": 10,
+   "risk_analysis": 14,
+   "sql": 23,
+   "test_automation": 25,
+   "test_cases": 12,
+   "test_design": 24,
+   "test_documentation": 11
+  }
+ },
+ "by_competency_level": {
+  "frontend": {
+   "html": {
+    "junior": 7,
+    "middle": 1,
+    "senior": 0
+   },
+   "css": {
+    "junior": 9,
+    "middle": 8,
+    "senior": 4
+   },
+   "javascript": {
+    "junior": 13,
+    "middle": 12,
+    "senior": 6
+   },
+   "typescript": {
+    "junior": 4,
+    "middle": 7,
+    "senior": 5
+   },
+   "react": {
+    "junior": 10,
+    "middle": 11,
+    "senior": 8
+   },
+   "state_management": {
+    "junior": 5,
+    "middle": 6,
+    "senior": 6
+   },
+   "components": {
+    "junior": 4,
+    "middle": 3,
+    "senior": 1
+   },
+   "api_integration": {
+    "junior": 5,
+    "middle": 7,
+    "senior": 4
+   },
+   "http": {
+    "junior": 4,
+    "middle": 5,
+    "senior": 3
+   },
+   "browser": {
+    "junior": 5,
+    "middle": 2,
+    "senior": 5
+   },
+   "performance": {
+    "junior": 2,
+    "middle": 5,
+    "senior": 11
+   },
+   "security": {
+    "junior": 3,
+    "middle": 5,
+    "senior": 10
+   },
+   "accessibility": {
+    "junior": 4,
+    "middle": 3,
+    "senior": 2
+   },
+   "git": {
+    "junior": 4,
+    "middle": 1,
+    "senior": 1
+   },
+   "architecture": {
+    "junior": 0,
+    "middle": 1,
+    "senior": 9
+   },
+   "testing": {
+    "junior": 1,
+    "middle": 3,
+    "senior": 5
+   }
+  },
+  "backend": {
+   "programming_language": {
+    "junior": 10,
+    "middle": 5,
+    "senior": 0
+   },
+   "algorithms": {
+    "junior": 5,
+    "middle": 3,
+    "senior": 1
+   },
+   "data_structures": {
+    "junior": 6,
+    "middle": 2,
+    "senior": 0
+   },
+   "databases": {
+    "junior": 6,
+    "middle": 9,
+    "senior": 9
+   },
+   "sql": {
+    "junior": 12,
+    "middle": 10,
+    "senior": 2
+   },
+   "http": {
+    "junior": 7,
+    "middle": 3,
+    "senior": 0
+   },
+   "rest_api": {
+    "junior": 8,
+    "middle": 7,
+    "senior": 3
+   },
+   "auth": {
+    "junior": 5,
+    "middle": 4,
+    "senior": 5
+   },
+   "security": {
+    "junior": 6,
+    "middle": 8,
+    "senior": 10
+   },
+   "performance": {
+    "junior": 4,
+    "middle": 8,
+    "senior": 10
+   },
+   "caching": {
+    "junior": 2,
+    "middle": 6,
+    "senior": 6
+   },
+   "concurrency": {
+    "junior": 2,
+    "middle": 8,
+    "senior": 8
+   },
+   "architecture": {
+    "junior": 1,
+    "middle": 3,
+    "senior": 11
+   },
+   "scalability": {
+    "junior": 0,
+    "middle": 1,
+    "senior": 11
+   },
+   "git": {
+    "junior": 2,
+    "middle": 0,
+    "senior": 2
+   },
+   "testing": {
+    "junior": 4,
+    "middle": 3,
+    "senior": 2
+   }
+  },
+  "qa": {
+   "requirements_analysis": {
+    "junior": 4,
+    "middle": 2,
+    "senior": 4
+   },
+   "test_design": {
+    "junior": 9,
+    "middle": 8,
+    "senior": 7
+   },
+   "test_cases": {
+    "junior": 8,
+    "middle": 4,
+    "senior": 0
+   },
+   "checklists": {
+    "junior": 6,
+    "middle": 2,
+    "senior": 1
+   },
+   "bug_reports": {
+    "junior": 9,
+    "middle": 6,
+    "senior": 0
+   },
+   "functional_testing": {
+    "junior": 7,
+    "middle": 4,
+    "senior": 0
+   },
+   "regression_testing": {
+    "junior": 5,
+    "middle": 5,
+    "senior": 5
+   },
+   "integration_testing": {
+    "junior": 3,
+    "middle": 6,
+    "senior": 8
+   },
+   "api_testing": {
+    "junior": 9,
+    "middle": 11,
+    "senior": 8
+   },
+   "sql": {
+    "junior": 9,
+    "middle": 9,
+    "senior": 5
+   },
+   "test_automation": {
+    "junior": 4,
+    "middle": 9,
+    "senior": 12
+   },
+   "load_testing": {
+    "junior": 2,
+    "middle": 6,
+    "senior": 9
+   },
+   "risk_analysis": {
+    "junior": 2,
+    "middle": 3,
+    "senior": 9
+   },
+   "defect_prioritization": {
+    "junior": 2,
+    "middle": 3,
+    "senior": 4
+   },
+   "test_documentation": {
+    "junior": 1,
+    "middle": 2,
+    "senior": 8
+   }
+  }
+ },
+ "by_difficulty": {
+  "1": 3,
+  "2": 96,
+  "3": 141,
+  "4": 43,
+  "5": 117,
+  "6": 80,
+  "7": 44,
+  "8": 99,
+  "9": 82,
+  "10": 15
+ },
+ "by_difficulty_per_specialization": {
+  "frontend": {
+   "1": 1,
+   "2": 33,
+   "3": 46,
+   "4": 17,
+   "5": 43,
+   "6": 20,
+   "7": 21,
+   "8": 32,
+   "9": 25,
+   "10": 2
+  },
+  "backend": {
+   "2": 32,
+   "3": 48,
+   "4": 16,
+   "5": 34,
+   "6": 30,
+   "7": 16,
+   "8": 33,
+   "9": 27,
+   "10": 4
+  },
+  "qa": {
+   "1": 2,
+   "2": 31,
+   "3": 47,
+   "4": 10,
+   "5": 40,
+   "6": 30,
+   "7": 7,
+   "8": 34,
+   "9": 30,
+   "10": 9
+  }
+ },
+ "by_validation_type": {
+  "numeric": 30,
+  "exact_match": 11,
+  "single_choice": 679
+ },
+ "by_score": {
+  "1": 240,
+  "2": 240,
+  "3": 143,
+  "4": 97
+ },
+ "seedable_items": 720,
+ "items_with_code": 239,
+ "items_with_variants": 76,
+ "total_variants": 136,
+ "seed_parameters_usage": {
+  "array_length": 1,
+  "input_values": 407,
+  "option_order": 679,
+  "variable_names": 158
+ },
+ "version_groups": {
+  "count": 501,
+  "items_in_groups": 553,
+  "items_without_group": 167,
+  "max_group_size": 4
+ },
+ "correct_answer_distribution": {
+  "total_forms": 726,
+  "counts": {
+   "A": 183,
+   "B": 181,
+   "C": 181,
+   "D": 181
+  },
+  "shares_percent": {
+   "A": 25.2,
+   "B": 24.9,
+   "C": 24.9,
+   "D": 24.9
+  },
+  "per_specialization": {
+   "backend": {
+    "A": 60,
+    "B": 59,
+    "C": 59,
+    "D": 59
+   },
+   "frontend": {
+    "A": 64,
+    "B": 63,
+    "C": 63,
+    "D": 63
+   },
+   "qa": {
+    "A": 59,
+    "B": 59,
+    "C": 59,
+    "D": 59
+   }
+  }
+ },
+ "automatically_checkable": {
+  "items": 720,
+  "share_percent": 100.0,
+  "by_validation_type": {
+   "exact_match": 11,
+   "numeric": 30,
+   "single_choice": 679
+  },
+  "requires_human_review": 0,
+  "requires_external_service": 0
+ },
+ "competency_roles": {
+  "frontend": {
+   "mandatory": [
+    "javascript",
+    "react",
+    "css",
+    "api_integration",
+    "state_management"
+   ],
+   "key": [
+    "javascript",
+    "react",
+    "css",
+    "api_integration",
+    "state_management",
+    "components",
+    "typescript"
+   ],
+   "critical": [
+    "security",
+    "performance",
+    "architecture"
+   ]
+  },
+  "backend": {
+   "mandatory": [
+    "sql",
+    "databases",
+    "rest_api",
+    "security",
+    "performance"
+   ],
+   "key": [
+    "sql",
+    "databases",
+    "rest_api",
+    "programming_language",
+    "algorithms",
+    "http",
+    "data_structures"
+   ],
+   "critical": [
+    "security",
+    "architecture",
+    "scalability",
+    "performance",
+    "concurrency"
+   ]
+  },
+  "qa": {
+   "mandatory": [
+    "test_design",
+    "test_cases",
+    "bug_reports",
+    "api_testing",
+    "sql"
+   ],
+   "key": [
+    "test_design",
+    "test_cases",
+    "bug_reports",
+    "requirements_analysis",
+    "api_testing",
+    "functional_testing",
+    "checklists"
+   ],
+   "critical": [
+    "risk_analysis",
+    "test_automation",
+    "integration_testing",
+    "load_testing"
+   ]
+  }
+ },
+ "option_length_bias": {
+  "forms_considered": 726,
+  "correct_is_longest": 194,
+  "correct_is_longest_percent": 26.7,
+  "strong_cue_forms": 0,
+  "strong_cue_percent": 0.0,
+  "target_percent": 45.0,
+  "status": "known_limitation"
+ }
+}

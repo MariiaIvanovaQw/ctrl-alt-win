@@ -1,0 +1,93 @@
+{
+  "realm": "platform",
+  "displayName": "Платформа подбора ИТ-специалистов ФСП",
+  "enabled": true,
+  "sslRequired": "none",
+  "registrationAllowed": true,
+  "registrationEmailAsUsername": true,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "verifyEmail": true,
+  "resetPasswordAllowed": true,
+  "bruteForceProtected": true,
+  "accessTokenLifespan": 1800,
+  "ssoSessionIdleTimeout": 1209600,
+  "passwordPolicy": "length(8) and digits(1)",
+  "internationalizationEnabled": true,
+  "supportedLocales": ["ru", "en"],
+  "defaultLocale": "ru",
+  "smtpServer": {
+    "host": "mailpit",
+    "port": "1025",
+    "from": "noreply@talent.local",
+    "fromDisplayName": "Платформа ФСП"
+  },
+  "roles": {
+    "realm": [
+      {"name": "candidate", "description": "Соискатель"},
+      {"name": "employer", "description": "Работодатель"},
+      {"name": "admin", "description": "Администратор платформы"}
+    ]
+  },
+  "defaultRole": {
+    "name": "default-roles-platform",
+    "composite": true,
+    "composites": {"realm": ["offline_access", "uma_authorization", "candidate"]}
+  },
+  "clients": [
+    {
+      "clientId": "talent-web",
+      "name": "Веб-приложение платформы",
+      "enabled": true,
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "redirectUris": ["http://localhost:5173/*", "http://localhost:3000/*"],
+      "webOrigins": ["+"],
+      "attributes": {
+        "pkce.code.challenge.method": "S256",
+        "post.logout.redirect.uris": "http://localhost:5173/*##http://localhost:3000/*"
+      },
+      "protocolMappers": [
+        {
+          "name": "audience-talent-api",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-audience-mapper",
+          "config": {
+            "included.client.audience": "talent-api",
+            "access.token.claim": "true",
+            "id.token.claim": "false"
+          }
+        }
+      ]
+    },
+    {
+      "clientId": "talent-api",
+      "name": "API платформы (только проверка токенов)",
+      "enabled": true,
+      "bearerOnly": true
+    }
+  ],
+  "users": [
+    {
+      "username": "employer@demo-fsp.ru",
+      "email": "employer@demo-fsp.ru",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "Демо",
+      "lastName": "Работодатель",
+      "realmRoles": ["employer"],
+      "credentials": [{"type": "password", "value": "Demo12345", "temporary": false}]
+    },
+    {
+      "username": "candidate@demo-fsp.ru",
+      "email": "candidate@demo-fsp.ru",
+      "emailVerified": true,
+      "enabled": true,
+      "firstName": "Демо",
+      "lastName": "Кандидат",
+      "realmRoles": ["candidate"],
+      "credentials": [{"type": "password", "value": "Demo12345", "temporary": false}]
+    }
+  ]
+}

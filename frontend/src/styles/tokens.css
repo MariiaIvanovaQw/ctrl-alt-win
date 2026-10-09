@@ -1,0 +1,152 @@
+/*
+ * Дизайн-токены по брендбуку ФСП.
+ * Базовые цвета взяты из логотипа: фиолетовый, красный, серый, графитовый.
+ * Всё остальное — производные оттенки, рассчитанные так, чтобы контраст
+ * текста к фону держался не ниже WCAG AA (4.5:1 для основного текста).
+ */
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/brand/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/brand/fonts/JetBrainsMono-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/brand/fonts/JetBrainsMono-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/brand/fonts/JetBrainsMono-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/brand/fonts/JetBrainsMono-ExtraBold.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* ---- фирменные цвета ФСП */
+  --brand-violet: #402fff;
+  --brand-red: #ec1d35;
+  --brand-gray: #c8c9ca;
+  --brand-ink: #1b1c21;
+
+  /* ---- производные от фиолетового */
+  --violet-700: #2a1cc4;
+  --violet-600: #3625e6;
+  --violet-500: #402fff;
+  --violet-300: #8f85ff;
+  --violet-100: #e4e1ff;
+  --violet-050: #f1efff;
+
+  /* ---- производные от красного (ошибки, отказы) */
+  --red-700: #b01026;
+  --red-500: #ec1d35;
+  --red-100: #ffe3e7;
+
+  /* ---- успех и предупреждение: подобраны в тон фирменной палитре */
+  --green-700: #0f6b4a;
+  --green-500: #128a5e;
+  --green-100: #d8f3e7;
+
+  --amber-700: #8a5a06;
+  --amber-500: #c07e0a;
+  --amber-100: #fdefd2;
+
+  /* ---- нейтральные */
+  --ink-900: #1b1c21;
+  --ink-700: #3a3c45;
+  --ink-500: #5f626e;
+  --ink-400: #80838f;
+  --line-300: #c8c9ca;
+  --line-200: #dedfe1;
+  --line-100: #ebecee;
+  --paper-100: #f4f4f6;
+  --paper-050: #fafafb;
+  --paper-000: #ffffff;
+
+  /* ---- семантические роли */
+  --bg: var(--paper-100);
+  --bg-raised: var(--paper-000);
+  --bg-sunken: var(--paper-050);
+  --text: var(--ink-900);
+  --text-muted: var(--ink-500);
+  --text-faint: var(--ink-400);
+  --accent: var(--violet-500);
+  --accent-text: #ffffff;
+  --border: var(--line-200);
+  --border-strong: var(--line-300);
+
+  /* ---- типографика */
+  --font-display: 'JetBrains Mono', ui-monospace, 'Cascadia Mono', Menlo, monospace;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Mono', Menlo, monospace;
+
+  /* Шкала с заметными скачками: мелкое остаётся мелким, крупное работает
+     как заголовок обложки брендбука, а не как «чуть больше обычного». */
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.9375rem;
+  --text-md: 1.0625rem;
+  --text-lg: 1.375rem;
+  --text-xl: 2rem;
+  --text-2xl: 3rem;
+  --text-3xl: 4.25rem;
+  --text-4xl: 5.75rem;
+
+  /* ---- сетка и ритм */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-7: 3rem;
+  --sp-8: 4rem;
+
+  /* Радиусы повторяют скругления фирменных линий: мелкие детали почти
+     прямые, крупные панели — заметно скруглённые. */
+  --radius-sm: 4px;
+  --radius: 8px;
+  --radius-lg: 14px;
+  --radius-xl: 24px;
+  --radius-pill: 999px;
+
+  /* ---- тёмная панель: основная «несущая» поверхность брендбука */
+  --ink-bg: #1b1c21;
+  --ink-bg-soft: #24262d;
+  --ink-text: #f2f2f4;
+  --ink-text-muted: #9a9ca6;
+  --ink-line: #33353e;
+
+  /* Сетка точек — отсылка к каркасной графике ФСП. */
+  --mesh: radial-gradient(circle at 1px 1px, rgb(255 255 255 / 7%) 1px, transparent 0);
+  --mesh-size: 22px 22px;
+
+  --shadow-sm: 0 1px 2px rgb(27 28 33 / 6%), 0 1px 3px rgb(27 28 33 / 4%);
+  --shadow: 0 2px 4px rgb(27 28 33 / 5%), 0 8px 24px rgb(27 28 33 / 7%);
+  --shadow-lg: 0 8px 16px rgb(27 28 33 / 8%), 0 24px 56px rgb(27 28 33 / 12%);
+  --ring: 0 0 0 3px rgb(64 47 255 / 25%);
+
+  --page-max: 1280px;
+  --sidebar-w: 248px;
+  --header-h: 64px;
+}

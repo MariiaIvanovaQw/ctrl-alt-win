@@ -1,0 +1,4513 @@
+{
+ "meta": {
+  "seeds": [
+   2026,
+   2027,
+   2028,
+   2029,
+   2030
+  ],
+  "candidates": 240,
+  "retake_per_cell": 400,
+  "retake_years": 2000,
+  "consistency_per_cell": 300
+ },
+ "runs": [
+  {
+   "categorization": {
+    "reference_points": {
+     "junior": {
+      "typical": 0.68,
+      "lower": 0.25
+     },
+     "middle": {
+      "typical": 0.7,
+      "lower": 0.326
+     },
+     "senior": {
+      "typical": 0.8075,
+      "lower": 0.3425
+     }
+    },
+    "test": {
+     "total": 240,
+     "graded": 202,
+     "c_index": 0.9734402405412177,
+     "overstated": 0.0,
+     "understated": 0.0297029702970297,
+     "missed": 0.03333333333333333
+    },
+    "self_declared": {
+     "total": 240,
+     "graded": 240,
+     "c_index": 0.8108236787811458,
+     "overstated": 0.1,
+     "understated": 0.020833333333333332,
+     "missed": 0.0
+    },
+    "ability_by_category": {
+     "middle": {
+      "n": 93,
+      "mean": 0.7301943234767025,
+      "min": 0.61888125,
+      "max": 0.9140875
+     },
+     "junior": {
+      "n": 85,
+      "mean": 0.49016243627450984,
+      "min": 0.26724375,
+      "max": 0.69330625
+     },
+     "–": {
+      "n": 38,
+      "mean": 0.3659422587719298,
+      "min": 0.23305333333333333,
+      "max": 0.6639533333333334
+     },
+     "senior": {
+      "n": 24,
+      "mean": 0.8909122222222222,
+      "min": 0.8446125,
+      "max": 0.924175
+     }
+    },
+    "label_matrix": {
+     "junior": {
+      "junior": 53,
+      "middle": 5,
+      "senior": 0,
+      "–": 27
+     },
+     "middle": {
+      "junior": 30,
+      "middle": 59,
+      "senior": 0,
+      "–": 8
+     },
+     "senior": {
+      "junior": 2,
+      "middle": 29,
+      "senior": 24,
+      "–": 3
+     }
+    }
+   },
+   "matching": {
+    "summary": {
+     "platform": {
+      "p10": 0.7733333333333333,
+      "ndcg10": 0.9342761827118853,
+      "mrr": 0.9666666666666667,
+      "below_bar": 0.0
+     },
+     "platform_no_fsp": {
+      "p10": 0.7066666666666667,
+      "ndcg10": 0.9182771893396264,
+      "mrr": 0.9666666666666667,
+      "below_bar": 0.02666666666666667
+     },
+     "platform_score_only": {
+      "p10": 0.6733333333333333,
+      "ndcg10": 0.904903235707138,
+      "mrr": 0.9666666666666667,
+      "below_bar": 0.006666666666666667
+     },
+     "category_browse": {
+      "p10": 0.41333333333333333,
+      "ndcg10": 0.7342178556929182,
+      "mrr": 0.5860606060606061,
+      "below_bar": 0.08666666666666667
+     },
+     "resume_keywords": {
+      "p10": 0.58,
+      "ndcg10": 0.8288446515297869,
+      "mrr": 0.7722222222222223,
+      "below_bar": 0.03333333333333333
+     },
+     "random": {
+      "p10": 0.19483333333333333,
+      "ndcg10": 0.5943585512804153,
+      "mrr": 0.40694844364934823,
+      "below_bar": 0.2616
+     }
+    },
+    "needs": [
+     {
+      "kind": "vacancy",
+      "title": "Бэкенд-разработчик (Python) в платёжный сервис",
+      "specialization": "backend",
+      "level": "middle",
+      "pool": 70,
+      "ranked_by_platform": 70,
+      "main_category": 35,
+      "relevant": 14,
+      "spearman_score_vs_truth": 0.6879839033746166,
+      "metrics": {
+       "platform": {
+        "p10": 0.6,
+        "ndcg10": 0.9260034419472214,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.5,
+        "ndcg10": 0.9152315062729518,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.5,
+        "ndcg10": 0.8852578809642188,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.0,
+        "ndcg10": 0.6249835222938068,
+        "mrr": 0.09090909090909091,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.6,
+        "ndcg10": 0.8561630823135562,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.186,
+        "ndcg10": 0.6054864727491741,
+        "mrr": 0.37954842991975346,
+        "below_bar": 0.1365
+       }
+      }
+     },
+     {
+      "kind": "vacancy",
+      "title": "Senior Java-разработчик платформы данных",
+      "specialization": "backend",
+      "level": "senior",
+      "pool": 70,
+      "ranked_by_platform": 52,
+      "main_category": 12,
+      "relevant": 14,
+      "spearman_score_vs_truth": 0.8073934944079229,
+      "metrics": {
+       "platform": {
+        "p10": 1.0,
+        "ndcg10": 0.9022996790239629,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.6,
+        "ndcg10": 0.7827655536431805,
+        "mrr": 1.0,
+        "below_bar": 0.2
+       },
+       "platform_score_only": {
+        "p10": 0.8,
+        "ndcg10": 0.9115254699998654,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.4,
+        "ndcg10": 0.5303003403222545,
+        "mrr": 0.2,
+        "below_bar": 0.4
+       },
+       "resume_keywords": {
+        "p10": 0.4,
+        "ndcg10": 0.6828066272006351,
+        "mrr": 0.25,
+        "below_bar": 0.1
+       },
+       "random": {
+        "p10": 0.199,
+        "ndcg10": 0.47522800375817176,
+        "mrr": 0.42671652805398935,
+        "below_bar": 0.5555
+       }
+      }
+     },
+     {
+      "kind": "vacancy",
+      "title": "Junior фронтенд-разработчик (React)",
+      "specialization": "frontend",
+      "level": "junior",
+      "pool": 72,
+      "ranked_by_platform": 59,
+      "main_category": 34,
+      "relevant": 14,
+      "spearman_score_vs_truth": 0.6843674223340329,
+      "metrics": {
+       "platform": {
+        "p10": 0.5,
+        "ndcg10": 0.8872035425461875,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.5,
+        "ndcg10": 0.8921532536796803,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.6,
+        "ndcg10": 0.876684419663012,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.2,
+        "ndcg10": 0.6577068243912585,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.3,
+        "ndcg10": 0.8196553148592739,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.1875,
+        "ndcg10": 0.7175554310498217,
+        "mrr": 0.38821543661017344,
+        "below_bar": 0.0
+       }
+      }
+     },
+     {
+      "kind": "vacancy",
+      "title": "Фронтенд-разработчик (React, TypeScript) в e-commerce",
+      "specialization": "frontend",
+      "level": "middle",
+      "pool": 72,
+      "ranked_by_platform": 72,
+      "main_category": 25,
+      "relevant": 14,
+      "spearman_score_vs_truth": 0.6742451043779464,
+      "metrics": {
+       "platform": {
+        "p10": 0.9,
+        "ndcg10": 0.9539383414426111,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.9,
+        "ndcg10": 0.9707142507105304,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.8,
+        "ndcg10": 0.9300678626142072,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.3,
+        "ndcg10": 0.6917129775042353,
+        "mrr": 0.3333333333333333,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.6,
+        "ndcg10": 0.8696772891715654,
+        "mrr": 1.0,
+        "below_bar": 0.2
+       },
+       "random": {
+        "p10": 0.1975,
+        "ndcg10": 0.576554978743104,
+        "mrr": 0.4061622888563678,
+        "below_bar": 0.256
+       }
+      }
+     },
+     {
+      "kind": "vacancy",
+      "title": "QA-инженер (ручное тестирование и API)",
+      "specialization": "qa",
+      "level": "junior",
+      "pool": 67,
+      "ranked_by_platform": 60,
+      "main_category": 34,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.6669074849145565,
+      "metrics": {
+       "platform": {
+        "p10": 0.9,
+        "ndcg10": 0.9388662292672276,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.8,
+        "ndcg10": 0.9250277919712437,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.8,
+        "ndcg10": 0.9177117643065952,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.3,
+        "ndcg10": 0.7227793710718788,
+        "mrr": 0.3333333333333333,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.7,
+        "ndcg10": 0.7944680944000017,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.1885,
+        "ndcg10": 0.7149209335806378,
+        "mrr": 0.4160040287885489,
+        "below_bar": 0.0
+       }
+      }
+     },
+     {
+      "kind": "vacancy",
+      "title": "Senior QA Automation (Python, Playwright)",
+      "specialization": "qa",
+      "level": "senior",
+      "pool": 67,
+      "ranked_by_platform": 44,
+      "main_category": 7,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.8893587033121917,
+      "metrics": {
+       "platform": {
+        "p10": 0.7,
+        "ndcg10": 0.9032548127415497,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.7,
+        "ndcg10": 0.9255841026848254,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.8,
+        "ndcg10": 0.9293894774308222,
+        "mrr": 1.0,
+        "below_bar": 0.1
+       },
+       "category_browse": {
+        "p10": 0.5,
+        "ndcg10": 0.7422949633279505,
+        "mrr": 0.5,
+        "below_bar": 0.2
+       },
+       "resume_keywords": {
+        "p10": 0.6,
+        "ndcg10": 0.8360628954283171,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.1925,
+        "ndcg10": 0.4115644458166291,
+        "mrr": 0.3787073086227498,
+        "below_bar": 0.6315
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Junior бэкенд-разработчик",
+      "specialization": "backend",
+      "level": "junior",
+      "pool": 70,
+      "ranked_by_platform": 60,
+      "main_category": 25,
+      "relevant": 14,
+      "spearman_score_vs_truth": 0.593058798292728,
+      "metrics": {
+       "platform": {
+        "p10": 0.6,
+        "ndcg10": 0.9025380114159366,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.6,
+        "ndcg10": 0.9027195414814431,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.4,
+        "ndcg10": 0.894412828685844,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.6,
+        "ndcg10": 0.7593655125827343,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.8,
+        "ndcg10": 0.8888405441655406,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.216,
+        "ndcg10": 0.7327150538627925,
+        "mrr": 0.4556016686486888,
+        "below_bar": 0.0
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Middle бэкенд-разработчик",
+      "specialization": "backend",
+      "level": "middle",
+      "pool": 70,
+      "ranked_by_platform": 70,
+      "main_category": 35,
+      "relevant": 14,
+      "spearman_score_vs_truth": 0.6573060739125977,
+      "metrics": {
+       "platform": {
+        "p10": 0.7,
+        "ndcg10": 0.9518074080627456,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.7,
+        "ndcg10": 0.9417159726111972,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.4,
+        "ndcg10": 0.8588785610807872,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.3,
+        "ndcg10": 0.7672039130719416,
+        "mrr": 0.3333333333333333,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.5,
+        "ndcg10": 0.896742078046052,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.1985,
+        "ndcg10": 0.6356848640422871,
+        "mrr": 0.412169170218588,
+        "below_bar": 0.137
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Senior бэкенд-разработчик",
+      "specialization": "backend",
+      "level": "senior",
+      "pool": 70,
+      "ranked_by_platform": 52,
+      "main_category": 12,
+      "relevant": 14,
+      "spearman_score_vs_truth": 0.8287226806163945,
+      "metrics": {
+       "platform": {
+        "p10": 1.0,
+        "ndcg10": 0.9645797184731586,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.6,
+        "ndcg10": 0.8222788754103642,
+        "mrr": 1.0,
+        "below_bar": 0.2
+       },
+       "platform_score_only": {
+        "p10": 1.0,
+        "ndcg10": 0.9193669684046543,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.6,
+        "ndcg10": 0.7343055311919724,
+        "mrr": 1.0,
+        "below_bar": 0.3
+       },
+       "resume_keywords": {
+        "p10": 0.5,
+        "ndcg10": 0.8217336194231591,
+        "mrr": 1.0,
+        "below_bar": 0.1
+       },
+       "random": {
+        "p10": 0.20650000000000002,
+        "ndcg10": 0.4726432498938128,
+        "mrr": 0.41225270745336534,
+        "below_bar": 0.5685
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Junior фронтенд-разработчик",
+      "specialization": "frontend",
+      "level": "junior",
+      "pool": 72,
+      "ranked_by_platform": 59,
+      "main_category": 34,
+      "relevant": 14,
+      "spearman_score_vs_truth": 0.6795932087416364,
+      "metrics": {
+       "platform": {
+        "p10": 0.5,
+        "ndcg10": 0.9194931124859812,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.5,
+        "ndcg10": 0.9266846003624747,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.3,
+        "ndcg10": 0.8935768761789786,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.2,
+        "ndcg10": 0.7441110364489297,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.4,
+        "ndcg10": 0.841582894505871,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.1835,
+        "ndcg10": 0.7596327233667752,
+        "mrr": 0.4162597900465547,
+        "below_bar": 0.0
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Middle фронтенд-разработчик",
+      "specialization": "frontend",
+      "level": "middle",
+      "pool": 72,
+      "ranked_by_platform": 72,
+      "main_category": 25,
+      "relevant": 14,
+      "spearman_score_vs_truth": 0.6682691535553079,
+      "metrics": {
+       "platform": {
+        "p10": 0.8,
+        "ndcg10": 0.9718923499635433,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.9,
+        "ndcg10": 0.9912829730356569,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.7,
+        "ndcg10": 0.9197550680001104,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.4,
+        "ndcg10": 0.8239655366917734,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.7,
+        "ndcg10": 0.8784225696090612,
+        "mrr": 1.0,
+        "below_bar": 0.1
+       },
+       "random": {
+        "p10": 0.1995,
+        "ndcg10": 0.6014714546139367,
+        "mrr": 0.38773432041814393,
+        "below_bar": 0.249
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Senior фронтенд-разработчик",
+      "specialization": "frontend",
+      "level": "senior",
+      "pool": 72,
+      "ranked_by_platform": 45,
+      "main_category": 13,
+      "relevant": 14,
+      "spearman_score_vs_truth": 0.8606627596251692,
+      "metrics": {
+       "platform": {
+        "p10": 0.9,
+        "ndcg10": 0.9741825222055605,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.9,
+        "ndcg10": 0.9737193572958821,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.9,
+        "ndcg10": 0.910749759648018,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.7,
+        "ndcg10": 0.7997835770622239,
+        "mrr": 1.0,
+        "below_bar": 0.1
+       },
+       "resume_keywords": {
+        "p10": 0.5,
+        "ndcg10": 0.7501236176427277,
+        "mrr": 0.3333333333333333,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.1845,
+        "ndcg10": 0.45281626647188966,
+        "mrr": 0.38986059517967414,
+        "below_bar": 0.5285
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Junior QA-инженер",
+      "specialization": "qa",
+      "level": "junior",
+      "pool": 67,
+      "ranked_by_platform": 60,
+      "main_category": 34,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.7200633541967343,
+      "metrics": {
+       "platform": {
+        "p10": 0.8,
+        "ndcg10": 0.9498314260993296,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.8,
+        "ndcg10": 0.947737007419846,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.8,
+        "ndcg10": 0.9452416683961073,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.4,
+        "ndcg10": 0.7785565794777686,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.6,
+        "ndcg10": 0.8051064743735006,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.202,
+        "ndcg10": 0.7294443864593779,
+        "mrr": 0.41141409226420667,
+        "below_bar": 0.0
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Middle QA-инженер",
+      "specialization": "qa",
+      "level": "middle",
+      "pool": 67,
+      "ranked_by_platform": 67,
+      "main_category": 26,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.5265405508472661,
+      "metrics": {
+       "platform": {
+        "p10": 0.8,
+        "ndcg10": 0.9441478306878577,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.7,
+        "ndcg10": 0.930373342656513,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.5,
+        "ndcg10": 0.8460332809859552,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.6,
+        "ndcg10": 0.8570801321969042,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.6,
+        "ndcg10": 0.803319419825963,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.186,
+        "ndcg10": 0.6324238662005256,
+        "mrr": 0.4279544177228001,
+        "below_bar": 0.23750000000000002
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Senior QA-инженер",
+      "specialization": "qa",
+      "level": "senior",
+      "pool": 67,
+      "ranked_by_platform": 44,
+      "main_category": 7,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.9030621239617586,
+      "metrics": {
+       "platform": {
+        "p10": 0.9,
+        "ndcg10": 0.9241043143154056,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.9,
+        "ndcg10": 0.9261697108586074,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.8,
+        "ndcg10": 0.9348966492478947,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.7,
+        "ndcg10": 0.7791180177581405,
+        "mrr": 1.0,
+        "below_bar": 0.3
+       },
+       "resume_keywords": {
+        "p10": 0.9,
+        "ndcg10": 0.8879652519815793,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.195,
+        "ndcg10": 0.39723613859729284,
+        "mrr": 0.3956258719366188,
+        "below_bar": 0.624
+       }
+      }
+     }
+    ],
+    "spearman_mean": 0.7231689877647239,
+    "stack_inflation": {
+     "declared_counts": {
+      "inflated_in_top10": 0.20666666666666667,
+      "p10": 0.76
+     },
+     "platform": {
+      "inflated_in_top10": 0.20666666666666667,
+      "p10": 0.7533333333333333
+     },
+     "inflated_share_in_pool": 0.2
+    }
+   }
+  },
+  {
+   "categorization": {
+    "reference_points": {
+     "junior": {
+      "typical": 0.68,
+      "lower": 0.25
+     },
+     "middle": {
+      "typical": 0.7,
+      "lower": 0.326
+     },
+     "senior": {
+      "typical": 0.8075,
+      "lower": 0.3425
+     }
+    },
+    "test": {
+     "total": 240,
+     "graded": 196,
+     "c_index": 0.9432495465146411,
+     "overstated": 0.0,
+     "understated": 0.0663265306122449,
+     "missed": 0.03333333333333333
+    },
+    "self_declared": {
+     "total": 240,
+     "graded": 240,
+     "c_index": 0.7970991393050685,
+     "overstated": 0.0875,
+     "understated": 0.04583333333333333,
+     "missed": 0.0
+    },
+    "ability_by_category": {
+     "middle": {
+      "n": 85,
+      "mean": 0.7223832598039216,
+      "min": 0.5985266666666667,
+      "max": 0.92355625
+     },
+     "junior": {
+      "n": 84,
+      "mean": 0.5114708928571429,
+      "min": 0.29544,
+      "max": 0.7776875
+     },
+     "–": {
+      "n": 44,
+      "mean": 0.37041107954545455,
+      "min": 0.22596875,
+      "max": 0.6825375
+     },
+     "senior": {
+      "n": 27,
+      "mean": 0.8852759104938271,
+      "min": 0.8289125,
+      "max": 0.94618125
+     }
+    },
+    "label_matrix": {
+     "junior": {
+      "junior": 49,
+      "middle": 8,
+      "senior": 0,
+      "–": 31
+     },
+     "middle": {
+      "junior": 32,
+      "middle": 60,
+      "senior": 0,
+      "–": 11
+     },
+     "senior": {
+      "junior": 3,
+      "middle": 17,
+      "senior": 27,
+      "–": 2
+     }
+    }
+   },
+   "matching": {
+    "summary": {
+     "platform": {
+      "p10": 0.72,
+      "ndcg10": 0.9285879714263715,
+      "mrr": 0.9666666666666667,
+      "below_bar": 0.0
+     },
+     "platform_no_fsp": {
+      "p10": 0.7466666666666667,
+      "ndcg10": 0.9318196451689962,
+      "mrr": 1.0,
+      "below_bar": 0.0
+     },
+     "platform_score_only": {
+      "p10": 0.5933333333333333,
+      "ndcg10": 0.8931771999962073,
+      "mrr": 0.9333333333333333,
+      "below_bar": 0.02666666666666667
+     },
+     "category_browse": {
+      "p10": 0.4666666666666667,
+      "ndcg10": 0.7614163286706548,
+      "mrr": 0.6361111111111111,
+      "below_bar": 0.07333333333333333
+     },
+     "resume_keywords": {
+      "p10": 0.5533333333333333,
+      "ndcg10": 0.8193552179573625,
+      "mrr": 0.8222222222222222,
+      "below_bar": 0.06666666666666667
+     },
+     "random": {
+      "p10": 0.1947,
+      "ndcg10": 0.600347133380842,
+      "mrr": 0.3997988260613668,
+      "below_bar": 0.25366666666666665
+     }
+    },
+    "needs": [
+     {
+      "kind": "vacancy",
+      "title": "Бэкенд-разработчик (Python) в платёжный сервис",
+      "specialization": "backend",
+      "level": "middle",
+      "pool": 68,
+      "ranked_by_platform": 68,
+      "main_category": 22,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.6491129293629251,
+      "metrics": {
+       "platform": {
+        "p10": 0.6,
+        "ndcg10": 0.9462578638241521,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.6,
+        "ndcg10": 0.9411502138597644,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.3,
+        "ndcg10": 0.8705266405387763,
+        "mrr": 1.0,
+        "below_bar": 0.2
+       },
+       "category_browse": {
+        "p10": 0.5,
+        "ndcg10": 0.7619315593101749,
+        "mrr": 1.0,
+        "below_bar": 0.2
+       },
+       "resume_keywords": {
+        "p10": 0.2,
+        "ndcg10": 0.6360004620479864,
+        "mrr": 0.3333333333333333,
+        "below_bar": 0.2
+       },
+       "random": {
+        "p10": 0.187,
+        "ndcg10": 0.6424590114351127,
+        "mrr": 0.39503853981957526,
+        "below_bar": 0.199
+       }
+      }
+     },
+     {
+      "kind": "vacancy",
+      "title": "Senior Java-разработчик платформы данных",
+      "specialization": "backend",
+      "level": "senior",
+      "pool": 68,
+      "ranked_by_platform": 44,
+      "main_category": 14,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.8879492600422833,
+      "metrics": {
+       "platform": {
+        "p10": 1.0,
+        "ndcg10": 0.9620520721972862,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 1.0,
+        "ndcg10": 0.9659294075607444,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.8,
+        "ndcg10": 0.9232802588618296,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.7,
+        "ndcg10": 0.8308548652957115,
+        "mrr": 1.0,
+        "below_bar": 0.2
+       },
+       "resume_keywords": {
+        "p10": 0.7,
+        "ndcg10": 0.8427445355115092,
+        "mrr": 1.0,
+        "below_bar": 0.2
+       },
+       "random": {
+        "p10": 0.196,
+        "ndcg10": 0.4278047865101332,
+        "mrr": 0.4035506388316743,
+        "below_bar": 0.6065
+       }
+      }
+     },
+     {
+      "kind": "vacancy",
+      "title": "Junior фронтенд-разработчик (React)",
+      "specialization": "frontend",
+      "level": "junior",
+      "pool": 71,
+      "ranked_by_platform": 60,
+      "main_category": 28,
+      "relevant": 14,
+      "spearman_score_vs_truth": 0.5583883306283584,
+      "metrics": {
+       "platform": {
+        "p10": 0.6,
+        "ndcg10": 0.8702949986983762,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.7,
+        "ndcg10": 0.9076460873880263,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.6,
+        "ndcg10": 0.8752244945270431,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.4,
+        "ndcg10": 0.7439374382746405,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.5,
+        "ndcg10": 0.8595522655636622,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.1995,
+        "ndcg10": 0.7006671365378538,
+        "mrr": 0.4162968486117463,
+        "below_bar": 0.0
+       }
+      }
+     },
+     {
+      "kind": "vacancy",
+      "title": "Фронтенд-разработчик (React, TypeScript) в e-commerce",
+      "specialization": "frontend",
+      "level": "middle",
+      "pool": 71,
+      "ranked_by_platform": 71,
+      "main_category": 32,
+      "relevant": 14,
+      "spearman_score_vs_truth": 0.6458125487969371,
+      "metrics": {
+       "platform": {
+        "p10": 0.7,
+        "ndcg10": 0.9180303413429368,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.8,
+        "ndcg10": 0.9316165727798478,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.6,
+        "ndcg10": 0.8693314181416021,
+        "mrr": 1.0,
+        "below_bar": 0.1
+       },
+       "category_browse": {
+        "p10": 0.2,
+        "ndcg10": 0.7369098111739589,
+        "mrr": 0.16666666666666666,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.6,
+        "ndcg10": 0.7767587485997266,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.1885,
+        "ndcg10": 0.6250587065979648,
+        "mrr": 0.3910646962611729,
+        "below_bar": 0.1405
+       }
+      }
+     },
+     {
+      "kind": "vacancy",
+      "title": "QA-инженер (ручное тестирование и API)",
+      "specialization": "qa",
+      "level": "junior",
+      "pool": 66,
+      "ranked_by_platform": 55,
+      "main_category": 33,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.5719542555762115,
+      "metrics": {
+       "platform": {
+        "p10": 0.7,
+        "ndcg10": 0.9542785104884046,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.8,
+        "ndcg10": 0.9694926039887928,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.7,
+        "ndcg10": 0.9651495129015125,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.5,
+        "ndcg10": 0.7638310811644231,
+        "mrr": 0.3333333333333333,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.6,
+        "ndcg10": 0.8829065095255618,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.194,
+        "ndcg10": 0.7267165250855953,
+        "mrr": 0.41060815573315573,
+        "below_bar": 0.0
+       }
+      }
+     },
+     {
+      "kind": "vacancy",
+      "title": "Senior QA Automation (Python, Playwright)",
+      "specialization": "qa",
+      "level": "senior",
+      "pool": 66,
+      "ranked_by_platform": 45,
+      "main_category": 13,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.8534536715325283,
+      "metrics": {
+       "platform": {
+        "p10": 0.7,
+        "ndcg10": 0.9628268457699679,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.8,
+        "ndcg10": 0.960014577839412,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.7,
+        "ndcg10": 0.842873602726997,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.7,
+        "ndcg10": 0.8337545258371718,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.6,
+        "ndcg10": 0.8650861996688232,
+        "mrr": 1.0,
+        "below_bar": 0.1
+       },
+       "random": {
+        "p10": 0.184,
+        "ndcg10": 0.4193244306257727,
+        "mrr": 0.35443602500440735,
+        "below_bar": 0.573
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Junior бэкенд-разработчик",
+      "specialization": "backend",
+      "level": "junior",
+      "pool": 68,
+      "ranked_by_platform": 55,
+      "main_category": 33,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.7045007695293117,
+      "metrics": {
+       "platform": {
+        "p10": 0.6,
+        "ndcg10": 0.901080150748467,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.6,
+        "ndcg10": 0.8934939128927761,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.6,
+        "ndcg10": 0.8983916200950838,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.3,
+        "ndcg10": 0.7974890480360808,
+        "mrr": 0.25,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.4,
+        "ndcg10": 0.8358102498736901,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.183,
+        "ndcg10": 0.7422033891519215,
+        "mrr": 0.4000850727445929,
+        "below_bar": 0.0
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Middle бэкенд-разработчик",
+      "specialization": "backend",
+      "level": "middle",
+      "pool": 68,
+      "ranked_by_platform": 68,
+      "main_category": 22,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.6380485208299833,
+      "metrics": {
+       "platform": {
+        "p10": 0.7,
+        "ndcg10": 0.944762545366757,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.7,
+        "ndcg10": 0.9504030014057993,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.5,
+        "ndcg10": 0.9243799021555462,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.4,
+        "ndcg10": 0.7339654754042838,
+        "mrr": 1.0,
+        "below_bar": 0.1
+       },
+       "resume_keywords": {
+        "p10": 0.4,
+        "ndcg10": 0.6730922489336855,
+        "mrr": 0.5,
+        "below_bar": 0.2
+       },
+       "random": {
+        "p10": 0.179,
+        "ndcg10": 0.6533038464908054,
+        "mrr": 0.4091772340146953,
+        "below_bar": 0.1915
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Senior бэкенд-разработчик",
+      "specialization": "backend",
+      "level": "senior",
+      "pool": 68,
+      "ranked_by_platform": 44,
+      "main_category": 14,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.8739957716701903,
+      "metrics": {
+       "platform": {
+        "p10": 0.7,
+        "ndcg10": 0.9202495929654464,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.7,
+        "ndcg10": 0.9232024769189157,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.8,
+        "ndcg10": 0.9189525962562622,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.6,
+        "ndcg10": 0.7855764910608355,
+        "mrr": 1.0,
+        "below_bar": 0.2
+       },
+       "resume_keywords": {
+        "p10": 0.6,
+        "ndcg10": 0.8186554883644631,
+        "mrr": 1.0,
+        "below_bar": 0.1
+       },
+       "random": {
+        "p10": 0.1915,
+        "ndcg10": 0.4210630854603165,
+        "mrr": 0.3690960126829692,
+        "below_bar": 0.62
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Junior фронтенд-разработчик",
+      "specialization": "frontend",
+      "level": "junior",
+      "pool": 71,
+      "ranked_by_platform": 60,
+      "main_category": 28,
+      "relevant": 14,
+      "spearman_score_vs_truth": 0.48183397129115374,
+      "metrics": {
+       "platform": {
+        "p10": 0.6,
+        "ndcg10": 0.8408046658730799,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.8,
+        "ndcg10": 0.8980251181875881,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.4,
+        "ndcg10": 0.8331490751703299,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.5,
+        "ndcg10": 0.7475265341928263,
+        "mrr": 0.3333333333333333,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.7,
+        "ndcg10": 0.8464227074748454,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.211,
+        "ndcg10": 0.7323361267563679,
+        "mrr": 0.391009281868802,
+        "below_bar": 0.0
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Middle фронтенд-разработчик",
+      "specialization": "frontend",
+      "level": "middle",
+      "pool": 71,
+      "ranked_by_platform": 71,
+      "main_category": 32,
+      "relevant": 14,
+      "spearman_score_vs_truth": 0.6928074987310023,
+      "metrics": {
+       "platform": {
+        "p10": 0.7,
+        "ndcg10": 0.92725168407356,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.7,
+        "ndcg10": 0.9413660638203073,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.7,
+        "ndcg10": 0.9074878668132256,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.1,
+        "ndcg10": 0.5888987237749671,
+        "mrr": 0.125,
+        "below_bar": 0.1
+       },
+       "resume_keywords": {
+        "p10": 0.3,
+        "ndcg10": 0.7832139073651917,
+        "mrr": 1.0,
+        "below_bar": 0.1
+       },
+       "random": {
+        "p10": 0.2,
+        "ndcg10": 0.6462995864687809,
+        "mrr": 0.3928420439854263,
+        "below_bar": 0.1325
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Senior фронтенд-разработчик",
+      "specialization": "frontend",
+      "level": "senior",
+      "pool": 71,
+      "ranked_by_platform": 53,
+      "main_category": 12,
+      "relevant": 14,
+      "spearman_score_vs_truth": 0.7663589088194539,
+      "metrics": {
+       "platform": {
+        "p10": 0.8,
+        "ndcg10": 0.909543265949703,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.7,
+        "ndcg10": 0.8580901453866657,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.5,
+        "ndcg10": 0.8368139905281617,
+        "mrr": 1.0,
+        "below_bar": 0.1
+       },
+       "category_browse": {
+        "p10": 0.5,
+        "ndcg10": 0.7277483359890535,
+        "mrr": 1.0,
+        "below_bar": 0.2
+       },
+       "resume_keywords": {
+        "p10": 0.7,
+        "ndcg10": 0.8523808394738362,
+        "mrr": 1.0,
+        "below_bar": 0.1
+       },
+       "random": {
+        "p10": 0.1955,
+        "ndcg10": 0.4550116471698205,
+        "mrr": 0.4305474867195068,
+        "below_bar": 0.55
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Junior QA-инженер",
+      "specialization": "qa",
+      "level": "junior",
+      "pool": 66,
+      "ranked_by_platform": 55,
+      "main_category": 33,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.599094468471065,
+      "metrics": {
+       "platform": {
+        "p10": 0.7,
+        "ndcg10": 0.9507644057307595,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.7,
+        "ndcg10": 0.9467580177404192,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.6,
+        "ndcg10": 0.9487525089676452,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.4,
+        "ndcg10": 0.7538753092016809,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.6,
+        "ndcg10": 0.8517204041599482,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.198,
+        "ndcg10": 0.7229180003375006,
+        "mrr": 0.41464674228420356,
+        "below_bar": 0.0
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Middle QA-инженер",
+      "specialization": "qa",
+      "level": "middle",
+      "pool": 66,
+      "ranked_by_platform": 66,
+      "main_category": 22,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.7956538077885912,
+      "metrics": {
+       "platform": {
+        "p10": 0.7,
+        "ndcg10": 0.9509651015503209,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.7,
+        "ndcg10": 0.9510759879132415,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.5,
+        "ndcg10": 0.928158853740051,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.5,
+        "ndcg10": 0.837258373653933,
+        "mrr": 0.3333333333333333,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.6,
+        "ndcg10": 0.8759745027330433,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.20800000000000002,
+        "ndcg10": 0.6578551223549987,
+        "mrr": 0.39621695379783617,
+        "below_bar": 0.2475
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Senior QA-инженер",
+      "specialization": "qa",
+      "level": "senior",
+      "pool": 66,
+      "ranked_by_platform": 45,
+      "main_category": 13,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.8332290264410203,
+      "metrics": {
+       "platform": {
+        "p10": 1.0,
+        "ndcg10": 0.9696575268163548,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.9,
+        "ndcg10": 0.9390304898526416,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.6,
+        "ndcg10": 0.8551856585190425,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.7,
+        "ndcg10": 0.7776873576900807,
+        "mrr": 1.0,
+        "below_bar": 0.1
+       },
+       "resume_keywords": {
+        "p10": 0.8,
+        "ndcg10": 0.8900092000644645,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.20550000000000002,
+        "ndcg10": 0.43218559972968457,
+        "mrr": 0.4223666585607375,
+        "below_bar": 0.5445
+       }
+      }
+     }
+    ],
+    "spearman_mean": 0.7034795826340676,
+    "stack_inflation": {
+     "declared_counts": {
+      "inflated_in_top10": 0.29333333333333333,
+      "p10": 0.72
+     },
+     "platform": {
+      "inflated_in_top10": 0.2733333333333333,
+      "p10": 0.7133333333333333
+     },
+     "inflated_share_in_pool": 0.2
+    }
+   }
+  },
+  {
+   "categorization": {
+    "reference_points": {
+     "junior": {
+      "typical": 0.68,
+      "lower": 0.25
+     },
+     "middle": {
+      "typical": 0.7,
+      "lower": 0.326
+     },
+     "senior": {
+      "typical": 0.8075,
+      "lower": 0.3425
+     }
+    },
+    "test": {
+     "total": 240,
+     "graded": 202,
+     "c_index": 0.9696589769307924,
+     "overstated": 0.0,
+     "understated": 0.0297029702970297,
+     "missed": 0.03333333333333333
+    },
+    "self_declared": {
+     "total": 240,
+     "graded": 240,
+     "c_index": 0.7668721352931879,
+     "overstated": 0.11666666666666667,
+     "understated": 0.029166666666666667,
+     "missed": 0.0
+    },
+    "ability_by_category": {
+     "senior": {
+      "n": 23,
+      "mean": 0.8916851268115942,
+      "min": 0.8427375,
+      "max": 0.9459666666666666
+     },
+     "middle": {
+      "n": 78,
+      "mean": 0.7263227670940171,
+      "min": 0.56744375,
+      "max": 0.9308933333333334
+     },
+     "junior": {
+      "n": 101,
+      "mean": 0.48171290429042907,
+      "min": 0.25814375,
+      "max": 0.7261533333333333
+     },
+     "–": {
+      "n": 38,
+      "mean": 0.3659890131578947,
+      "min": 0.233575,
+      "max": 0.6405625
+     }
+    },
+    "label_matrix": {
+     "junior": {
+      "junior": 67,
+      "middle": 11,
+      "senior": 0,
+      "–": 25
+     },
+     "middle": {
+      "junior": 32,
+      "middle": 44,
+      "senior": 0,
+      "–": 12
+     },
+     "senior": {
+      "junior": 2,
+      "middle": 23,
+      "senior": 23,
+      "–": 1
+     }
+    }
+   },
+   "matching": {
+    "summary": {
+     "platform": {
+      "p10": 0.8133333333333334,
+      "ndcg10": 0.9460386793166918,
+      "mrr": 1.0,
+      "below_bar": 0.0
+     },
+     "platform_no_fsp": {
+      "p10": 0.7533333333333333,
+      "ndcg10": 0.9245880713679332,
+      "mrr": 1.0,
+      "below_bar": 0.06
+     },
+     "platform_score_only": {
+      "p10": 0.7266666666666667,
+      "ndcg10": 0.9163661647080551,
+      "mrr": 1.0,
+      "below_bar": 0.0
+     },
+     "category_browse": {
+      "p10": 0.46,
+      "ndcg10": 0.7579871253085938,
+      "mrr": 0.7055555555555556,
+      "below_bar": 0.12
+     },
+     "resume_keywords": {
+      "p10": 0.52,
+      "ndcg10": 0.8108269121022182,
+      "mrr": 0.8206349206349206,
+      "below_bar": 0.07333333333333333
+     },
+     "random": {
+      "p10": 0.19333333333333333,
+      "ndcg10": 0.5820921261489926,
+      "mrr": 0.38810969767580994,
+      "below_bar": 0.2790666666666667
+     }
+    },
+    "needs": [
+     {
+      "kind": "vacancy",
+      "title": "Бэкенд-разработчик (Python) в платёжный сервис",
+      "specialization": "backend",
+      "level": "middle",
+      "pool": 66,
+      "ranked_by_platform": 66,
+      "main_category": 19,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.6859630091528662,
+      "metrics": {
+       "platform": {
+        "p10": 0.8,
+        "ndcg10": 0.9683775084507215,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.8,
+        "ndcg10": 0.971441521950076,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.5,
+        "ndcg10": 0.8930150096943638,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.6,
+        "ndcg10": 0.7986309235924541,
+        "mrr": 0.3333333333333333,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.2,
+        "ndcg10": 0.6449685690453144,
+        "mrr": 0.14285714285714285,
+        "below_bar": 0.1
+       },
+       "random": {
+        "p10": 0.199,
+        "ndcg10": 0.6348189761691221,
+        "mrr": 0.3804870721953522,
+        "below_bar": 0.2315
+       }
+      }
+     },
+     {
+      "kind": "vacancy",
+      "title": "Senior Java-разработчик платформы данных",
+      "specialization": "backend",
+      "level": "senior",
+      "pool": 66,
+      "ranked_by_platform": 43,
+      "main_category": 11,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.9024463908184839,
+      "metrics": {
+       "platform": {
+        "p10": 1.0,
+        "ndcg10": 0.9958761945418513,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.9,
+        "ndcg10": 0.9544753511510359,
+        "mrr": 1.0,
+        "below_bar": 0.1
+       },
+       "platform_score_only": {
+        "p10": 1.0,
+        "ndcg10": 0.9742999716297434,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.8,
+        "ndcg10": 0.8604157469944453,
+        "mrr": 1.0,
+        "below_bar": 0.2
+       },
+       "resume_keywords": {
+        "p10": 0.7,
+        "ndcg10": 0.8161874524445074,
+        "mrr": 0.5,
+        "below_bar": 0.1
+       },
+       "random": {
+        "p10": 0.193,
+        "ndcg10": 0.3976611889972886,
+        "mrr": 0.3774403265594055,
+        "below_bar": 0.658
+       }
+      }
+     },
+     {
+      "kind": "vacancy",
+      "title": "Junior фронтенд-разработчик (React)",
+      "specialization": "frontend",
+      "level": "junior",
+      "pool": 64,
+      "ranked_by_platform": 53,
+      "main_category": 30,
+      "relevant": 12,
+      "spearman_score_vs_truth": 0.7186372354640131,
+      "metrics": {
+       "platform": {
+        "p10": 0.7,
+        "ndcg10": 0.8693331068813536,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.7,
+        "ndcg10": 0.8809449997698207,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.7,
+        "ndcg10": 0.8769392464310539,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.3,
+        "ndcg10": 0.7073147748217321,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.5,
+        "ndcg10": 0.8236337752481651,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.1865,
+        "ndcg10": 0.6676871478214678,
+        "mrr": 0.3846211173086173,
+        "below_bar": 0.0
+       }
+      }
+     },
+     {
+      "kind": "vacancy",
+      "title": "Фронтенд-разработчик (React, TypeScript) в e-commerce",
+      "specialization": "frontend",
+      "level": "middle",
+      "pool": 64,
+      "ranked_by_platform": 64,
+      "main_category": 23,
+      "relevant": 12,
+      "spearman_score_vs_truth": 0.7075024613223491,
+      "metrics": {
+       "platform": {
+        "p10": 0.9,
+        "ndcg10": 0.9683358410274941,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.9,
+        "ndcg10": 0.9688982140042115,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.8,
+        "ndcg10": 0.925152830802628,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.4,
+        "ndcg10": 0.8447382574159389,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.4,
+        "ndcg10": 0.7516351250989126,
+        "mrr": 1.0,
+        "below_bar": 0.1
+       },
+       "random": {
+        "p10": 0.191,
+        "ndcg10": 0.6236153396365005,
+        "mrr": 0.3736290306915307,
+        "below_bar": 0.214
+       }
+      }
+     },
+     {
+      "kind": "vacancy",
+      "title": "QA-инженер (ручное тестирование и API)",
+      "specialization": "qa",
+      "level": "junior",
+      "pool": 67,
+      "ranked_by_platform": 60,
+      "main_category": 30,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.6957959379162185,
+      "metrics": {
+       "platform": {
+        "p10": 0.8,
+        "ndcg10": 0.8994133754286171,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.8,
+        "ndcg10": 0.9018458023280606,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.6,
+        "ndcg10": 0.8764550750428095,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.4,
+        "ndcg10": 0.7192738247470438,
+        "mrr": 0.25,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.8,
+        "ndcg10": 0.9129520514147198,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.197,
+        "ndcg10": 0.6894130781123353,
+        "mrr": 0.3807444242129597,
+        "below_bar": 0.0
+       }
+      }
+     },
+     {
+      "kind": "vacancy",
+      "title": "Senior QA Automation (Python, Playwright)",
+      "specialization": "qa",
+      "level": "senior",
+      "pool": 67,
+      "ranked_by_platform": 45,
+      "main_category": 7,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.8922853962311155,
+      "metrics": {
+       "platform": {
+        "p10": 0.9,
+        "ndcg10": 0.9812542461325128,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.7,
+        "ndcg10": 0.8743695275286407,
+        "mrr": 1.0,
+        "below_bar": 0.3
+       },
+       "platform_score_only": {
+        "p10": 0.9,
+        "ndcg10": 0.9619866965487505,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.4,
+        "ndcg10": 0.7144186730902564,
+        "mrr": 1.0,
+        "below_bar": 0.5
+       },
+       "resume_keywords": {
+        "p10": 0.4,
+        "ndcg10": 0.817589197008683,
+        "mrr": 1.0,
+        "below_bar": 0.2
+       },
+       "random": {
+        "p10": 0.20700000000000002,
+        "ndcg10": 0.40773267365555593,
+        "mrr": 0.41584547111385345,
+        "below_bar": 0.5995
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Junior бэкенд-разработчик",
+      "specialization": "backend",
+      "level": "junior",
+      "pool": 66,
+      "ranked_by_platform": 55,
+      "main_category": 36,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.6354830006908023,
+      "metrics": {
+       "platform": {
+        "p10": 0.6,
+        "ndcg10": 0.9045665526551547,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.6,
+        "ndcg10": 0.919340662711624,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.7,
+        "ndcg10": 0.9407025414025579,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.3,
+        "ndcg10": 0.7181206777431535,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.4,
+        "ndcg10": 0.8700417044386815,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.189,
+        "ndcg10": 0.7419086525151447,
+        "mrr": 0.38868251194658393,
+        "below_bar": 0.0
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Middle бэкенд-разработчик",
+      "specialization": "backend",
+      "level": "middle",
+      "pool": 66,
+      "ranked_by_platform": 66,
+      "main_category": 19,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.668350679737789,
+      "metrics": {
+       "platform": {
+        "p10": 0.7,
+        "ndcg10": 0.9445964026296094,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.7,
+        "ndcg10": 0.9441865681033885,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.5,
+        "ndcg10": 0.9180339977071992,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.5,
+        "ndcg10": 0.8338787735382485,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.3,
+        "ndcg10": 0.6968717285074684,
+        "mrr": 0.3333333333333333,
+        "below_bar": 0.1
+       },
+       "random": {
+        "p10": 0.1875,
+        "ndcg10": 0.6222599269062188,
+        "mrr": 0.38108514269098637,
+        "below_bar": 0.23800000000000002
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Senior бэкенд-разработчик",
+      "specialization": "backend",
+      "level": "senior",
+      "pool": 66,
+      "ranked_by_platform": 43,
+      "main_category": 11,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.8961715648898037,
+      "metrics": {
+       "platform": {
+        "p10": 0.9,
+        "ndcg10": 0.9788679754119399,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.8,
+        "ndcg10": 0.9468519463269544,
+        "mrr": 1.0,
+        "below_bar": 0.1
+       },
+       "platform_score_only": {
+        "p10": 0.9,
+        "ndcg10": 0.9505708154093567,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.7,
+        "ndcg10": 0.8889048101631414,
+        "mrr": 1.0,
+        "below_bar": 0.2
+       },
+       "resume_keywords": {
+        "p10": 0.7,
+        "ndcg10": 0.7588002496520758,
+        "mrr": 1.0,
+        "below_bar": 0.2
+       },
+       "random": {
+        "p10": 0.195,
+        "ndcg10": 0.4131972201409427,
+        "mrr": 0.39774312237470133,
+        "below_bar": 0.6515
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Junior фронтенд-разработчик",
+      "specialization": "frontend",
+      "level": "junior",
+      "pool": 64,
+      "ranked_by_platform": 53,
+      "main_category": 30,
+      "relevant": 12,
+      "spearman_score_vs_truth": 0.7173470429407384,
+      "metrics": {
+       "platform": {
+        "p10": 0.6,
+        "ndcg10": 0.9096668912105812,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.6,
+        "ndcg10": 0.9165841834097613,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.6,
+        "ndcg10": 0.892377946380639,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.1,
+        "ndcg10": 0.6532353079706015,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.5,
+        "ndcg10": 0.8572552262220389,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.1995,
+        "ndcg10": 0.7016634229855919,
+        "mrr": 0.346378591086742,
+        "below_bar": 0.0
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Middle фронтенд-разработчик",
+      "specialization": "frontend",
+      "level": "middle",
+      "pool": 64,
+      "ranked_by_platform": 64,
+      "main_category": 23,
+      "relevant": 12,
+      "spearman_score_vs_truth": 0.7403209944885082,
+      "metrics": {
+       "platform": {
+        "p10": 0.9,
+        "ndcg10": 0.9624858426195736,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.9,
+        "ndcg10": 0.9657698583647063,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.7,
+        "ndcg10": 0.8937594419888146,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.6,
+        "ndcg10": 0.8127138201816985,
+        "mrr": 1.0,
+        "below_bar": 0.1
+       },
+       "resume_keywords": {
+        "p10": 0.6,
+        "ndcg10": 0.7562291117145835,
+        "mrr": 0.3333333333333333,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.189,
+        "ndcg10": 0.630914790531551,
+        "mrr": 0.4165846421090986,
+        "below_bar": 0.214
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Senior фронтенд-разработчик",
+      "specialization": "frontend",
+      "level": "senior",
+      "pool": 64,
+      "ranked_by_platform": 46,
+      "main_category": 12,
+      "relevant": 12,
+      "spearman_score_vs_truth": 0.8402615040034294,
+      "metrics": {
+       "platform": {
+        "p10": 0.9,
+        "ndcg10": 0.9568897904506977,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.8,
+        "ndcg10": 0.8959690112068993,
+        "mrr": 1.0,
+        "below_bar": 0.1
+       },
+       "platform_score_only": {
+        "p10": 0.6,
+        "ndcg10": 0.8795223875466452,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.7,
+        "ndcg10": 0.6543123233038826,
+        "mrr": 0.5,
+        "below_bar": 0.3
+       },
+       "resume_keywords": {
+        "p10": 0.8,
+        "ndcg10": 0.91197474128827,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.195,
+        "ndcg10": 0.4426412634328475,
+        "mrr": 0.4087321836660072,
+        "below_bar": 0.641
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Junior QA-инженер",
+      "specialization": "qa",
+      "level": "junior",
+      "pool": 67,
+      "ranked_by_platform": 60,
+      "main_category": 30,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.7209347571430833,
+      "metrics": {
+       "platform": {
+        "p10": 0.8,
+        "ndcg10": 0.9176738569141496,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.7,
+        "ndcg10": 0.9189308388887594,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.7,
+        "ndcg10": 0.8920577344111291,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.3,
+        "ndcg10": 0.8306574364833165,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.5,
+        "ndcg10": 0.9222100527085285,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.192,
+        "ndcg10": 0.7212914243625937,
+        "mrr": 0.4182833252274042,
+        "below_bar": 0.0
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Middle QA-инженер",
+      "specialization": "qa",
+      "level": "middle",
+      "pool": 67,
+      "ranked_by_platform": 67,
+      "main_category": 30,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.6613786712411336,
+      "metrics": {
+       "platform": {
+        "p10": 0.8,
+        "ndcg10": 0.9559841032482178,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.8,
+        "ndcg10": 0.9560292427971381,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.8,
+        "ndcg10": 0.9395532280730152,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.4,
+        "ndcg10": 0.741070381174195,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.4,
+        "ndcg10": 0.7558067041606535,
+        "mrr": 1.0,
+        "below_bar": 0.2
+       },
+       "random": {
+        "p10": 0.19,
+        "ndcg10": 0.6361608120030924,
+        "mrr": 0.3827416513225337,
+        "below_bar": 0.1245
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Senior QA-инженер",
+      "specialization": "qa",
+      "level": "senior",
+      "pool": 67,
+      "ranked_by_platform": 45,
+      "main_category": 7,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.8786191908320593,
+      "metrics": {
+       "platform": {
+        "p10": 0.9,
+        "ndcg10": 0.9772585021479036,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.6,
+        "ndcg10": 0.8531833419779206,
+        "mrr": 1.0,
+        "below_bar": 0.3
+       },
+       "platform_score_only": {
+        "p10": 0.9,
+        "ndcg10": 0.9310655475521198,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.4,
+        "ndcg10": 0.592121148408799,
+        "mrr": 0.5,
+        "below_bar": 0.5
+       },
+       "resume_keywords": {
+        "p10": 0.6,
+        "ndcg10": 0.8662479925806711,
+        "mrr": 1.0,
+        "below_bar": 0.1
+       },
+       "random": {
+        "p10": 0.1895,
+        "ndcg10": 0.40041597496463677,
+        "mrr": 0.36864685263137276,
+        "below_bar": 0.614
+       }
+      }
+     }
+    ],
+    "spearman_mean": 0.7574331891248263,
+    "stack_inflation": {
+     "declared_counts": {
+      "inflated_in_top10": 0.21333333333333335,
+      "p10": 0.8133333333333334
+     },
+     "platform": {
+      "inflated_in_top10": 0.21333333333333335,
+      "p10": 0.8066666666666666
+     },
+     "inflated_share_in_pool": 0.2
+    }
+   }
+  },
+  {
+   "categorization": {
+    "reference_points": {
+     "junior": {
+      "typical": 0.68,
+      "lower": 0.25
+     },
+     "middle": {
+      "typical": 0.7,
+      "lower": 0.326
+     },
+     "senior": {
+      "typical": 0.8075,
+      "lower": 0.3425
+     }
+    },
+    "test": {
+     "total": 240,
+     "graded": 209,
+     "c_index": 0.9478606499883095,
+     "overstated": 0.0,
+     "understated": 0.03349282296650718,
+     "missed": 0.03333333333333333
+    },
+    "self_declared": {
+     "total": 240,
+     "graded": 240,
+     "c_index": 0.7948840165236734,
+     "overstated": 0.1125,
+     "understated": 0.0375,
+     "missed": 0.0
+    },
+    "ability_by_category": {
+     "junior": {
+      "n": 78,
+      "mean": 0.5071391025641026,
+      "min": 0.24944375,
+      "max": 0.8019933333333333
+     },
+     "middle": {
+      "n": 106,
+      "mean": 0.7209254009433962,
+      "min": 0.60428125,
+      "max": 0.90614
+     },
+     "–": {
+      "n": 31,
+      "mean": 0.3789383467741935,
+      "min": 0.2386375,
+      "max": 0.68324375
+     },
+     "senior": {
+      "n": 25,
+      "mean": 0.8942672333333334,
+      "min": 0.8508666666666667,
+      "max": 0.94083125
+     }
+    },
+    "label_matrix": {
+     "junior": {
+      "junior": 48,
+      "middle": 3,
+      "senior": 0,
+      "–": 21
+     },
+     "middle": {
+      "junior": 29,
+      "middle": 72,
+      "senior": 0,
+      "–": 9
+     },
+     "senior": {
+      "junior": 1,
+      "middle": 31,
+      "senior": 25,
+      "–": 1
+     }
+    }
+   },
+   "matching": {
+    "summary": {
+     "platform": {
+      "p10": 0.7266666666666667,
+      "ndcg10": 0.9386715657658848,
+      "mrr": 0.9555555555555556,
+      "below_bar": 0.0
+     },
+     "platform_no_fsp": {
+      "p10": 0.6866666666666666,
+      "ndcg10": 0.9186111988428654,
+      "mrr": 0.9555555555555556,
+      "below_bar": 0.04666666666666667
+     },
+     "platform_score_only": {
+      "p10": 0.6133333333333333,
+      "ndcg10": 0.9102172615385785,
+      "mrr": 0.9666666666666667,
+      "below_bar": 0.02
+     },
+     "category_browse": {
+      "p10": 0.49333333333333335,
+      "ndcg10": 0.7712511643765049,
+      "mrr": 0.6061904761904762,
+      "below_bar": 0.07333333333333333
+     },
+     "resume_keywords": {
+      "p10": 0.52,
+      "ndcg10": 0.8470427921643462,
+      "mrr": 0.8666666666666667,
+      "below_bar": 0.02
+     },
+     "random": {
+      "p10": 0.1868,
+      "ndcg10": 0.6230741072781408,
+      "mrr": 0.38534389957220355,
+      "below_bar": 0.23803333333333335
+     }
+    },
+    "needs": [
+     {
+      "kind": "vacancy",
+      "title": "Бэкенд-разработчик (Python) в платёжный сервис",
+      "specialization": "backend",
+      "level": "middle",
+      "pool": 68,
+      "ranked_by_platform": 68,
+      "main_category": 29,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.7315862807432619,
+      "metrics": {
+       "platform": {
+        "p10": 0.6,
+        "ndcg10": 0.9210867082651323,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.8,
+        "ndcg10": 0.9581210258108315,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.7,
+        "ndcg10": 0.9435315045596829,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.3,
+        "ndcg10": 0.7640740373201271,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.4,
+        "ndcg10": 0.7745589567786745,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.1865,
+        "ndcg10": 0.5965779596435463,
+        "mrr": 0.38578642833344845,
+        "below_bar": 0.20400000000000001
+       }
+      }
+     },
+     {
+      "kind": "vacancy",
+      "title": "Senior Java-разработчик платформы данных",
+      "specialization": "backend",
+      "level": "senior",
+      "pool": 68,
+      "ranked_by_platform": 48,
+      "main_category": 9,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.893339848246498,
+      "metrics": {
+       "platform": {
+        "p10": 1.0,
+        "ndcg10": 0.9931437239277625,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.6,
+        "ndcg10": 0.8450515486955182,
+        "mrr": 1.0,
+        "below_bar": 0.3
+       },
+       "platform_score_only": {
+        "p10": 0.8,
+        "ndcg10": 0.95366069875822,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.5,
+        "ndcg10": 0.6181283767511466,
+        "mrr": 0.3333333333333333,
+        "below_bar": 0.3
+       },
+       "resume_keywords": {
+        "p10": 0.3,
+        "ndcg10": 0.8045628822030945,
+        "mrr": 1.0,
+        "below_bar": 0.2
+       },
+       "random": {
+        "p10": 0.1855,
+        "ndcg10": 0.4523060214104628,
+        "mrr": 0.37812178537836433,
+        "below_bar": 0.5705
+       }
+      }
+     },
+     {
+      "kind": "vacancy",
+      "title": "Junior фронтенд-разработчик (React)",
+      "specialization": "frontend",
+      "level": "junior",
+      "pool": 68,
+      "ranked_by_platform": 59,
+      "main_category": 26,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.5330761502615543,
+      "metrics": {
+       "platform": {
+        "p10": 0.6,
+        "ndcg10": 0.8501220457866839,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.6,
+        "ndcg10": 0.854388534471111,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.7,
+        "ndcg10": 0.9004451438695711,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.4,
+        "ndcg10": 0.736090797521207,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.6,
+        "ndcg10": 0.8598635519335874,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.2105,
+        "ndcg10": 0.7291930486298117,
+        "mrr": 0.42354258935508937,
+        "below_bar": 0.0
+       }
+      }
+     },
+     {
+      "kind": "vacancy",
+      "title": "Фронтенд-разработчик (React, TypeScript) в e-commerce",
+      "specialization": "frontend",
+      "level": "middle",
+      "pool": 68,
+      "ranked_by_platform": 68,
+      "main_category": 33,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.5375732481947962,
+      "metrics": {
+       "platform": {
+        "p10": 0.7,
+        "ndcg10": 0.9296164746221094,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.7,
+        "ndcg10": 0.9423542608869782,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.4,
+        "ndcg10": 0.8302622577216998,
+        "mrr": 1.0,
+        "below_bar": 0.1
+       },
+       "category_browse": {
+        "p10": 0.6,
+        "ndcg10": 0.8097086503717671,
+        "mrr": 1.0,
+        "below_bar": 0.1
+       },
+       "resume_keywords": {
+        "p10": 0.5,
+        "ndcg10": 0.8556395362587044,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.19,
+        "ndcg10": 0.6434863126083178,
+        "mrr": 0.3833170942920169,
+        "below_bar": 0.151
+       }
+      }
+     },
+     {
+      "kind": "vacancy",
+      "title": "QA-инженер (ручное тестирование и API)",
+      "specialization": "qa",
+      "level": "junior",
+      "pool": 69,
+      "ranked_by_platform": 56,
+      "main_category": 23,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.6476851344349543,
+      "metrics": {
+       "platform": {
+        "p10": 0.4,
+        "ndcg10": 0.8958628649101844,
+        "mrr": 0.3333333333333333,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.4,
+        "ndcg10": 0.8976583213483852,
+        "mrr": 0.3333333333333333,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.3,
+        "ndcg10": 0.8933810444039116,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.3,
+        "ndcg10": 0.7961540858745569,
+        "mrr": 0.2,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.4,
+        "ndcg10": 0.8751814831395934,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.1715,
+        "ndcg10": 0.7921157218285715,
+        "mrr": 0.3840905938316929,
+        "below_bar": 0.0
+       }
+      }
+     },
+     {
+      "kind": "vacancy",
+      "title": "Senior QA Automation (Python, Playwright)",
+      "specialization": "qa",
+      "level": "senior",
+      "pool": 69,
+      "ranked_by_platform": 56,
+      "main_category": 13,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.8173895216503698,
+      "metrics": {
+       "platform": {
+        "p10": 0.9,
+        "ndcg10": 0.9712900889580094,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.9,
+        "ndcg10": 0.9641564059519593,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.8,
+        "ndcg10": 0.9325942591348644,
+        "mrr": 1.0,
+        "below_bar": 0.1
+       },
+       "category_browse": {
+        "p10": 0.7,
+        "ndcg10": 0.8084319721050898,
+        "mrr": 1.0,
+        "below_bar": 0.1
+       },
+       "resume_keywords": {
+        "p10": 0.7,
+        "ndcg10": 0.8560674127625164,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.183,
+        "ndcg10": 0.4698602695560008,
+        "mrr": 0.37075271726156483,
+        "below_bar": 0.543
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Junior бэкенд-разработчик",
+      "specialization": "backend",
+      "level": "junior",
+      "pool": 68,
+      "ranked_by_platform": 59,
+      "main_category": 30,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.6311374838544968,
+      "metrics": {
+       "platform": {
+        "p10": 0.6,
+        "ndcg10": 0.9573223939617523,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.6,
+        "ndcg10": 0.9436609796169929,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.5,
+        "ndcg10": 0.9332034041080006,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.6,
+        "ndcg10": 0.8730953446082109,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.4,
+        "ndcg10": 0.8604555985280763,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.1885,
+        "ndcg10": 0.7671739621508867,
+        "mrr": 0.356371911778452,
+        "below_bar": 0.0
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Middle бэкенд-разработчик",
+      "specialization": "backend",
+      "level": "middle",
+      "pool": 68,
+      "ranked_by_platform": 68,
+      "main_category": 29,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.7000505832516061,
+      "metrics": {
+       "platform": {
+        "p10": 0.8,
+        "ndcg10": 0.957464682166886,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.9,
+        "ndcg10": 0.9739665347676398,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.6,
+        "ndcg10": 0.9376801264552921,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.5,
+        "ndcg10": 0.8464675669612671,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.5,
+        "ndcg10": 0.8539041362010763,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.1935,
+        "ndcg10": 0.652166403286308,
+        "mrr": 0.4116949757758581,
+        "below_bar": 0.1915
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Senior бэкенд-разработчик",
+      "specialization": "backend",
+      "level": "senior",
+      "pool": 68,
+      "ranked_by_platform": 48,
+      "main_category": 9,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.9324793747286149,
+      "metrics": {
+       "platform": {
+        "p10": 1.0,
+        "ndcg10": 0.9970416786271236,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.6,
+        "ndcg10": 0.849718471247527,
+        "mrr": 1.0,
+        "below_bar": 0.3
+       },
+       "platform_score_only": {
+        "p10": 0.9,
+        "ndcg10": 0.9329293687765589,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.6,
+        "ndcg10": 0.6238866546645743,
+        "mrr": 0.25,
+        "below_bar": 0.3
+       },
+       "resume_keywords": {
+        "p10": 0.5,
+        "ndcg10": 0.8670325317598913,
+        "mrr": 1.0,
+        "below_bar": 0.1
+       },
+       "random": {
+        "p10": 0.1935,
+        "ndcg10": 0.46029629384553233,
+        "mrr": 0.39140617225911345,
+        "below_bar": 0.5585
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Junior фронтенд-разработчик",
+      "specialization": "frontend",
+      "level": "junior",
+      "pool": 68,
+      "ranked_by_platform": 59,
+      "main_category": 26,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.5844912988832415,
+      "metrics": {
+       "platform": {
+        "p10": 0.7,
+        "ndcg10": 0.925839822410226,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.7,
+        "ndcg10": 0.9228134059684341,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.7,
+        "ndcg10": 0.9399087945935183,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.4,
+        "ndcg10": 0.741005438210554,
+        "mrr": 0.3333333333333333,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.7,
+        "ndcg10": 0.8494762536713821,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.182,
+        "ndcg10": 0.7436391527861178,
+        "mrr": 0.3985025663620865,
+        "below_bar": 0.0
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Middle фронтенд-разработчик",
+      "specialization": "frontend",
+      "level": "middle",
+      "pool": 68,
+      "ranked_by_platform": 68,
+      "main_category": 33,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.5628065898406392,
+      "metrics": {
+       "platform": {
+        "p10": 0.6,
+        "ndcg10": 0.9077094928273199,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.6,
+        "ndcg10": 0.9060977299060482,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.4,
+        "ndcg10": 0.8399550998386162,
+        "mrr": 1.0,
+        "below_bar": 0.1
+       },
+       "category_browse": {
+        "p10": 0.2,
+        "ndcg10": 0.6438536085953017,
+        "mrr": 0.14285714285714285,
+        "below_bar": 0.1
+       },
+       "resume_keywords": {
+        "p10": 0.5,
+        "ndcg10": 0.8549251235668333,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.1885,
+        "ndcg10": 0.6519435894649785,
+        "mrr": 0.3896396535396148,
+        "below_bar": 0.14600000000000002
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Senior фронтенд-разработчик",
+      "specialization": "frontend",
+      "level": "senior",
+      "pool": 68,
+      "ranked_by_platform": 47,
+      "main_category": 10,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.7585788213976171,
+      "metrics": {
+       "platform": {
+        "p10": 0.8,
+        "ndcg10": 0.9467779190626137,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.6,
+        "ndcg10": 0.886712602870931,
+        "mrr": 1.0,
+        "below_bar": 0.1
+       },
+       "platform_score_only": {
+        "p10": 0.7,
+        "ndcg10": 0.9103621268637163,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.6,
+        "ndcg10": 0.7780566409412079,
+        "mrr": 0.3333333333333333,
+        "below_bar": 0.1
+       },
+       "resume_keywords": {
+        "p10": 0.5,
+        "ndcg10": 0.814703552878901,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.185,
+        "ndcg10": 0.49226952528016366,
+        "mrr": 0.36956864581496934,
+        "below_bar": 0.515
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Junior QA-инженер",
+      "specialization": "qa",
+      "level": "junior",
+      "pool": 69,
+      "ranked_by_platform": 56,
+      "main_category": 23,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.5984243902800771,
+      "metrics": {
+       "platform": {
+        "p10": 0.8,
+        "ndcg10": 0.9597735868103203,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.8,
+        "ndcg10": 0.9565711600104367,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.4,
+        "ndcg10": 0.9048854898697559,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.6,
+        "ndcg10": 0.8078955716970371,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.6,
+        "ndcg10": 0.8661007611970246,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.191,
+        "ndcg10": 0.7667794518436881,
+        "mrr": 0.37626045713545714,
+        "below_bar": 0.0
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Middle QA-инженер",
+      "specialization": "qa",
+      "level": "middle",
+      "pool": 69,
+      "ranked_by_platform": 69,
+      "main_category": 33,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.68804750014672,
+      "metrics": {
+       "platform": {
+        "p10": 0.5,
+        "ndcg10": 0.9153836481295543,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.6,
+        "ndcg10": 0.920329752539226,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.5,
+        "ndcg10": 0.8792364114987306,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.3,
+        "ndcg10": 0.8186216793494575,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.6,
+        "ndcg10": 0.8606008146115336,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.17350000000000002,
+        "ndcg10": 0.6833918318857503,
+        "mrr": 0.3572578755666991,
+        "below_bar": 0.147
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Senior QA-инженер",
+      "specialization": "qa",
+      "level": "senior",
+      "pool": 69,
+      "ranked_by_platform": 56,
+      "main_category": 13,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.8511714555677103,
+      "metrics": {
+       "platform": {
+        "p10": 0.9,
+        "ndcg10": 0.9516383560225948,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.9,
+        "ndcg10": 0.9575672485509618,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.8,
+        "ndcg10": 0.9212231926265386,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.8,
+        "ndcg10": 0.9032970406760685,
+        "mrr": 1.0,
+        "below_bar": 0.1
+       },
+       "resume_keywords": {
+        "p10": 0.6,
+        "ndcg10": 0.852569286974304,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.1795,
+        "ndcg10": 0.4449120649519762,
+        "mrr": 0.40384502689862595,
+        "below_bar": 0.544
+       }
+      }
+     }
+    ],
+    "spearman_mean": 0.6978558454321439,
+    "stack_inflation": {
+     "declared_counts": {
+      "inflated_in_top10": 0.2733333333333333,
+      "p10": 0.72
+     },
+     "platform": {
+      "inflated_in_top10": 0.2733333333333333,
+      "p10": 0.72
+     },
+     "inflated_share_in_pool": 0.2
+    }
+   }
+  },
+  {
+   "categorization": {
+    "reference_points": {
+     "junior": {
+      "typical": 0.68,
+      "lower": 0.25
+     },
+     "middle": {
+      "typical": 0.7,
+      "lower": 0.326
+     },
+     "senior": {
+      "typical": 0.8075,
+      "lower": 0.3425
+     }
+    },
+    "test": {
+     "total": 240,
+     "graded": 193,
+     "c_index": 0.9608319827120475,
+     "overstated": 0.0,
+     "understated": 0.04145077720207254,
+     "missed": 0.0125
+    },
+    "self_declared": {
+     "total": 240,
+     "graded": 240,
+     "c_index": 0.823239548561437,
+     "overstated": 0.1,
+     "understated": 0.03333333333333333,
+     "missed": 0.0
+    },
+    "ability_by_category": {
+     "middle": {
+      "n": 80,
+      "mean": 0.7349604270833333,
+      "min": 0.58969375,
+      "max": 0.91238125
+     },
+     "–": {
+      "n": 47,
+      "mean": 0.32283817375886525,
+      "min": 0.23176249999999998,
+      "max": 0.47948125
+     },
+     "junior": {
+      "n": 87,
+      "mean": 0.4969286398467433,
+      "min": 0.2742375,
+      "max": 0.76250625
+     },
+     "senior": {
+      "n": 26,
+      "mean": 0.8848516346153846,
+      "min": 0.78210625,
+      "max": 0.9378533333333333
+     }
+    },
+    "label_matrix": {
+     "junior": {
+      "junior": 55,
+      "middle": 3,
+      "senior": 0,
+      "–": 35
+     },
+     "middle": {
+      "junior": 31,
+      "middle": 56,
+      "senior": 2,
+      "–": 12
+     },
+     "senior": {
+      "junior": 1,
+      "middle": 21,
+      "senior": 24,
+      "–": 0
+     }
+    }
+   },
+   "matching": {
+    "summary": {
+     "platform": {
+      "p10": 0.8466666666666667,
+      "ndcg10": 0.9566109519544274,
+      "mrr": 1.0,
+      "below_bar": 0.0
+     },
+     "platform_no_fsp": {
+      "p10": 0.7866666666666667,
+      "ndcg10": 0.9299451721891541,
+      "mrr": 1.0,
+      "below_bar": 0.06666666666666667
+     },
+     "platform_score_only": {
+      "p10": 0.7066666666666667,
+      "ndcg10": 0.915720684881725,
+      "mrr": 0.9333333333333333,
+      "below_bar": 0.02666666666666667
+     },
+     "category_browse": {
+      "p10": 0.5333333333333333,
+      "ndcg10": 0.7914832808279297,
+      "mrr": 0.7488888888888889,
+      "below_bar": 0.08
+     },
+     "resume_keywords": {
+      "p10": 0.6266666666666667,
+      "ndcg10": 0.8554525889632795,
+      "mrr": 0.8555555555555555,
+      "below_bar": 0.02666666666666667
+     },
+     "random": {
+      "p10": 0.19133333333333333,
+      "ndcg10": 0.5983705886484159,
+      "mrr": 0.40062112723901916,
+      "below_bar": 0.2939333333333333
+     }
+    },
+    "needs": [
+     {
+      "kind": "vacancy",
+      "title": "Бэкенд-разработчик (Python) в платёжный сервис",
+      "specialization": "backend",
+      "level": "middle",
+      "pool": 68,
+      "ranked_by_platform": 68,
+      "main_category": 27,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.7443240924938211,
+      "metrics": {
+       "platform": {
+        "p10": 0.8,
+        "ndcg10": 0.9490975254927944,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.7,
+        "ndcg10": 0.9364576259006139,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.8,
+        "ndcg10": 0.960705276104772,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.5,
+        "ndcg10": 0.7240315830669174,
+        "mrr": 0.5,
+        "below_bar": 0.1
+       },
+       "resume_keywords": {
+        "p10": 0.2,
+        "ndcg10": 0.7512253229050881,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.18,
+        "ndcg10": 0.5897187061303465,
+        "mrr": 0.380492895992896,
+        "below_bar": 0.17550000000000002
+       }
+      }
+     },
+     {
+      "kind": "vacancy",
+      "title": "Senior Java-разработчик платформы данных",
+      "specialization": "backend",
+      "level": "senior",
+      "pool": 68,
+      "ranked_by_platform": 47,
+      "main_category": 11,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.8974848237031724,
+      "metrics": {
+       "platform": {
+        "p10": 0.9,
+        "ndcg10": 0.9613751801845892,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.8,
+        "ndcg10": 0.9173779672865041,
+        "mrr": 1.0,
+        "below_bar": 0.2
+       },
+       "platform_score_only": {
+        "p10": 0.7,
+        "ndcg10": 0.8808587685650096,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.8,
+        "ndcg10": 0.8464371977639551,
+        "mrr": 1.0,
+        "below_bar": 0.2
+       },
+       "resume_keywords": {
+        "p10": 0.8,
+        "ndcg10": 0.878693717989266,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.1825,
+        "ndcg10": 0.41850238444281723,
+        "mrr": 0.40757224872221004,
+        "below_bar": 0.5945
+       }
+      }
+     },
+     {
+      "kind": "vacancy",
+      "title": "Junior фронтенд-разработчик (React)",
+      "specialization": "frontend",
+      "level": "junior",
+      "pool": 70,
+      "ranked_by_platform": 58,
+      "main_category": 31,
+      "relevant": 14,
+      "spearman_score_vs_truth": 0.7725552923805715,
+      "metrics": {
+       "platform": {
+        "p10": 0.8,
+        "ndcg10": 0.9643419138877821,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.8,
+        "ndcg10": 0.964371370242644,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.6,
+        "ndcg10": 0.9136619477116603,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.3,
+        "ndcg10": 0.6825714324124137,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.4,
+        "ndcg10": 0.850909140179334,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.202,
+        "ndcg10": 0.7475665977222195,
+        "mrr": 0.4023924588483412,
+        "below_bar": 0.0
+       }
+      }
+     },
+     {
+      "kind": "vacancy",
+      "title": "Фронтенд-разработчик (React, TypeScript) в e-commerce",
+      "specialization": "frontend",
+      "level": "middle",
+      "pool": 70,
+      "ranked_by_platform": 70,
+      "main_category": 27,
+      "relevant": 14,
+      "spearman_score_vs_truth": 0.6859307477123391,
+      "metrics": {
+       "platform": {
+        "p10": 0.7,
+        "ndcg10": 0.9175771365394231,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.7,
+        "ndcg10": 0.9185634499764269,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.7,
+        "ndcg10": 0.8753885532678726,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.6,
+        "ndcg10": 0.8817812199014085,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.4,
+        "ndcg10": 0.7837230275125481,
+        "mrr": 1.0,
+        "below_bar": 0.1
+       },
+       "random": {
+        "p10": 0.188,
+        "ndcg10": 0.6185089120851398,
+        "mrr": 0.377511039542075,
+        "below_bar": 0.266
+       }
+      }
+     },
+     {
+      "kind": "vacancy",
+      "title": "QA-инженер (ручное тестирование и API)",
+      "specialization": "qa",
+      "level": "junior",
+      "pool": 66,
+      "ranked_by_platform": 57,
+      "main_category": 36,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.772618992278179,
+      "metrics": {
+       "platform": {
+        "p10": 0.7,
+        "ndcg10": 0.9669862315764632,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.8,
+        "ndcg10": 0.9758309444878631,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.7,
+        "ndcg10": 0.9544153827541675,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.2,
+        "ndcg10": 0.7512910602974712,
+        "mrr": 0.2,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.6,
+        "ndcg10": 0.8949066992998107,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.1825,
+        "ndcg10": 0.7729414756143057,
+        "mrr": 0.39497308837962863,
+        "below_bar": 0.0
+       }
+      }
+     },
+     {
+      "kind": "vacancy",
+      "title": "Senior QA Automation (Python, Playwright)",
+      "specialization": "qa",
+      "level": "senior",
+      "pool": 66,
+      "ranked_by_platform": 43,
+      "main_category": 10,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.8486747739970091,
+      "metrics": {
+       "platform": {
+        "p10": 1.0,
+        "ndcg10": 0.9590128572326883,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.8,
+        "ndcg10": 0.8805669342800893,
+        "mrr": 1.0,
+        "below_bar": 0.2
+       },
+       "platform_score_only": {
+        "p10": 0.9,
+        "ndcg10": 0.9564832821388665,
+        "mrr": 1.0,
+        "below_bar": 0.1
+       },
+       "category_browse": {
+        "p10": 0.8,
+        "ndcg10": 0.7945609748878799,
+        "mrr": 1.0,
+        "below_bar": 0.2
+       },
+       "resume_keywords": {
+        "p10": 0.7,
+        "ndcg10": 0.8584377589324206,
+        "mrr": 1.0,
+        "below_bar": 0.2
+       },
+       "random": {
+        "p10": 0.211,
+        "ndcg10": 0.4418446226143418,
+        "mrr": 0.41260320670614786,
+        "below_bar": 0.6839999999999999
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Junior бэкенд-разработчик",
+      "specialization": "backend",
+      "level": "junior",
+      "pool": 68,
+      "ranked_by_platform": 58,
+      "main_category": 31,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.7754756763893393,
+      "metrics": {
+       "platform": {
+        "p10": 0.8,
+        "ndcg10": 0.9373112430853694,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.8,
+        "ndcg10": 0.9396173463673145,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.6,
+        "ndcg10": 0.918505872422935,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.6,
+        "ndcg10": 0.8004442499274066,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.7,
+        "ndcg10": 0.8455970371226955,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.197,
+        "ndcg10": 0.7174026700002986,
+        "mrr": 0.388222027972028,
+        "below_bar": 0.0
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Middle бэкенд-разработчик",
+      "specialization": "backend",
+      "level": "middle",
+      "pool": 68,
+      "ranked_by_platform": 68,
+      "main_category": 27,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.7513432531005112,
+      "metrics": {
+       "platform": {
+        "p10": 1.0,
+        "ndcg10": 0.9904572989229186,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 1.0,
+        "ndcg10": 0.9945404079132107,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.7,
+        "ndcg10": 0.9400580404909964,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.5,
+        "ndcg10": 0.8073846793076782,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.4,
+        "ndcg10": 0.7879558199505887,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.17600000000000002,
+        "ndcg10": 0.6237543824880761,
+        "mrr": 0.3984487595737596,
+        "below_bar": 0.1955
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Senior бэкенд-разработчик",
+      "specialization": "backend",
+      "level": "senior",
+      "pool": 68,
+      "ranked_by_platform": 47,
+      "main_category": 11,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.8803191489361702,
+      "metrics": {
+       "platform": {
+        "p10": 0.9,
+        "ndcg10": 0.9638040645804011,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.8,
+        "ndcg10": 0.9124606599033964,
+        "mrr": 1.0,
+        "below_bar": 0.2
+       },
+       "platform_score_only": {
+        "p10": 0.5,
+        "ndcg10": 0.8414633395674028,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.7,
+        "ndcg10": 0.8094040540144551,
+        "mrr": 1.0,
+        "below_bar": 0.3
+       },
+       "resume_keywords": {
+        "p10": 0.8,
+        "ndcg10": 0.8951685648297592,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.1875,
+        "ndcg10": 0.45977333259870173,
+        "mrr": 0.4063685973340385,
+        "below_bar": 0.5735
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Junior фронтенд-разработчик",
+      "specialization": "frontend",
+      "level": "junior",
+      "pool": 70,
+      "ranked_by_platform": 58,
+      "main_category": 31,
+      "relevant": 14,
+      "spearman_score_vs_truth": 0.736317495192109,
+      "metrics": {
+       "platform": {
+        "p10": 0.8,
+        "ndcg10": 0.9442240421454459,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.8,
+        "ndcg10": 0.94320998618298,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.6,
+        "ndcg10": 0.9322639934836403,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.4,
+        "ndcg10": 0.7340326002805346,
+        "mrr": 0.3333333333333333,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.6,
+        "ndcg10": 0.8138030932339688,
+        "mrr": 0.5,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.209,
+        "ndcg10": 0.7435013676580207,
+        "mrr": 0.41938850512232867,
+        "below_bar": 0.0
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Middle фронтенд-разработчик",
+      "specialization": "frontend",
+      "level": "middle",
+      "pool": 70,
+      "ranked_by_platform": 70,
+      "main_category": 27,
+      "relevant": 14,
+      "spearman_score_vs_truth": 0.6912498035831793,
+      "metrics": {
+       "platform": {
+        "p10": 0.8,
+        "ndcg10": 0.9504366787776324,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.8,
+        "ndcg10": 0.9391306779933272,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.6,
+        "ndcg10": 0.8836865232888574,
+        "mrr": 1.0,
+        "below_bar": 0.1
+       },
+       "category_browse": {
+        "p10": 0.3,
+        "ndcg10": 0.790183740394814,
+        "mrr": 0.2,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.8,
+        "ndcg10": 0.864985034921823,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.1855,
+        "ndcg10": 0.6103121328807908,
+        "mrr": 0.4223521333897478,
+        "below_bar": 0.2665
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Senior фронтенд-разработчик",
+      "specialization": "frontend",
+      "level": "senior",
+      "pool": 70,
+      "ranked_by_platform": 44,
+      "main_category": 13,
+      "relevant": 14,
+      "spearman_score_vs_truth": 0.8725068736870738,
+      "metrics": {
+       "platform": {
+        "p10": 1.0,
+        "ndcg10": 0.9637057121083348,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.7,
+        "ndcg10": 0.8306538447621817,
+        "mrr": 1.0,
+        "below_bar": 0.2
+       },
+       "platform_score_only": {
+        "p10": 1.0,
+        "ndcg10": 0.9329928515176813,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.7,
+        "ndcg10": 0.7013749856284823,
+        "mrr": 0.5,
+        "below_bar": 0.2
+       },
+       "resume_keywords": {
+        "p10": 0.9,
+        "ndcg10": 0.9466164332238639,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.186,
+        "ndcg10": 0.4286202746678514,
+        "mrr": 0.3924796101516303,
+        "below_bar": 0.637
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Junior QA-инженер",
+      "specialization": "qa",
+      "level": "junior",
+      "pool": 66,
+      "ranked_by_platform": 57,
+      "main_category": 36,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.7460538718702924,
+      "metrics": {
+       "platform": {
+        "p10": 0.9,
+        "ndcg10": 0.9752522003531255,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.9,
+        "ndcg10": 0.9752522003531255,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.8,
+        "ndcg10": 0.9517611812356933,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "category_browse": {
+        "p10": 0.5,
+        "ndcg10": 0.8704267790591461,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.7,
+        "ndcg10": 0.8582927091675271,
+        "mrr": 0.3333333333333333,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.1825,
+        "ndcg10": 0.7820051154062622,
+        "mrr": 0.3958357297673087,
+        "below_bar": 0.0
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Middle QA-инженер",
+      "specialization": "qa",
+      "level": "middle",
+      "pool": 66,
+      "ranked_by_platform": 66,
+      "main_category": 21,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.6661099600379836,
+      "metrics": {
+       "platform": {
+        "p10": 0.6,
+        "ndcg10": 0.931217828637204,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.6,
+        "ndcg10": 0.9392093677524032,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_score_only": {
+        "p10": 0.5,
+        "ndcg10": 0.8655302759590843,
+        "mrr": 0.5,
+        "below_bar": 0.1
+       },
+       "category_browse": {
+        "p10": 0.3,
+        "ndcg10": 0.8541277537848551,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "resume_keywords": {
+        "p10": 0.5,
+        "ndcg10": 0.856364391417988,
+        "mrr": 1.0,
+        "below_bar": 0.1
+       },
+       "random": {
+        "p10": 0.20500000000000002,
+        "ndcg10": 0.6444719203400019,
+        "mrr": 0.39683314550516563,
+        "below_bar": 0.316
+       }
+      }
+     },
+     {
+      "kind": "role_profile",
+      "title": "Senior QA-инженер",
+      "specialization": "qa",
+      "level": "senior",
+      "pool": 66,
+      "ranked_by_platform": 43,
+      "main_category": 10,
+      "relevant": 13,
+      "spearman_score_vs_truth": 0.8840141986994381,
+      "metrics": {
+       "platform": {
+        "p10": 1.0,
+        "ndcg10": 0.9743643657922387,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "platform_no_fsp": {
+        "p10": 0.8,
+        "ndcg10": 0.8819347994352309,
+        "mrr": 1.0,
+        "below_bar": 0.2
+       },
+       "platform_score_only": {
+        "p10": 0.9,
+        "ndcg10": 0.9280349847172358,
+        "mrr": 1.0,
+        "below_bar": 0.1
+       },
+       "category_browse": {
+        "p10": 0.8,
+        "ndcg10": 0.8241969016915279,
+        "mrr": 1.0,
+        "below_bar": 0.2
+       },
+       "resume_keywords": {
+        "p10": 0.9,
+        "ndcg10": 0.9451100837625112,
+        "mrr": 1.0,
+        "below_bar": 0.0
+       },
+       "random": {
+        "p10": 0.1955,
+        "ndcg10": 0.3766349350770642,
+        "mrr": 0.4138434615779817,
+        "below_bar": 0.7005
+       }
+      }
+     }
+    ],
+    "spearman_mean": 0.7816652669374126,
+    "stack_inflation": {
+     "declared_counts": {
+      "inflated_in_top10": 0.20666666666666667,
+      "p10": 0.8333333333333334
+     },
+     "platform": {
+      "inflated_in_top10": 0.20666666666666667,
+      "p10": 0.8266666666666667
+     },
+     "inflated_share_in_pool": 0.2
+    }
+   }
+  }
+ ],
+ "retakes": {
+  "guesser": {
+   "title": "Угадывание: любая категория",
+   "per_attempt": {
+    "frontend/junior": 0.0,
+    "frontend/middle": 0.0125,
+    "frontend/senior": 0.025,
+    "backend/junior": 0.0,
+    "backend/middle": 0.0075,
+    "backend/senior": 0.0225,
+    "qa/junior": 0.0,
+    "qa/middle": 0.01,
+    "qa/senior": 0.0325
+   },
+   "per_year": {
+    "none": 1.0,
+    "retry30": 0.3795,
+    "platform": 0.026,
+    "platform_patient": 0.085
+   }
+  },
+  "weak_junior": {
+   "title": "Слабый junior: категория middle и выше",
+   "per_attempt": {
+    "frontend/junior": 0.0,
+    "frontend/middle": 0.0,
+    "frontend/senior": 0.0,
+    "backend/junior": 0.0,
+    "backend/middle": 0.0,
+    "backend/senior": 0.0,
+    "qa/junior": 0.0,
+    "qa/middle": 0.0,
+    "qa/senior": 0.0
+   },
+   "per_year": {
+    "none": 0.0,
+    "retry30": 0.0,
+    "platform": 0.0,
+    "platform_patient": 0.0
+   }
+  }
+ },
+ "consistency": [
+  {
+   "profile": "solid_junior",
+   "test_level": "junior",
+   "distribution": {
+    "below_junior": 0.05444444444444444,
+    "junior": 0.8866666666666667,
+    "middle": 0.058888888888888886
+   },
+   "same_result_twice": 0.7930814814814815,
+   "same_result_twice_min": 0.7546888888888889,
+   "dominant_share": 0.8866666666666666
+  },
+  {
+   "profile": "strong_junior",
+   "test_level": "junior",
+   "distribution": {
+    "junior": 0.37777777777777777,
+    "middle": 0.6222222222222222
+   },
+   "same_result_twice": 0.5300296296296296,
+   "same_result_twice_min": 0.5242,
+   "dominant_share": 0.6222222222222222
+  },
+  {
+   "profile": "weak_middle",
+   "test_level": "middle",
+   "distribution": {
+    "below_junior": 0.16666666666666666,
+    "junior": 0.8088888888888889,
+    "middle": 0.024444444444444446
+   },
+   "same_result_twice": 0.6828370370370371,
+   "same_result_twice_min": 0.6766,
+   "dominant_share": 0.8088888888888889
+  },
+  {
+   "profile": "solid_middle",
+   "test_level": "middle",
+   "distribution": {
+    "below_junior": 0.0022222222222222222,
+    "junior": 0.12111111111111111,
+    "middle": 0.8766666666666667
+   },
+   "same_result_twice": 0.7835259259259258,
+   "same_result_twice_min": 0.7582888888888888,
+   "dominant_share": 0.8766666666666667
+  },
+  {
+   "profile": "strong_middle",
+   "test_level": "middle",
+   "distribution": {
+    "junior": 0.01,
+    "middle": 0.99
+   },
+   "same_result_twice": 0.9802444444444444,
+   "same_result_twice_min": 0.9672222222222222,
+   "dominant_share": 0.99
+  },
+  {
+   "profile": "weak_senior",
+   "test_level": "senior",
+   "distribution": {
+    "below_junior": 0.03666666666666667,
+    "junior": 0.11888888888888889,
+    "middle": 0.8366666666666667,
+    "senior": 0.0077777777777777776
+   },
+   "same_result_twice": 0.7170666666666667,
+   "same_result_twice_min": 0.6827555555555556,
+   "dominant_share": 0.8366666666666667
+  },
+  {
+   "profile": "solid_senior",
+   "test_level": "senior",
+   "distribution": {
+    "junior": 0.0044444444444444444,
+    "middle": 0.1388888888888889,
+    "senior": 0.8566666666666667
+   },
+   "same_result_twice": 0.7541555555555556,
+   "same_result_twice_min": 0.7122888888888889,
+   "dominant_share": 0.8566666666666667
+  },
+  {
+   "profile": "solid_middle",
+   "test_level": "senior",
+   "distribution": {
+    "below_junior": 0.24666666666666667,
+    "junior": 0.21555555555555556,
+    "middle": 0.5377777777777778
+   },
+   "same_result_twice": 0.39841481481481483,
+   "same_result_twice_min": 0.3820222222222222,
+   "dominant_share": 0.5377777777777778
+  },
+  {
+   "profile": "solid_junior",
+   "test_level": "middle",
+   "distribution": {
+    "below_junior": 0.36,
+    "junior": 0.6388888888888888,
+    "middle": 0.0011111111111111111
+   },
+   "same_result_twice": 0.5390148148148148,
+   "same_result_twice_min": 0.5227555555555555,
+   "dominant_share": 0.6388888888888888
+  }
+ ]
+}

@@ -1,0 +1,1535 @@
+[
+ {
+  "id": "BE-J-P-001",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "programming_language",
+  "difficulty": 2,
+  "question": "Что выведет код? Введите результат одним числом.",
+  "language": "python",
+  "code": "items = [10, 20, 30, 40, 50]\nprint(len(items[1:4]))",
+  "options": [],
+  "correct_answer": [
+   "3"
+  ],
+  "score": 1,
+  "explanation": "Срез items[1:4] включает элементы с индексами 1, 2 и 3, то есть 20, 30 и 40 — правый край не входит. Длина среза равна 3.",
+  "tags": [
+   "programming_language",
+   "python",
+   "slicing",
+   "numeric"
+  ],
+  "version_group": "BE-JP-SLICE",
+  "seedable": true,
+  "seed_parameters": [
+   "input_values",
+   "variable_names"
+  ],
+  "validation_type": "numeric",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "items = [1, 2, 3, 4, 5, 6, 7]\nprint(len(items[2:6]))",
+    "options": [],
+    "correct_answer": [
+     "4"
+    ],
+    "explanation": "Срез items[2:6] берёт элементы с индексами 2, 3, 4 и 5 — правый край не входит, поэтому длина равна 4."
+   },
+   {
+    "variant_id": "v3",
+    "code": "items = ['a', 'b', 'c', 'd']\nprint(len(items[:2]))",
+    "options": [],
+    "correct_answer": [
+     "2"
+    ],
+    "explanation": "Срез items[:2] начинается с начала списка и заканчивается перед индексом 2: это 'a' и 'b', длина равна 2."
+   },
+   {
+    "variant_id": "v4",
+    "code": "items = [5, 6, 7, 8, 9]\nprint(len(items[::2]))",
+    "options": [],
+    "correct_answer": [
+     "3"
+    ],
+    "explanation": "Срез items[::2] берёт каждый второй элемент с начала списка: 5, 7 и 9, поэтому длина равна 3."
+   }
+  ]
+ },
+ {
+  "id": "BE-J-P-002",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "programming_language",
+  "difficulty": 3,
+  "question": "Что выведет второй вызов функции? Введите результат в виде списка так, как его напечатает Python, например [1, 2].",
+  "language": "python",
+  "code": "def add(item, acc=[]):\n    acc.append(item)\n    return acc\n\nadd('a')\nprint(add('b'))",
+  "options": [],
+  "correct_answer": [
+   "['a', 'b']"
+  ],
+  "score": 1,
+  "explanation": "Значение по умолчанию создаётся один раз при объявлении функции, поэтому оба вызова работают с одним и тем же списком, и во втором вызове в нём уже есть 'a'. Правильный приём — acc=None и создание нового списка внутри функции.",
+  "tags": [
+   "programming_language",
+   "python",
+   "mutable-default",
+   "exact_match"
+  ],
+  "version_group": "BE-MUTABLE-DEFAULT",
+  "seedable": true,
+  "seed_parameters": [
+   "input_values",
+   "variable_names"
+  ],
+  "validation_type": "exact_match",
+  "answer_normalization": [
+   "trim",
+   "remove_spaces",
+   "lowercase"
+  ],
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "def collect(x, bag=[]):\n    bag.append(x)\n    return bag\n\ncollect(1)\ncollect(2)\nprint(collect(3))",
+    "options": [],
+    "correct_answer": [
+     "[1, 2, 3]"
+    ],
+    "question": "Что выведет третий вызов функции? Введите результат в виде списка так, как его напечатает Python, например [1, 2].",
+    "explanation": "Значение по умолчанию bag создаётся один раз при объявлении функции, поэтому все три вызова дописывают в один и тот же список: к третьему вызову в нём 1, 2 и 3."
+   },
+   {
+    "variant_id": "v3",
+    "code": "def collect(x, bag=None):\n    if bag is None:\n        bag = []\n    bag.append(x)\n    return bag\n\ncollect(1)\nprint(collect(2))",
+    "options": [],
+    "correct_answer": [
+     "[2]"
+    ],
+    "explanation": "Здесь значение по умолчанию — None, и новый список создаётся внутри функции при каждом вызове. Поэтому второй вызов работает с пустым списком и возвращает [2] — это и есть правильный приём."
+   }
+  ]
+ },
+ {
+  "id": "BE-J-P-003",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "programming_language",
+  "difficulty": 3,
+  "question": "Функция должна возвращать True, если пользователь совершеннолетний. При age = \"20\" она выбрасывает исключение. В какой строке причина?",
+  "language": "python",
+  "code": "1  def is_adult(payload):\n2      age = payload.get('age')\n3      if age >= 18:\n4          return True\n5      return False",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 4: функция не может возвращать литерал True, вместо него нужно вернуть результат сравнения"
+   },
+   {
+    "id": "B",
+    "text": "Строка 2: метод get нельзя применять к словарю"
+   },
+   {
+    "id": "C",
+    "text": "Строка 5: после return внутри условия код недостижим, и интерпретатор считает это ошибкой"
+   },
+   {
+    "id": "D",
+    "text": "Строка 3: значение приходит строкой, его нужно привести к числу перед сравнением"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 1,
+  "explanation": "Данные из внешнего запроса приходят в виде строк, и сравнение строки с числом в Python 3 вызывает TypeError; при отсутствии ключа значение будет None, что даст ту же ошибку. Поэтому значение нужно привести к числу с обработкой некорректного ввода и отсутствия поля.",
+  "tags": [
+   "programming_language",
+   "type-conversion",
+   "validation",
+   "bug-finding"
+  ],
+  "version_group": "BE-JP-TYPE-COERCE",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "1  function totalPrice(body) {\n2    const qty = body.qty;\n3    const price = body.price;\n4    return qty * price + body.delivery;\n5  }\n// при qty = \"2\", price = \"100\", delivery = \"50\" результат равен \"20050\"",
+    "options": [
+     {
+      "id": "A",
+      "text": "Строка 2: нельзя читать свойства тела запроса напрямую, их нужно сначала деструктурировать"
+     },
+     {
+      "id": "B",
+      "text": "Строка 4: умножение строк недопустимо, и интерпретатор прерывает выполнение функции с ошибкой"
+     },
+     {
+      "id": "C",
+      "text": "Строка 4: «+» со строкой склеивает значения, нужно привести их к числам"
+     },
+     {
+      "id": "D",
+      "text": "Строка 1: функция должна быть асинхронной, иначе тело запроса ещё не успевает прочитаться"
+     }
+    ],
+    "correct_answer": [
+     "C"
+    ],
+    "question": "Функция должна вернуть стоимость заказа, но при qty = \"2\", price = \"100\", delivery = \"50\" возвращает строку \"20050\". В какой строке причина?",
+    "explanation": "Значения из тела запроса пришли строками. Умножение приводит строки к числам и даёт 200, а оператор «+» со строкой выполняет склейку: 200 + \"50\" = \"20050\". Значения нужно явно привести к числам и проверить до вычислений."
+   }
+  ]
+ },
+ {
+  "id": "BE-J-P-004",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "programming_language",
+  "difficulty": 2,
+  "question": "Что выведет код? Введите результат одним числом.",
+  "language": "python",
+  "code": "total = 17\nper_page = 5\nprint(-(-total // per_page))",
+  "options": [],
+  "correct_answer": [
+   "4"
+  ],
+  "score": 1,
+  "explanation": "Это приём округления вверх при целочисленном делении: 17 / 5 = 3,4, и число страниц равно 4. Обычное 17 // 5 дало бы 3, из-за чего последняя неполная страница потерялась бы.",
+  "tags": [
+   "programming_language",
+   "integer-division",
+   "pagination",
+   "numeric"
+  ],
+  "version_group": "BE-JP-CEILDIV",
+  "seedable": true,
+  "seed_parameters": [
+   "input_values"
+  ],
+  "validation_type": "numeric",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "total = 100\nper_page = 25\nprint(-(-total // per_page))",
+    "options": [],
+    "correct_answer": [
+     "4"
+    ],
+    "explanation": "Выражение -(-total // per_page) округляет деление вверх: 100 / 25 делится нацело, поэтому страниц ровно 4."
+   },
+   {
+    "variant_id": "v3",
+    "code": "total = 31\nper_page = 10\nprint(-(-total // per_page))",
+    "options": [],
+    "correct_answer": [
+     "4"
+    ],
+    "explanation": "31 / 10 = 3,1, округление вверх даёт 4 страницы, и последняя неполная страница не теряется. Обычное 31 // 10 дало бы 3."
+   },
+   {
+    "variant_id": "v4",
+    "code": "total = 7\nper_page = 20\nprint(-(-total // per_page))",
+    "options": [],
+    "correct_answer": [
+     "1"
+    ],
+    "explanation": "7 / 20 = 0,35, округление вверх даёт 1 страницу, тогда как обычное 7 // 20 дало бы 0 и список не был бы показан вовсе."
+   }
+  ]
+ },
+ {
+  "id": "BE-J-P-005",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "programming_language",
+  "difficulty": 3,
+  "question": "Что напечатает код? Введите метки в порядке вывода через запятую без пробелов.",
+  "language": "python",
+  "code": "def run():\n    try:\n        print('T')\n        return 'from_try'\n    except ValueError:\n        print('E')\n    finally:\n        print('F')\n\nrun()",
+  "options": [],
+  "correct_answer": [
+   "T,F"
+  ],
+  "score": 1,
+  "explanation": "Исключение не возникает, поэтому блок except не выполняется. Блок finally выполняется всегда перед фактическим выходом из функции, в том числе при return, поэтому порядок вывода — T, затем F.",
+  "tags": [
+   "programming_language",
+   "exceptions",
+   "finally",
+   "code_output"
+  ],
+  "version_group": "BE-JP-FINALLY",
+  "seedable": true,
+  "seed_parameters": [
+   "input_values"
+  ],
+  "validation_type": "exact_match",
+  "answer_normalization": [
+   "trim",
+   "uppercase",
+   "remove_spaces"
+  ],
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "def run():\n    try:\n        print('T')\n        raise ValueError('x')\n    except ValueError:\n        print('E')\n        return 'handled'\n    finally:\n        print('F')\n\nrun()",
+    "options": [],
+    "correct_answer": [
+     "T,E,F"
+    ],
+    "explanation": "ValueError перехватывается блоком except, который печатает E и выполняет return. Перед фактическим выходом из функции выполняется finally, поэтому вывод — T, E, F."
+   },
+   {
+    "variant_id": "v3",
+    "code": "def run():\n    try:\n        print('T')\n        raise KeyError('x')\n    except ValueError:\n        print('E')\n    finally:\n        print('F')\n\ntry:\n    run()\nexcept KeyError:\n    print('O')",
+    "options": [],
+    "correct_answer": [
+     "T,F,O"
+    ],
+    "explanation": "KeyError не совпадает с ValueError, поэтому except внутри функции не срабатывает. finally выполняется перед выходом исключения из функции, а затем его перехватывает внешний блок: T, F, O."
+   }
+  ]
+ },
+ {
+  "id": "BE-J-P-006",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "sql",
+  "difficulty": 2,
+  "question": "Нужно получить имена клиентов и номера их заказов только для клиентов, у которых есть хотя бы один заказ. Какой запрос корректен?",
+  "language": "sql",
+  "code": "-- clients(id, name)\n-- orders(id, client_id, total)",
+  "options": [
+   {
+    "id": "A",
+    "text": "SELECT c.name, o.id FROM clients c JOIN orders o ON o.id = c.id"
+   },
+   {
+    "id": "B",
+    "text": "SELECT c.name, o.id FROM clients c INNER JOIN orders o ON o.client_id = c.id"
+   },
+   {
+    "id": "C",
+    "text": "SELECT c.name, o.id FROM clients c, orders o"
+   },
+   {
+    "id": "D",
+    "text": "SELECT c.name, o.id FROM clients c LEFT JOIN orders o ON o.client_id = c.id"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 1,
+  "explanation": "Внутреннее соединение по внешнему ключу client_id оставляет только клиентов с заказами. Левое соединение добавит клиентов без заказов со значением NULL, соединение без условия даст декартово произведение, а соединение по o.id = c.id сопоставляет несвязанные идентификаторы.",
+  "tags": [
+   "sql",
+   "joins",
+   "query-writing"
+  ],
+  "version_group": "BE-SQL-JOINS",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-P-007",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "sql",
+  "difficulty": 3,
+  "question": "Сколько строк вернёт запрос? Введите число.",
+  "language": "sql",
+  "code": "-- Таблица orders:\n-- id | client_id | status\n-- 1  | 10        | paid\n-- 2  | 10        | new\n-- 3  | 11        | paid\n-- 4  | 12        | cancelled\n-- 5  | 11        | paid\n\nSELECT client_id FROM orders WHERE status = 'paid' GROUP BY client_id;",
+  "options": [],
+  "correct_answer": [
+   "2"
+  ],
+  "score": 1,
+  "explanation": "Фильтр оставляет строки 1, 3 и 5 с клиентами 10, 11 и 11. Группировка по client_id объединяет повторы, поэтому возвращаются две строки: клиенты 10 и 11.",
+  "tags": [
+   "sql",
+   "group-by",
+   "numeric"
+  ],
+  "version_group": "BE-JP-SQL-GROUP",
+  "seedable": true,
+  "seed_parameters": [
+   "input_values"
+  ],
+  "validation_type": "numeric",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "-- Таблица visits:\n-- id | user_id | page\n-- 1  | 5       | /home\n-- 2  | 5       | /cart\n-- 3  | 6       | /home\n-- 4  | 7       | /home\n-- 5  | 6       | /cart\n\nSELECT page FROM visits GROUP BY page;",
+    "options": [],
+    "correct_answer": [
+     "2"
+    ],
+    "explanation": "Группировка объединяет строки с одинаковым значением page: остаются /home и /cart, то есть две строки."
+   },
+   {
+    "variant_id": "v3",
+    "code": "-- Таблица orders:\n-- id | client_id | status\n-- 1  | 10        | paid\n-- 2  | 11        | paid\n-- 3  | 12        | paid\n-- 4  | 10        | new\n\nSELECT client_id FROM orders WHERE status = 'paid' GROUP BY client_id;",
+    "options": [],
+    "correct_answer": [
+     "3"
+    ],
+    "explanation": "Фильтр оставляет оплаченные заказы клиентов 10, 11 и 12, группировка по client_id даёт три строки. Заказ 4 со статусом new отбрасывается до группировки."
+   }
+  ]
+ },
+ {
+  "id": "BE-J-P-008",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "sql",
+  "difficulty": 3,
+  "question": "Запрос завершается ошибкой. В какой строке причина?",
+  "language": "sql",
+  "code": "1  SELECT client_id, status, COUNT(*) AS cnt\n2  FROM orders\n3  WHERE created_at >= '2026-01-01'\n4  GROUP BY client_id\n5  ORDER BY cnt DESC;",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 1: столбец status выбирается, но не входит ни в группировку, ни в агрегатную функцию"
+   },
+   {
+    "id": "B",
+    "text": "Строка 4: группировать можно только по всем выбранным столбцам одновременно"
+   },
+   {
+    "id": "C",
+    "text": "Строка 3: сравнение даты со строкой недопустимо"
+   },
+   {
+    "id": "D",
+    "text": "Строка 5: сортировать по псевдониму агрегата нельзя"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "При группировке каждый выбираемый столбец должен либо входить в GROUP BY, либо быть аргументом агрегатной функции, иначе значение status внутри группы не определено. Сортировка по псевдониму допустима, а сравнение с литералом даты корректно.",
+  "tags": [
+   "sql",
+   "group-by",
+   "bug-finding"
+  ],
+  "version_group": "BE-JP-SQL-GROUPERR",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "1  SELECT department, name, AVG(salary) AS avg_salary\n2  FROM employees\n3  GROUP BY department\n4  HAVING AVG(salary) > 100000;",
+    "options": [
+     {
+      "id": "A",
+      "text": "Строка 1: столбец name не входит в группировку и не агрегирован"
+     },
+     {
+      "id": "B",
+      "text": "Строка 4: в HAVING нельзя использовать агрегатные функции, только псевдонимы"
+     },
+     {
+      "id": "C",
+      "text": "Строка 3: группировать по текстовому столбцу нельзя"
+     },
+     {
+      "id": "D",
+      "text": "Строка 1: псевдоним нельзя задавать агрегату"
+     }
+    ],
+    "correct_answer": [
+     "A"
+    ],
+    "explanation": "Столбец name не входит в GROUP BY и не является аргументом агрегатной функции, поэтому его значение внутри группы отдела не определено. Условие HAVING по агрегату допустимо, а псевдоним агрегата — тоже."
+   }
+  ]
+ },
+ {
+  "id": "BE-J-P-009",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "sql",
+  "difficulty": 2,
+  "question": "Нужно пометить как отменённые все заказы клиента 42, созданные до 1 января 2026 года. Какой запрос корректен?",
+  "language": "sql",
+  "code": "-- orders(id, client_id, status, created_at)",
+  "options": [
+   {
+    "id": "A",
+    "text": "UPDATE orders SET status = 'cancelled' WHERE client_id = 42 AND created_at < '2026-01-01'"
+   },
+   {
+    "id": "B",
+    "text": "UPDATE orders SET status = 'cancelled' WHERE client_id = 42 OR created_at < '2026-01-01'"
+   },
+   {
+    "id": "C",
+    "text": "UPDATE orders SET status = 'cancelled', client_id = 42 WHERE created_at < '2026-01-01' AND status <> 'cancelled'"
+   },
+   {
+    "id": "D",
+    "text": "DELETE FROM orders WHERE client_id = 42 AND created_at < '2026-01-01'"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "Нужны оба условия одновременно, поэтому они соединяются оператором AND. Условие с OR затронет заказы всех клиентов за прошлые годы, присваивание client_id = 42 перепишет принадлежность заказов, а удаление теряет данные вместо изменения статуса.",
+  "tags": [
+   "sql",
+   "update",
+   "conditions"
+  ],
+  "version_group": "BE-JP-SQL-UPDATE",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-P-010",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "sql",
+  "difficulty": 3,
+  "question": "Что вернёт запрос? Введите число.",
+  "language": "sql",
+  "code": "-- Таблица products:\n-- id | price\n-- 1  | 100\n-- 2  | NULL\n-- 3  | 200\n-- 4  | NULL\n-- 5  | 300\n\nSELECT AVG(price) FROM products;",
+  "options": [],
+  "correct_answer": [
+   "200"
+  ],
+  "score": 1,
+  "explanation": "Агрегатные функции игнорируют NULL, поэтому среднее считается по трём значениям: (100 + 200 + 300) / 3 = 200. Если требуется считать пропуски нулями, их нужно явно заменить, например через COALESCE.",
+  "tags": [
+   "sql",
+   "null",
+   "aggregates",
+   "numeric"
+  ],
+  "version_group": "BE-SQL-COUNT-NULL",
+  "seedable": true,
+  "seed_parameters": [
+   "input_values"
+  ],
+  "validation_type": "numeric",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "-- Таблица products:\n-- id | price\n-- 1  | 50\n-- 2  | NULL\n-- 3  | 150\n\nSELECT COUNT(price) FROM products;",
+    "options": [],
+    "correct_answer": [
+     "2"
+    ],
+    "explanation": "COUNT по столбцу считает только непустые значения: цены 50 и 150, итого 2. COUNT(*) вернул бы 3."
+   },
+   {
+    "variant_id": "v3",
+    "code": "-- Таблица products:\n-- id | price\n-- 1  | 10\n-- 2  | NULL\n-- 3  | 20\n-- 4  | 30\n\nSELECT SUM(price) FROM products;",
+    "options": [],
+    "correct_answer": [
+     "60"
+    ],
+    "explanation": "SUM игнорирует NULL и складывает только заполненные значения: 10 + 20 + 30 = 60."
+   },
+   {
+    "variant_id": "v4",
+    "code": "-- Таблица products:\n-- id | price\n-- 1  | 100\n-- 2  | NULL\n-- 3  | 200\n\nSELECT AVG(COALESCE(price, 0)) FROM products;",
+    "options": [],
+    "correct_answer": [
+     "100"
+    ],
+    "explanation": "COALESCE заменяет NULL на 0 до усреднения, поэтому среднее считается по трём значениям: (100 + 0 + 200) / 3 = 100. Без COALESCE результат был бы 150."
+   }
+  ]
+ },
+ {
+  "id": "BE-J-P-011",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "sql",
+  "difficulty": 2,
+  "question": "Нужна вторая страница списка заказов по 20 записей, отсортированных по дате создания от новых к старым. Какой запрос корректен?",
+  "language": "sql",
+  "code": "-- orders(id, created_at)",
+  "options": [
+   {
+    "id": "A",
+    "text": "SELECT * FROM orders ORDER BY created_at DESC LIMIT 20 OFFSET 20"
+   },
+   {
+    "id": "B",
+    "text": "SELECT * FROM orders LIMIT 20 OFFSET 2"
+   },
+   {
+    "id": "C",
+    "text": "SELECT * FROM orders ORDER BY orders.created_at DESC LIMIT 20 OFFSET 40"
+   },
+   {
+    "id": "D",
+    "text": "SELECT * FROM orders ORDER BY created_at ASC LIMIT 20, 2"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "Вторая страница по 20 записей начинается после первых 20, поэтому смещение равно 20, а сортировка задаётся явно: без ORDER BY порядок строк не определён и страницы могут пересекаться. Смещение 40 соответствует третьей странице, а запрос с сортировкой ASC и LIMIT 20, 2 нарушает и порядок, и смысл постраничного вывода.",
+  "tags": [
+   "sql",
+   "pagination",
+   "limit-offset"
+  ],
+  "version_group": "BE-JP-SQL-PAGE",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-P-012",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "algorithms",
+  "difficulty": 2,
+  "question": "Что выведет код? Введите результат одним числом.",
+  "language": "python",
+  "code": "total = 0\nfor i in range(1, 6):\n    if i % 2 == 0:\n        total += i\nprint(total)",
+  "options": [],
+  "correct_answer": [
+   "6"
+  ],
+  "score": 1,
+  "explanation": "range(1, 6) даёт числа от 1 до 5, из них чётные — 2 и 4, их сумма равна 6. Правая граница диапазона не включается.",
+  "tags": [
+   "algorithms",
+   "loops",
+   "numeric"
+  ],
+  "version_group": "BE-JP-LOOP-SUM",
+  "seedable": true,
+  "seed_parameters": [
+   "input_values"
+  ],
+  "validation_type": "numeric",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "total = 0\nfor i in range(1, 11):\n    if i % 3 == 0:\n        total += i\nprint(total)",
+    "options": [],
+    "correct_answer": [
+     "18"
+    ],
+    "explanation": "range(1, 11) даёт числа от 1 до 10, кратные трём из них — 3, 6 и 9, их сумма равна 18."
+   },
+   {
+    "variant_id": "v3",
+    "code": "total = 0\nfor i in range(2, 9):\n    if i % 2 == 1:\n        total += i\nprint(total)",
+    "options": [],
+    "correct_answer": [
+     "15"
+    ],
+    "explanation": "range(2, 9) даёт числа от 2 до 8, нечётные из них — 3, 5 и 7, их сумма равна 15."
+   },
+   {
+    "variant_id": "v4",
+    "code": "total = 1\nfor i in range(1, 5):\n    total *= i\nprint(total)",
+    "options": [],
+    "correct_answer": [
+     "24"
+    ],
+    "explanation": "range(1, 5) даёт 1, 2, 3 и 4; произведение с начальным значением 1 равно 24."
+   }
+  ]
+ },
+ {
+  "id": "BE-J-P-013",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "algorithms",
+  "difficulty": 3,
+  "question": "Бинарный поиск зацикливается, когда искомого элемента нет в массиве. В какой строке ошибка?",
+  "language": "python",
+  "code": "1  def bsearch(arr, target):\n2      lo, hi = 0, len(arr) - 1\n3      while lo <= hi:\n4          mid = (lo + hi) // 2\n5          if arr[mid] == target:\n6              return mid\n7          elif arr[mid] < target:\n8              lo = mid\n9          else:\n10             hi = mid - 1\n11     return -1",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 2: hi нужно задать равным len(arr)"
+   },
+   {
+    "id": "B",
+    "text": "Строка 3: условие должно быть строгим неравенством"
+   },
+   {
+    "id": "C",
+    "text": "Строка 8: границу нужно сдвигать за середину — lo = mid + 1, иначе диапазон перестаёт уменьшаться"
+   },
+   {
+    "id": "D",
+    "text": "Строка 4: середину нужно вычислять как lo + (hi - lo) // 2, чтобы избежать переполнения"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 1,
+  "explanation": "При lo = mid диапазон может не уменьшиться: если lo и hi различаются на единицу, mid равен lo, и следующая итерация повторяет те же границы. Сдвиг за середину гарантирует сокращение диапазона. Вычисление середины как lo + (hi - lo) // 2 защищает от переполнения в языках с ограниченными целыми, но причиной зацикливания не является.",
+  "tags": [
+   "algorithms",
+   "binary-search",
+   "bug-finding"
+  ],
+  "version_group": "BE-JP-BSEARCH",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "1  def bsearch(arr, target):\n2      lo, hi = 0, len(arr) - 1\n3      while lo <= hi:\n4          mid = (lo + hi) // 2\n5          if arr[mid] == target:\n6              return mid\n7          elif arr[mid] < target:\n8              lo = mid + 1\n9          else:\n10             hi = mid\n11     return -1",
+    "options": [
+     {
+      "id": "A",
+      "text": "Строка 10: нужно hi = mid - 1, иначе при отсутствии элемента цикл не завершается"
+     },
+     {
+      "id": "B",
+      "text": "Строка 8: сдвиг lo выполнен неверно"
+     },
+     {
+      "id": "C",
+      "text": "Строка 3: нужно использовать строгое неравенство, иначе последний элемент проверяется дважды"
+     },
+     {
+      "id": "D",
+      "text": "Строка 11: возвращать -1 недопустимо"
+     }
+    ],
+    "correct_answer": [
+     "A"
+    ],
+    "explanation": "Когда элемент в середине больше искомого, граница hi = mid не исключает уже проверенный элемент. При lo, равном hi, середина совпадает с ними, и цикл бесконечно повторяет те же границы. Нужно hi = mid - 1."
+   }
+  ]
+ },
+ {
+  "id": "BE-J-P-014",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "algorithms",
+  "difficulty": 3,
+  "question": "Определите сложность функции по времени относительно длины n входного списка. Введите ответ в форме O(...) без пробелов.",
+  "language": "python",
+  "code": "def has_pair(nums, target):\n    seen = set()\n    for n in nums:\n        if target - n in seen:\n            return True\n        seen.add(n)\n    return False",
+  "options": [],
+  "correct_answer": [
+   "O(N)"
+  ],
+  "score": 1,
+  "explanation": "Один проход по списку, а проверка принадлежности множеству и добавление в него выполняются в среднем за константное время, поэтому сложность линейна. Вариант с двумя вложенными циклами дал бы O(n²).",
+  "tags": [
+   "algorithms",
+   "complexity",
+   "exact_match"
+  ],
+  "version_group": "BE-COMPLEXITY-BASIC",
+  "seedable": true,
+  "seed_parameters": [
+   "variable_names"
+  ],
+  "validation_type": "exact_match",
+  "answer_normalization": [
+   "trim",
+   "uppercase",
+   "remove_spaces"
+  ],
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "def has_pair(nums, target):\n    for i in range(len(nums)):\n        for j in range(i + 1, len(nums)):\n            if nums[i] + nums[j] == target:\n                return True\n    return False",
+    "options": [],
+    "correct_answer": [
+     "O(N^2)"
+    ],
+    "explanation": "Два вложенных цикла перебирают все пары элементов, число сравнений растёт как n·(n−1)/2, то есть O(n²)."
+   },
+   {
+    "variant_id": "v3",
+    "code": "def first_element(nums):\n    if not nums:\n        return None\n    return nums[0]",
+    "options": [],
+    "correct_answer": [
+     "O(1)"
+    ],
+    "explanation": "Функция выполняет одну проверку и одно обращение по индексу независимо от длины списка — это константное время O(1)."
+   }
+  ]
+ },
+ {
+  "id": "BE-J-P-015",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "data_structures",
+  "difficulty": 3,
+  "question": "Что выведет код? Введите результат одним числом.",
+  "language": "python",
+  "code": "stack = []\nfor x in [1, 2, 3, 4]:\n    stack.append(x)\nstack.pop()\nstack.pop()\nprint(stack[-1])",
+  "options": [],
+  "correct_answer": [
+   "2"
+  ],
+  "score": 1,
+  "explanation": "После добавления получается [1, 2, 3, 4]; два извлечения убирают 4 и 3, остаётся [1, 2], последний элемент равен 2. Стек работает по принципу «последним пришёл — первым вышел».",
+  "tags": [
+   "data_structures",
+   "stack",
+   "numeric"
+  ],
+  "version_group": "BE-JP-STACK",
+  "seedable": true,
+  "seed_parameters": [
+   "input_values"
+  ],
+  "validation_type": "numeric",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "from collections import deque\nq = deque()\nfor x in [10, 20, 30, 40]:\n    q.append(x)\nq.popleft()\nprint(q[0])",
+    "options": [],
+    "correct_answer": [
+     "20"
+    ],
+    "explanation": "deque работает как очередь: после добавления 10, 20, 30 и 40 вызов popleft убирает первый элемент 10, и в начале оказывается 20."
+   },
+   {
+    "variant_id": "v3",
+    "code": "stack = []\nfor x in [5, 6, 7]:\n    stack.append(x)\nstack.pop()\nstack.append(9)\nprint(stack[-1])",
+    "options": [],
+    "correct_answer": [
+     "9"
+    ],
+    "explanation": "Стек работает по принципу «последним пришёл — первым вышел»: pop убирает 7, затем добавляется 9, и он становится вершиной."
+   }
+  ]
+ },
+ {
+  "id": "BE-J-P-016",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "data_structures",
+  "difficulty": 2,
+  "question": "Нужно быстро получать данные пользователя по его идентификатору, обращений много. Какой код решает задачу эффективнее всего?",
+  "language": "python",
+  "code": "users = [\n    {'id': 7, 'name': 'Ира'},\n    {'id': 12, 'name': 'Олег'},\n    {'id': 19, 'name': 'Нина'},\n]\n# нужно многократно получать пользователя по id",
+  "options": [
+   {
+    "id": "A",
+    "text": "Каждый раз выполнять next(u for u in users if u['id'] == uid)"
+   },
+   {
+    "id": "B",
+    "text": "Построить словарь by_id = {u['id']: u for u in users} и обращаться by_id[uid]"
+   },
+   {
+    "id": "C",
+    "text": "Отсортировать список по id и перебирать его до совпадения"
+   },
+   {
+    "id": "D",
+    "text": "Сохранить пользователей в множестве и искать по значению id"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 1,
+  "explanation": "Словарь даёт доступ по ключу в среднем за константное время, и затраты на его построение окупаются при многократных обращениях. Перебор списка линеен для каждого обращения, сортировка сама по себе поиск не ускоряет, а словари в множество по ключу не индексируются.",
+  "tags": [
+   "data_structures",
+   "dict",
+   "indexing"
+  ],
+  "version_group": "BE-JP-DICT-INDEX",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-P-017",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "rest_api",
+  "difficulty": 2,
+  "question": "Какой запрос соответствует действию «отменить заказ 184» в API, следующем соглашениям REST?",
+  "language": "http",
+  "code": "-- ресурс заказа: /orders/{id}\n-- отмена изменяет поле status на \"cancelled\"",
+  "options": [
+   {
+    "id": "A",
+    "text": "GET /orders/184/cancel с пустым телом запроса"
+   },
+   {
+    "id": "B",
+    "text": "POST /cancelOrder?id=184 с пустым телом запроса"
+   },
+   {
+    "id": "C",
+    "text": "PATCH /orders/184 {\"status\":\"cancelled\"}"
+   },
+   {
+    "id": "D",
+    "text": "DELETE /orders/184 с телом {\"reason\": \"cancel\"}"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 1,
+  "explanation": "Отмена — это изменение состояния ресурса, поэтому подходит частичное обновление заказа. GET не должен менять состояние, глагол в адресе противоречит соглашениям, а DELETE означает удаление ресурса, а не перевод его в статус отменённого.",
+  "tags": [
+   "rest_api",
+   "methods",
+   "design"
+  ],
+  "version_group": "BE-JP-REST-ACTION",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "-- ресурс подписки: /subscriptions/{id}\n-- требуется полностью заменить настройки подписки присланными значениями",
+    "options": [
+     {
+      "id": "A",
+      "text": "GET /subscriptions/55?set=all"
+     },
+     {
+      "id": "B",
+      "text": "POST /subscriptions/55/replace"
+     },
+     {
+      "id": "C",
+      "text": "PATCH /subscriptions с телом {\"id\": 55}"
+     },
+     {
+      "id": "D",
+      "text": "PUT /subscriptions/55 с полным телом настроек"
+     }
+    ],
+    "correct_answer": [
+     "D"
+    ],
+    "question": "Какой запрос соответствует действию «полностью заменить настройки подписки 55» в API, следующем соглашениям REST?",
+    "explanation": "Полная замена состояния ресурса — назначение метода PUT с полным представлением по адресу ресурса. GET не должен менять состояние, глагол в адресе противоречит соглашениям, а PATCH предназначен для частичного изменения и адресуется конкретному ресурсу, а не коллекции."
+   }
+  ]
+ },
+ {
+  "id": "BE-J-P-018",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "rest_api",
+  "difficulty": 3,
+  "question": "Клиент отправляет корректный токен, но пытается прочитать заказ другого пользователя. Какой код ответа должен вернуть сервер?",
+  "language": "http",
+  "code": "GET /orders/5521 HTTP/1.1\nAuthorization: Bearer <валидный токен пользователя 10>\n\n(заказ 5521 принадлежит пользователю 77)",
+  "options": [
+   {
+    "id": "A",
+    "text": "401, так как токен не даёт права на этот ресурс"
+   },
+   {
+    "id": "B",
+    "text": "400, так как запрос обращается к чужому заказу"
+   },
+   {
+    "id": "C",
+    "text": "200 с пустым телом, чтобы не раскрывать данные заказа"
+   },
+   {
+    "id": "D",
+    "text": "403, либо 404, чтобы не раскрывать заказ"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 1,
+  "explanation": "Клиент аутентифицирован, поэтому 401 не подходит; отсутствие прав выражается кодом 403, а когда нежелательно подтверждать существование объекта, отвечают 404. 400 относится к некорректному запросу, а успешный ответ с пустым телом вводит клиента в заблуждение.",
+  "tags": [
+   "rest_api",
+   "status_codes",
+   "authorization"
+  ],
+  "version_group": "BE-SEC-IDOR-J",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-P-019",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "http",
+  "difficulty": 2,
+  "question": "Какой заголовок нужно добавить к запросу, чтобы сервер корректно разобрал тело?",
+  "language": "http",
+  "code": "POST /api/tasks HTTP/1.1\nHost: api.example.com\nAuthorization: Bearer abc123\n\n{\"title\": \"Отчёт\", \"done\": false}",
+  "options": [
+   {
+    "id": "A",
+    "text": "Accept: application/json; charset=utf-8"
+   },
+   {
+    "id": "B",
+    "text": "Content-Encoding: json"
+   },
+   {
+    "id": "C",
+    "text": "Content-Type: application/json"
+   },
+   {
+    "id": "D",
+    "text": "X-Content-Format: application/json"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 1,
+  "explanation": "Content-Type описывает формат передаваемого тела, по нему сервер выбирает разбор. Accept указывает желаемый формат ответа, Content-Encoding относится к способу сжатия, а нестандартный заголовок сервер не распознает.",
+  "tags": [
+   "http",
+   "headers",
+   "request"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-P-020",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "http",
+  "difficulty": 3,
+  "question": "Какой код ответа корректен для этого запроса?",
+  "language": "http",
+  "code": "DELETE /api/files/9f3a HTTP/1.1\nAuthorization: Bearer <валидный токен владельца>\n\n(файл успешно удалён, тело ответа не требуется)",
+  "options": [
+   {
+    "id": "A",
+    "text": "202 Accepted без тела"
+   },
+   {
+    "id": "B",
+    "text": "200 c {\"deleted\":true}"
+   },
+   {
+    "id": "C",
+    "text": "204 No Content без тела"
+   },
+   {
+    "id": "D",
+    "text": "205 Reset Content"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 1,
+  "explanation": "204 No Content означает успешное выполнение без тела ответа и чаще всего применяется для удаления. Ответ 200 с телом тоже допустим, но в условии сказано, что тело не требуется; 202 означает принятие запроса к отложенной обработке, а 205 к этой ситуации не относится.",
+  "tags": [
+   "http",
+   "status_codes",
+   "delete"
+  ],
+  "version_group": "BE-JP-HTTP-DELETE",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-P-021",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "security",
+  "difficulty": 3,
+  "question": "Какая строка содержит уязвимость?",
+  "language": "python",
+  "code": "1  login = request.args.get('login')\n2  limit = int(request.args.get('limit', 50))\n3  query = \"SELECT id, email FROM users WHERE login = '\" + login + \"'\"\n4  rows = db.execute(query)\n5  return jsonify(rows[:limit])",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 3: значение подставляется в текст запроса конкатенацией — это SQL-инъекция"
+   },
+   {
+    "id": "B",
+    "text": "Строка 1: чтение параметра login из строки запроса без проверки, что он вообще передан"
+   },
+   {
+    "id": "C",
+    "text": "Строка 2: приведение параметра к целому числу"
+   },
+   {
+    "id": "D",
+    "text": "Строка 5: срез результата по значению из запроса"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "Склейка пользовательского значения с текстом запроса позволяет изменить его смысл: СУБД получает единый текст и не различает данные и команды. Нужен параметризованный запрос, где значение передаётся отдельно от текста.",
+  "tags": [
+   "security",
+   "sql-injection",
+   "bug-finding"
+  ],
+  "version_group": "BE-SEC-SQLI",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "1  const status = req.query.status;\n2  const page = Number(req.query.page) || 1;\n3  const sql = `SELECT * FROM orders WHERE status = '${status}' LIMIT 20 OFFSET ${(page - 1) * 20}`;\n4  const rows = await db.query(sql);\n5  res.json(rows);",
+    "options": [
+     {
+      "id": "A",
+      "text": "Строка 4: ожидание результата запроса блокирует цикл событий на время выполнения"
+     },
+     {
+      "id": "B",
+      "text": "Строка 3: status вставляется в текст запроса шаблонной строкой"
+     },
+     {
+      "id": "C",
+      "text": "Строка 2: приведение номера страницы к числу без проверки на отрицательные значения"
+     },
+     {
+      "id": "D",
+      "text": "Строка 5: возврат строк клиенту"
+     }
+    ],
+    "correct_answer": [
+     "B"
+    ],
+    "explanation": "Значение status вставляется в текст запроса шаблонной строкой, и кавычка в параметре меняет смысл SQL. Номер страницы приведён к числу и инъекции не допускает. Значение нужно передавать параметром запроса."
+   },
+   {
+    "variant_id": "v3",
+    "code": "1  table = request.args.get('table')\n2  cur.execute(\"SELECT count(*) FROM %s\" % table)\n3  total = cur.fetchone()[0]\n4  cur.execute(\"SELECT * FROM products WHERE price > %s\", (min_price,))\n5  return {'total': total}",
+    "options": [
+     {
+      "id": "A",
+      "text": "Строка 3: чтение первого значения результата без проверки на пустой ответ"
+     },
+     {
+      "id": "B",
+      "text": "Строка 4: передача параметра кортежем вместо подстановки в строку"
+     },
+     {
+      "id": "C",
+      "text": "Строка 2: имя таблицы подставляется из запроса как есть"
+     },
+     {
+      "id": "D",
+      "text": "Строка 1: чтение параметра запроса без ограничения допустимой длины"
+     }
+    ],
+    "correct_answer": [
+     "C"
+    ],
+    "explanation": "Имя таблицы подставляется в текст запроса форматированием строки — это инъекция. Параметрами передаются только значения, поэтому имена таблиц и колонок проверяют по списку разрешённых. Четвёртая строка передаёт значение параметром корректно."
+   }
+  ]
+ },
+ {
+  "id": "BE-J-P-022",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "security",
+  "difficulty": 3,
+  "question": "Как правильно исправить запрос, чтобы исключить SQL-инъекцию?",
+  "language": "python",
+  "code": "email = request.json['email']\nquery = f\"SELECT id FROM users WHERE email = '{email}'\"\nrow = db.execute(query).fetchone()",
+  "options": [
+   {
+    "id": "A",
+    "text": "Проверять значение регулярным выражением на ключевые слова SQL и отклонять все подозрительные запросы"
+   },
+   {
+    "id": "B",
+    "text": "Экранировать кавычки в значении: email.replace(\"'\", \"''\")"
+   },
+   {
+    "id": "C",
+    "text": "Ограничить длину значения 100 символами"
+   },
+   {
+    "id": "D",
+    "text": "Передавать значение параметром: db.execute(\"SELECT id FROM users WHERE email = ?\", (email,))"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 1,
+  "explanation": "Параметризованный запрос передаёт значение отдельно от текста, и СУБД трактует его исключительно как данные — это устраняет причину. Ручное экранирование и фильтрация по ключевым словам обходятся и ломаются на нестандартных случаях, а ограничение длины не мешает короткой инъекции.",
+  "tags": [
+   "security",
+   "sql-injection",
+   "bug-fixing"
+  ],
+  "version_group": "BE-SEC-SQLI",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-P-023",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "auth",
+  "difficulty": 3,
+  "question": "Какая строка содержит ошибку, из-за которой проверка пароля небезопасна?",
+  "language": "python",
+  "code": "1  user = db.get_user_by_email(email)\n2  if user is None:\n3      return error('Пользователь не найден')\n4  if user.password_hash == sha256(password).hexdigest():\n5      return make_session(user)\n6  return error('Неверный пароль')",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 2: проверка на отсутствие пользователя выполняется через is None вместо сравнения с False"
+   },
+   {
+    "id": "B",
+    "text": "Строка 4: быстрый хеш без соли — нужен алгоритм вроде bcrypt или argon2"
+   },
+   {
+    "id": "C",
+    "text": "Строка 5: сессия создаётся сразу после проверки, без повторного запроса пароля у пользователя"
+   },
+   {
+    "id": "D",
+    "text": "Строка 1: поиск пользователя по электронной почте без приведения адреса к нижнему регистру"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 1,
+  "explanation": "SHA-256 вычисляется очень быстро, поэтому хеши без соли перебираются массово, а одинаковые пароли дают одинаковые хеши. Нужен bcrypt, scrypt или Argon2 с индивидуальной солью и штатной функцией проверки, выполняющей сравнение за постоянное время. Дополнительно стоит отвечать единообразно при любой неудаче входа, чтобы не раскрывать существование учётной записи.",
+  "tags": [
+   "auth",
+   "password-hashing",
+   "bug-finding"
+  ],
+  "version_group": "BE-AUTH-PASSWORD-HASH-J",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-P-024",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "performance",
+  "difficulty": 3,
+  "question": "Какая строка создаёт проблему производительности при 200 заказах?",
+  "language": "python",
+  "code": "1  orders = db.query('SELECT id, client_id, total FROM orders LIMIT 200')\n2  result = []\n3  for order in orders:\n4      client = db.query('SELECT name FROM clients WHERE id = ?', order.client_id)\n5      result.append({'id': order.id, 'client': client.name, 'total': order.total})\n6  return result",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 1: выборка с ограничением 200 строк без сортировки по дате"
+   },
+   {
+    "id": "B",
+    "text": "Строка 5: формирование нового словаря на каждой итерации цикла"
+   },
+   {
+    "id": "C",
+    "text": "Строка 4: отдельный запрос к базе на каждый заказ"
+   },
+   {
+    "id": "D",
+    "text": "Строка 6: возврат всего списка целиком вместо генератора"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 1,
+  "explanation": "Это проблема N+1: вместо одного запроса с соединением или одной выборки клиентов по списку идентификаторов выполняется 201 обращение к базе, и основное время уходит на сетевые задержки. Формирование словарей в памяти на этом фоне незначительно.",
+  "tags": [
+   "performance",
+   "n+1",
+   "bug-finding"
+  ],
+  "version_group": "BE-PERF-N1",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "1  const users = await db.query('SELECT id, name FROM users');\n2  const result = [];\n3  for (const user of users) {\n4    const count = await db.query('SELECT count(*) FROM orders WHERE user_id = ?', user.id);\n5    result.push({ name: user.name, orders: count });\n6  }",
+    "options": [
+     {
+      "id": "A",
+      "text": "Строка 4: отдельный запрос на каждого пользователя вместо одного с группировкой"
+     },
+     {
+      "id": "B",
+      "text": "Строка 3: перебор массива циклом for..of заметно медленнее, чем встроенный метод forEach"
+     },
+     {
+      "id": "C",
+      "text": "Строка 1: выборка всех пользователей без ограничения LIMIT и без постраничного вывода"
+     },
+     {
+      "id": "D",
+      "text": "Строка 5: добавление элемента в массив"
+     }
+    ],
+    "correct_answer": [
+     "A"
+    ],
+    "question": "Какая строка создаёт проблему производительности при большом числе пользователей?",
+    "explanation": "Для каждого пользователя выполняется отдельный запрос подсчёта — проблема N+1. Один запрос с группировкой по user_id или соединение с подсчётом возвращают все счётчики сразу."
+   }
+  ]
+ },
+ {
+  "id": "BE-J-P-025",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "databases",
+  "difficulty": 3,
+  "question": "Нужно обеспечить, чтобы в таблице не могло быть двух пользователей с одинаковой электронной почтой. Какой вариант это гарантирует?",
+  "language": "sql",
+  "code": "-- users(id SERIAL PRIMARY KEY, email TEXT NOT NULL, created_at TIMESTAMP)",
+  "options": [
+   {
+    "id": "A",
+    "text": "CREATE INDEX idx_users_email ON users (email);"
+   },
+   {
+    "id": "B",
+    "text": "ALTER TABLE users ALTER COLUMN email SET NOT NULL;"
+   },
+   {
+    "id": "C",
+    "text": "Проверять существование адреса в коде перед вставкой"
+   },
+   {
+    "id": "D",
+    "text": "ALTER TABLE users ADD CONSTRAINT users_email_key UNIQUE (email);"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 1,
+  "explanation": "Гарантию уникальности даёт только ограничение на уровне базы данных. Обычный индекс ускоряет поиск, но повторы допускает; NOT NULL запрещает пустое значение, а не дубликаты; проверка в коде оставляет окно для состояния гонки при параллельных запросах.",
+  "tags": [
+   "databases",
+   "constraints",
+   "unique"
+  ],
+  "version_group": "BE-CONC-UNIQUE",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-P-026",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "databases",
+  "difficulty": 3,
+  "question": "Что не так в этой схеме с точки зрения целостности данных?",
+  "language": "sql",
+  "code": "CREATE TABLE orders (\n  id SERIAL PRIMARY KEY,\n  client_id INTEGER NOT NULL,\n  total NUMERIC(10,2) NOT NULL,\n  created_at TIMESTAMP NOT NULL DEFAULT now()\n);\n-- таблица clients(id SERIAL PRIMARY KEY, name TEXT NOT NULL) уже существует",
+  "options": [
+   {
+    "id": "A",
+    "text": "Для total нужно использовать тип с плавающей точкой, чтобы не терять точность при денежных расчётах"
+   },
+   {
+    "id": "B",
+    "text": "Первичный ключ должен быть текстовым"
+   },
+   {
+    "id": "C",
+    "text": "У client_id нет внешнего ключа на clients(id) — возможны ссылки в никуда"
+   },
+   {
+    "id": "D",
+    "text": "Значение по умолчанию для created_at задавать нельзя: время должно приходить из приложения"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 1,
+  "explanation": "Без внешнего ключа база не проверяет существование клиента, и при ошибке в коде или ручной правке появляются висячие ссылки. Тип NUMERIC для денежных сумм как раз правильный выбор: числа с плавающей точкой дают погрешности при сложении.",
+  "tags": [
+   "databases",
+   "foreign-key",
+   "schema"
+  ],
+  "version_group": "BE-DB-FK",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-P-027",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "testing",
+  "difficulty": 2,
+  "question": "Какой тест корректно проверяет функцию расчёта скидки?",
+  "language": "python",
+  "code": "def discount(total, is_member):\n    if is_member and total >= 1000:\n        return total * 0.9\n    return total",
+  "options": [
+   {
+    "id": "A",
+    "text": "assert discount(1000, True) is not None, чтобы убедиться, что функция вообще вернула значение для участника программы"
+   },
+   {
+    "id": "B",
+    "text": "assert discount(1000, True) == 900 и assert discount(999, True) == 999 и assert discount(2000, False) == 2000"
+   },
+   {
+    "id": "C",
+    "text": "assert discount(1000, True) == discount(1000, True), чтобы проверить, что повторный вызов функции даёт тот же результат"
+   },
+   {
+    "id": "D",
+    "text": "try: discount(1000, True) except: assert False"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 1,
+  "explanation": "Полезный тест проверяет конкретные ожидаемые значения, включая границу условия (ровно 1000 и 999) и случай без скидки. Проверки на отсутствие None, на равенство функции самой себе и на отсутствие исключения выполняются при любой, в том числе неверной, реализации.",
+  "tags": [
+   "testing",
+   "assertions",
+   "boundary-values"
+  ],
+  "version_group": "BE-JP-TEST-ASSERT",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ }
+]

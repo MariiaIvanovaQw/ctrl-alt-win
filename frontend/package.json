@@ -1,0 +1,31 @@
+{
+  "name": "fsp-talent-web",
+  "private": true,
+  "version": "0.0.0",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint",
+    "preview": "vite preview",
+    "api:types": "openapi-typescript http://localhost:8000/openapi.json -o src/api/schema.ts",
+    "api:types:file": "openapi-typescript ../docs/openapi.json -o src/api/schema.ts",
+    "typecheck": "tsc -b"
+  },
+  "dependencies": {
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.4"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "openapi-typescript": "^7.13.0",
+    "oxlint": "^1.81.0",
+    "typescript": "~5.9.0",
+    "vite": "^8.3.0"
+  }
+}

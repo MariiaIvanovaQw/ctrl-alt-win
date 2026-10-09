@@ -1,0 +1,23 @@
+заданий в банке: 720
+
+WARN (10):
+  [V8] frontend: компетенция git покрыта 6 заданиями
+  [V8] backend: компетенция git покрыта 4 заданиями
+  [V10] version_group BE-CONC-UNIQUE объединяет разные компетенции: concurrency, databases
+  [V10] version_group BE-PERF-N1 объединяет разные компетенции: databases, performance
+  [V10] version_group BE-SEC-WEBHOOK объединяет разные компетенции: auth, security
+  [V10] version_group FE-ARCH-MIGRATION объединяет разные компетенции: architecture, state_management
+  [V10] version_group FE-HTTP-BACKOFF объединяет разные компетенции: api_integration, http
+  [V10] version_group QA-BR-SEV-PRIO объединяет разные компетенции: bug_reports, defect_prioritization
+  [V10] version_group QA-ST-REGRESSION-TIME объединяет разные компетенции: regression_testing, test_automation
+  [V12] qa/senior: малый запас в ячейке (situational, d7-8): 14 при потребности 5
+
+INFO (6):
+  [V7] распределение правильных ответов: {'A': 183, 'B': 181, 'C': 181, 'D': 181}
+  [V9] frontend: распределение difficulty {1: 1, 2: 33, 3: 46, 4: 17, 5: 43, 6: 20, 7: 21, 8: 32, 9: 25, 10: 2}
+  [V9] backend: распределение difficulty {2: 32, 3: 48, 4: 16, 5: 34, 6: 30, 7: 16, 8: 33, 9: 27, 10: 4}
+  [V9] qa: распределение difficulty {1: 2, 2: 31, 3: 47, 4: 10, 5: 40, 6: 30, 7: 7, 8: 34, 9: 30, 10: 9}
+  [V13] место правильного варианта по длине (1 – самый длинный): {1: 187, 2: 185, 3: 176, 4: 164} из 712 форм
+  [V13] правильный вариант самый длинный в 26.3% форм, самый короткий – в 23.0%; выделяется длиной в 0 формах, краткостью – в 0
+
+итог: ошибок 0, предупреждений 10

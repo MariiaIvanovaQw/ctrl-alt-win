@@ -1,0 +1,1191 @@
+[
+ {
+  "id": "FE-J-T-001",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "html",
+  "difficulty": 2,
+  "question": "В форме нужно, чтобы клик по тексту «Email» переводил курсор в соответствующее поле ввода. Какая разметка это обеспечивает штатными средствами HTML?",
+  "options": [
+   {
+    "id": "A",
+    "text": "<label for=\"email\">Email</label><input id=\"email\" type=\"email\">"
+   },
+   {
+    "id": "B",
+    "text": "<label name=\"email\">Email</label><input name=\"email\">"
+   },
+   {
+    "id": "C",
+    "text": "<span class=\"label\" data-for=\"email\">Email</span><input id=\"email\" type=\"email\">"
+   },
+   {
+    "id": "D",
+    "text": "<label>Email</label><input id=\"email\" type=\"email\" title=\"Email\">"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "Связь подписи и поля задаётся атрибутом for у label, значение которого равно id элемента управления. Атрибуты name, data-* и title такой связи не создают; обёртывание input внутрь label тоже работает, но в разметке без for поле находится вне label.",
+  "tags": [
+   "html",
+   "forms",
+   "basic"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-T-002",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "html",
+  "difficulty": 2,
+  "question": "Чем отличается <section> от <div> с точки зрения разметки страницы?",
+  "options": [
+   {
+    "id": "A",
+    "text": "<section> можно использовать только один раз на странице, а <div> — сколько угодно раз подряд"
+   },
+   {
+    "id": "B",
+    "text": "<section> является блочным элементом, а <div> — строчным"
+   },
+   {
+    "id": "C",
+    "text": "<section> — самостоятельный смысловой раздел документа, а <div> — контейнер без значения"
+   },
+   {
+    "id": "D",
+    "text": "<section> по умолчанию получает вертикальные отступы, а <div> — нет"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 1,
+  "explanation": "section — семантический элемент: он сообщает, что внутри находится логически цельный раздел, обычно со своим заголовком. div не несёт смысла и используется для группировки ради вёрстки. Оба блочные и могут встречаться многократно.",
+  "tags": [
+   "html",
+   "semantics",
+   "basic"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-T-003",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "html",
+  "difficulty": 3,
+  "question": "Нужно подключить внешний скрипт так, чтобы он не блокировал разбор HTML, гарантированно выполнился после построения DOM и сохранил порядок относительно других таких же скриптов. Какой вариант подключения подходит?",
+  "options": [
+   {
+    "id": "A",
+    "text": "<script src=\"app.js\"></script> в начале head"
+   },
+   {
+    "id": "B",
+    "text": "<script src=\"app.js\" async></script>"
+   },
+   {
+    "id": "C",
+    "text": "<script defer src=\"./app.js\"></script>"
+   },
+   {
+    "id": "D",
+    "text": "<script src=\"app.js\" type=\"text/plain\"></script>"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 1,
+  "explanation": "defer загружает скрипт параллельно с парсингом, выполняет его перед DOMContentLoaded и сохраняет порядок объявления. async тоже не блокирует парсинг, но выполняется сразу после загрузки и порядок не гарантирует. Обычный script в head блокирует парсер, а type=\"text/plain\" вообще отключает выполнение.",
+  "tags": [
+   "html",
+   "loading",
+   "scripts"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-T-004",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "css",
+  "difficulty": 2,
+  "question": "Элементу заданы width: 200px, padding: 20px, border: 5px solid. Что изменится, если добавить box-sizing: border-box?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Полная ширина элемента останется 250px, но содержимое сузится до 150px"
+   },
+   {
+    "id": "B",
+    "text": "Ничего не изменится: border-box влияет только на вложенные элементы"
+   },
+   {
+    "id": "C",
+    "text": "Полная ширина станет 200px, а padding и border перестанут отображаться"
+   },
+   {
+    "id": "D",
+    "text": "Полная ширина элемента станет 200px, а область содержимого сузится до 150px"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 1,
+  "explanation": "При border-box значение width включает padding и border, поэтому внешняя ширина равна 200px, а на содержимое остаётся 200 − 2·20 − 2·5 = 150px. При content-box, который действует по умолчанию, внешняя ширина была бы 250px.",
+  "tags": [
+   "css",
+   "box-model",
+   "basic"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-T-005",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "css",
+  "difficulty": 3,
+  "question": "К одному элементу применимы правила с селекторами .card .title, #main .title и h2.title. Какое из них определит цвет текста при равных по происхождению таблицах стилей и отсутствии !important?",
+  "options": [
+   {
+    "id": "A",
+    "text": "То, которое расположено ниже в файле стилей: порядок важнее специфичности"
+   },
+   {
+    "id": "B",
+    "text": "#main .title — у идентификатора наибольший вес"
+   },
+   {
+    "id": "C",
+    "text": "h2.title, потому что селектор содержит имя тега и класс одновременно"
+   },
+   {
+    "id": "D",
+    "text": ".card .title, потому что оно описано сразу двумя классами"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 1,
+  "explanation": "Специфичность сравнивается покомпонентно, и id сильнее любого числа классов: #main .title даёт (1,1,0), .card .title — (0,2,0), h2.title — (0,1,1). Порядок в файле решает только при равной специфичности.",
+  "tags": [
+   "css",
+   "specificity"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-T-006",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "css",
+  "difficulty": 3,
+  "question": "Элементу задано position: absolute. Относительно чего он будет позиционирован?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Относительно ближайшего позиционированного предка"
+   },
+   {
+    "id": "B",
+    "text": "Относительно ближайшего предка, у которого явно заданы width и height"
+   },
+   {
+    "id": "C",
+    "text": "Всегда относительно непосредственного родительского элемента в разметке"
+   },
+   {
+    "id": "D",
+    "text": "Всегда относительно окна браузера, независимо от предков"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "Абсолютно позиционированный элемент отсчитывается от ближайшего позиционированного предка (relative, absolute, fixed, sticky), а если его нет — от начального содержащего блока. Непосредственный родитель с position: static в расчёте не участвует.",
+  "tags": [
+   "css",
+   "positioning"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-T-007",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "javascript",
+  "difficulty": 1,
+  "question": "Что именно запрещает объявление переменной через const?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Объявление без инициализации"
+   },
+   {
+    "id": "B",
+    "text": "Изменение любых данных, на которые ссылается переменная, включая поля объекта"
+   },
+   {
+    "id": "C",
+    "text": "Повторное присваивание значения самой переменной"
+   },
+   {
+    "id": "D",
+    "text": "Использование во вложенных функциях"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 1,
+  "explanation": "const запрещает переприсваивание самой привязки. Если в переменной лежит объект или массив, его содержимое менять можно: const a = []; a.push(1) — корректный код.",
+  "tags": [
+   "javascript",
+   "variables",
+   "basic"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-T-008",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "javascript",
+  "difficulty": 2,
+  "question": "В каком из случаев сравнение через == даст true, а через === — false?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Сравниваются 0 и пустой объект {}"
+   },
+   {
+    "id": "B",
+    "text": "Сравниваются два объекта с равными полями"
+   },
+   {
+    "id": "C",
+    "text": "Сравниваются строковое значение \"1\" и число 1"
+   },
+   {
+    "id": "D",
+    "text": "Сравниваются NaN и NaN"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 1,
+  "explanation": "== приводит операнды к общему типу, поэтому \"1\" == 1 даёт true, а \"1\" === 1 — false. Два разных объекта не равны при любом операторе, NaN не равен сам себе, а 0 == {} даёт false, потому что объект приводится к строке \"[object Object]\" и затем к NaN.",
+  "tags": [
+   "javascript",
+   "equality",
+   "basic"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-T-009",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "javascript",
+  "difficulty": 2,
+  "question": "Какой из перечисленных методов массива возвращает новый массив, не изменяя исходный?",
+  "options": [
+   {
+    "id": "A",
+    "text": "slice"
+   },
+   {
+    "id": "B",
+    "text": "reverse"
+   },
+   {
+    "id": "C",
+    "text": "sort"
+   },
+   {
+    "id": "D",
+    "text": "splice"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "slice копирует указанный диапазон в новый массив и не трогает исходный. splice, sort и reverse изменяют массив на месте, из-за чего их случайное применение к данным из состояния приложения приводит к трудно находимым ошибкам.",
+  "tags": [
+   "javascript",
+   "arrays",
+   "immutability"
+  ],
+  "version_group": "FE-ARR-MUTATION",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-T-010",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "javascript",
+  "difficulty": 3,
+  "question": "Функция createCounter объявляет локальную переменную count и возвращает вложенную функцию, которая увеличивает count и возвращает его. Почему count сохраняет значение между вызовами возвращённой функции?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Потому что JavaScript кэширует результат последнего вызова функции"
+   },
+   {
+    "id": "B",
+    "text": "Потому что count автоматически становится свойством глобального объекта window"
+   },
+   {
+    "id": "C",
+    "text": "Потому что вложенная функция сохраняет ссылку на область, где создана"
+   },
+   {
+    "id": "D",
+    "text": "Потому что переменные, объявленные через let, не удаляются сборщиком мусора"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 1,
+  "explanation": "Это замыкание: вложенная функция держит ссылку на лексическое окружение createCounter, поэтому count живёт столько, сколько жива сама функция. Глобальным свойством count не становится, а сборщик мусора не освобождает окружение именно из-за существующей ссылки.",
+  "tags": [
+   "javascript",
+   "closures"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-T-011",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "typescript",
+  "difficulty": 3,
+  "question": "Что меняет включение strictNullChecks в проекте на TypeScript?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Компилятор начинает вставлять проверки на null в сгенерированный JavaScript"
+   },
+   {
+    "id": "B",
+    "text": "Все необязательные свойства объектов становятся обязательными"
+   },
+   {
+    "id": "C",
+    "text": "null и undefined допустимы, только если указаны в типе"
+   },
+   {
+    "id": "D",
+    "text": "Любое обращение к свойству объекта требует оператора опциональной цепочки ?."
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 1,
+  "explanation": "Без strictNullChecks null и undefined входят в любой тип. С включённым флагом string уже не принимает null, и такие значения описывают как string | null, а перед использованием проверяют. Это проверка на этапе компиляции, в рантайм-код ничего не добавляется.",
+  "tags": [
+   "typescript",
+   "strict",
+   "types"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-T-012",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "typescript",
+  "difficulty": 3,
+  "question": "Чем тип unknown отличается от any?",
+  "options": [
+   {
+    "id": "A",
+    "text": "В unknown можно записать только примитивные значения, а в any — любые значения"
+   },
+   {
+    "id": "B",
+    "text": "unknown запрещает присваивать значение в переменную, а any разрешает"
+   },
+   {
+    "id": "C",
+    "text": "unknown существует только во время выполнения, а any — только при компиляции"
+   },
+   {
+    "id": "D",
+    "text": "unknown нельзя использовать без уточнения типа, а any — можно"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 1,
+  "explanation": "В unknown можно записать что угодно, как и в any, но прочитать свойства или вызвать методы нельзя до сужения типа через typeof, instanceof или пользовательский type guard. any отключает проверки полностью, поэтому unknown — безопасный вариант для данных с неизвестной структурой, например из ответа сервера.",
+  "tags": [
+   "typescript",
+   "unknown",
+   "types"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-T-013",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "react",
+  "difficulty": 2,
+  "question": "Зачем React требует атрибут key при рендере списка элементов?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Чтобы обработчики событий внутри списка получали индекс элемента"
+   },
+   {
+    "id": "B",
+    "text": "Чтобы React мог отсортировать элементы списка в стабильном порядке между рендерами"
+   },
+   {
+    "id": "C",
+    "text": "Чтобы при сравнении деревьев сопоставить элементы с прошлым рендером и не пересоздавать их"
+   },
+   {
+    "id": "D",
+    "text": "Чтобы сгенерировать уникальный атрибут id в итоговом HTML"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 1,
+  "explanation": "key — идентификатор элемента внутри списка при согласовании дерева. По нему React понимает, какой элемент остался тем же, какой добавлен и какой удалён. В разметку key не попадает и на порядок элементов не влияет.",
+  "tags": [
+   "react",
+   "lists",
+   "reconciliation"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-T-014",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "react",
+  "difficulty": 2,
+  "question": "Какое поле ввода в React называется контролируемым (controlled)?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Поле, значение которого берётся из состояния компонента, а изменения приходят через обработчик onChange"
+   },
+   {
+    "id": "B",
+    "text": "Поле, обёрнутое в компонент формы из сторонней библиотеки"
+   },
+   {
+    "id": "C",
+    "text": "Поле, у которого задан атрибут required, так что значение контролирует встроенная валидация браузера при отправке"
+   },
+   {
+    "id": "D",
+    "text": "Поле, к которому через ref привязан DOM-узел, и чтение значения идёт из него"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "У контролируемого поля единственный источник истины — состояние React: value приходит из состояния, onChange его обновляет. Вариант с ref и чтением значения из DOM описывает неконтролируемое поле.",
+  "tags": [
+   "react",
+   "forms",
+   "state"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-T-015",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "react",
+  "difficulty": 3,
+  "question": "Что означает пустой массив зависимостей у useEffect?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Эффект будет запускаться после каждого рендера компонента без исключений"
+   },
+   {
+    "id": "B",
+    "text": "Эффект запустится после первого рендера и больше не будет вызываться при обновлениях"
+   },
+   {
+    "id": "C",
+    "text": "Эффект не будет запущен ни разу"
+   },
+   {
+    "id": "D",
+    "text": "Эффект запустится только при размонтировании компонента"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 1,
+  "explanation": "Пустой массив означает, что список отслеживаемых значений пуст, поэтому эффект выполняется один раз после монтирования, а функция очистки — при размонтировании. Если массив зависимостей не передан вовсе, эффект срабатывает после каждого рендера.",
+  "tags": [
+   "react",
+   "hooks",
+   "useEffect"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-T-016",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "components",
+  "difficulty": 2,
+  "question": "В чём принципиальная разница между props и state компонента?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Изменение props вызывает повторный рендер, а изменение state — нет"
+   },
+   {
+    "id": "B",
+    "text": "props задаёт родитель, а state меняет сам компонент"
+   },
+   {
+    "id": "C",
+    "text": "props доступны только в классовых компонентах, state — только в функциональных"
+   },
+   {
+    "id": "D",
+    "text": "props хранят данные, а state — только обработчики событий компонента"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 1,
+  "explanation": "props — входные данные, которые компонент получает извне и трактует как неизменяемые; state — внутренние данные, которыми компонент управляет сам. Изменение и props, и state приводит к повторному рендеру.",
+  "tags": [
+   "components",
+   "props",
+   "state",
+   "basic"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-T-017",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "state_management",
+  "difficulty": 3,
+  "question": "Почему при обновлении состояния в React не изменяют существующий объект или массив на месте?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Потому что React сравнивает предыдущее и новое значение по ссылке и при мутации не увидит изменений"
+   },
+   {
+    "id": "B",
+    "text": "Потому что мутация объектов запрещена в strict mode браузера"
+   },
+   {
+    "id": "C",
+    "text": "Потому что React замораживает объекты состояния, и любая попытка мутации выбросит исключение в режиме разработки"
+   },
+   {
+    "id": "D",
+    "text": "Потому что мутация объекта делает его недоступным для сборщика мусора"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "Сравнение значений состояния и зависимостей выполняется поверхностно, по ссылке. Если изменить тот же объект, ссылка не меняется, и перерендер или эффект может не сработать. Поэтому создают новый объект или массив с нужными изменениями.",
+  "tags": [
+   "state_management",
+   "immutability",
+   "react"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-T-018",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "api_integration",
+  "difficulty": 3,
+  "question": "Запрос через fetch завершился ответом сервера со статусом 404. Что произойдёт с возвращённым промисом?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Промис будет отклонён, и управление перейдёт в catch"
+   },
+   {
+    "id": "B",
+    "text": "Промис останется в состоянии pending до истечения таймаута"
+   },
+   {
+    "id": "C",
+    "text": "Промис успешно выполнится, и статус нужно проверять через response.ok или response.status"
+   },
+   {
+    "id": "D",
+    "text": "fetch выбросит синхронное исключение ещё до того, как будет создан промис"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 1,
+  "explanation": "fetch отклоняет промис только при сетевой ошибке или прерывании запроса. Любой полученный HTTP-ответ, включая 4xx и 5xx, считается успешным выполнением, поэтому код ответа нужно проверять вручную.",
+  "tags": [
+   "api_integration",
+   "fetch",
+   "errors"
+  ],
+  "version_group": "FE-FETCH-STATUS",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-T-019",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "http",
+  "difficulty": 2,
+  "question": "Почему для отправки данных формы регистрации используют POST, а не GET?",
+  "options": [
+   {
+    "id": "A",
+    "text": "GET не поддерживает передачу параметров"
+   },
+   {
+    "id": "B",
+    "text": "POST шифрует передаваемые данные формы, а GET передаёт их в открытом виде"
+   },
+   {
+    "id": "C",
+    "text": "POST передаёт данные в теле и не кэшируется и не попадает в историю, в отличие от GET с URL"
+   },
+   {
+    "id": "D",
+    "text": "GET работает медленнее, потому что ответы на него не кэшируются браузером"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 1,
+  "explanation": "GET предназначен для безопасного получения данных, его URL попадает в историю, логи прокси и кэш. POST передаёт данные в теле и описывает изменяющее состояние действие. Шифрование обеспечивает TLS, а не выбор метода.",
+  "tags": [
+   "http",
+   "methods",
+   "forms"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-T-020",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "http",
+  "difficulty": 3,
+  "question": "Сервер вернул 403 вместо 401. Что это означает для клиента?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Срок действия токена истёк, нужно выполнить повторную аутентификацию"
+   },
+   {
+    "id": "B",
+    "text": "Запрошенный ресурс не существует и был скрыт по соображениям безопасности"
+   },
+   {
+    "id": "C",
+    "text": "Запрос не прошёл валидацию схемы, нужно исправить тело запроса"
+   },
+   {
+    "id": "D",
+    "text": "Личность клиента установлена, но прав на запрошенное действие у него нет"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 1,
+  "explanation": "401 означает, что аутентификация отсутствует или некорректна, и повторный вход может помочь. 403 означает, что клиент опознан, но доступ к ресурсу ему запрещён, поэтому обновление токена ситуацию не изменит.",
+  "tags": [
+   "http",
+   "status_codes",
+   "auth"
+  ],
+  "version_group": "FE-HTTP-401-403",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-T-021",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "browser",
+  "difficulty": 2,
+  "question": "Чем sessionStorage отличается от localStorage?",
+  "options": [
+   {
+    "id": "A",
+    "text": "sessionStorage живёт в пределах вкладки до её закрытия, а localStorage сохраняется между сессиями"
+   },
+   {
+    "id": "B",
+    "text": "sessionStorage ограничен 4 КБ, а localStorage ограничений по объёму не имеет"
+   },
+   {
+    "id": "C",
+    "text": "sessionStorage автоматически отправляется на сервер вместе с каждым запросом, как cookie, а localStorage — нет"
+   },
+   {
+    "id": "D",
+    "text": "sessionStorage доступен всем вкладкам домена, а localStorage — только текущей вкладке"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "sessionStorage существует в рамках конкретной вкладки и очищается при её закрытии; localStorage сохраняется до явного удаления и доступен всем вкладкам домена. На сервер автоматически уходят только cookie, лимит в несколько килобайт тоже относится к cookie.",
+  "tags": [
+   "browser",
+   "storage"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-T-022",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "browser",
+  "difficulty": 3,
+  "question": "Обработчик клика навешен на контейнер, а пользователь кликает по кнопке внутри него. Почему обработчик контейнера срабатывает?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Из-за всплытия: событие последовательно проходит от целевого элемента вверх по дереву предков"
+   },
+   {
+    "id": "B",
+    "text": "Потому что у кнопки нет собственного обработчика, и событие передаётся родителю"
+   },
+   {
+    "id": "C",
+    "text": "Потому что клик по умолчанию повторяется браузером отдельно для каждого вложенного элемента контейнера"
+   },
+   {
+    "id": "D",
+    "text": "Потому что браузер вызывает обработчики всех элементов страницы и затем фильтрует их по типу события"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "После фазы погружения событие всплывает от target к корню документа, вызывая обработчики на каждом предке. На этом основано делегирование событий. Наличие или отсутствие обработчика у самой кнопки на всплытие не влияет.",
+  "tags": [
+   "browser",
+   "events",
+   "bubbling"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-T-023",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "performance",
+  "difficulty": 3,
+  "question": "На странице много изображений, расположенных ниже первого экрана. Какой эффект даёт добавление им loading=\"lazy\"?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Браузер начинает загружать изображения раньше остальных ресурсов, чтобы они точно успели отрисоваться"
+   },
+   {
+    "id": "B",
+    "text": "Изображения загружаются в отдельном потоке и перестают влиять на время ответа сервера"
+   },
+   {
+    "id": "C",
+    "text": "Загрузка откладывается до приближения к области видимости"
+   },
+   {
+    "id": "D",
+    "text": "Изображения сжимаются браузером перед отображением, уменьшая объём трафика"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 1,
+  "explanation": "loading=\"lazy\" откладывает запрос изображения, пока оно не окажется близко к видимой области, поэтому начальная загрузка конкурирует за меньшее число запросов и меньший трафик. Сжатием изображений и приоритетом загрузки этот атрибут не управляет.",
+  "tags": [
+   "performance",
+   "images",
+   "loading"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-T-024",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "security",
+  "difficulty": 3,
+  "question": "Комментарии пользователей выводятся на страницу через element.innerHTML = comment. Какая уязвимость здесь возникает?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Clickjacking: страницу можно встроить в iframe и перехватить клики"
+   },
+   {
+    "id": "B",
+    "text": "XSS: разметка и скрипты из текста комментария будут исполнены в контексте страницы"
+   },
+   {
+    "id": "C",
+    "text": "CSRF: сторонний сайт сможет отправить запрос от имени пользователя"
+   },
+   {
+    "id": "D",
+    "text": "Утечка данных через заголовок Referer при переходе пользователей по ссылкам из текста комментария"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 1,
+  "explanation": "innerHTML разбирает строку как HTML, поэтому содержимое вроде <img src=x onerror=...> выполнит код в контексте страницы — это XSS. Для вывода пользовательского текста используют textContent или экранирование. CSRF и clickjacking относятся к другим механизмам.",
+  "tags": [
+   "security",
+   "xss",
+   "dom"
+  ],
+  "version_group": "FE-XSS-SINK",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-T-025",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "accessibility",
+  "difficulty": 2,
+  "question": "Изображение является частью оформления и не несёт информации. Как корректно указать это в разметке?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Добавить role=\"img\" без подписи"
+   },
+   {
+    "id": "B",
+    "text": "Задать alt=\"\": пустой атрибут сообщает вспомогательным технологиям, что изображение декоративное"
+   },
+   {
+    "id": "C",
+    "text": "Полностью убрать атрибут alt, чтобы скринридер его пропустил"
+   },
+   {
+    "id": "D",
+    "text": "Задать alt=\"декоративное изображение\", чтобы описание для скринридера было явным"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 1,
+  "explanation": "Пустой alt — явный признак декоративного изображения, скринридер его не озвучивает. При отсутствии alt вспомогательные технологии часто читают имя файла, текст «декоративное изображение» будет озвучен как бесполезное описание, а role=\"img\" без подписи оставит элемент в дереве доступности.",
+  "tags": [
+   "accessibility",
+   "images",
+   "alt"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-T-026",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "accessibility",
+  "difficulty": 3,
+  "question": "Дизайнер просит убрать рамку фокуса через outline: none, потому что она портит вид кнопок. Какое последствие нужно учитывать?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Кнопки перестанут получать фокус при последовательной навигации с клавиатуры"
+   },
+   {
+    "id": "B",
+    "text": "Скринридеры перестанут объявлять название кнопки"
+   },
+   {
+    "id": "C",
+    "text": "Обработчики события click перестанут вызываться при нажатии клавиши Enter"
+   },
+   {
+    "id": "D",
+    "text": "Пользователи клавиатуры не поймут, какой элемент сейчас активен"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 1,
+  "explanation": "outline: none убирает только визуальный индикатор: фокус и обработчики продолжают работать. Но клавиатурный пользователь перестаёт видеть текущую позицию, поэтому индикатор нужно не удалять, а заменять собственным видимым стилем.",
+  "tags": [
+   "accessibility",
+   "focus",
+   "keyboard"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-T-027",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "git",
+  "difficulty": 2,
+  "question": "Чем git fetch отличается от git pull?",
+  "options": [
+   {
+    "id": "A",
+    "text": "git fetch загружает изменения, не трогая текущую ветку, а git pull ещё и вливает их"
+   },
+   {
+    "id": "B",
+    "text": "git fetch переносит только коммиты, а git pull — коммиты вместе с незакоммиченными изменениями коллег"
+   },
+   {
+    "id": "C",
+    "text": "git fetch создаёт полную локальную копию репозитория, а git pull обновляет уже существующую"
+   },
+   {
+    "id": "D",
+    "text": "git fetch работает только с одной веткой, git pull — со всеми ветками сразу"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "fetch обновляет удалённые ветки отслеживания и оставляет рабочее дерево без изменений, давая возможность сначала посмотреть на изменения. pull — это fetch плюс merge или rebase в текущую ветку. Незакоммиченные изменения в Git не передаются вовсе.",
+  "tags": [
+   "git",
+   "basic"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ }
+]

@@ -1,0 +1,1337 @@
+[
+ {
+  "id": "BE-M-P-001",
+  "specialization": "backend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "sql",
+  "difficulty": 5,
+  "question": "Запрос должен вернуть всех клиентов и их заказы за 2026 год, включая клиентов без заказов, но клиенты без заказов в результат не попадают. Что исправить?",
+  "language": "sql",
+  "code": "SELECT c.id, c.name, o.id AS order_id\nFROM clients c\nLEFT JOIN orders o ON o.client_id = c.id\nWHERE o.created_at >= '2026-01-01';",
+  "options": [
+   {
+    "id": "A",
+    "text": "Заменить LEFT JOIN на FULL OUTER JOIN, чтобы в результат попали строки обеих таблиц без пары"
+   },
+   {
+    "id": "B",
+    "text": "Добавить в конец условия OR o.created_at IS NULL, чтобы пропускать клиентов без заказов вовсе"
+   },
+   {
+    "id": "C",
+    "text": "Добавить GROUP BY c.id, c.name"
+   },
+   {
+    "id": "D",
+    "text": "Перенести условие по дате в ON: ON o.client_id = c.id AND o.created_at >= '2026-01-01'"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 2,
+  "explanation": "Условие в WHERE применяется после соединения и отбрасывает строки, где поля правой таблицы равны NULL, превращая внешнее соединение во внутреннее. Условие по правой таблице нужно переносить в ON. Вариант с проверкой на NULL формально вернёт клиентов без заказов, но смешивает два разных смысла и легко ломается при добавлении условий.",
+  "tags": [
+   "sql",
+   "left-join",
+   "bug-fixing"
+  ],
+  "version_group": "BE-MP-LEFTJOIN-WHERE",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "SELECT u.id, u.email, s.plan\nFROM users u\nLEFT JOIN subscriptions s ON s.user_id = u.id\nWHERE s.status = 'active';\n-- нужны все пользователи, в том числе без активной подписки",
+    "options": [
+     {
+      "id": "A",
+      "text": "Заменить LEFT JOIN на RIGHT JOIN, чтобы сохранить всех пользователей из таблицы users"
+     },
+     {
+      "id": "B",
+      "text": "Добавить DISTINCT к списку полей"
+     },
+     {
+      "id": "C",
+      "text": "Добавить сортировку по u.id"
+     },
+     {
+      "id": "D",
+      "text": "Перенести условие s.status = 'active' в состав условия ON"
+     }
+    ],
+    "correct_answer": [
+     "D"
+    ],
+    "question": "Запрос должен вернуть всех пользователей и их активные подписки, включая пользователей без активной подписки, но такие пользователи в результат не попадают. Что исправить?",
+    "explanation": "Условие по правой таблице в WHERE отбрасывает строки, где подписки нет и s.status равно NULL, превращая левое соединение во внутреннее. Условие нужно перенести в ON: тогда пользователи без активной подписки останутся со значением NULL в s.plan."
+   }
+  ]
+ },
+ {
+  "id": "BE-M-P-002",
+  "specialization": "backend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "sql",
+  "difficulty": 5,
+  "question": "Нужно получить по одному последнему заказу на каждого клиента со всеми полями заказа. Какой запрос корректен?",
+  "language": "sql",
+  "code": "-- orders(id, client_id, total, created_at)",
+  "options": [
+   {
+    "id": "A",
+    "text": "SELECT * FROM orders GROUP BY client_id"
+   },
+   {
+    "id": "B",
+    "text": "SELECT * FROM orders WHERE created_at = (SELECT MAX(created_at) FROM orders)"
+   },
+   {
+    "id": "C",
+    "text": "SELECT * FROM (SELECT *, ROW_NUMBER() OVER (PARTITION BY client_id ORDER BY created_at DESC, id DESC) rn FROM orders) t WHERE rn = 1"
+   },
+   {
+    "id": "D",
+    "text": "SELECT client_id, MAX(created_at) AS last_created_at, MAX(total) AS total, MAX(id) AS id FROM orders GROUP BY client_id ORDER BY client_id"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 2,
+  "explanation": "Нумерация строк внутри раздела по клиенту отбирает по одной записи на клиента со всеми её полями, а добавление id в сортировку делает выбор однозначным при совпадении даты. Группировка с SELECT * некорректна в строгих СУБД, сравнение с общим MAX вернёт только самый свежий заказ по всей таблице, а набор MAX по разным полям собирает значения из разных строк.",
+  "tags": [
+   "sql",
+   "window-functions",
+   "top-n-per-group"
+  ],
+  "version_group": "BE-SQL-TOPN",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-M-P-003",
+  "specialization": "backend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "sql",
+  "difficulty": 6,
+  "question": "На колонке created_at есть индекс, но запрос его не использует. Как переписать условие, сохранив смысл «за 15 марта 2026 года»?",
+  "language": "sql",
+  "code": "SELECT id FROM events WHERE DATE(created_at) = '2026-03-15';",
+  "options": [
+   {
+    "id": "A",
+    "text": "WHERE EXTRACT(DAY FROM created_at) = 15 AND EXTRACT(MONTH FROM created_at) = 3"
+   },
+   {
+    "id": "B",
+    "text": "WHERE created_at::text LIKE '2026-03-15%' AND created_at IS NOT NULL"
+   },
+   {
+    "id": "C",
+    "text": "WHERE created_at >= '2026-03-15' AND created_at < '2026-03-16'"
+   },
+   {
+    "id": "D",
+    "text": "WHERE CAST(created_at AS DATE) = DATE '2026-03-15' AND created_at IS NOT NULL"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 2,
+  "explanation": "Условие диапазона по самой колонке позволяет использовать индекс: границы сравниваются с хранимыми значениями напрямую. Любая функция или приведение типа над колонкой вынуждает вычислять выражение для каждой строки, а LIKE требует приведения метки времени к строке и также обходит индекс.",
+  "tags": [
+   "sql",
+   "sargable",
+   "indexes",
+   "optimization"
+  ],
+  "version_group": "BE-SQL-FUNC-INDEX",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-M-P-004",
+  "specialization": "backend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "sql",
+  "difficulty": 4,
+  "question": "Сколько строк вернёт запрос? Введите число.",
+  "language": "sql",
+  "code": "-- clients:            orders:\n-- id | name            id | client_id\n-- 1  | A               1  | 1\n-- 2  | B               2  | 1\n-- 3  | C               3  | 2\n--                      4  | 99\n\nSELECT c.name, o.id\nFROM clients c\nJOIN orders o ON o.client_id = c.id;",
+  "options": [],
+  "correct_answer": [
+   "3"
+  ],
+  "score": 2,
+  "explanation": "Внутреннее соединение оставляет только совпадающие пары: заказы 1 и 2 для клиента 1 и заказ 3 для клиента 2. Заказ 4 ссылается на несуществующего клиента и выпадает, клиент 3 без заказов тоже не попадает в результат.",
+  "tags": [
+   "sql",
+   "joins",
+   "numeric"
+  ],
+  "version_group": "BE-MP-JOIN-COUNT",
+  "seedable": true,
+  "seed_parameters": [
+   "input_values"
+  ],
+  "validation_type": "numeric",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "-- clients:            orders:\n-- id | name            id | client_id\n-- 1  | A               1  | 1\n-- 2  | B               2  | 1\n-- 3  | C               3  | 2\n--                      4  | 99\n\nSELECT c.name, o.id\nFROM clients c\nLEFT JOIN orders o ON o.client_id = c.id;",
+    "options": [],
+    "correct_answer": [
+     "4"
+    ],
+    "explanation": "Левое соединение: у клиента A два заказа, у B — один, у C заказов нет, но его строка сохраняется с NULL. Итого 2 + 1 + 1 = 4. Заказ 4 ссылается на несуществующего клиента и в результат не попадает."
+   },
+   {
+    "variant_id": "v3",
+    "code": "-- users:              logins:\n-- id | email           id | user_id\n-- 1  | a@x             1  | 1\n-- 2  | b@x             2  | 2\n-- 3  | c@x             3  | 2\n--                      4  | 3\n\nSELECT u.email, l.id\nFROM users u\nJOIN logins l ON l.user_id = u.id;",
+    "options": [],
+    "correct_answer": [
+     "4"
+    ],
+    "explanation": "Внутреннее соединение оставляет только пары с совпадением: у a@x один вход, у b@x — два, у c@x — один, итого 4."
+   }
+  ]
+ },
+ {
+  "id": "BE-M-P-005",
+  "specialization": "backend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "sql",
+  "difficulty": 6,
+  "question": "В таблице появились дубликаты по полю email. Нужно оставить по одной записи с наименьшим id. Какой запрос корректен?",
+  "language": "sql",
+  "code": "-- users(id SERIAL PRIMARY KEY, email TEXT, created_at TIMESTAMP)",
+  "options": [
+   {
+    "id": "A",
+    "text": "DELETE FROM users WHERE id NOT IN (SELECT MIN(id) FROM users GROUP BY email)"
+   },
+   {
+    "id": "B",
+    "text": "DELETE FROM users WHERE email IN (SELECT email FROM users GROUP BY email HAVING COUNT(*) > 1)"
+   },
+   {
+    "id": "C",
+    "text": "DELETE FROM users u USING users d WHERE u.email = d.email AND u.id < d.id"
+   },
+   {
+    "id": "D",
+    "text": "DELETE FROM users WHERE id > (SELECT MIN(id) FROM users)"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 2,
+  "explanation": "Подзапрос возвращает наименьший id для каждого значения email, и удаляется всё остальное. Удаление по списку повторяющихся адресов уберёт и нужную запись, условие u.id < d.id оставляет записи с наибольшим id, то есть противоречит требованию, а сравнение с общим MIN удалит почти всю таблицу. На практике запрос дополняют условием email IS NOT NULL и уникальным индексом после очистки.",
+  "tags": [
+   "sql",
+   "deduplication",
+   "delete"
+  ],
+  "version_group": "BE-MP-SQL-DEDUP",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-M-P-006",
+  "specialization": "backend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "databases",
+  "difficulty": 5,
+  "question": "При ошибке на втором шаге деньги списываются, но не зачисляются. В какой строке причина?",
+  "language": "python",
+  "code": "1  conn = pool.get_connection()\n2  cur = conn.cursor()\n3  cur.execute('UPDATE accounts SET balance = balance - %s WHERE id = %s', (amount, src))\n4  conn.commit()\n5  cur.execute('UPDATE accounts SET balance = balance + %s WHERE id = %s', (amount, dst))\n6  conn.commit()",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 3: списание нужно выполнять после зачисления"
+   },
+   {
+    "id": "B",
+    "text": "Строка 1: соединение нужно открывать без пула"
+   },
+   {
+    "id": "C",
+    "text": "Строка 4: первое изменение фиксируется отдельно, и сбой между шагами оставляет операцию наполовину"
+   },
+   {
+    "id": "D",
+    "text": "Строка 5: второе обновление нужно выполнять через отдельный курсор, иначе результат первого перезаписывается"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 2,
+  "explanation": "Промежуточная фиксация разрывает операцию на две независимые: после неё откат первого шага невозможен. Оба обновления должны выполняться в одной транзакции с единственной фиксацией в конце и откатом при исключении. Порядок шагов и устройство соединения на атомарность не влияют.",
+  "tags": [
+   "databases",
+   "transactions",
+   "bug-finding"
+  ],
+  "version_group": "BE-MP-TX-COMMIT",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "1  try:\n2      with conn.cursor() as cur:\n3          cur.execute('INSERT INTO orders (client_id, total) VALUES (%s, %s)', (cid, total))\n4          order_id = cur.fetchone()[0]\n5          cur.execute('UPDATE stock SET qty = qty - 1 WHERE sku = %s', (sku,))\n6      conn.commit()\n7  except Exception:\n8      log.exception('order failed')",
+    "options": [
+     {
+      "id": "A",
+      "text": "Строка 8: в обработчике нет отката, и соединение возвращается в пул с незавершённой транзакцией"
+     },
+     {
+      "id": "B",
+      "text": "Строка 4: результат вставки нельзя читать тем же курсором"
+     },
+     {
+      "id": "C",
+      "text": "Строка 6: фиксацию нужно выполнять внутри блока with"
+     },
+     {
+      "id": "D",
+      "text": "Строка 5: уменьшение остатка нужно выполнять до вставки заказа в той же транзакции"
+     }
+    ],
+    "correct_answer": [
+     "A"
+    ],
+    "question": "Изредка в базе оказываются заказы, по которым остаток на складе не уменьшился. В какой строке причина?",
+    "explanation": "При исключении транзакция не откатывается: соединение возвращается в пул с незавершённой транзакцией, и её частичные изменения могут быть зафиксированы следующим пользователем соединения. В обработчике исключения нужен conn.rollback(), а лучше — контекстный менеджер транзакции."
+   }
+  ]
+ },
+ {
+  "id": "BE-M-P-007",
+  "specialization": "backend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "databases",
+  "difficulty": 6,
+  "question": "Какой индекс лучше всего подходит для этого запроса?",
+  "language": "sql",
+  "code": "SELECT id, total\nFROM orders\nWHERE client_id = $1 AND status = 'paid'\nORDER BY created_at DESC\nLIMIT 20;",
+  "options": [
+   {
+    "id": "A",
+    "text": "CREATE INDEX ON orders (created_at DESC) INCLUDE (client_id, status)"
+   },
+   {
+    "id": "B",
+    "text": "Три отдельных индекса: по client_id, по status и по created_at"
+   },
+   {
+    "id": "C",
+    "text": "CREATE INDEX ON orders (client_id, status, created_at DESC)"
+   },
+   {
+    "id": "D",
+    "text": "CREATE INDEX ON orders (status)"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 2,
+  "explanation": "Составной индекс сначала перечисляет колонки условий равенства, затем колонку сортировки: тогда СУБД находит нужный диапазон и читает первые 20 строк в готовом порядке, без отдельной сортировки. Индекс только по дате не сузит выборку, индекс по status малоизбирателен, а три отдельных индекса не дают упорядоченного результата внутри группы.",
+  "tags": [
+   "databases",
+   "composite-index",
+   "query-optimization"
+  ],
+  "version_group": "BE-DB-COMPOSITE-INDEX",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-M-P-008",
+  "specialization": "backend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "databases",
+  "difficulty": 4,
+  "question": "Миграция падает на промышленной базе с ошибкой, хотя на пустой тестовой проходит. Что исправить?",
+  "language": "sql",
+  "code": "ALTER TABLE users ADD COLUMN country TEXT NOT NULL;",
+  "options": [
+   {
+    "id": "A",
+    "text": "Задать DEFAULT или заполнить колонку до установки NOT NULL"
+   },
+   {
+    "id": "B",
+    "text": "Добавить индекс по новой колонке country в той же самой миграции"
+   },
+   {
+    "id": "C",
+    "text": "Выполнить миграцию в явной транзакции с повышенным таймаутом блокировок"
+   },
+   {
+    "id": "D",
+    "text": "Указать тип VARCHAR(2) вместо TEXT, так как код страны короткий"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 2,
+  "explanation": "В непустой таблице у существующих строк новое обязательное поле оказывается без значения, поэтому требуется либо значение по умолчанию, либо поэтапное добавление с заполнением. На пустой таблице проблема не проявляется. Тип колонки, транзакция и индекс к этой ошибке не относятся.",
+  "tags": [
+   "databases",
+   "migrations",
+   "not-null"
+  ],
+  "version_group": "BE-MP-MIGRATION-NOTNULL",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-M-P-009",
+  "specialization": "backend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "programming_language",
+  "difficulty": 5,
+  "question": "Функция должна удалить из словаря все записи с нулевым остатком, но выбрасывает исключение. Что исправить?",
+  "language": "python",
+  "code": "def drop_empty(stock):\n    for sku, qty in stock.items():\n        if qty == 0:\n            del stock[sku]\n    return stock",
+  "options": [
+   {
+    "id": "A",
+    "text": "Обернуть удаление в try/except KeyError"
+   },
+   {
+    "id": "B",
+    "text": "Заменить del на присваивание None"
+   },
+   {
+    "id": "C",
+    "text": "Перебирать копию ключей: for sku in list(stock) либо построить новый словарь из подходящих записей"
+   },
+   {
+    "id": "D",
+    "text": "Использовать stock.keys() вместо stock.items(), чтобы перебирать только ключи словаря"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 2,
+  "explanation": "Изменение размера словаря во время перебора приводит к исключению: итератор становится недействительным. Нужно перебирать снимок ключей или собрать новый словарь. Представление keys() так же связано с исходным словарём, а подавление исключения не делает перебор корректным.",
+  "tags": [
+   "programming_language",
+   "iteration",
+   "bug-fixing"
+  ],
+  "version_group": "BE-MP-MUTATE-ITER",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-M-P-010",
+  "specialization": "backend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "programming_language",
+  "difficulty": 6,
+  "question": "Функция запрашивает данные пяти сервисов, каждый отвечает около 200 мс, и выполняется примерно секунду. Как сократить время, не меняя внешние сервисы?",
+  "language": "python",
+  "code": "async def load_all(ids):\n    result = []\n    for i in ids:\n        result.append(await fetch_one(i))\n    return result",
+  "options": [
+   {
+    "id": "A",
+    "text": "Выполнить запросы параллельно: return await asyncio.gather(*(fetch_one(i) for i in ids))"
+   },
+   {
+    "id": "B",
+    "text": "Увеличить размер пула соединений клиента"
+   },
+   {
+    "id": "C",
+    "text": "Убрать await перед fetch_one и вернуть список промисов"
+   },
+   {
+    "id": "D",
+    "text": "Обернуть вызовы в отдельные потоки операционной системы, по одному на идентификатор"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 2,
+  "explanation": "Цикл с await выполняет запросы последовательно, поэтому время складывается. Параллельный запуск с ожиданием всех результатов сокращает общее время примерно до времени самого медленного ответа. Отказ от await вернёт незавершённые задачи вызывающему коду, а потоки здесь излишни при асинхронном вводе-выводе. На практике число одновременных запросов дополнительно ограничивают.",
+  "tags": [
+   "programming_language",
+   "async",
+   "concurrency",
+   "optimization"
+  ],
+  "version_group": "BE-MP-ASYNC-GATHER",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-M-P-011",
+  "specialization": "backend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "programming_language",
+  "difficulty": 4,
+  "question": "Что выведет код? Введите результат одним числом.",
+  "language": "python",
+  "code": "ids = [3, 1, 3, 2, 1, 5]\nprint(len(set(ids)))",
+  "options": [],
+  "correct_answer": [
+   "4"
+  ],
+  "score": 2,
+  "explanation": "Множество хранит только уникальные значения: из 3, 1, 3, 2, 1, 5 остаются 1, 2, 3 и 5, то есть четыре элемента. Порядок при этом не сохраняется.",
+  "tags": [
+   "programming_language",
+   "set",
+   "numeric"
+  ],
+  "version_group": "BE-MP-SET-LEN",
+  "seedable": true,
+  "seed_parameters": [
+   "input_values"
+  ],
+  "validation_type": "numeric",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "ids = [7, 7, 7, 8]\nprint(len(set(ids)))",
+    "options": [],
+    "correct_answer": [
+     "2"
+    ],
+    "explanation": "Множество хранит только уникальные значения: остаются 7 и 8, то есть два элемента."
+   },
+   {
+    "variant_id": "v3",
+    "code": "a = {1, 2, 3, 4}\nb = {3, 4, 5}\nprint(len(a & b))",
+    "options": [],
+    "correct_answer": [
+     "2"
+    ],
+    "explanation": "Пересечение a & b содержит общие элементы 3 и 4 — два элемента."
+   },
+   {
+    "variant_id": "v4",
+    "code": "a = {1, 2, 3}\nb = {3, 4, 5}\nprint(len(a | b))",
+    "options": [],
+    "correct_answer": [
+     "5"
+    ],
+    "explanation": "Объединение a | b содержит 1, 2, 3, 4 и 5 — пять элементов; общий элемент 3 учитывается один раз."
+   }
+  ]
+ },
+ {
+  "id": "BE-M-P-012",
+  "specialization": "backend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "concurrency",
+  "difficulty": 5,
+  "question": "При одновременной покупке последнего товара двумя пользователями остаток уходит в минус. Какая строка — источник проблемы?",
+  "language": "python",
+  "code": "1  item = db.query('SELECT qty FROM stock WHERE sku = %s', sku)\n2  if item.qty < 1:\n3      raise OutOfStock()\n4  db.execute('UPDATE stock SET qty = %s WHERE sku = %s', (item.qty - 1, sku))\n5  db.execute('INSERT INTO orders (sku) VALUES (%s)', (sku,))",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 2: проверку остатка нужно выполнять уже после его обновления"
+   },
+   {
+    "id": "B",
+    "text": "Строка 1: запрос нужно выполнять с ограничением LIMIT 1 по артикулу"
+   },
+   {
+    "id": "C",
+    "text": "Строки 1–4: гонка между чтением остатка и его записью"
+   },
+   {
+    "id": "D",
+    "text": "Строка 5: вставку заказа нужно выполнять до обновления остатка"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 2,
+  "explanation": "Это состояние гонки вида «чтение-изменение-запись»: оба процесса прочитали qty = 1 и записали 0, хотя продано два товара. Нужны атомарное условное обновление (UPDATE … SET qty = qty - 1 WHERE sku = ? AND qty > 0 с проверкой числа изменённых строк), блокировка строки или ограничение целостности, запрещающее отрицательный остаток.",
+  "tags": [
+   "concurrency",
+   "race-condition",
+   "bug-finding"
+  ],
+  "version_group": "BE-MP-STOCK-RACE",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-M-P-013",
+  "specialization": "backend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "concurrency",
+  "difficulty": 6,
+  "question": "Как корректно списать один товар со склада, исключив отрицательный остаток при параллельных запросах?",
+  "language": "sql",
+  "code": "-- stock(sku TEXT PRIMARY KEY, qty INTEGER NOT NULL)",
+  "options": [
+   {
+    "id": "A",
+    "text": "UPDATE stock SET qty = qty - 1 WHERE sku = $1 AND qty > 0; затем проверить число изменённых строк и, если оно равно нулю, вернуть отказ"
+   },
+   {
+    "id": "B",
+    "text": "SELECT qty FROM stock WHERE sku = $1; затем UPDATE stock SET qty = $2 WHERE sku = $1"
+   },
+   {
+    "id": "C",
+    "text": "UPDATE stock SET qty = qty - 1 WHERE sku = $1; затем проверить, не стал ли остаток отрицательным, и при необходимости вернуть значение обратно"
+   },
+   {
+    "id": "D",
+    "text": "SELECT qty FROM stock WHERE sku = $1 FOR UPDATE SKIP LOCKED; затем UPDATE"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 2,
+  "explanation": "Атомарное обновление с условием выполняет проверку и изменение в одной операции под блокировкой строки, а число изменённых строк сразу говорит об успехе. Чтение с последующей записью содержит классическое окно гонки, безусловное уменьшение допускает промежуточное отрицательное значение и усложняет откат, а SKIP LOCKED пропустит заблокированную строку и даст неверный отказ.",
+  "tags": [
+   "concurrency",
+   "atomic-update",
+   "sql"
+  ],
+  "version_group": "BE-MP-STOCK-RACE",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-M-P-014",
+  "specialization": "backend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "concurrency",
+  "difficulty": 5,
+  "question": "Что выведет код? Введите метки в порядке вывода через запятую без пробелов.",
+  "language": "python",
+  "code": "import asyncio\n\nasync def task(name, delay):\n    await asyncio.sleep(delay)\n    print(name)\n\nasync def main():\n    await asyncio.gather(task('A', 0.3), task('B', 0.1), task('C', 0.2))\n\nasyncio.run(main())",
+  "options": [],
+  "correct_answer": [
+   "B,C,A"
+  ],
+  "score": 2,
+  "explanation": "gather запускает задачи параллельно, поэтому порядок вывода определяется временем ожидания, а не порядком аргументов: сначала B с задержкой 0,1, затем C с 0,2 и последним A с 0,3. Результаты самого gather при этом возвращаются в порядке аргументов.",
+  "tags": [
+   "concurrency",
+   "asyncio",
+   "code_output"
+  ],
+  "version_group": "BE-MP-ASYNC-ORDER",
+  "seedable": true,
+  "seed_parameters": [
+   "input_values",
+   "variable_names"
+  ],
+  "validation_type": "exact_match",
+  "answer_normalization": [
+   "trim",
+   "uppercase",
+   "remove_spaces"
+  ],
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "import asyncio\n\nasync def task(name, delay):\n    await asyncio.sleep(delay)\n    print(name)\n\nasync def main():\n    await asyncio.gather(task('X', 0.2), task('Y', 0.4), task('Z', 0.1))\n\nasyncio.run(main())",
+    "options": [],
+    "correct_answer": [
+     "Z,X,Y"
+    ],
+    "explanation": "gather запускает задачи одновременно, и вывод идёт по мере завершения ожидания: сначала Z (0,1 с), затем X (0,2 с), последним Y (0,4 с)."
+   },
+   {
+    "variant_id": "v3",
+    "code": "import asyncio\n\nasync def task(name, delay):\n    await asyncio.sleep(delay)\n    print(name)\n\nasync def main():\n    await task('A', 0.3)\n    await task('B', 0.1)\n\nasyncio.run(main())",
+    "options": [],
+    "correct_answer": [
+     "A,B"
+    ],
+    "explanation": "Задачи ожидаются последовательно через await: B начинается только после завершения A, поэтому вывод — A, затем B, несмотря на меньшую задержку B."
+   }
+  ]
+ },
+ {
+  "id": "BE-M-P-015",
+  "specialization": "backend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "security",
+  "difficulty": 5,
+  "question": "Какая строка позволяет прочитать произвольный файл сервера?",
+  "language": "python",
+  "code": "1  name = request.args.get('name')\n2  base = '/var/app/reports'\n3  path = os.path.join(base, name)\n4  with open(path, 'rb') as f:\n5      data = f.read()\n6  return Response(data, mimetype='application/pdf')",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 2: базовый каталог задан абсолютным путём, и его можно переопределить параметром"
+   },
+   {
+    "id": "B",
+    "text": "Строка 4: файл открывается в бинарном режиме"
+   },
+   {
+    "id": "C",
+    "text": "Строка 3: имя из запроса подставляется в путь без проверки, и ../../etc/passwd выводит за каталог"
+   },
+   {
+    "id": "D",
+    "text": "Строка 6: тип содержимого указан жёстко"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 2,
+  "explanation": "Объединение путей не ограничивает результат базовым каталогом: относительные переходы выводят за его пределы, а абсолютный путь в параметре вообще заменяет базовый. Нужно привести итоговый путь к каноническому виду и проверить, что он начинается с базового каталога, либо вовсе не принимать имена файлов от клиента, а выдавать их по идентификатору из базы.",
+  "tags": [
+   "security",
+   "path-traversal",
+   "bug-finding"
+  ],
+  "version_group": "BE-MP-PATH-TRAVERSAL",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "1  const file = req.query.file;\n2  const dir = '/srv/uploads';\n3  const full = path.join(dir, file);\n4  if (!fs.existsSync(full)) return res.status(404).end();\n5  res.sendFile(full);",
+    "options": [
+     {
+      "id": "A",
+      "text": "Строка 4: проверка существования файла выполняется до отправки"
+     },
+     {
+      "id": "B",
+      "text": "Строка 5: файл отправляется методом sendFile, а не через поток чтения"
+     },
+     {
+      "id": "C",
+      "text": "Строка 1: имя файла читается из строки запроса без декодирования"
+     },
+     {
+      "id": "D",
+      "text": "Строка 3: путь из ввода без проверки выхода за каталог"
+     }
+    ],
+    "correct_answer": [
+     "D"
+    ],
+    "explanation": "path.join не ограничивает результат каталогом: значение вида ../../etc/passwd выводит за его пределы, а проверка существования файла этому не мешает. Итоговый путь нужно нормализовать и убедиться, что он остаётся внутри /srv/uploads, или использовать опцию root у sendFile."
+   }
+  ]
+ },
+ {
+  "id": "BE-M-P-016",
+  "specialization": "backend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "security",
+  "difficulty": 6,
+  "question": "Какая уязвимость есть в этом обработчике обновления профиля?",
+  "language": "python",
+  "code": "@app.patch('/api/profile')\ndef update_profile():\n    data = request.get_json()\n    user = current_user()\n    for key, value in data.items():\n        setattr(user, key, value)\n    db.save(user)\n    return serialize(user)",
+  "options": [
+   {
+    "id": "A",
+    "text": "Любое присланное поле записывается в модель, включая role или is_admin, — нужен список разрешённых полей"
+   },
+   {
+    "id": "B",
+    "text": "Отсутствует проверка типа содержимого запроса, поэтому сервер разбирает как JSON вообще любые присланные данные"
+   },
+   {
+    "id": "C",
+    "text": "Отсутствует ограничение на размер тела запроса"
+   },
+   {
+    "id": "D",
+    "text": "Результат возвращается клиенту без фильтрации полей"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 2,
+  "explanation": "Массовое присваивание полей из запроса даёт клиенту доступ ко всем атрибутам модели, включая те, что определяют права и финансовые данные. Нужна схема входных данных с белым списком изменяемых полей. Фильтрация полей в ответе — отдельное замечание, которое не предотвращает изменение прав.",
+  "tags": [
+   "security",
+   "mass-assignment",
+   "authorization"
+  ],
+  "version_group": "BE-MP-MASS-ASSIGNMENT",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-M-P-017",
+  "specialization": "backend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "security",
+  "difficulty": 4,
+  "question": "Как корректно сравнивать присланный токен подтверждения с сохранённым?",
+  "language": "python",
+  "code": "stored = db.get_token(user_id)\nprovided = request.headers.get('X-Confirm-Token', '')",
+  "options": [
+   {
+    "id": "A",
+    "text": "if hashlib.sha256(provided.encode()).hexdigest() == stored:"
+   },
+   {
+    "id": "B",
+    "text": "if provided.startswith(stored[:8]) and len(provided) == len(stored):"
+   },
+   {
+    "id": "C",
+    "text": "if hmac.compare_digest(provided, stored):"
+   },
+   {
+    "id": "D",
+    "text": "if provided and provided.strip() == stored.strip():"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 2,
+  "explanation": "Сравнение за постоянное время не зависит от позиции первого различия и не позволяет восстановить значение по времени ответа. Обычное сравнение строк завершается на первом несовпадении, сравнение по префиксу радикально ослабляет проверку, а встроенная хеш-функция не предназначена для сравнения секретов и может давать коллизии.",
+  "tags": [
+   "security",
+   "timing-attack",
+   "comparison"
+  ],
+  "version_group": "BE-MP-TIMING-COMPARE",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-M-P-018",
+  "specialization": "backend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "performance",
+  "difficulty": 5,
+  "question": "Эндпоинт экспорта падает по памяти при 2 миллионах строк. Какая строка — причина?",
+  "language": "python",
+  "code": "1  rows = db.query('SELECT * FROM events WHERE created_at >= %s', (since,)).fetchall()\n2  lines = []\n3  for r in rows:\n4      lines.append(to_csv_line(r))\n5  return Response('\\n'.join(lines), mimetype='text/csv')",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 5: указание типа содержимого"
+   },
+   {
+    "id": "B",
+    "text": "Строка 4: формирование отдельной строки CSV для каждой записи внутри цикла обработки"
+   },
+   {
+    "id": "C",
+    "text": "Строка 1: вся выборка грузится в память целиком — нужен серверный курсор и потоковый ответ"
+   },
+   {
+    "id": "D",
+    "text": "Строка 2: инициализация списка"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 2,
+  "explanation": "Чтение всего результата в память, а затем сборка одной большой строки удваивают расход: он пропорционален объёму выгрузки. Решение — итеративное чтение порциями и потоковая запись в тело ответа, тогда в памяти находится только текущая порция.",
+  "tags": [
+   "performance",
+   "memory",
+   "streaming",
+   "bug-finding"
+  ],
+  "version_group": "BE-MP-FETCHALL",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-M-P-019",
+  "specialization": "backend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "performance",
+  "difficulty": 6,
+  "question": "Нужно получить данные 500 пользователей по списку идентификаторов. Какой вариант предпочтителен?",
+  "language": "python",
+  "code": "# user_ids: list[int], длина 500",
+  "options": [
+   {
+    "id": "A",
+    "text": "Один запрос по списку, разбитый на порции: SELECT * FROM users WHERE id = ANY(%s)"
+   },
+   {
+    "id": "B",
+    "text": "Цикл с отдельным запросом на каждого пользователя"
+   },
+   {
+    "id": "C",
+    "text": "500 параллельных запросов в пуле потоков"
+   },
+   {
+    "id": "D",
+    "text": "Выборка всей таблицы пользователей и фильтрация нужных записей в приложении"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 2,
+  "explanation": "Один запрос с условием по множеству значений устраняет и сетевые задержки, и накладные расходы на разбор запросов; разбиение на порции защищает от слишком больших списков параметров. Цикл даёт 500 обращений, выборка всей таблицы читает лишние данные, а параллельные запросы перекладывают ту же нагрузку на базу и исчерпывают соединения.",
+  "tags": [
+   "performance",
+   "batching",
+   "database"
+  ],
+  "version_group": "BE-MP-BATCH-QUERY",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-M-P-020",
+  "specialization": "backend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "performance",
+  "difficulty": 4,
+  "question": "Сколько запросов к базе данных выполнит этот код при 10 заказах, в каждом из которых по 3 позиции? Введите число.",
+  "language": "python",
+  "code": "orders = db.query('SELECT id FROM orders LIMIT 10')          # 1 запрос\nfor order in orders:\n    items = db.query('SELECT id, sku FROM items WHERE order_id = %s', order.id)\n    for item in items:\n        product = db.query('SELECT name FROM products WHERE sku = %s', item.sku)",
+  "options": [],
+  "correct_answer": [
+   "41"
+  ],
+  "score": 2,
+  "explanation": "Один запрос за заказами, затем по одному запросу позиций на каждый из 10 заказов (10 запросов) и по одному запросу товара на каждую из 30 позиций (30 запросов): 1 + 10 + 30 = 41. Это двухуровневая проблема N+1, устраняемая соединением или выборкой по списку идентификаторов.",
+  "tags": [
+   "performance",
+   "n+1",
+   "numeric"
+  ],
+  "version_group": "BE-MP-N1-COUNT",
+  "seedable": true,
+  "seed_parameters": [
+   "input_values"
+  ],
+  "validation_type": "numeric",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "users = db.query('SELECT id FROM users LIMIT 5')              # 1 запрос\nfor user in users:\n    orders = db.query('SELECT id FROM orders WHERE user_id = %s', user.id)\n    for order in orders:   # по 4 заказа у каждого пользователя\n        db.query('SELECT count(*) FROM items WHERE order_id = %s', order.id)",
+    "options": [],
+    "correct_answer": [
+     "26"
+    ],
+    "question": "Сколько запросов к базе данных выполнит этот код при данных, указанных в комментариях? Введите число.",
+    "explanation": "Один запрос за пользователями, по одному запросу заказов на каждого из 5 пользователей (5 запросов) и по запросу на каждый из 5 · 4 = 20 заказов: 1 + 5 + 20 = 26. Это двухуровневая проблема N+1."
+   },
+   {
+    "variant_id": "v3",
+    "code": "rows = db.query('SELECT id FROM clients LIMIT 20')            # 1 запрос\nfor row in rows:\n    db.query('SELECT count(*) FROM orders WHERE client_id = %s', row.id)",
+    "options": [],
+    "correct_answer": [
+     "21"
+    ],
+    "question": "Сколько запросов к базе данных выполнит этот код, если в таблице clients не меньше 20 записей? Введите число.",
+    "explanation": "Один запрос за клиентами и по одному запросу на каждого из 20 клиентов: 1 + 20 = 21. Все счётчики можно получить одним запросом с группировкой."
+   }
+  ]
+ },
+ {
+  "id": "BE-M-P-021",
+  "specialization": "backend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "caching",
+  "difficulty": 5,
+  "question": "После включения кэша пользователи стали видеть чужие корзины. Какая строка содержит ошибку?",
+  "language": "python",
+  "code": "1  def get_cart(user):\n2      key = 'cart'\n3      cached = cache.get(key)\n4      if cached is not None:\n5          return cached\n6      cart = db.load_cart(user.id)\n7      cache.set(key, cart, ttl=300)\n8      return cart",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 7: срок жизни записи слишком велик"
+   },
+   {
+    "id": "B",
+    "text": "Строка 2: ключ не содержит идентификатор пользователя"
+   },
+   {
+    "id": "C",
+    "text": "Строка 4: проверку нужно выполнять через сравнение с ложным значением"
+   },
+   {
+    "id": "D",
+    "text": "Строка 6: корзину нужно загружать из базы до обращения к кэшу"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 2,
+  "explanation": "Ключ кэша должен включать все параметры, от которых зависит значение, в том числе идентификатор пользователя. Без этого под одним ключом оказываются данные разных людей. Срок жизни влияет только на длительность проблемы, а не на её наличие.",
+  "tags": [
+   "caching",
+   "cache-key",
+   "bug-finding"
+  ],
+  "version_group": "BE-CACHE-KEY",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-M-P-022",
+  "specialization": "backend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "caching",
+  "difficulty": 6,
+  "question": "При истечении срока жизни популярного ключа десятки запросов одновременно идут в базу. Какое изменение кода решает проблему?",
+  "language": "python",
+  "code": "def get_report(day):\n    key = f'report:{day}'\n    data = cache.get(key)\n    if data is None:\n        data = build_report(day)      # тяжёлый расчёт, 3 секунды\n        cache.set(key, data, ttl=600)\n    return data",
+  "options": [
+   {
+    "id": "A",
+    "text": "Увеличить срок жизни записи до нескольких часов, чтобы ключ истекал реже"
+   },
+   {
+    "id": "B",
+    "text": "Проверять кэш дважды с небольшой задержкой перед запуском расчёта"
+   },
+   {
+    "id": "C",
+    "text": "Хранить отчёт в памяти каждого процесса вместо общего кэша"
+   },
+   {
+    "id": "D",
+    "text": "Один расчёт под блокировкой ключа, остальные ждут"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 2,
+  "explanation": "Нужно сделать так, чтобы тяжёлый расчёт выполнял только один запрос: это даёт распределённая блокировка на пересчёт вместе с отдачей слегка устаревшего значения ожидающим и упреждающим обновлением до истечения срока. Увеличение срока жизни лишь делает всплески реже, повторная проверка с задержкой не исключает совпадений, а локальный кэш воспроизводит проблему в каждом процессе.",
+  "tags": [
+   "caching",
+   "stampede",
+   "locking"
+  ],
+  "version_group": "BE-CACHE-STAMPEDE",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-M-P-023",
+  "specialization": "backend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "rest_api",
+  "difficulty": 5,
+  "question": "Какой недостаток контракта наиболее существенен для клиента, который выводит список с постраничной навигацией?",
+  "language": "json",
+  "code": "GET /api/orders?page=3&limit=20\n\n[\n  { \"id\": 101, \"total\": 1200 },\n  { \"id\": 102, \"total\": 450 }\n]",
+  "options": [
+   {
+    "id": "A",
+    "text": "В ответе отсутствует идентификатор запроса"
+   },
+   {
+    "id": "B",
+    "text": "Суммы передаются числами, а не строками"
+   },
+   {
+    "id": "C",
+    "text": "Параметры передаются в строке запроса, а не в теле, поэтому их видно в журналах"
+   },
+   {
+    "id": "D",
+    "text": "Нет метаданных: клиент не знает общего числа записей и наличия следующей страницы"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 2,
+  "explanation": "Для постраничного вывода клиенту нужны метаданные: общее число или признак наличия следующей страницы, применённые ограничения и порядок сортировки. Без них навигация строится догадками, а порядок страниц может быть неустойчивым. Поэтому коллекции возвращают объектом с полями данных и метаданных.",
+  "tags": [
+   "rest_api",
+   "pagination",
+   "contract"
+  ],
+  "version_group": "BE-MP-REST-PAGE-META",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-M-P-024",
+  "specialization": "backend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "rest_api",
+  "difficulty": 6,
+  "question": "Что следует исправить в этом обработчике в первую очередь?",
+  "language": "python",
+  "code": "@app.post('/api/orders')\ndef create_order():\n    try:\n        data = request.get_json()\n        order = service.create(data)\n        return {'ok': True, 'id': order.id}\n    except Exception as e:\n        return {'ok': False, 'error': str(e)}",
+  "options": [
+   {
+    "id": "A",
+    "text": "Различать ошибки и отдавать коды 400, 403, 409 или 500, не раскрывая текст исключения"
+   },
+   {
+    "id": "B",
+    "text": "Добавить ограничение частоты запросов к эндпоинту создания заказа, чтобы ошибки не повторялись при массовых обращениях"
+   },
+   {
+    "id": "C",
+    "text": "Вынести вызов сервиса и разбор тела в отдельные функции, чтобы обработчик стал короче и проще для чтения"
+   },
+   {
+    "id": "D",
+    "text": "Добавить проверку наличия тела запроса"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 2,
+  "explanation": "Сейчас любая ошибка, включая внутренний сбой, возвращается с кодом 200, из-за чего клиенты и мониторинг не видят отказов, а текст исключения способен раскрыть внутренние детали. Нужно отображать классы ошибок в коды ответа и отдавать клиенту безопасное сообщение с идентификатором запроса, а подробности оставлять в журнале.",
+  "tags": [
+   "rest_api",
+   "error-handling",
+   "status_codes"
+  ],
+  "version_group": "BE-REST-ERRORCODES-M",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-M-P-025",
+  "specialization": "backend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "algorithms",
+  "difficulty": 5,
+  "question": "Функция должна вернуть максимальную сумму подряд идущих k элементов, но даёт неверный результат. В какой строке ошибка?",
+  "language": "python",
+  "code": "1  def max_window(nums, k):\n2      window = sum(nums[:k])\n3      best = window\n4      for i in range(k, len(nums)):\n5          window += nums[i]\n6          best = max(best, window)\n7      return best",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 2: начальное окно нужно считать от первого элемента по k включительно"
+   },
+   {
+    "id": "B",
+    "text": "Строка 4: перебор должен начинаться с нуля"
+   },
+   {
+    "id": "C",
+    "text": "Строка 6: сравнение нужно выполнять только после возврата итогового значения"
+   },
+   {
+    "id": "D",
+    "text": "Строка 5: не вычитается вышедший элемент — нужно window -= nums[i - k]"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 2,
+  "explanation": "При методе скользящего окна на каждом шаге добавляется входящий элемент и вычитается выходящий, иначе окно просто растёт и превращается в сумму всего префикса. Начальное окно и диапазон перебора в коде заданы правильно.",
+  "tags": [
+   "algorithms",
+   "sliding-window",
+   "bug-finding"
+  ],
+  "version_group": "BE-MP-SLIDING-WINDOW",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-M-P-026",
+  "specialization": "backend",
+  "level": "middle",
+  "type": "practical",
+  "competency": "testing",
+  "difficulty": 5,
+  "question": "Какой тест корректно проверяет, что при недоступности платёжного сервиса заказ не создаётся?",
+  "language": "python",
+  "code": "def create_order(data, payment_client):\n    payment_client.charge(data['total'])     # может выбросить PaymentError\n    return repo.save(Order(**data))",
+  "options": [
+   {
+    "id": "A",
+    "text": "Проверить с помощью двойника, что метод charge платёжного клиента был вызван ровно один раз с суммой заказа"
+   },
+   {
+    "id": "B",
+    "text": "Вызвать create_order с реальным платёжным клиентом и тестовыми данными и убедиться, что заказ создан"
+   },
+   {
+    "id": "C",
+    "text": "Двойник клиента бросает PaymentError; проверить, что исключение поднялось и заказ не сохранён"
+   },
+   {
+    "id": "D",
+    "text": "Отключить сеть на время теста и убедиться, что тест падает"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 2,
+  "explanation": "Проверяется поведение при отказе зависимости, поэтому отказ нужно воспроизвести двойником и проверить наблюдаемый результат — и исключение, и отсутствие записи в хранилище. Проверка только факта вызова не говорит о последствиях, обращение к реальному сервису даёт нестабильный тест, а отключение сети неуправляемо и ломает весь набор тестов.",
+  "tags": [
+   "testing",
+   "mocks",
+   "failure-path"
+  ],
+  "version_group": "BE-MP-TEST-FAILURE",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ }
+]

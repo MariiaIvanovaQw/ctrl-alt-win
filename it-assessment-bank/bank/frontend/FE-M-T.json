@@ -1,0 +1,1197 @@
+[
+ {
+  "id": "FE-M-T-001",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "theory",
+  "competency": "html",
+  "difficulty": 4,
+  "question": "Внутри <form> есть кнопка, которая должна только раскрывать дополнительный блок, а не отправлять форму. Почему важно явно указать ей type=\"button\"?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Без type браузер применит к кнопке стили поля ввода из своих встроенных стилей"
+   },
+   {
+    "id": "B",
+    "text": "Без type кнопка не получит обработчик onClick, назначенный через фреймворк React"
+   },
+   {
+    "id": "C",
+    "text": "По умолчанию кнопка внутри формы имеет type=\"submit\" и отправит форму"
+   },
+   {
+    "id": "D",
+    "text": "Без type кнопка будет недоступна с клавиатуры"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 2,
+  "explanation": "Значение type у button по умолчанию — submit, поэтому любой клик внутри формы запускает её отправку и перезагрузку страницы. Явное type=\"button\" убирает это поведение; альтернатива — вызывать event.preventDefault(), но это лишний код для кнопки, которая не отправляет данные.",
+  "tags": [
+   "html",
+   "forms",
+   "pitfall"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-T-002",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "theory",
+  "competency": "css",
+  "difficulty": 4,
+  "question": "Трём flex-элементам задано flex: 1. У одного из них содержимое значительно длиннее. Почему элементы всё равно получаются разной ширины?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Потому что flex-элементы по умолчанию выравниваются по базовой линии текста"
+   },
+   {
+    "id": "B",
+    "text": "Потому что flex-grow распределяет не всю свободную ширину, а только её половину"
+   },
+   {
+    "id": "C",
+    "text": "Потому что flex: 1 действует лишь при явно заданном width у flex-контейнера"
+   },
+   {
+    "id": "D",
+    "text": "Из-за min-width: auto элемент не сжимается меньше содержимого"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 2,
+  "explanation": "flex: 1 означает flex-grow:1, flex-shrink:1, flex-basis:0%, то есть свободное место делится равномерно. Но у flex-элементов min-width по умолчанию равен auto, и элемент не сжимается уже своего содержимого — длинный текст или неразрывное слово растягивает колонку. Лечится min-width: 0 или overflow-wrap.",
+  "tags": [
+   "css",
+   "flexbox",
+   "diagnostics"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-T-003",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "theory",
+  "competency": "css",
+  "difficulty": 5,
+  "question": "Элементу задан z-index: 999, но он всё равно перекрывается соседним блоком. Какая причина наиболее вероятна?",
+  "options": [
+   {
+    "id": "A",
+    "text": "z-index игнорируется, если значение больше 100"
+   },
+   {
+    "id": "B",
+    "text": "z-index работает только для элементов с display: block"
+   },
+   {
+    "id": "C",
+    "text": "У элемента position: static или родитель образует контекст наложения с меньшим z-index"
+   },
+   {
+    "id": "D",
+    "text": "Соседний блок объявлен ниже в HTML, а порядок в разметке всегда важнее z-index"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 2,
+  "explanation": "z-index действует только на позиционированные элементы и на flex/grid-элементы. Кроме того, порядок сравнивается внутри одного контекста наложения: если родитель создаёт контекст (position + z-index, transform, opacity < 1, filter, will-change), то дочерний z-index: 999 конкурирует только с соседями внутри этого родителя.",
+  "tags": [
+   "css",
+   "stacking-context",
+   "diagnostics"
+  ],
+  "version_group": "FE-CSS-ZINDEX",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-T-004",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "theory",
+  "competency": "css",
+  "difficulty": 5,
+  "question": "В сетке нужно, чтобы колонки автоматически переносились на новую строку, а пустые треки не занимали место при небольшом количестве элементов. Что выбрать: repeat(auto-fill, ...) или repeat(auto-fit, ...)?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Оба варианта ведут себя одинаково, разница только в поддержке браузерами"
+   },
+   {
+    "id": "B",
+    "text": "Ни один не подходит: пустые треки убираются только через grid-auto-flow: dense"
+   },
+   {
+    "id": "C",
+    "text": "auto-fit: он сворачивает пустые треки и отдаёт место элементам"
+   },
+   {
+    "id": "D",
+    "text": "auto-fill, потому что он удаляет пустые треки"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 2,
+  "explanation": "auto-fill создаёт максимально возможное число треков и оставляет пустые, поэтому элементы не растягиваются. auto-fit сворачивает пустые треки, и при minmax() существующие элементы занимают освободившееся место. grid-auto-flow: dense влияет только на порядок размещения элементов.",
+  "tags": [
+   "css",
+   "grid",
+   "layout"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-T-005",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "theory",
+  "competency": "javascript",
+  "difficulty": 4,
+  "question": "В одном синхронном блоке кода подряд вызваны setTimeout(fn1, 0) и Promise.resolve().then(fn2). В каком порядке выполнятся fn1 и fn2?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Порядок не определён и зависит от загруженности браузера и устройства пользователя"
+   },
+   {
+    "id": "B",
+    "text": "fn1, затем fn2 — порядок соответствует порядку вызова"
+   },
+   {
+    "id": "C",
+    "text": "fn2, затем fn1 — микрозадачи выполняются раньше следующей макрозадачи"
+   },
+   {
+    "id": "D",
+    "text": "Обе функции выполнятся синхронно до конца текущего блока"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 2,
+  "explanation": "После завершения текущей синхронной задачи движок полностью опустошает очередь микрозадач (промисы, queueMicrotask) и только затем берёт следующую макрозадачу (таймеры, события). Поэтому then всегда срабатывает раньше setTimeout с нулевой задержкой.",
+  "tags": [
+   "javascript",
+   "event-loop",
+   "async"
+  ],
+  "version_group": "FE-JS-EVENTLOOP",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-T-006",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "theory",
+  "competency": "javascript",
+  "difficulty": 4,
+  "question": "Чем определяется значение this внутри стрелочной функции?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Всегда undefined в модулях и globalThis в скриптах"
+   },
+   {
+    "id": "B",
+    "text": "Лексическим окружением, в котором функция была объявлена"
+   },
+   {
+    "id": "C",
+    "text": "Значением, переданным через call, apply или bind"
+   },
+   {
+    "id": "D",
+    "text": "Объектом, от которого функция была вызвана"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 2,
+  "explanation": "Стрелочная функция не создаёт собственный this, а берёт его из окружающей области видимости на момент объявления. Поэтому call, apply и bind не могут его переопределить, и стрелочные функции не годятся в качестве методов объекта, которым нужен динамический this.",
+  "tags": [
+   "javascript",
+   "this",
+   "functions"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-T-007",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "theory",
+  "competency": "javascript",
+  "difficulty": 5,
+  "question": "Страница параллельно запрашивает данные из четырёх независимых источников. Нужно отрисовать всё, что удалось получить, даже если часть запросов упала. Какой комбинатор промисов подходит?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Promise.all, потому что он вернёт массив результатов в исходном порядке"
+   },
+   {
+    "id": "B",
+    "text": "Promise.allSettled, потому что он дождётся всех и вернёт статус каждого промиса"
+   },
+   {
+    "id": "C",
+    "text": "Promise.race, потому что он завершится, как только придёт первый ответ"
+   },
+   {
+    "id": "D",
+    "text": "Promise.any, потому что он игнорирует отклонённые промисы"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 2,
+  "explanation": "Promise.allSettled ждёт завершения всех промисов и возвращает массив объектов со status fulfilled или rejected, что позволяет отрисовать удачные части и показать ошибку для неудачных. Promise.all отклонится целиком при первой ошибке, race и any дают только один результат.",
+  "tags": [
+   "javascript",
+   "promises",
+   "async"
+  ],
+  "version_group": "FE-JS-PROMISE-COMBINATORS",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-T-008",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "theory",
+  "competency": "javascript",
+  "difficulty": 6,
+  "question": "Нужно связать с DOM-узлами дополнительные данные так, чтобы после удаления узла из документа эти данные не мешали освобождению памяти. Какая структура подходит?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Set с объектами, где хранится ссылка на узел вместе с его данными"
+   },
+   {
+    "id": "B",
+    "text": "Объект с ключами по data-id узла"
+   },
+   {
+    "id": "C",
+    "text": "Map, потому что он допускает DOM-узлы и другие объекты в качестве ключей"
+   },
+   {
+    "id": "D",
+    "text": "WeakMap: ключи по слабой ссылке не мешают сборке мусора"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 2,
+  "explanation": "WeakMap хранит ключи-объекты по слабой ссылке: если на DOM-узел больше нет сильных ссылок, запись удаляется автоматически. Map, обычный объект и Set держат ссылку на узел сколько живёт сама коллекция, и удалённые узлы остаются в памяти.",
+  "tags": [
+   "javascript",
+   "memory",
+   "collections"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-T-009",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "theory",
+  "competency": "typescript",
+  "difficulty": 4,
+  "question": "Функция принимает массив и возвращает его первый элемент. Что даёт описание её как <T>(items: T[]) => T | undefined вместо (items: any[]) => any?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Генерик добавляет полноценную проверку типов в рантайме при каждом вызове функции"
+   },
+   {
+    "id": "B",
+    "text": "Генерик позволяет передавать массивы разной длины, что при any невозможно"
+   },
+   {
+    "id": "C",
+    "text": "Тип входа связан с типом выхода, вызывающий получает конкретный тип"
+   },
+   {
+    "id": "D",
+    "text": "Генерик ускоряет выполнение функции, потому что компилятор специализирует её под каждый тип"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 2,
+  "explanation": "Генерик сохраняет связь типов: для User[] результат будет User | undefined. Вариант с any теряет тип и отключает проверки у вызывающей стороны. На рантайм типы TypeScript не влияют и производительность не меняют.",
+  "tags": [
+   "typescript",
+   "generics"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-T-010",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "theory",
+  "competency": "typescript",
+  "difficulty": 5,
+  "question": "Ответ API может быть либо успешным с полем data, либо ошибочным с полем error. Какой способ описания типа позволит компилятору сузить вариант после одной проверки?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Пересечение типов { data: T } & { error: string }"
+   },
+   {
+    "id": "B",
+    "text": "Размеченное объединение с общим полем status"
+   },
+   {
+    "id": "C",
+    "text": "Индексная подпись [key: string]"
+   },
+   {
+    "id": "D",
+    "text": "Один интерфейс с необязательными полями data? и error?"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 2,
+  "explanation": "Размеченное объединение содержит литеральное поле-дискриминант, по которому компилятор сужает тип: внутри ветки status === \"ok\" доступно только data. Интерфейс с необязательными полями требует проверок на каждое поле и допускает невозможные комбинации, а пересечение требует наличия обоих полей одновременно.",
+  "tags": [
+   "typescript",
+   "unions",
+   "narrowing"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-T-011",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "theory",
+  "competency": "typescript",
+  "difficulty": 5,
+  "question": "В код добавили приведение const user = response.data as User, после чего ошибки компиляции исчезли. Какой риск при этом появился?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Приведение гарантирует проверку структуры данных в рантайме, но только в режиме development"
+   },
+   {
+    "id": "B",
+    "text": "Приведение делает все поля User необязательными"
+   },
+   {
+    "id": "C",
+    "text": "Приведение меняет лишь представление компилятора: несоответствие проявится в рантайме"
+   },
+   {
+    "id": "D",
+    "text": "Приведение типов замедляет загрузку бандла из-за дополнительного кода"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 2,
+  "explanation": "as — утверждение типа, а не проверка: компилятор просто верит разработчику, и в сгенерированный JavaScript ничего не добавляется. Если сервер вернул другую структуру, обращение к полю упадёт в рантайме. Для внешних данных нужна валидация схемы или type guard.",
+  "tags": [
+   "typescript",
+   "assertions",
+   "risk"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-T-012",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "theory",
+  "competency": "react",
+  "difficulty": 4,
+  "question": "В чём разница между useMemo и useCallback?",
+  "options": [
+   {
+    "id": "A",
+    "text": "useCallback дополнительно предотвращает повторный рендер дочерних компонентов без React.memo"
+   },
+   {
+    "id": "B",
+    "text": "useMemo кэширует результат вычисления, а useCallback — саму ссылку на функцию"
+   },
+   {
+    "id": "C",
+    "text": "useMemo работает синхронно, а useCallback откладывает вычисление"
+   },
+   {
+    "id": "D",
+    "text": "useMemo пригоден только для примитивов, useCallback — только для объектов"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 2,
+  "explanation": "useMemo сохраняет значение, возвращённое функцией, useCallback сохраняет ссылку на функцию между рендерами при неизменных зависимостях. Сам по себе useCallback не останавливает рендер потомков: это имеет смысл только в паре с React.memo или в зависимостях эффекта.",
+  "tags": [
+   "react",
+   "hooks",
+   "memoization"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-T-013",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "theory",
+  "competency": "react",
+  "difficulty": 5,
+  "question": "В обработчике клика подряд вызваны setCount(count + 1) и setFlag(true). Сколько раз React 18 перерисует компонент и почему?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Три раза: по одному на каждый сеттер и один финальный проход"
+   },
+   {
+    "id": "B",
+    "text": "Один раз: React 18 объединяет оба обновления в один проход согласования"
+   },
+   {
+    "id": "C",
+    "text": "Два раза: каждый вызов сеттера синхронно запускает рендер"
+   },
+   {
+    "id": "D",
+    "text": "Ни разу до конца обработчика: рендер будет при следующем событии"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 2,
+  "explanation": "React группирует обновления состояния (automatic batching), и несколько вызовов сеттеров в одном обработчике приводят к одному повторному рендеру. В React 18 это работает и в промисах, таймерах и нативных обработчиках, а не только в событиях React.",
+  "tags": [
+   "react",
+   "batching",
+   "rendering"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-T-014",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "theory",
+  "competency": "react",
+  "difficulty": 5,
+  "question": "Дочерний компонент обёрнут в React.memo, но всё равно перерисовывается при каждом рендере родителя. Какая причина наиболее вероятна?",
+  "options": [
+   {
+    "id": "A",
+    "text": "React.memo отключается в режиме разработки"
+   },
+   {
+    "id": "B",
+    "text": "React.memo работает только для классовых компонентов"
+   },
+   {
+    "id": "C",
+    "text": "У компонента есть внутреннее состояние, и React.memo в этом случае не применяется"
+   },
+   {
+    "id": "D",
+    "text": "В props передаётся объект, массив или функция, создаваемые заново при каждом рендере родителя"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 2,
+  "explanation": "React.memo сравнивает props поверхностно. Литерал объекта, массива или инлайн-функция создаются заново при каждом рендере родителя, ссылка меняется, и мемоизация не срабатывает. Решение — стабилизировать значения через useMemo/useCallback или передавать примитивы.",
+  "tags": [
+   "react",
+   "memo",
+   "diagnostics"
+  ],
+  "version_group": "FE-REACT-MEMO",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-T-015",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "theory",
+  "competency": "react",
+  "difficulty": 6,
+  "question": "Компоненту нужно хранить идентификатор интервала между рендерами. Значение не используется в разметке. Что выбрать?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Переменную в теле компонента, потому что она не участвует в рендере"
+   },
+   {
+    "id": "B",
+    "text": "useRef: значение живёт между рендерами без перерисовки"
+   },
+   {
+    "id": "C",
+    "text": "Переменную в области видимости модуля, потому что она общая для всего приложения"
+   },
+   {
+    "id": "D",
+    "text": "useState, потому что только он сохраняет значение между рендерами"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 2,
+  "explanation": "useRef даёт стабильный изменяемый контейнер на всё время жизни компонента, а запись в .current не приводит к рендеру. Обычная переменная теряется при каждом рендере, useState вызовет лишний рендер, а переменная модуля будет общей для всех экземпляров компонента.",
+  "tags": [
+   "react",
+   "hooks",
+   "useRef"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-T-016",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "theory",
+  "competency": "components",
+  "difficulty": 5,
+  "question": "Пропс прокидывается через четыре уровня компонентов, которым он сам не нужен. Какой приём устраняет проблему, не вводя глобальное состояние?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Передавать весь объект props целиком через spread на каждом уровне"
+   },
+   {
+    "id": "B",
+    "text": "Композиция: передать готовый элемент через children"
+   },
+   {
+    "id": "C",
+    "text": "Записать значение в атрибут DOM и читать его через querySelector"
+   },
+   {
+    "id": "D",
+    "text": "Хранить значение в модуле и импортировать его там, где оно требуется"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 2,
+  "explanation": "Композиция убирает промежуточные пропсы: компонент, который владеет данными, сам создаёт нужный элемент и отдаёт его вниз как children или именованный слот. Импортируемая переменная модуля — скрытое глобальное состояние, чтение из DOM ломает односторонний поток данных, а spread лишь маскирует проблему.",
+  "tags": [
+   "components",
+   "composition",
+   "architecture"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-T-017",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "theory",
+  "competency": "state_management",
+  "difficulty": 4,
+  "question": "Два соседних компонента должны видеть одно и то же значение фильтра. Какое решение корректно и минимально по сложности?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Подключить глобальный стор, чтобы значение фильтра было доступно из любого места приложения без передачи пропсов"
+   },
+   {
+    "id": "B",
+    "text": "Поднять состояние в общий родитель и передать обоим компонентам вместе с обработчиком"
+   },
+   {
+    "id": "C",
+    "text": "Продублировать состояние в обоих компонентах и синхронизировать его в useEffect"
+   },
+   {
+    "id": "D",
+    "text": "Записать значение в localStorage и читать его при каждом рендере"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 2,
+  "explanation": "Поднятие состояния в общий родитель сохраняет единственный источник истины и однонаправленный поток данных. Дублирование с синхронизацией через эффект создаёт рассогласование и лишние рендеры, localStorage добавляет ввод-вывод, а глобальный стор для двух соседей — избыточная сложность.",
+  "tags": [
+   "state_management",
+   "lifting-state"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-T-018",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "theory",
+  "competency": "state_management",
+  "difficulty": 6,
+  "question": "В сторе список заказов хранится как массив объектов, при этом экраны часто обновляют один заказ по id. Чем поможет нормализация состояния (byId + массив id)?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Уменьшится объём данных, которые клиент получает с сервера при каждом обновлении"
+   },
+   {
+    "id": "B",
+    "text": "Обновление элемента не требует пересоздания массива, а дубли заказа исчезнут"
+   },
+   {
+    "id": "C",
+    "text": "Селекторы перестанут требовать мемоизации"
+   },
+   {
+    "id": "D",
+    "text": "Станет возможным хранить в сторе вложенные объекты, что при массиве запрещено правилами"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 2,
+  "explanation": "При нормализации сущность лежит в одном месте, доступ по ключу выполняется за O(1), а обновление затрагивает только одну запись, что сокращает число перерисовок подписчиков. Объём ответа сервера и необходимость мемоизации производных выборок при этом не меняются.",
+  "tags": [
+   "state_management",
+   "normalization",
+   "architecture"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-T-019",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "theory",
+  "competency": "api_integration",
+  "difficulty": 4,
+  "question": "Пользователь быстро печатает в поле поиска, и каждый ввод отправляет запрос. Нужно, чтобы ответы устаревших запросов не перезаписывали актуальный результат. Какой штатный механизм для этого есть у fetch?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Обернуть вызов в Promise.race с таймаутом на каждый запрос"
+   },
+   {
+    "id": "B",
+    "text": "Использовать keepalive: true, чтобы запросы выполнялись последовательно"
+   },
+   {
+    "id": "C",
+    "text": "Указать в fetch опцию cache: \"no-store\" для каждого запроса"
+   },
+   {
+    "id": "D",
+    "text": "Прерывать прежний запрос через AbortController"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 2,
+  "explanation": "AbortController позволяет отменить незавершённый запрос: его промис отклоняется с AbortError, и обработчик не применит устаревшие данные. cache и keepalive порядок ответов не контролируют, а race с таймаутом ограничивает время, но не защищает от гонки.",
+  "tags": [
+   "api_integration",
+   "abort",
+   "race-condition"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-T-020",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "theory",
+  "competency": "api_integration",
+  "difficulty": 5,
+  "question": "Клиент автоматически повторяет запросы при ошибке сети. Для какого запроса такой повтор безопасен без дополнительных мер?",
+  "options": [
+   {
+    "id": "A",
+    "text": "POST /payments/charge, списывающий средства"
+   },
+   {
+    "id": "B",
+    "text": "POST /orders, создающий новый заказ клиента"
+   },
+   {
+    "id": "C",
+    "text": "PATCH /counters/views, увеличивающий счётчик на единицу"
+   },
+   {
+    "id": "D",
+    "text": "GET /orders?page=2 — чтение списка"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 2,
+  "explanation": "GET идемпотентен и не меняет состояние, поэтому повтор безопасен. Повтор POST может создать дубликат заказа или второе списание, а инкрементирующий PATCH не идемпотентен, несмотря на метод. Для них нужен ключ идемпотентности или подтверждение на сервере.",
+  "tags": [
+   "api_integration",
+   "idempotency",
+   "retry"
+  ],
+  "version_group": "FE-API-RETRY",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-T-021",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "theory",
+  "competency": "http",
+  "difficulty": 5,
+  "question": "Браузер перед основным запросом отправил OPTIONS на тот же адрес. Что это означает?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Клиент запросил список доступных методов API вместо данных"
+   },
+   {
+    "id": "B",
+    "text": "Сервер потребовал повторную аутентификацию"
+   },
+   {
+    "id": "C",
+    "text": "Запрос кросс-доменный и не простой, поэтому браузер делает предварительную проверку CORS"
+   },
+   {
+    "id": "D",
+    "text": "Включён протокол HTTP/2, и метод OPTIONS используется браузером для согласования параметров соединения"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 2,
+  "explanation": "Preflight-запрос OPTIONS отправляется, когда кросс-доменный запрос не попадает в категорию простых: нестандартный метод, Content-Type: application/json, пользовательские заголовки. Сервер должен ответить подходящими Access-Control-Allow-*, иначе основной запрос не будет выполнен.",
+  "tags": [
+   "http",
+   "cors",
+   "preflight"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-T-022",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "theory",
+  "competency": "http",
+  "difficulty": 5,
+  "question": "Чем Cache-Control: no-cache отличается от no-store?",
+  "options": [
+   {
+    "id": "A",
+    "text": "no-cache запрещает любое сохранение ответа, а no-store разрешает хранение только в оперативной памяти браузера"
+   },
+   {
+    "id": "B",
+    "text": "Директивы эквивалентны, no-store оставлена для совместимости со старыми браузерами"
+   },
+   {
+    "id": "C",
+    "text": "no-cache разрешает хранить, но требует перепроверки перед использованием, no-store запрещает хранить"
+   },
+   {
+    "id": "D",
+    "text": "no-cache относится к браузеру, no-store — только к промежуточным прокси"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 2,
+  "explanation": "no-cache допускает кэширование, но перед выдачей из кэша требует валидации через ETag или Last-Modified, что позволяет экономить трафик на ответах 304. no-store полностью запрещает сохранение и применяется к ответам с чувствительными данными.",
+  "tags": [
+   "http",
+   "caching",
+   "headers"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-T-023",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "theory",
+  "competency": "browser",
+  "difficulty": 5,
+  "question": "Код в цикле читает element.offsetHeight и сразу меняет element.style.height. Почему это приводит к заметным просадкам производительности?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Чтение геометрии заставляет браузер пересчитывать layout на каждой итерации"
+   },
+   {
+    "id": "B",
+    "text": "offsetHeight выполняет синхронный запрос к движку рендеринга в отдельном потоке"
+   },
+   {
+    "id": "C",
+    "text": "Браузер запрещает изменять геометрию чаще одного раза за кадр и добавляет задержку"
+   },
+   {
+    "id": "D",
+    "text": "Обращение к style создаёт новый узел в DOM на каждой итерации"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 2,
+  "explanation": "Это принудительная синхронная перекомпоновка (layout thrashing): запись в стиль помечает layout как устаревший, а следующее чтение геометрии требует его немедленного пересчёта. Лечится разделением фаз — сначала все чтения, затем все записи.",
+  "tags": [
+   "browser",
+   "layout",
+   "performance"
+  ],
+  "version_group": "FE-LAYOUT-THRASH",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-T-024",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "theory",
+  "competency": "performance",
+  "difficulty": 5,
+  "question": "Обработчик прокрутки выполняет тяжёлый пересчёт. Нужно, чтобы он вызывался не чаще одного раза в 100 мс, но продолжал срабатывать во время прокрутки. Что использовать?",
+  "options": [
+   {
+    "id": "A",
+    "text": "setInterval с интервалом 100 мс, проверяющий позицию прокрутки страницы"
+   },
+   {
+    "id": "B",
+    "text": "throttle с интервалом 100 мс, чтобы вызовы шли регулярно во время прокрутки"
+   },
+   {
+    "id": "C",
+    "text": "Один вызов в requestIdleCallback при монтировании"
+   },
+   {
+    "id": "D",
+    "text": "debounce со задержкой 100 мс"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 2,
+  "explanation": "throttle пропускает вызов не чаще одного раза в интервал, поэтому обработчик продолжает срабатывать во время прокрутки. debounce отложил бы выполнение до паузы и во время непрерывной прокрутки не вызывался бы вовсе, а setInterval работает и когда прокрутки нет.",
+  "tags": [
+   "performance",
+   "throttle",
+   "events"
+  ],
+  "version_group": "FE-PERF-THROTTLE",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-T-025",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "theory",
+  "competency": "security",
+  "difficulty": 6,
+  "question": "Токен сессии хранится в localStorage. Какой аргумент в пользу перехода на cookie с флагами HttpOnly, Secure и SameSite является корректным?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Cookie полностью исключает возможность CSRF-атаки"
+   },
+   {
+    "id": "B",
+    "text": "Cookie шифруется браузером при хранении, а localStorage хранится в открытом виде"
+   },
+   {
+    "id": "C",
+    "text": "Cookie не ограничена по размеру, в отличие от localStorage с его пятью мегабайтами"
+   },
+   {
+    "id": "D",
+    "text": "HttpOnly-cookie недоступна из JavaScript, и XSS не прочитает токен"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 2,
+  "explanation": "Главный выигрыш — недоступность токена для скриптов при HttpOnly: успешный XSS не сможет его выгрузить. При этом cookie сама создаёт риск CSRF, который снижают SameSite и anti-CSRF токены. Браузер cookie не шифрует, а её размер ограничен жёстче, чем localStorage.",
+  "tags": [
+   "security",
+   "tokens",
+   "cookies"
+  ],
+  "version_group": "FE-SEC-TOKEN-STORAGE",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-T-026",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "theory",
+  "competency": "accessibility",
+  "difficulty": 4,
+  "question": "После отправки формы в блоке рядом с кнопкой появляется текст об ошибке. Что нужно сделать, чтобы пользователь скринридера узнал об этом без перевода фокуса?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Добавить тексту ошибки aria-hidden=\"false\""
+   },
+   {
+    "id": "B",
+    "text": "Добавить блоку role=\"alert\" или aria-live=\"assertive\", чтобы изменение содержимого было объявлено"
+   },
+   {
+    "id": "C",
+    "text": "Указать у кнопки aria-label с текстом ошибки"
+   },
+   {
+    "id": "D",
+    "text": "Задать блоку tabindex=\"-1\" и поместить в него подробное описание ошибки формы"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 2,
+  "explanation": "Живые области (aria-live, role=\"alert\") заставляют вспомогательные технологии объявить изменившееся содержимое без переноса фокуса. tabindex лишь делает элемент программно фокусируемым, aria-hidden=\"false\" — значение по умолчанию, а aria-label у кнопки изменит её название, но не сообщит об ошибке.",
+  "tags": [
+   "accessibility",
+   "aria-live",
+   "forms"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-M-T-027",
+  "specialization": "frontend",
+  "level": "middle",
+  "type": "theory",
+  "competency": "testing",
+  "difficulty": 5,
+  "question": "Почему в тестах компонентов предпочтительно искать элементы по роли и доступному имени, а не по CSS-классу?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Классы меняются при рефакторинге, а роль и имя отражают работу пользователя с элементом"
+   },
+   {
+    "id": "B",
+    "text": "Поиск по роли автоматически проверяет контрастность, размеры элемента и его соответствие требованиям доступности"
+   },
+   {
+    "id": "C",
+    "text": "Поиск по классу не работает в jsdom"
+   },
+   {
+    "id": "D",
+    "text": "Поиск по роли выполняется быстрее, чем по селектору класса"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 2,
+  "explanation": "Тест, привязанный к классам, ломается при изменении стилей, хотя поведение не изменилось, и при этом не замечает поломку доступности. Поиск по роли и доступному имени проверяет контракт, видимый пользователю, и одновременно страхует базовую доступность.",
+  "tags": [
+   "testing",
+   "testing-library",
+   "practices"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ }
+]

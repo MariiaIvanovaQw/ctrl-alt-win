@@ -1,0 +1,1200 @@
+[
+ {
+  "id": "BE-J-T-001",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "programming_language",
+  "difficulty": 3,
+  "question": "В Python функция объявлена как def add(item, acc=[]). При повторных вызовах без второго аргумента список acc накапливает значения предыдущих вызовов. Почему?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Списки в Python хранятся в глобальной области видимости и поэтому общие для всех вызовов функции"
+   },
+   {
+    "id": "B",
+    "text": "Сборщик мусора не удаляет объекты, созданные в аргументах, пока функция остаётся в памяти"
+   },
+   {
+    "id": "C",
+    "text": "Значение по умолчанию копируется по ссылке в вызывающий код и возвращается обратно при следующем вызове"
+   },
+   {
+    "id": "D",
+    "text": "Значение по умолчанию вычисляется один раз, при объявлении функции"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 1,
+  "explanation": "Значения по умолчанию вычисляются однажды, в момент создания объекта функции, поэтому изменяемый объект становится общим состоянием между вызовами. Правильный приём — значение None по умолчанию и создание нового списка внутри функции.",
+  "tags": [
+   "programming_language",
+   "python",
+   "pitfall"
+  ],
+  "version_group": "BE-MUTABLE-DEFAULT",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-T-002",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "programming_language",
+  "difficulty": 2,
+  "question": "В конструкции try/except/finally в блоке try выполняется return. Когда выполнится код в finally?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Выполнится только в том случае, если в блоке try было выброшено исключение"
+   },
+   {
+    "id": "B",
+    "text": "Выполнится перед фактическим выходом из функции, независимо от наличия исключения"
+   },
+   {
+    "id": "C",
+    "text": "Не выполнится, потому что функция уже вернула значение"
+   },
+   {
+    "id": "D",
+    "text": "Выполнится уже после того, как значение будет возвращено вызывающему коду"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 1,
+  "explanation": "finally предназначен для освобождения ресурсов и выполняется при любом способе выхода из блока: нормальном завершении, return, break или исключении — и всегда до того, как управление действительно покинет функцию.",
+  "tags": [
+   "programming_language",
+   "exceptions",
+   "basic"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-T-003",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "programming_language",
+  "difficulty": 2,
+  "question": "Почему параметры подключения к базе данных принято передавать через переменные окружения, а не хранить в коде?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Это единственный способ изменить настройки приложения без его пересборки и перезапуска"
+   },
+   {
+    "id": "B",
+    "text": "Переменные окружения шифруются операционной системой и недоступны другим процессам"
+   },
+   {
+    "id": "C",
+    "text": "Переменные окружения читаются быстрее, чем файлы конфигурации, и не требуют разбора"
+   },
+   {
+    "id": "D",
+    "text": "Один образ запускается в разных средах, а секреты не попадают в репозиторий"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 1,
+  "explanation": "Конфигурация зависит от среды, а код — нет: вынос параметров наружу позволяет собрать артефакт один раз и запускать его в тестовой и промышленной средах, не храня пароли в истории репозитория. Шифрования переменные окружения не дают, и для их изменения процесс обычно требуется перезапустить.",
+  "tags": [
+   "programming_language",
+   "configuration",
+   "12factor"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-T-004",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "algorithms",
+  "difficulty": 2,
+  "question": "Какое условие обязательно для корректной работы бинарного поиска?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Элементы должны быть числовыми"
+   },
+   {
+    "id": "B",
+    "text": "Массив должен быть отсортирован по тому же признаку, по которому выполняется поиск"
+   },
+   {
+    "id": "C",
+    "text": "Длина массива должна быть степенью двойки"
+   },
+   {
+    "id": "D",
+    "text": "В массиве не должно быть повторяющихся значений, иначе поиск может зациклиться и не завершиться"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 1,
+  "explanation": "Бинарный поиск на каждом шаге отбрасывает половину диапазона, опираясь на упорядоченность. Повторы и произвольная длина допустимы, тип элементов не важен — достаточно отношения порядка.",
+  "tags": [
+   "algorithms",
+   "binary-search",
+   "basic"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-T-005",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "algorithms",
+  "difficulty": 3,
+  "question": "Функция перебирает список из n элементов и для каждого выполняет проверку за константное время. Какова её сложность по времени?",
+  "options": [
+   {
+    "id": "A",
+    "text": "O(n)"
+   },
+   {
+    "id": "B",
+    "text": "O(n²)"
+   },
+   {
+    "id": "C",
+    "text": "O(log n)"
+   },
+   {
+    "id": "D",
+    "text": "O(1)"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "Один проход по n элементам с постоянной работой на каждом даёт линейную сложность. O(log n) соответствует делению задачи пополам, а O(n²) — вложенному перебору.",
+  "tags": [
+   "algorithms",
+   "complexity",
+   "basic"
+  ],
+  "version_group": "BE-COMPLEXITY-BASIC",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-T-006",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "data_structures",
+  "difficulty": 2,
+  "question": "Какова средняя сложность поиска значения по ключу в хеш-таблице?",
+  "options": [
+   {
+    "id": "A",
+    "text": "O(1)"
+   },
+   {
+    "id": "B",
+    "text": "O(log n)"
+   },
+   {
+    "id": "C",
+    "text": "O(n)"
+   },
+   {
+    "id": "D",
+    "text": "O(n log n)"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "Хеш-функция сразу указывает корзину, поэтому в среднем доступ по ключу выполняется за константное время. В худшем случае при массовых коллизиях сложность вырождается до линейной, поэтому важны качество хеш-функции и коэффициент заполнения.",
+  "tags": [
+   "data_structures",
+   "hash-table",
+   "complexity"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-T-007",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "data_structures",
+  "difficulty": 2,
+  "question": "Чем отличается стек от очереди по порядку извлечения элементов?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Из стека элементы извлекаются в том же порядке, в каком добавлялись, а из очереди — в обратном"
+   },
+   {
+    "id": "B",
+    "text": "Стек допускает извлечение из середины, очередь — только с краёв"
+   },
+   {
+    "id": "C",
+    "text": "Стек имеет фиксированный размер, а очередь растёт динамически"
+   },
+   {
+    "id": "D",
+    "text": "Из стека извлекается последний добавленный элемент, из очереди — первый добавленный"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 1,
+  "explanation": "Стек работает по принципу «последним пришёл — первым вышел», очередь — «первым пришёл — первым вышел». Ограничения по размеру определяются реализацией, а не самой структурой.",
+  "tags": [
+   "data_structures",
+   "stack",
+   "queue",
+   "basic"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-T-008",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "data_structures",
+  "difficulty": 3,
+  "question": "В обработчике нужно многократно проверять, встречался ли идентификатор ранее. Данных порядка 100 000. Какая структура подходит лучше всего?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка, в которую идентификаторы дописываются через запятую"
+   },
+   {
+    "id": "B",
+    "text": "Отсортированный список с поиском перебором"
+   },
+   {
+    "id": "C",
+    "text": "Список, в который идентификаторы добавляются по мере обработки"
+   },
+   {
+    "id": "D",
+    "text": "Множество (set), построенное на хеш-таблице"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 1,
+  "explanation": "Множество даёт проверку принадлежности в среднем за константное время. Проверка в списке требует перебора, то есть линейна для каждого обращения, а поиск подстроки в строке ещё и даёт ложные совпадения по частям идентификаторов.",
+  "tags": [
+   "data_structures",
+   "set",
+   "performance"
+  ],
+  "version_group": "BE-SET-LOOKUP",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-T-009",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "databases",
+  "difficulty": 2,
+  "question": "Зачем таблице нужен первичный ключ?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Чтобы задать порядок физического хранения строк на диске"
+   },
+   {
+    "id": "B",
+    "text": "Чтобы разрешить вставку строк с одинаковыми значениями остальных полей"
+   },
+   {
+    "id": "C",
+    "text": "Чтобы однозначно идентифицировать каждую строку и ссылаться на неё из других таблиц"
+   },
+   {
+    "id": "D",
+    "text": "Чтобы ускорить выполнение любых запросов к таблице"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 1,
+  "explanation": "Первичный ключ обеспечивает уникальность и неизменяемость идентификатора строки и служит целью для внешних ключей. Он действительно поддерживается индексом и ускоряет выборку по себе, но не любые запросы, а порядок хранения определяется устройством конкретной СУБД.",
+  "tags": [
+   "databases",
+   "primary-key",
+   "basic"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-T-010",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "databases",
+  "difficulty": 3,
+  "question": "Какую цену приходится платить за добавление индекса к часто изменяемой таблице?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Таблица становится недоступной для чтения на всё время, пока индекс перестраивается после изменений"
+   },
+   {
+    "id": "B",
+    "text": "Замедляются вставка, обновление и удаление, и индекс занимает место"
+   },
+   {
+    "id": "C",
+    "text": "Запросы, которые не используют этот индекс, начинают выполняться заметно медленнее, чем до его создания"
+   },
+   {
+    "id": "D",
+    "text": "Теряется возможность сортировать результаты по другим полям таблицы без отдельного индекса"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 1,
+  "explanation": "Индекс — отдельная структура, которую нужно поддерживать при каждом изменении данных, поэтому запись становится дороже, а место на диске расходуется дополнительно. Чтение по другим полям не замедляется, а доступность таблицы сохраняется.",
+  "tags": [
+   "databases",
+   "indexes",
+   "tradeoff"
+  ],
+  "version_group": "BE-INDEX-COST",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-T-011",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "sql",
+  "difficulty": 2,
+  "question": "Чем результат LEFT JOIN отличается от INNER JOIN?",
+  "options": [
+   {
+    "id": "A",
+    "text": "LEFT JOIN возвращает только строки, у которых есть соответствие в обеих таблицах одновременно"
+   },
+   {
+    "id": "B",
+    "text": "LEFT JOIN удаляет повторяющиеся строки из результата, а INNER JOIN сохраняет все дубликаты"
+   },
+   {
+    "id": "C",
+    "text": "LEFT JOIN дополнительно сортирует результат по ключу левой таблицы, а INNER JOIN — нет"
+   },
+   {
+    "id": "D",
+    "text": "LEFT JOIN сохраняет все строки левой таблицы, подставляя NULL без пары"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 1,
+  "explanation": "INNER JOIN оставляет только совпадающие пары строк, LEFT JOIN сохраняет все строки левой таблицы и заполняет отсутствующие значения правой таблицы значением NULL. Порядок строк не гарантируется ни тем, ни другим соединением.",
+  "tags": [
+   "sql",
+   "joins",
+   "basic"
+  ],
+  "version_group": "BE-SQL-JOINS",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-T-012",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "sql",
+  "difficulty": 3,
+  "question": "В каком случае условие нужно писать в HAVING, а не в WHERE?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Когда условие должно применяться к строкам ещё до того, как они будут прочитаны из таблицы"
+   },
+   {
+    "id": "B",
+    "text": "Когда условие накладывается на результат агрегатной функции после группировки"
+   },
+   {
+    "id": "C",
+    "text": "Когда в запросе используется соединение таблиц"
+   },
+   {
+    "id": "D",
+    "text": "Когда условие содержит сравнение строк"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 1,
+  "explanation": "WHERE фильтрует строки до группировки, HAVING — уже сгруппированные результаты, поэтому условия вида COUNT(*) > 5 или SUM(total) > 1000 размещают в HAVING. Фильтры по обычным полям выгоднее оставлять в WHERE: так обрабатывается меньше строк.",
+  "tags": [
+   "sql",
+   "group-by",
+   "having"
+  ],
+  "version_group": "BE-SQL-HAVING",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-T-013",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "sql",
+  "difficulty": 3,
+  "question": "В таблице 100 строк, из них у 30 поле discount равно NULL. Что вернут COUNT(*) и COUNT(discount)?",
+  "options": [
+   {
+    "id": "A",
+    "text": "100 и 100"
+   },
+   {
+    "id": "B",
+    "text": "100 и 70"
+   },
+   {
+    "id": "C",
+    "text": "70 и 70"
+   },
+   {
+    "id": "D",
+    "text": "100 и 30"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 1,
+  "explanation": "COUNT(*) считает все строки, а COUNT(столбец) — только строки, где значение столбца не NULL. Это же правило действует для остальных агрегатов: AVG и SUM игнорируют NULL, из-за чего среднее по столбцу с пропусками считается не по всем строкам.",
+  "tags": [
+   "sql",
+   "null",
+   "aggregates"
+  ],
+  "version_group": "BE-SQL-COUNT-NULL",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-T-014",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "http",
+  "difficulty": 2,
+  "question": "API создаёт нового пользователя по POST /users. Какой код ответа наиболее уместен при успешном создании?",
+  "options": [
+   {
+    "id": "A",
+    "text": "200 OK без тела, так как пользователь уже создан"
+   },
+   {
+    "id": "B",
+    "text": "202 Accepted"
+   },
+   {
+    "id": "C",
+    "text": "201 Created и адрес ресурса в Location"
+   },
+   {
+    "id": "D",
+    "text": "204 No Content"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 1,
+  "explanation": "201 сообщает, что ресурс создан, и обычно сопровождается заголовком Location или телом с идентификатором. 202 означает, что запрос принят, но обработка ещё не завершена, 204 — успешное выполнение без тела ответа, что для создания неинформативно.",
+  "tags": [
+   "http",
+   "status_codes",
+   "rest"
+  ],
+  "version_group": "BE-HTTP-CREATED",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-T-015",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "http",
+  "difficulty": 2,
+  "question": "Для чего в запросе используется заголовок Content-Type?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Чтобы указать, в каком формате клиент хочет получить ответ"
+   },
+   {
+    "id": "B",
+    "text": "Чтобы указать формат тела запроса, который отправляет клиент"
+   },
+   {
+    "id": "C",
+    "text": "Чтобы задать кодировку адреса запроса"
+   },
+   {
+    "id": "D",
+    "text": "Чтобы передать размер тела запроса"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 1,
+  "explanation": "Content-Type описывает формат передаваемого тела, по нему сервер выбирает способ разбора. Желаемый формат ответа указывается заголовком Accept, а размер тела — Content-Length.",
+  "tags": [
+   "http",
+   "headers",
+   "basic"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-T-016",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "http",
+  "difficulty": 3,
+  "question": "Что означает идемпотентность метода PUT?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Запрос всегда возвращает один и тот же код ответа, сколько бы раз его ни отправили"
+   },
+   {
+    "id": "B",
+    "text": "Повторная отправка того же запроса даёт то же состояние, что и однократная"
+   },
+   {
+    "id": "C",
+    "text": "Запрос можно отправлять только один раз"
+   },
+   {
+    "id": "D",
+    "text": "Запрос вообще не изменяет состояние на сервере, а только возвращает текущие данные"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 1,
+  "explanation": "Идемпотентность означает одинаковое итоговое состояние при одном и нескольких одинаковых запросах: PUT задаёт содержимое ресурса целиком, поэтому повтор безопасен. Код ответа при этом может различаться, а отсутствие изменений состояния — это свойство безопасных методов вроде GET.",
+  "tags": [
+   "http",
+   "idempotency",
+   "methods"
+  ],
+  "version_group": "BE-HTTP-IDEMPOTENT",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-T-017",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "rest_api",
+  "difficulty": 2,
+  "question": "Какой адрес соответствует принятым соглашениям REST для получения списка заказов пользователя?",
+  "options": [
+   {
+    "id": "A",
+    "text": "GET /getUserOrders?userId=15"
+   },
+   {
+    "id": "B",
+    "text": "POST /orders/list"
+   },
+   {
+    "id": "C",
+    "text": "GET /users/15/orders"
+   },
+   {
+    "id": "D",
+    "text": "GET /orders/user/15"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 1,
+  "explanation": "В REST адрес описывает ресурс существительными, а действие задаётся методом, поэтому вложенный путь users/{id}/orders читается однозначно. Глаголы в адресе и использование POST для чтения противоречат соглашениям и мешают кэшированию.",
+  "tags": [
+   "rest_api",
+   "naming",
+   "design"
+  ],
+  "version_group": "BE-REST-NAMING",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-T-018",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "rest_api",
+  "difficulty": 2,
+  "question": "Клиент меняет только поле status у заказа. Какой метод подходит для частичного обновления?",
+  "options": [
+   {
+    "id": "A",
+    "text": "PATCH: передаётся только изменяемая часть ресурса"
+   },
+   {
+    "id": "B",
+    "text": "PUT, потому что он предназначен для обновления существующего ресурса"
+   },
+   {
+    "id": "C",
+    "text": "POST, потому что при этом изменяется состояние ресурса на сервере"
+   },
+   {
+    "id": "D",
+    "text": "GET с параметром status в адресе"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "PATCH предназначен для частичного изменения: передаётся только то, что меняется. PUT семантически заменяет ресурс целиком, и отправка одного поля приведёт к потере остальных значений, если сервер следует спецификации.",
+  "tags": [
+   "rest_api",
+   "methods",
+   "patch"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-T-019",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "rest_api",
+  "difficulty": 3,
+  "question": "Где по соглашениям REST передают параметры фильтрации и постраничного вывода для коллекции?",
+  "options": [
+   {
+    "id": "A",
+    "text": "В строке запроса: GET /orders?status=paid&page=2&limit=50"
+   },
+   {
+    "id": "B",
+    "text": "В теле GET-запроса в формате JSON"
+   },
+   {
+    "id": "C",
+    "text": "В сегментах пути: GET /orders/paid/2/50"
+   },
+   {
+    "id": "D",
+    "text": "В заголовках запроса, по одному заголовку на параметр"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "Фильтры, сортировка и постраничный вывод — это параметры представления коллекции, их место в строке запроса: такой адрес кэшируем и однозначно читается. Тело у GET-запроса не предусмотрено большинством посредников, нестандартные заголовки затрудняют отладку, а путь должен описывать иерархию ресурсов, а не значения фильтров.",
+  "tags": [
+   "rest_api",
+   "query-params",
+   "pagination"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-T-020",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "auth",
+  "difficulty": 2,
+  "question": "Чем аутентификация отличается от авторизации?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Аутентификация — кто обратился, авторизация — что ему разрешено"
+   },
+   {
+    "id": "B",
+    "text": "Аутентификация проверяет права доступа к ресурсам, а авторизация выдаёт пользователю токен"
+   },
+   {
+    "id": "C",
+    "text": "Аутентификация нужна только при входе, авторизация — только при регистрации"
+   },
+   {
+    "id": "D",
+    "text": "Аутентификация выполняется на стороне клиента, а авторизация — на стороне сервера"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "Аутентификация отвечает на вопрос «кто это», авторизация — «что ему можно». Проверка прав выполняется при каждом обращении к защищённому ресурсу, уже после установления личности.",
+  "tags": [
+   "auth",
+   "basics",
+   "terminology"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-T-021",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "auth",
+  "difficulty": 3,
+  "question": "Почему пароли хранят в виде хеша со случайной солью, а не в зашифрованном виде?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Потому что шифрование работает медленнее хеширования"
+   },
+   {
+    "id": "B",
+    "text": "Потому что хеш занимает меньше места в базе данных"
+   },
+   {
+    "id": "C",
+    "text": "Потому что при шифровании невозможно проверить, правильно ли пользователь ввёл пароль"
+   },
+   {
+    "id": "D",
+    "text": "Потому что хеш необратим, а соль обесценивает готовые таблицы и скрывает одинаковые пароли"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 1,
+  "explanation": "Шифрование подразумевает ключ, при утечке которого восстанавливаются все пароли. Необратимая функция с индивидуальной солью и настраиваемой стоимостью (bcrypt, scrypt, Argon2) исключает восстановление и делает заранее построенные таблицы непригодными. Проверка пароля при шифровании технически возможна, но безопасность при этом ниже.",
+  "tags": [
+   "auth",
+   "passwords",
+   "hashing"
+  ],
+  "version_group": "BE-AUTH-PASSWORD-HASH-J",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-T-022",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "security",
+  "difficulty": 2,
+  "question": "Что является непосредственной причиной SQL-инъекции?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Подстановка пользовательских данных в текст запроса вместо передачи их отдельными параметрами"
+   },
+   {
+    "id": "B",
+    "text": "Использование устаревшей версии СУБД"
+   },
+   {
+    "id": "C",
+    "text": "Отсутствие шифрования соединения между приложением и базой данных"
+   },
+   {
+    "id": "D",
+    "text": "Избыточные права пользователя базы данных, под которым работает приложение"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "Инъекция возникает, когда данные смешиваются с кодом запроса: СУБД получает единый текст и не может отличить значение от команды. Параметризованные запросы передают значения отдельно и устраняют причину. Ограничение прав и свежие версии снижают ущерб, но саму уязвимость не закрывают.",
+  "tags": [
+   "security",
+   "sql-injection",
+   "basic"
+  ],
+  "version_group": "BE-SEC-SQLI",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-T-023",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "security",
+  "difficulty": 3,
+  "question": "Почему недопустимо записывать в логи тела запросов с паролями и токенами?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Логи с телами запросов занимают слишком много места на диске и быстро переполняют хранилище"
+   },
+   {
+    "id": "B",
+    "text": "Логирование тел запросов заметно замедляет обработку каждого запроса на сервере"
+   },
+   {
+    "id": "C",
+    "text": "Пароли в логах приводят к ошибкам кодировки"
+   },
+   {
+    "id": "D",
+    "text": "Логи хранятся дольше и доступны шире, поэтому секрет в логе — это утечка"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 1,
+  "explanation": "Логи копируются в системы сбора, резервные копии и хранятся по своим правилам, доступ к ним шире, чем к базе с секретами. Поэтому чувствительные поля маскируют до записи, а в журналах оставляют только идентификаторы запросов и пользователей.",
+  "tags": [
+   "security",
+   "logging",
+   "privacy"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-T-024",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "performance",
+  "difficulty": 3,
+  "question": "Что называют проблемой N+1 запросов?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Запрос выполняется N раз подряд из-за повторных попыток после ошибок соединения с базой"
+   },
+   {
+    "id": "B",
+    "text": "Приложение открывает N соединений к базе данных вместо одного"
+   },
+   {
+    "id": "C",
+    "text": "В базу отправляется один запрос с N условиями в WHERE вместо обычного соединения таблиц"
+   },
+   {
+    "id": "D",
+    "text": "Один запрос за списком, затем отдельный запрос на каждую из N сущностей"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 1,
+  "explanation": "Классический случай: выбрали 100 заказов, а затем для каждого отдельным запросом получили покупателя — вместо одного соединения или одной выборки по списку идентификаторов. Решается соединением, предзагрузкой связанных данных или выборкой по множеству ключей.",
+  "tags": [
+   "performance",
+   "n+1",
+   "orm"
+  ],
+  "version_group": "BE-PERF-N1",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-T-025",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "caching",
+  "difficulty": 3,
+  "question": "Что задаёт параметр TTL для записи в кэше?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Максимальный размер значения, которое можно сохранить"
+   },
+   {
+    "id": "B",
+    "text": "Приоритет записи при вытеснении из кэша"
+   },
+   {
+    "id": "C",
+    "text": "Число обращений к записи, после которого кэш принудительно перечитывает её из исходного источника"
+   },
+   {
+    "id": "D",
+    "text": "Срок, по истечении которого запись считается устаревшей и перестаёт отдаваться из кэша"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 1,
+  "explanation": "TTL ограничивает время жизни записи и определяет, насколько устаревшие данные допустимо отдавать. Выбор значения — компромисс между свежестью и нагрузкой на источник. Размер значения и политика вытеснения настраиваются отдельно.",
+  "tags": [
+   "caching",
+   "ttl",
+   "basic"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-T-026",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "concurrency",
+  "difficulty": 3,
+  "question": "Чем блокирующий вызов ввода-вывода отличается от неблокирующего с точки зрения потока выполнения?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Блокирующий вызов всегда выполняется в отдельном процессе, а неблокирующий — в текущем потоке"
+   },
+   {
+    "id": "B",
+    "text": "Блокирующий вызов никогда не завершается ошибкой ввода-вывода, а неблокирующий вполне может"
+   },
+   {
+    "id": "C",
+    "text": "Неблокирующий вызов всегда выполняется быстрее блокирующего, даже для одной отдельной операции"
+   },
+   {
+    "id": "D",
+    "text": "Блокирующий держит поток до результата, неблокирующий сразу отдаёт управление"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 1,
+  "explanation": "При блокирующем вызове поток простаивает в ожидании ответа и не может обслуживать другие запросы, при неблокирующем он освобождается и возвращается к работе по готовности. Длительность одной операции при этом не меняется — выигрыш появляется при большом числе параллельных ожиданий.",
+  "tags": [
+   "concurrency",
+   "io",
+   "basics"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-J-T-027",
+  "specialization": "backend",
+  "level": "junior",
+  "type": "theory",
+  "competency": "testing",
+  "difficulty": 2,
+  "question": "Зачем в модульном тесте заменять обращение к базе данных на тестовый двойник?",
+  "options": [
+   {
+    "id": "A",
+    "text": "Чтобы тест проверял только логику функции, работал быстро и стабильно"
+   },
+   {
+    "id": "B",
+    "text": "Чтобы не создавать лишнюю нагрузку на базу данных промышленного окружения во время прогона"
+   },
+   {
+    "id": "C",
+    "text": "Чтобы тест можно было запускать на любой машине без установленных зависимостей проекта"
+   },
+   {
+    "id": "D",
+    "text": "Чтобы покрытие кода тестами считалось корректно"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "Модульный тест должен быть быстрым, независимым и повторяемым, поэтому внешние системы заменяют двойниками. Взаимодействие с реальной базой проверяют отдельными интеграционными тестами на подготовленном экземпляре, а не на промышленном.",
+  "tags": [
+   "testing",
+   "unit-tests",
+   "isolation"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ }
+]

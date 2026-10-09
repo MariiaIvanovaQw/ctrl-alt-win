@@ -1,0 +1,74 @@
+=== проверки ===
+S1_reproducibility                 OK    повторный расчёт с тем же сидом даёт тот же документ
+S2_comparable_variants             OK    сумма баллов и состав по типам одинаковы у всех вариантов одного уровня
+S2_variant_diversity               OK    среднее перекрытие заданий 31.9%, максимальное 69.2%
+S3_monotonicity                    OK    средний балл не убывает при росте уровня кандидата
+S4_scenario_J_to_J                 OK    сценарий J->J достигается в 79% прогонов (минимум по специализациям, порог калибровки 45%)
+S4_scenario_J_to_M                 OK    сценарий J->M достигается в 88% прогонов (минимум по специализациям, порог калибровки 45%)
+S4_scenario_M_to_M                 OK    сценарий M->M достигается в 79% прогонов (минимум по специализациям, порог калибровки 45%)
+S4_scenario_M_to_J                 OK    сценарий M->J достигается в 54% прогонов (минимум по специализациям, порог калибровки 45%)
+S4_scenario_S_to_S                 OK    сценарий S->S достигается в 75% прогонов (минимум по специализациям, порог калибровки 45%)
+S4_scenario_S_to_M                 OK    сценарий S->M достигается в 46% прогонов (минимум по специализациям, порог калибровки 45%)
+S4_guessing_rejected               OK    ложное подтверждение при случайных ответах: максимум 12.5% (порог 15%), из них выше junior 8.3% (порог 10%); разрешение теста из 26 заданий – см. docs/specification.md, раздел 9
+S4_no_senior_from_middle_test      OK    senior не подтверждается по тесту уровня middle
+S5_stability                       OK    для согласованных пар «заявлено/истинный уровень» доминирующий грейд не ниже 75%%
+S6_heuristic_attacks               OK    стратегии по внешним признакам (longest, shortest, second_longest, question_overlap) не подтверждают уровень чаще порогов угадывания
+
+=== средний балл по профилям кандидата ===
+backend/junior     guesser  27.6 | weak_j  48.0 | solid_j  71.2 | solid_m  91.2 | solid_s  96.7
+backend/middle     guesser  20.6 | weak_j  21.1 | solid_j  33.5 | solid_m  71.1 | solid_s  92.4
+backend/senior     guesser  28.9 | weak_j   9.1 | solid_j  14.8 | solid_m  44.1 | solid_s  82.7
+frontend/junior    guesser  29.7 | weak_j  51.6 | solid_j  69.8 | solid_m  94.9 | solid_s  98.3
+frontend/middle    guesser  23.8 | weak_j  23.1 | solid_j  39.0 | solid_m  71.2 | solid_s  93.8
+frontend/senior    guesser  25.1 | weak_j  10.5 | solid_j  17.9 | solid_m  43.0 | solid_s  83.3
+qa/junior          guesser  26.4 | weak_j  46.4 | solid_j  67.8 | solid_m  91.5 | solid_s  98.3
+qa/middle          guesser  29.2 | weak_j  26.1 | solid_j  36.5 | solid_m  72.5 | solid_s  91.5
+qa/senior          guesser  24.4 | weak_j   9.8 | solid_j  14.8 | solid_m  38.4 | solid_s  82.2
+
+=== достижимость требуемых сценариев (минимум по специализациям) ===
+J->J   79%
+J->M   88%
+M->M   79%
+M->J   54%
+S->S   75%
+S->M   46%
+
+=== эвристические атаки (80 сидов на каждую пару «специализация × уровень») ===
+longest            средний балл  24.2 | ложное подтверждение до 10.0% | выше junior до  7.5%
+shortest           средний балл  23.1 | ложное подтверждение до  2.5% | выше junior до  2.5%
+second_longest     средний балл  24.5 | ложное подтверждение до  8.7% | выше junior до  7.5%
+question_overlap   средний балл  22.8 | ложное подтверждение до  6.2% | выше junior до  5.0%
+
+=== перекрытие вариантов ===
+среднее 31.9%, максимальное 69.2%
+
+=== матрица «заявлено -> подтверждено» (backend, 24 сида на профиль) ===
+junior    guesser        {'below_junior': 24}
+junior    solid_junior   {'below_junior': 3, 'junior': 19, 'middle': 2}
+junior    solid_middle   {'junior': 2, 'middle': 22}
+junior    solid_senior   {'middle': 24}
+junior    strong_junior  {'junior': 12, 'middle': 12}
+junior    strong_middle  {'middle': 24}
+junior    weak_junior    {'below_junior': 22, 'junior': 2}
+junior    weak_middle    {'below_junior': 3, 'junior': 19, 'middle': 2}
+junior    weak_senior    {'junior': 1, 'middle': 23}
+middle    guesser        {'below_junior': 24}
+middle    solid_junior   {'below_junior': 11, 'junior': 13}
+middle    solid_middle   {'junior': 3, 'middle': 21}
+middle    solid_senior   {'middle': 24}
+middle    strong_junior  {'junior': 15, 'middle': 9}
+middle    strong_middle  {'middle': 24}
+middle    weak_junior    {'below_junior': 23, 'junior': 1}
+middle    weak_middle    {'below_junior': 4, 'junior': 20}
+middle    weak_senior    {'middle': 24}
+senior    guesser        {'below_junior': 21, 'junior': 1, 'middle': 2}
+senior    solid_junior   {'below_junior': 24}
+senior    solid_middle   {'below_junior': 5, 'junior': 7, 'middle': 12}
+senior    solid_senior   {'junior': 1, 'middle': 2, 'senior': 21}
+senior    strong_junior  {'below_junior': 19, 'junior': 2, 'middle': 3}
+senior    strong_middle  {'junior': 3, 'middle': 19, 'senior': 2}
+senior    weak_junior    {'below_junior': 24}
+senior    weak_middle    {'below_junior': 23, 'middle': 1}
+senior    weak_senior    {'below_junior': 1, 'junior': 6, 'middle': 17}
+
+все проверки пройдены

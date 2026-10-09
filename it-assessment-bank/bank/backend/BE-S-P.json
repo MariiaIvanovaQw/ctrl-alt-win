@@ -1,0 +1,1344 @@
+[
+ {
+  "id": "BE-S-P-001",
+  "specialization": "backend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "performance",
+  "difficulty": 8,
+  "question": "Определите сложность функции по времени относительно n — числа заказов. Введите ответ в форме O(...) без пробелов.",
+  "language": "python",
+  "code": "def enrich(orders, clients):\n    by_id = {c.id: c for c in clients}          # m клиентов, m <= n\n    result = []\n    for o in sorted(orders, key=lambda x: x.created_at):\n        result.append((o.id, by_id.get(o.client_id)))\n    return result",
+  "options": [],
+  "correct_answer": [
+   "O(NlogN)"
+  ],
+  "score": 3,
+  "explanation": "Построение индекса по клиентам линейно, доступ по ключу в среднем константный, а сортировка заказов сравнением даёт n·log n, что и определяет итоговую сложность. Без сортировки функция была бы линейной.",
+  "tags": [
+   "performance",
+   "complexity",
+   "exact_match"
+  ],
+  "version_group": "BE-SP-COMPLEXITY",
+  "seedable": true,
+  "seed_parameters": [
+   "variable_names"
+  ],
+  "validation_type": "exact_match",
+  "answer_normalization": [
+   "trim",
+   "uppercase",
+   "remove_spaces"
+  ],
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "def find_conflicts(bookings):\n    conflicts = []\n    for i in range(len(bookings)):\n        for j in range(i + 1, len(bookings)):\n            if overlap(bookings[i], bookings[j]):\n                conflicts.append((i, j))\n    return conflicts",
+    "options": [],
+    "correct_answer": [
+     "O(N^2)"
+    ],
+    "question": "Определите сложность функции по времени относительно n — числа бронирований. Введите ответ в форме O(...) без пробелов.",
+    "explanation": "Вложенные циклы сравнивают каждую пару бронирований: n·(n−1)/2 проверок, то есть O(n²). Для больших объёмов интервалы сортируют по началу и проходят один раз, отслеживая окончание."
+   },
+   {
+    "variant_id": "v3",
+    "code": "def total_amount(orders, rates):\n    index = {r.currency: r.value for r in rates}      # константное число валют\n    return sum(o.amount * index[o.currency] for o in orders)",
+    "options": [],
+    "correct_answer": [
+     "O(N)"
+    ],
+    "explanation": "Словарь курсов строится за константное время, так как число валют фиксировано, а затем выполняется один проход по заказам с доступом к словарю за O(1). Итого O(n)."
+   }
+  ]
+ },
+ {
+  "id": "BE-S-P-002",
+  "specialization": "backend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "performance",
+  "difficulty": 9,
+  "question": "Под нагрузкой пропускная способность обработчика не растёт при увеличении числа рабочих потоков, а процессор загружен на 30%. Какая строка — причина?",
+  "language": "python",
+  "code": "1  _lock = threading.Lock()\n2  _counters = {}\n3\n4  def handle(event):\n5      payload = parse(event)              # ~0.2 мс\n6      with _lock:\n7          enriched = enrich(payload)      # ~4 мс, обращается к внешнему кэшу\n8          _counters[payload.kind] = _counters.get(payload.kind, 0) + 1\n9      return store(enriched)              # ~2 мс",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 7: долгая операция под общей блокировкой сериализует потоки"
+   },
+   {
+    "id": "B",
+    "text": "Строка 5: разбор события выполняется заново для каждого запроса без кэширования"
+   },
+   {
+    "id": "C",
+    "text": "Строка 9: запись результата выполняется вне блокировки"
+   },
+   {
+    "id": "D",
+    "text": "Строка 2: счётчики хранятся в словаре, а не в специализированной структуре"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 4,
+  "explanation": "Критическая секция должна быть минимальной: сюда попала операция на 4 мс с обращением к внешнему кэшу, и все потоки выстраиваются в очередь на одной блокировке — отсюда низкая загрузка процессора при отсутствии роста пропускной способности. Обогащение нужно вынести из-под блокировки, оставив под ней только обновление счётчика или заменив его атомарной операцией.",
+  "tags": [
+   "performance",
+   "lock-contention",
+   "diagnostics"
+  ],
+  "version_group": "BE-SP-LOCK-CONTENTION",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-S-P-003",
+  "specialization": "backend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "performance",
+  "difficulty": 7,
+  "question": "Сервис работает с параметрами из условия. Какую максимальную пропускную способность в запросах в секунду он теоретически обеспечит при полной загрузке? Введите число.",
+  "language": "text",
+  "code": "время обработки одного запроса: 50 мс\nэкземпляров: 4\nрабочих процессов на экземпляр: 8\nкаждый процесс обрабатывает один запрос одновременно",
+  "options": [],
+  "correct_answer": [
+   "640"
+  ],
+  "score": 3,
+  "explanation": "Один процесс выполняет 1 / 0,050 = 20 запросов в секунду, всего процессов 4 · 8 = 32, итого 32 · 20 = 640 запросов в секунду. Это верхняя граница без учёта конкуренции за базу данных и внешние сервисы, поэтому реальная цифра будет ниже, и именно она определяет запас по мощности.",
+  "tags": [
+   "performance",
+   "capacity-planning",
+   "numeric"
+  ],
+  "version_group": "BE-SP-CAPACITY",
+  "seedable": true,
+  "seed_parameters": [
+   "input_values"
+  ],
+  "validation_type": "numeric",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "время обработки одного запроса: 100 мс\nэкземпляров: 5\nрабочих процессов на экземпляр: 10\nкаждый процесс обрабатывает один запрос одновременно",
+    "options": [],
+    "correct_answer": [
+     "500"
+    ],
+    "explanation": "Один процесс выполняет 1 / 0,1 = 10 запросов в секунду, процессов 5 · 10 = 50, итого 500 запросов в секунду. Это верхняя граница без учёта конкуренции за общие ресурсы."
+   },
+   {
+    "variant_id": "v3",
+    "code": "время обработки одного запроса: 20 мс\nэкземпляров: 3\nрабочих процессов на экземпляр: 4\nкаждый процесс обрабатывает один запрос одновременно",
+    "options": [],
+    "correct_answer": [
+     "600"
+    ],
+    "explanation": "Один процесс выполняет 1 / 0,02 = 50 запросов в секунду, процессов 3 · 4 = 12, итого 600 запросов в секунду. Реальная пропускная способность будет ниже из-за общих зависимостей."
+   }
+  ]
+ },
+ {
+  "id": "BE-S-P-004",
+  "specialization": "backend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "performance",
+  "difficulty": 10,
+  "question": "Профиль запроса длительностью 1,8 с: ожидание базы данных 1,25 с (три запроса, из них один 1,1 с), внешний вызов 0,3 с, сериализация 0,15 с, прочее 0,1 с. Какой порядок действий даст наибольший эффект при наименьших затратах?",
+  "language": "text",
+  "code": "профиль одного запроса:\n  запрос A к БД .......... 1,10 с\n  запрос B к БД .......... 0,10 с\n  запрос C к БД .......... 0,05 с\n  внешний вызов .......... 0,30 с (не блокирует ответ по смыслу)\n  сериализация ........... 0,15 с\n  прочее ................. 0,10 с",
+  "options": [
+   {
+    "id": "A",
+    "text": "Сначала план запроса A, затем вынести внешний вызов из синхронного пути"
+   },
+   {
+    "id": "B",
+    "text": "Начать с ускорения сериализации, так как это полностью наш код и изменение безопасно"
+   },
+   {
+    "id": "C",
+    "text": "Добавить кэширование ответа эндпоинта целиком"
+   },
+   {
+    "id": "D",
+    "text": "Увеличить число рабочих процессов и реплик базы данных"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 4,
+  "explanation": "Оптимизацию начинают с самой крупной составляющей: запрос A даёт более 60% времени, и его исправление в разы ценнее любой работы над сериализацией, занимающей 8%. Следующий по величине вклад — необязательный внешний вызов, который можно убрать из синхронного пути. Кэширование ответа прячет проблему и ставит вопрос инвалидации, а дополнительные процессы и реплики увеличивают пропускную способность, не сокращая время одного запроса.",
+  "tags": [
+   "performance",
+   "profiling",
+   "prioritization"
+  ],
+  "version_group": "BE-SP-PROFILE-PRIORITY",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-S-P-005",
+  "specialization": "backend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "security",
+  "difficulty": 8,
+  "question": "Какая строка создаёт уязвимость, позволяющую выполнить произвольный код?",
+  "language": "python",
+  "code": "1  raw = request.get_data()\n2  if not verify_signature(raw, request.headers.get('X-Signature')):\n3      abort(403)\n4  task = pickle.loads(raw)\n5  queue.put(task)",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 4: pickle исполняет код при восстановлении объекта, поэтому его нельзя применять к данным из сети"
+   },
+   {
+    "id": "B",
+    "text": "Строка 2: проверка подписи выполняется до разбора данных"
+   },
+   {
+    "id": "C",
+    "text": "Строка 1: чтение тела запроса целиком"
+   },
+   {
+    "id": "D",
+    "text": "Строка 5: помещение десериализованной задачи в очередь без проверки её типа и допустимых полей"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 3,
+  "explanation": "Формат pickle по устройству вызывает конструкторы и методы при восстановлении объекта, поэтому подготовленные данные выполняют код в процессе сервиса. Подпись снижает риск, но утечка секрета или ошибка в сравнении сразу дают выполнение кода, а внутренние каналы также не стоит считать доверенными. Для обмена используют данные без исполняемой семантики — JSON или схему с явной валидацией.",
+  "tags": [
+   "security",
+   "deserialization",
+   "rce",
+   "bug-finding"
+  ],
+  "version_group": "BE-SP-PICKLE",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "1  text = open(path).read()\n2  config = yaml.load(text)\n3  apply_config(config)\n4  log.info('config applied: %s', path)",
+    "options": [
+     {
+      "id": "A",
+      "text": "Строка 3: настройки применяются без проверки схемы, поэтому можно передать любые параметры"
+     },
+     {
+      "id": "B",
+      "text": "Строка 1: файл открывается без указания кодировки"
+     },
+     {
+      "id": "C",
+      "text": "Строка 4: путь к файлу попадает в журнал"
+     },
+     {
+      "id": "D",
+      "text": "Строка 2: небезопасный разбор YAML создаёт произвольные объекты — нужен safe_load"
+     }
+    ],
+    "correct_answer": [
+     "D"
+    ],
+    "explanation": "yaml.load без безопасного загрузчика разрешает теги, создающие произвольные объекты Python, поэтому подготовленный файл выполнит код. Для конфигурации нужен yaml.safe_load, который строит только простые типы."
+   }
+  ]
+ },
+ {
+  "id": "BE-S-P-006",
+  "specialization": "backend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "security",
+  "difficulty": 9,
+  "question": "Какая строка делает проверку токена небезопасной?",
+  "language": "python",
+  "code": "1  token = request.headers['Authorization'].split(' ')[1]\n2  header = jwt.get_unverified_header(token)\n3  payload = jwt.decode(token, key=PUBLIC_KEY, algorithms=[header['alg']])\n4  if payload['exp'] < time.time():\n5      abort(401)\n6  user = load_user(payload['sub'])",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 4: срок действия проверяется вручную вместо встроенной проверки"
+   },
+   {
+    "id": "B",
+    "text": "Строка 1: токен извлекается из заголовка без проверки формата"
+   },
+   {
+    "id": "C",
+    "text": "Строка 6: пользователь загружается по полю sub без проверки его существования"
+   },
+   {
+    "id": "D",
+    "text": "Строка 3: алгоритм проверки берётся из самого токена"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 4,
+  "explanation": "Доверять полю alg из непроверенного заголовка нельзя: это классический способ обойти проверку подписи, подменив алгоритм на симметричный с известным ключом или на none. Допустимые алгоритмы перечисляют в коде, а выбор ключа делают по идентификатору ключа из набора доверенных. Ручная проверка срока — избыточна, но не опасна: библиотека проверяет его сама.",
+  "tags": [
+   "security",
+   "jwt",
+   "algorithm-confusion",
+   "bug-finding"
+  ],
+  "version_group": "BE-SP-JWT-ALG",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-S-P-007",
+  "specialization": "backend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "security",
+  "difficulty": 7,
+  "question": "Что следует исправить в этом обработчике ошибок?",
+  "language": "python",
+  "code": "@app.errorhandler(Exception)\ndef on_error(e):\n    return {\n        'error': str(e),\n        'trace': traceback.format_exc(),\n        'query': request.full_path,\n        'env': dict(os.environ),\n    }, 500",
+  "options": [
+   {
+    "id": "A",
+    "text": "Возвращать код 400 вместо 500"
+   },
+   {
+    "id": "B",
+    "text": "Добавить в ответ время возникновения ошибки"
+   },
+   {
+    "id": "C",
+    "text": "Не отдавать клиенту трассировку, окружение и внутренние сообщения — только описание и id запроса"
+   },
+   {
+    "id": "D",
+    "text": "Перехватывать только конкретные классы исключений, а остальные пропускать во фреймворк"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 3,
+  "explanation": "Трассировка раскрывает структуру кода и версии библиотек, а переменные окружения почти всегда содержат пароли и ключи — это прямая утечка. Клиенту достаточно общего сообщения и идентификатора запроса, по которому поддержка найдёт запись в журнале. Обработка конкретных классов исключений полезна, но не устраняет утечку в общем обработчике.",
+  "tags": [
+   "security",
+   "information-disclosure",
+   "error-handling"
+  ],
+  "version_group": "BE-SP-ERROR-LEAK",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-S-P-008",
+  "specialization": "backend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "security",
+  "difficulty": 8,
+  "question": "Эндпоинт проверки промокода стал причиной отказа сервиса: отдельные запросы загружают ядро процессора на секунды. Какая строка — причина?",
+  "language": "python",
+  "code": "1  code = request.args.get('code', '')\n2  if len(code) > 200:\n3      abort(400)\n4  pattern = re.compile(r'^(([A-Z]+)+-)+[0-9]{4}$')\n5  if not pattern.match(code):\n6      abort(404)\n7  return promo_service.apply(code)",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 2: ограничение длины слишком велико"
+   },
+   {
+    "id": "B",
+    "text": "Строка 7: обращение к сервису промокодов выполняется без таймаута и может зависнуть"
+   },
+   {
+    "id": "C",
+    "text": "Строка 4: вложенные повторения в выражении дают экспоненциальный перебор при неподходящей строке"
+   },
+   {
+    "id": "D",
+    "text": "Строка 4: регулярное выражение компилируется при каждом запросе"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 3,
+  "explanation": "Вложенные повторения вида (([A-Z]+)+-)+ приводят к катастрофическому возврату: обратный поиск перебирает экспоненциальное число разбиений строки, и один запрос занимает ядро на секунды. Выражение нужно переписать без вложенных повторений, ограничить длину входа жёстче и по возможности использовать движок с линейной гарантией. Повторная компиляция — заметная, но несопоставимо меньшая потеря.",
+  "tags": [
+   "security",
+   "redos",
+   "regex",
+   "bug-finding"
+  ],
+  "version_group": "BE-SP-REDOS",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-S-P-009",
+  "specialization": "backend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "concurrency",
+  "difficulty": 8,
+  "question": "Периодическая задача иногда перестаёт запускаться совсем, пока сервис не перезапустят. Какая строка — причина?",
+  "language": "python",
+  "code": "1  def run_once():\n2      if not redis.set('job:lock', node_id, nx=True):\n3          return\n4      try:\n5          process_batch()\n6      finally:\n7          redis.delete('job:lock')",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 3: при неудачном захвате блокировки нужно повторять попытку через паузу"
+   },
+   {
+    "id": "B",
+    "text": "Строка 2: блокировка ставится без срока, и при падении процесса ключ остаётся навсегда"
+   },
+   {
+    "id": "C",
+    "text": "Строка 5: обработку нужно выполнять порциями"
+   },
+   {
+    "id": "D",
+    "text": "Строка 7: удалять ключ нужно вне блока finally"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 3,
+  "explanation": "Блокировка должна быть арендой с конечным сроком: иначе падение процесса или потеря соединения оставляют ключ навсегда. Правильно задать срок действия при установке, продлевать его во время работы и удалять только свой ключ, сравнив его значение с идентификатором владельца, чтобы не снять блокировку, захваченную другим узлом.",
+  "tags": [
+   "concurrency",
+   "distributed-lock",
+   "bug-finding"
+  ],
+  "version_group": "BE-SP-LOCK-TTL",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "1  acquired = redis.set('job:lock', node_id, nx=True, ex=30)\n2  if not acquired:\n3      return\n4  try:\n5      process_batch()        # иногда выполняется 2-3 минуты\n6  finally:\n7      redis.delete('job:lock')",
+    "options": [
+     {
+      "id": "A",
+      "text": "Строка 1: срок аренды задавать нельзя вообще, иначе блокировка может освободиться раньше времени"
+     },
+     {
+      "id": "B",
+      "text": "Строка 7: удаление ключа в finally недопустимо"
+     },
+     {
+      "id": "C",
+      "text": "Строка 5: обработка дольше срока аренды, блокировка истекает и задачу берёт второй узел"
+     },
+     {
+      "id": "D",
+      "text": "Строка 2: при неудаче нужно ждать освобождения"
+     }
+    ],
+    "correct_answer": [
+     "C"
+    ],
+    "question": "Периодическая задача иногда выполняется на двух узлах одновременно, и пакет обрабатывается дважды. Какая строка — причина?",
+    "explanation": "Срок аренды 30 секунд меньше времени обработки: блокировка истекает во время работы, и второй узел её захватывает. Нужно продлевать аренду, пока задача выполняется, а при удалении проверять, что ключ всё ещё принадлежит этому узлу."
+   }
+  ]
+ },
+ {
+  "id": "BE-S-P-010",
+  "specialization": "backend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "concurrency",
+  "difficulty": 9,
+  "question": "Иногда партнёры получают уведомление о заказе, которого нет в базе, а иногда заказ есть, но уведомления не было. Какая строка — причина?",
+  "language": "python",
+  "code": "1  with db.transaction():\n2      order = repo.create(data)\n3      broker.publish('order.created', {'id': order.id})\n4      repo.update_totals(order)\n5  log.info('order created %s', order.id)",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 2: создание заказа нужно выполнять уже после публикации события в брокер"
+   },
+   {
+    "id": "B",
+    "text": "Строка 3: публикация внутри транзакции не согласована с её фиксацией — нужен журнал исходящих"
+   },
+   {
+    "id": "C",
+    "text": "Строка 5: журналирование выполняется после фиксации транзакции"
+   },
+   {
+    "id": "D",
+    "text": "Строка 4: обновление итогов нужно выполнять отдельной транзакцией"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 4,
+  "explanation": "Брокер и база — разные системы, и запись в одну не согласована с другой: если транзакция откатится после публикации, партнёр получит уведомление о несуществующем заказе; если публикация упадёт после фиксации, уведомления не будет вовсе. Схема с таблицей исходящих сообщений делает запись события частью той же транзакции, а отправку выполняет отдельный процесс с повторными попытками.",
+  "tags": [
+   "concurrency",
+   "outbox",
+   "dual-write",
+   "bug-finding"
+  ],
+  "version_group": "BE-ARCH-OUTBOX-S",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-S-P-011",
+  "specialization": "backend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "concurrency",
+  "difficulty": 8,
+  "question": "Брокер доставляет сообщения не менее одного раза. Какая реализация обработчика корректно обеспечивает однократный эффект начисления?",
+  "language": "python",
+  "code": "# event: {'event_id': str, 'user_id': int, 'bonus': int}",
+  "options": [
+   {
+    "id": "A",
+    "text": "if not redis.get(f'done:{event_id}'): credit(user_id, bonus); redis.set(f'done:{event_id}', 1)"
+   },
+   {
+    "id": "B",
+    "text": "with db.transaction(): db.execute('INSERT INTO processed_events (event_id) VALUES (%s) ON CONFLICT DO NOTHING', event_id); if db.rowcount == 1: credit(user_id, bonus)"
+   },
+   {
+    "id": "C",
+    "text": "if not db.exists('SELECT 1 FROM processed_events WHERE event_id = %s', event_id): credit(user_id, bonus); db.insert_processed(event_id)"
+   },
+   {
+    "id": "D",
+    "text": "credit(user_id, bonus) с последующей проверкой итогового баланса на разумность"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 3,
+  "explanation": "Отметка об обработке и само изменение данных должны фиксироваться одной транзакцией, а уникальность event_id обеспечивается ограничением базы: тогда повторная доставка не пройдёт вставку и начисления не будет. Проверка через внешний кэш или отдельный SELECT перед начислением оставляет окно между проверкой и действием, в которое попадает параллельная доставка, а внешний кэш к тому же не участвует в транзакции базы.",
+  "tags": [
+   "concurrency",
+   "idempotency",
+   "transactions"
+  ],
+  "version_group": "BE-CONC-IDEMPOTENT",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-S-P-012",
+  "specialization": "backend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "concurrency",
+  "difficulty": 10,
+  "question": "Функция должна списать деньги только если баланс не изменился с момента чтения. Какая строка делает её некорректной при параллельных запросах?",
+  "language": "python",
+  "code": "1  acc = db.query('SELECT balance, version FROM accounts WHERE id = %s', aid)\n2  if acc.balance < amount:\n3      raise InsufficientFunds()\n4  new_balance = acc.balance - amount\n5  db.execute('UPDATE accounts SET balance = %s, version = version + 1 WHERE id = %s AND version = %s',\n6             (new_balance, aid, acc.version))\n7  db.execute('INSERT INTO ledger (account_id, delta) VALUES (%s, %s)', (aid, -amount))",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 5: условие по версии задано неверно — сравнивать нужно с прочитанным значением, увеличенным на единицу"
+   },
+   {
+    "id": "B",
+    "text": "Строка 1: чтение нужно выполнять с блокировкой строки"
+   },
+   {
+    "id": "C",
+    "text": "Строка 4: новый баланс нужно вычислять на стороне базы данных"
+   },
+   {
+    "id": "D",
+    "text": "Строка 7: результат условного обновления не проверяется, и запись в журнал идёт даже при неуспехе"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 4,
+  "explanation": "Оптимистичная блокировка работает только вместе с проверкой числа изменённых строк: если условие по версии не выполнилось, операцию нужно повторить или отклонить, а не продолжать. Здесь же запись в журнал выполняется безусловно, и при проигранной гонке история перестаёт соответствовать балансу. Дополнительно обновление и запись в журнал обязаны быть в одной транзакции.",
+  "tags": [
+   "concurrency",
+   "optimistic-locking",
+   "bug-finding"
+  ],
+  "version_group": "BE-SP-OPTIMISTIC-CHECK",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-S-P-013",
+  "specialization": "backend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "databases",
+  "difficulty": 8,
+  "question": "Запрос быстро работает на первых страницах и очень медленно на страницах с номером около 5000. Почему?",
+  "language": "sql",
+  "code": "SELECT id, title\nFROM articles\nORDER BY published_at DESC, id DESC\nLIMIT 20 OFFSET 100000;",
+  "options": [
+   {
+    "id": "A",
+    "text": "Из-за устаревшей статистики планировщик выбирает неверный план на больших смещениях"
+   },
+   {
+    "id": "B",
+    "text": "Сортировка по двум колонкам не может использовать индекс"
+   },
+   {
+    "id": "C",
+    "text": "OFFSET читает и отбрасывает все предыдущие строки — нужна навигация по ключу"
+   },
+   {
+    "id": "D",
+    "text": "LIMIT применяется до сортировки, из-за чего результат приходится пересортировывать"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 3,
+  "explanation": "Смещение не позволяет перейти к нужной позиции сразу: СУБД обходит и отбрасывает 100 000 строк. Навигация по ключу использует условие вида (published_at, id) < (последние значения) и читает ровно 20 строк по индексу независимо от глубины. Индекс по двум колонкам в одном направлении сортировки как раз используется, а LIMIT применяется после упорядочивания.",
+  "tags": [
+   "databases",
+   "deep-pagination",
+   "keyset"
+  ],
+  "version_group": "BE-SP-DEEP-OFFSET",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-S-P-014",
+  "specialization": "backend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "databases",
+  "difficulty": 9,
+  "question": "Какой запрос корректно реализует навигацию по ключу для следующей страницы при сортировке по (published_at DESC, id DESC)?",
+  "language": "sql",
+  "code": "-- последний элемент предыдущей страницы: published_at = $1, id = $2",
+  "options": [
+   {
+    "id": "A",
+    "text": "WHERE published_at < $1 ORDER BY published_at DESC, id DESC LIMIT 20"
+   },
+   {
+    "id": "B",
+    "text": "WHERE published_at <= $1 AND id < $2 ORDER BY published_at DESC, id DESC LIMIT 20"
+   },
+   {
+    "id": "C",
+    "text": "WHERE ROW(published_at, id) < ROW($1, $2) ORDER BY published_at DESC, id DESC LIMIT 20"
+   },
+   {
+    "id": "D",
+    "text": "WHERE published_at < $1 OR id < $2 ORDER BY published_at DESC, id DESC LIMIT 20"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 4,
+  "explanation": "Сравнение кортежей точно соответствует порядку сортировки: берутся строки, стоящие строго после последней выданной, при любом числе совпадающих дат. Условие только по дате потеряет записи с той же датой, сочетание published_at <= $1 AND id < $2 отбросит записи с более ранней датой и большим id, а логическое «или» вернёт посторонние строки.",
+  "tags": [
+   "databases",
+   "keyset-pagination",
+   "sql"
+  ],
+  "version_group": "BE-SP-DEEP-OFFSET",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-S-P-015",
+  "specialization": "backend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "databases",
+  "difficulty": 7,
+  "question": "На таблице заказов объявлены эти индексы. Какое замечание обоснованно?",
+  "language": "sql",
+  "code": "CREATE INDEX i1 ON orders (client_id);\nCREATE INDEX i2 ON orders (client_id, created_at);\nCREATE INDEX i3 ON orders (status);\nCREATE INDEX i4 ON orders (client_id, created_at, status);",
+  "options": [
+   {
+    "id": "A",
+    "text": "Индекс i3 нужно сделать уникальным"
+   },
+   {
+    "id": "B",
+    "text": "Индекс i1 избыточен: его покрывает префикс i2, а i2 — префикс i4"
+   },
+   {
+    "id": "C",
+    "text": "Индексов слишком мало: нужен ещё один индекс сразу по всем колонкам таблицы заказов"
+   },
+   {
+    "id": "D",
+    "text": "Индексы следует объединить в один составной индекс по (status, client_id, created_at)"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 3,
+  "explanation": "Индекс по префиксу составного индекса обычно не нужен: запросы по client_id обслуживаются и по i2, и по i4. Каждый лишний индекс поддерживается при любой вставке и обновлении и занимает место в памяти и на диске. Решение принимают по фактическим запросам и статистике использования индексов, а индекс по status оставляют, если он избирателен или применяется как частичный.",
+  "tags": [
+   "databases",
+   "redundant-indexes",
+   "review"
+  ],
+  "version_group": "BE-SP-INDEX-REVIEW",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-S-P-016",
+  "specialization": "backend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "scalability",
+  "difficulty": 8,
+  "question": "При коротком сбое соседнего сервиса эта настройка повторов усугубляет ситуацию. Что исправить?",
+  "language": "python",
+  "code": "retry_policy = {\n    'attempts': 5,\n    'delay_ms': 100,          # фиксированная задержка\n    'retry_on': ['timeout', '500', '503', '409'],\n    'timeout_ms': 10000,\n}",
+  "options": [
+   {
+    "id": "A",
+    "text": "Увеличить число попыток до 10 и сократить задержку"
+   },
+   {
+    "id": "B",
+    "text": "Повторять только при таймауте соединения, а остальные параметры политики оставить без изменений"
+   },
+   {
+    "id": "C",
+    "text": "Отключить повторы полностью"
+   },
+   {
+    "id": "D",
+    "text": "Возрастающая задержка с разбросом, меньший таймаут, без повтора 409 и общий лимит времени"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 3,
+  "explanation": "Фиксированная задержка синхронизирует клиентов и создаёт периодические всплески, мешающие восстановлению, а таймаут в 10 секунд при пяти попытках даёт до 50 секунд удержания ресурсов. Возрастающая задержка с разбросом разводит клиентов, ограничение общего бюджета защищает вызывающего, а конфликт (409) повторять бессмысленно: ответ не изменится без изменения данных.",
+  "tags": [
+   "scalability",
+   "retry",
+   "backoff",
+   "configuration"
+  ],
+  "version_group": "BE-SP-RETRY-CONFIG",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-S-P-017",
+  "specialization": "backend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "scalability",
+  "difficulty": 9,
+  "question": "Какая реализация размыкателя цепи корректна?",
+  "language": "python",
+  "code": "# требуется: при частых отказах прекратить обращения на время, затем аккуратно проверить восстановление",
+  "options": [
+   {
+    "id": "A",
+    "text": "После каждого отказа увеличивать задержку перед следующим вызовом, но не блокировать сами вызовы к сервису"
+   },
+   {
+    "id": "B",
+    "text": "При первом же отказе разомкнуть цепь на фиксированный час, а затем замкнуть её без какой-либо проверки"
+   },
+   {
+    "id": "C",
+    "text": "Отклонять вызовы, пока доля отказов за всё время работы сервиса превышает порог"
+   },
+   {
+    "id": "D",
+    "text": "Отказы за скользящее окно, разомкнутое состояние, затем полуоткрытое с пробными вызовами"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 4,
+  "explanation": "Размыкатель должен решать по свежим данным (скользящее окно), быстро отказывать в разомкнутом состоянии, чтобы не занимать ресурсы, и безопасно проверять восстановление ограниченным числом пробных вызовов. Увеличение задержки без блокировки вызовов не защищает от исчерпания ресурсов, решение по одному отказу слишком резко, а статистика за всё время работы не отражает текущее состояние.",
+  "tags": [
+   "scalability",
+   "circuit-breaker",
+   "resilience"
+  ],
+  "version_group": "BE-SP-CIRCUIT-BREAKER",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-S-P-018",
+  "specialization": "backend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "scalability",
+  "difficulty": 7,
+  "question": "При обновлении сервиса часть запросов завершается ошибкой соединения. Что нужно добавить в обработку остановки?",
+  "language": "python",
+  "code": "def on_sigterm(signum, frame):\n    server.stop()\n    sys.exit(0)",
+  "options": [
+   {
+    "id": "A",
+    "text": "Увеличить время ожидания перед принудительной остановкой контейнера"
+   },
+   {
+    "id": "B",
+    "text": "Игнорировать сигнал завершения, чтобы процесс не прерывал обработку"
+   },
+   {
+    "id": "C",
+    "text": "Снять готовность и дождаться завершения текущих запросов"
+   },
+   {
+    "id": "D",
+    "text": "Перенаправлять все незавершённые запросы на другой работающий экземпляр"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 3,
+  "explanation": "Корректная остановка — это последовательность: снять себя из балансировки, перестать принимать новое, дать текущим запросам завершиться в пределах срока, освободить ресурсы. Немедленная остановка обрывает выполняющиеся запросы. Увеличение времени ожидания само по себе не помогает, если процесс завершается сразу, игнорировать сигнал нельзя, а перенаправить уже принятые запросы невозможно.",
+  "tags": [
+   "scalability",
+   "graceful-shutdown",
+   "deployment"
+  ],
+  "version_group": "BE-SP-SHUTDOWN",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-S-P-019",
+  "specialization": "backend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "architecture",
+  "difficulty": 8,
+  "question": "Какое замечание на код-ревью наиболее существенно?",
+  "language": "python",
+  "code": "# services/billing/api/handlers.py\nfrom shared.db import connection\n\ndef charge_handler(req):\n    with connection() as conn:\n        user = conn.query(\"SELECT id, plan, email FROM crm_users WHERE id = %s\", req.user_id)\n        conn.execute(\"UPDATE crm_users SET last_charge_at = now() WHERE id = %s\", req.user_id)\n        return billing.charge(user)",
+  "options": [
+   {
+    "id": "A",
+    "text": "Биллинг напрямую читает и меняет таблицы CRM — нужен интерфейс владельца или события"
+   },
+   {
+    "id": "B",
+    "text": "Запросы следует вынести в отдельный модуль репозитория"
+   },
+   {
+    "id": "C",
+    "text": "Обработчик не проверяет права пользователя на операцию"
+   },
+   {
+    "id": "D",
+    "text": "Соединение с базой нужно получать из общего пула, а не создавать заново на каждый входящий запрос к API"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 3,
+  "explanation": "Самое дорогое здесь — нарушение границы владения данными: схема чужого сервиса становится неявным контрактом, любое её изменение требует согласованного выпуска, а правила согласованности CRM обходятся прямой записью. Отсутствие проверки прав — серьёзное замечание, но локальное и исправляется в одном месте, тогда как связанность по схеме влияет на всю систему.",
+  "tags": [
+   "architecture",
+   "data-ownership",
+   "code-review"
+  ],
+  "version_group": "BE-ARCH-SHARED-DB",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-S-P-020",
+  "specialization": "backend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "architecture",
+  "difficulty": 9,
+  "question": "Сценарий оформления состоит из шагов: резерв товара, списание средств, создание заказа. Какая реализация корректна для системы без распределённых транзакций?",
+  "language": "python",
+  "code": "# три разных сервиса, у каждого своя база данных",
+  "options": [
+   {
+    "id": "A",
+    "text": "Выполнять три вызова последовательно и при ошибке возвращать клиенту 500, оставив выполненные шаги как есть"
+   },
+   {
+    "id": "B",
+    "text": "Выполнить все три шага параллельно и считать сценарий успешным при успехе хотя бы двух шагов"
+   },
+   {
+    "id": "C",
+    "text": "Открыть транзакцию в сервисе заказов и выполнять внешние вызовы внутри неё"
+   },
+   {
+    "id": "D",
+    "text": "Цепочка локальных транзакций с сохранённым состоянием, идемпотентностью и компенсациями при отказе"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 4,
+  "explanation": "Без общей транзакции согласованность обеспечивается явным управлением сценарием: состояние шагов сохраняется, каждая операция идемпотентна по ключу сценария, а при отказе выполняются компенсации в обратном порядке. Ответ 500 с оставленными шагами оставляет систему в несогласованном состоянии, параллельное выполнение принимает частичный результат как успех, а удержание транзакции на время внешних вызовов блокирует ресурсы базы и всё равно не откатит чужие изменения.",
+  "tags": [
+   "architecture",
+   "saga",
+   "compensation"
+  ],
+  "version_group": "BE-ARCH-SAGA",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-S-P-021",
+  "specialization": "backend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "architecture",
+  "difficulty": 7,
+  "question": "Что мешает написать модульный тест для этой функции и как это исправить?",
+  "language": "python",
+  "code": "def create_invoice(order_id):\n    conn = psycopg2.connect(os.environ['DB_URL'])\n    order = fetch_order(conn, order_id)\n    rate = requests.get('https://rates.example/usd').json()['rate']\n    total = order.amount * rate\n    smtp = smtplib.SMTP(os.environ['SMTP_HOST'])\n    smtp.sendmail(FROM, order.email, render(total))\n    return total",
+  "options": [
+   {
+    "id": "A",
+    "text": "Зависимости создаются внутри функции — их нужно передавать извне, а расчёт выделить"
+   },
+   {
+    "id": "B",
+    "text": "Нужно перенести функцию в слой обработчиков HTTP-запросов и тестировать её через тестовый клиент"
+   },
+   {
+    "id": "C",
+    "text": "Нужно обернуть функцию в try/except и логировать ошибки"
+   },
+   {
+    "id": "D",
+    "text": "Нужно добавить к функции параметры с настройками подключения к базе данных и почтовому серверу"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 3,
+  "explanation": "Функция сама создаёт свои зависимости, поэтому в тесте их невозможно заменить: любая проверка требует реальных базы, сети и почты. Передача зависимостей извне делает подстановку двойников тривиальной, а выделение расчёта в чистую функцию позволяет покрыть бизнес-правила быстрыми тестами. Передача строк подключения не решает проблему, поскольку соединения всё равно создаются внутри.",
+  "tags": [
+   "architecture",
+   "dependency-injection",
+   "testability"
+  ],
+  "version_group": "BE-SP-DI",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-S-P-022",
+  "specialization": "backend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "sql",
+  "difficulty": 8,
+  "question": "Запрос выполняется 12 секунд на таблице заказов в 50 миллионов строк. Как переписать его эффективнее?",
+  "language": "sql",
+  "code": "SELECT c.id, c.name\nFROM clients c\nWHERE c.id IN (\n  SELECT o.client_id FROM orders o WHERE o.total > 10000\n);",
+  "options": [
+   {
+    "id": "A",
+    "text": "SELECT id, name FROM clients c WHERE EXISTS (SELECT 1 FROM orders WHERE client_id = c.id AND total > 10000)"
+   },
+   {
+    "id": "B",
+    "text": "SELECT DISTINCT c.id, c.name FROM clients c JOIN orders o ON o.client_id = c.id WHERE o.total > 10000 ORDER BY c.id"
+   },
+   {
+    "id": "C",
+    "text": "SELECT c.id, c.name FROM clients c, orders o WHERE c.id = o.client_id AND o.total > 10000 ORDER BY c.name, c.id"
+   },
+   {
+    "id": "D",
+    "text": "SELECT c.id, c.name FROM clients c WHERE c.id = ANY (SELECT o.client_id FROM orders o WHERE o.client_id IS NOT NULL)"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 3,
+  "explanation": "Проверка существования останавливается на первой подходящей строке и хорошо работает с индексом по (client_id, total), не формируя полный список идентификаторов. Соединение с DISTINCT даёт тот же результат, но заставляет материализовать и затем устранять дубликаты, соединение без DISTINCT возвращает повторы, а подзапрос с ANY теряет условие по сумме. На практике итог сверяют по плану запроса: современные планировщики часть таких форм приводят к одной.",
+  "tags": [
+   "sql",
+   "exists",
+   "optimization"
+  ],
+  "version_group": "BE-SP-EXISTS",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-S-P-023",
+  "specialization": "backend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "sql",
+  "difficulty": 9,
+  "question": "Рекурсивный запрос, собирающий дерево подразделений, зацикливается на реальных данных. Что добавить?",
+  "language": "sql",
+  "code": "WITH RECURSIVE tree AS (\n  SELECT id, parent_id, name FROM units WHERE parent_id IS NULL\n  UNION ALL\n  SELECT u.id, u.parent_id, u.name\n  FROM units u\n  JOIN tree t ON u.parent_id = t.id\n)\nSELECT * FROM tree;",
+  "options": [
+   {
+    "id": "A",
+    "text": "Заменить UNION ALL на UNION, чтобы повторы отбрасывались"
+   },
+   {
+    "id": "B",
+    "text": "Нести путь обхода и отсекать уже посещённые узлы"
+   },
+   {
+    "id": "C",
+    "text": "Добавить ORDER BY id в рекурсивную часть запроса для стабильного обхода"
+   },
+   {
+    "id": "D",
+    "text": "Добавить LIMIT 1000 к итоговой выборке, чтобы ограничить объём результата"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 4,
+  "explanation": "Зацикливание означает, что в данных есть цикл ссылок, а запрос не отслеживает посещённые узлы. Накопление пути с проверкой принадлежности и ограничение глубины делают обход конечным и позволяют обнаружить проблемные данные. UNION уберёт только полностью одинаковые строки и не спасёт при цикле через разные ветви, сортировка не влияет на завершимость, а ограничение итогового числа строк не останавливает сам обход.",
+  "tags": [
+   "sql",
+   "recursive-cte",
+   "cycles"
+  ],
+  "version_group": "BE-SP-RECURSIVE-CTE",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-S-P-024",
+  "specialization": "backend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "caching",
+  "difficulty": 8,
+  "question": "После обновления товара пользователи иногда продолжают видеть старую цену, хотя кэш сбрасывается. Какая строка — причина?",
+  "language": "python",
+  "code": "1  with db.transaction():\n2      repo.update_price(sku, new_price)\n3      cache.delete(f'product:{sku}')\n4      repo.log_change(sku, new_price)\n5  notify_price_changed(sku)",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 2: обновление цены нужно выполнять уже после записи в журнал изменений внутри транзакции"
+   },
+   {
+    "id": "B",
+    "text": "Строка 3: сброс кэша до фиксации транзакции — читатель успевает вернуть старое значение"
+   },
+   {
+    "id": "C",
+    "text": "Строка 1: транзакция не нужна для двух операций"
+   },
+   {
+    "id": "D",
+    "text": "Строка 5: уведомление отправляется вне транзакции и может уйти раньше, чем изменения станут видны"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 3,
+  "explanation": "Пока транзакция не зафиксирована, другие соединения видят старое значение: читающий запрос промахивается по удалённому ключу, читает прежнюю цену и снова кладёт её в кэш уже после удаления. Поэтому инвалидацию выполняют после фиксации, а для надёжности добавляют короткий срок жизни или проверку версии значения.",
+  "tags": [
+   "caching",
+   "invalidation",
+   "transaction-ordering",
+   "bug-finding"
+  ],
+  "version_group": "BE-CACHE-INVALIDATION",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-S-P-025",
+  "specialization": "backend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "caching",
+  "difficulty": 9,
+  "question": "Нужен двухуровневый кэш: локальный в памяти процесса и общий. Какая схема чтения и инвалидации корректна?",
+  "language": "python",
+  "code": "# 12 экземпляров сервиса, общий кэш доступен всем",
+  "options": [
+   {
+    "id": "A",
+    "text": "Локальный → общий → источник; короткий срок жизни локальных записей и инвалидация через публикацию"
+   },
+   {
+    "id": "B",
+    "text": "Читать только из локального кэша, а общий обновлять в фоне по расписанию"
+   },
+   {
+    "id": "C",
+    "text": "Читать из общего кэша, а локальный использовать только как резервную копию при недоступности общего кэша"
+   },
+   {
+    "id": "D",
+    "text": "Хранить в локальном кэше все данные без срока жизни, а при каждом изменении данных перезапускать экземпляры"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 4,
+  "explanation": "Два уровня дают выигрыш в задержке, но требуют механизма согласования: оповещение об инвалидации доводит изменение до каждого процесса, версия значения защищает от применения устаревших сообщений, а короткий срок жизни ограничивает расхождение, если оповещение потерялось. Резервное использование локального кэша лишает смысла локальный уровень в обычном режиме, фоновое обновление по расписанию даёт заведомо устаревшие данные, а перезапуск экземпляров как способ инвалидации неприемлем.",
+  "tags": [
+   "caching",
+   "multi-level",
+   "invalidation"
+  ],
+  "version_group": "BE-SP-MULTILEVEL-CACHE",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-S-P-026",
+  "specialization": "backend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "algorithms",
+  "difficulty": 9,
+  "question": "Из потока в 50 миллионов событий нужно получить 100 самых крупных по сумме. Память ограничена. Какой подход выбрать?",
+  "language": "python",
+  "code": "# события приходят по одному, хранить все нельзя",
+  "options": [
+   {
+    "id": "A",
+    "text": "Сохранить все события и отсортировать по убыванию суммы, затем взять первые 100"
+   },
+   {
+    "id": "B",
+    "text": "Поддерживать отсортированный список из 100 элементов, вставляя каждое событие в нужную позицию"
+   },
+   {
+    "id": "C",
+    "text": "Куча минимумов размера 100: память O(k), время O(n log k)"
+   },
+   {
+    "id": "D",
+    "text": "Разбить поток на части по миллиону и брать по 100 лучших из каждой части"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 4,
+  "explanation": "Куча минимумов фиксированного размера даёт постоянный расход памяти и логарифмическую стоимость обновления по k, при этом результат точен. Полная сортировка требует хранить всё, вставка в отсортированный список обходится дороже из-за сдвигов, а отбор по частям без последующего объединения в единую структуру лишь приближение — хотя объединение лучших из частей тоже корректно, оно сложнее и не экономит по сравнению с кучей.",
+  "tags": [
+   "algorithms",
+   "heap",
+   "top-k",
+   "streaming"
+  ],
+  "version_group": "BE-SP-TOPK",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "BE-S-P-027",
+  "specialization": "backend",
+  "level": "senior",
+  "type": "practical",
+  "competency": "auth",
+  "difficulty": 8,
+  "question": "Какая строка делает проверку уведомления от платёжного провайдера недостаточной?",
+  "language": "python",
+  "code": "1  raw = request.get_data()\n2  sig = request.headers.get('X-Signature', '')\n3  expected = hmac.new(SECRET, raw, hashlib.sha256).hexdigest()\n4  if not hmac.compare_digest(sig, expected):\n5      abort(403)\n6  event = json.loads(raw)\n7  payments.mark_paid(event['payment_id'])",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 3: подпись нужно вычислять по разобранному объекту, а не по исходному телу"
+   },
+   {
+    "id": "B",
+    "text": "Строка 7: нет защиты от повторной отправки того же уведомления"
+   },
+   {
+    "id": "C",
+    "text": "Строка 4: сравнение за постоянное время здесь не требуется и только замедляет код"
+   },
+   {
+    "id": "D",
+    "text": "Строка 6: разбор JSON нужно выполнять до проверки подписи, чтобы проверить формат"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 3,
+  "explanation": "Подпись подтверждает авторство и целостность, но не однократность: перехваченное уведомление можно отправить снова. Поэтому в подписываемые данные включают метку времени и проверяют её свежесть, а идентификатор события сохраняют и повторную обработку отклоняют; критичные операции дополнительно подтверждают запросом к провайдеру. Вычисление подписи именно по исходному телу и сравнение за постоянное время в коде выполнены правильно.",
+  "tags": [
+   "auth",
+   "webhook-signature",
+   "replay-attack"
+  ],
+  "version_group": "BE-SEC-WEBHOOK",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ }
+]

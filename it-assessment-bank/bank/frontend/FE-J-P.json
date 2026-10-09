@@ -1,0 +1,1631 @@
+[
+ {
+  "id": "FE-J-P-001",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "javascript",
+  "difficulty": 2,
+  "question": "Что выведет в консоль этот код? Введите результат одним числом.",
+  "language": "javascript",
+  "code": "const nums = [4, 7, 2, 9, 5];\nconst result = nums.filter(n => n > 4).length;\nconsole.log(result);",
+  "options": [],
+  "correct_answer": [
+   "3"
+  ],
+  "score": 1,
+  "explanation": "filter оставляет элементы строго больше 4: это 7, 9 и 5, то есть три элемента. length возвращает 3. Элемент 4 не проходит условие, потому что сравнение строгое.",
+  "tags": [
+   "javascript",
+   "arrays",
+   "code_output"
+  ],
+  "version_group": "FE-JP-FILTER-COUNT",
+  "seedable": true,
+  "seed_parameters": [
+   "input_values",
+   "variable_names"
+  ],
+  "validation_type": "numeric",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "const scores = [10, 3, 8, 1, 10, 6];\nconst result = scores.filter(s => s >= 8).length;\nconsole.log(result);",
+    "options": [],
+    "correct_answer": [
+     "3"
+    ],
+    "explanation": "Условие s >= 8 нестрогое: проходят 10, 8 и 10 — три элемента."
+   },
+   {
+    "variant_id": "v3",
+    "code": "const prices = [120, 99, 250, 80];\nconst result = prices.filter(p => p < 120).length;\nconsole.log(result);",
+    "options": [],
+    "correct_answer": [
+     "2"
+    ],
+    "explanation": "Строгое условие p < 120 оставляет 99 и 80; значение 120 не проходит. Результат — 2."
+   },
+   {
+    "variant_id": "v4",
+    "code": "const ages = [17, 18, 21, 15, 30, 18];\nconst result = ages.filter(a => a > 18).length;\nconsole.log(result);",
+    "options": [],
+    "correct_answer": [
+     "2"
+    ],
+    "explanation": "Строгое условие a > 18 оставляет 21 и 30; оба значения 18 не проходят. Результат — 2."
+   }
+  ]
+ },
+ {
+  "id": "FE-J-P-002",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "javascript",
+  "difficulty": 2,
+  "question": "Функция должна возвращать массив удвоенных значений, но возвращает undefined. В какой строке ошибка?",
+  "language": "javascript",
+  "code": "1  function doubleAll(items) {\n2    const result = items.map(item => {\n3      item * 2;\n4    });\n5    return result;\n6  }",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 2: map нельзя использовать с функцией-стрелкой, нужна обычная функция"
+   },
+   {
+    "id": "B",
+    "text": "Строка 1: параметр должен называться arr"
+   },
+   {
+    "id": "C",
+    "text": "Строка 5: нужно возвращать items, а не result"
+   },
+   {
+    "id": "D",
+    "text": "Строка 3: внутри блока отсутствует return, поэтому map получает undefined для каждого элемента"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 1,
+  "explanation": "У стрелочной функции с телом в фигурных скобках значение не возвращается автоматически. Нужно либо написать return item * 2, либо убрать скобки: items.map(item => item * 2).",
+  "tags": [
+   "javascript",
+   "map",
+   "bug-finding"
+  ],
+  "version_group": "FE-JP-MAP-NORETURN",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "1  function toNames(users) {\n2    const names = users.map(user => {\n3      user.name;\n4    });\n5    return names;\n6  }",
+    "options": [
+     {
+      "id": "A",
+      "text": "Строка 5: нужно возвращать исходный массив users"
+     },
+     {
+      "id": "B",
+      "text": "Строка 1: функция должна быть асинхронной"
+     },
+     {
+      "id": "C",
+      "text": "Строка 2: нужно использовать forEach вместо map"
+     },
+     {
+      "id": "D",
+      "text": "Строка 3: нет return в теле стрелки"
+     }
+    ],
+    "correct_answer": [
+     "D"
+    ],
+    "question": "Функция должна возвращать массив имён пользователей, но возвращает массив из undefined. В какой строке ошибка?",
+    "explanation": "В стрелочной функции с телом в фигурных скобках значение не возвращается автоматически, поэтому map получает undefined для каждого элемента. Нужно return user.name или краткая форма user => user.name."
+   },
+   {
+    "variant_id": "v3",
+    "code": "1  const addTax = (prices) => {\n2    return prices.map(price => {\n3      Math.round(price * 1.2);\n4    });\n5  };",
+    "options": [
+     {
+      "id": "A",
+      "text": "Строка 3: нет return, и map вернёт массив из undefined"
+     },
+     {
+      "id": "B",
+      "text": "Строка 1: константу нельзя использовать для объявления функции"
+     },
+     {
+      "id": "C",
+      "text": "Строка 3: Math.round принимает только целые числа"
+     },
+     {
+      "id": "D",
+      "text": "Строка 2: внутри стрелочной функции нельзя использовать return"
+     }
+    ],
+    "correct_answer": [
+     "A"
+    ],
+    "question": "Функция должна возвращать цены с налогом, но возвращает массив из undefined. В какой строке ошибка?",
+    "explanation": "Тело стрелки в фигурных скобках требует явного return: без него колбэк map возвращает undefined. Нужно return Math.round(price * 1.2) или краткая форма без скобок."
+   }
+  ]
+ },
+ {
+  "id": "FE-J-P-003",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "javascript",
+  "difficulty": 2,
+  "question": "Какое значение выведет console.log? Введите ответ ровно так, как он будет напечатан, без кавычек.",
+  "language": "javascript",
+  "code": "const value = null;\nconsole.log(typeof value);",
+  "options": [],
+  "correct_answer": [
+   "object"
+  ],
+  "score": 1,
+  "explanation": "typeof null возвращает строку \"object\" — это известная особенность языка, сохранённая для обратной совместимости. Проверять на null следует через строгое сравнение value === null.",
+  "tags": [
+   "javascript",
+   "typeof",
+   "exact_match"
+  ],
+  "version_group": "FE-JP-TYPEOF",
+  "seedable": true,
+  "seed_parameters": [
+   "input_values"
+  ],
+  "validation_type": "exact_match",
+  "answer_normalization": [
+   "trim",
+   "lowercase"
+  ],
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "const value = [1, 2, 3];\nconsole.log(typeof value);",
+    "options": [],
+    "correct_answer": [
+     "object"
+    ],
+    "explanation": "Массив в JavaScript — разновидность объекта, поэтому typeof возвращает \"object\". Для проверки массива используют Array.isArray."
+   },
+   {
+    "variant_id": "v3",
+    "code": "const value = 42;\nconsole.log(typeof value);",
+    "options": [],
+    "correct_answer": [
+     "number"
+    ],
+    "explanation": "Для числового значения typeof возвращает \"number\"."
+   },
+   {
+    "variant_id": "v4",
+    "code": "let value;\nconsole.log(typeof value);",
+    "options": [],
+    "correct_answer": [
+     "undefined"
+    ],
+    "explanation": "Переменная, объявленная без значения, равна undefined, и typeof возвращает \"undefined\"."
+   }
+  ]
+ },
+ {
+  "id": "FE-J-P-004",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "javascript",
+  "difficulty": 3,
+  "question": "Что выведет этот код? Введите числа в порядке вывода через запятую без пробелов.",
+  "language": "javascript",
+  "code": "for (var i = 0; i < 3; i++) {\n  setTimeout(() => console.log(i), 0);\n}",
+  "options": [],
+  "correct_answer": [
+   "3,3,3"
+  ],
+  "score": 1,
+  "explanation": "var объявляет одну переменную на всю функцию, и к моменту выполнения колбэков цикл уже завершён, поэтому все три вызова видят i равным 3. С let переменная создаётся на каждой итерации и вывод был бы 0,1,2.",
+  "tags": [
+   "javascript",
+   "closures",
+   "var-let",
+   "code_output"
+  ],
+  "version_group": "FE-JP-VAR-LOOP",
+  "seedable": true,
+  "seed_parameters": [
+   "input_values"
+  ],
+  "validation_type": "exact_match",
+  "answer_normalization": [
+   "trim",
+   "remove_spaces"
+  ],
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "for (let i = 0; i < 3; i++) {\n  setTimeout(() => console.log(i), 0);\n}",
+    "options": [],
+    "correct_answer": [
+     "0,1,2"
+    ],
+    "explanation": "let создаёт новую переменную на каждой итерации, и каждый колбэк захватывает своё значение: 0, 1, 2."
+   },
+   {
+    "variant_id": "v3",
+    "code": "for (var i = 1; i <= 2; i++) {\n  setTimeout(() => console.log(i), 0);\n}",
+    "options": [],
+    "correct_answer": [
+     "3,3"
+    ],
+    "explanation": "var объявляет одну переменную на всю функцию; к моменту выполнения колбэков цикл завершён и i равна 3, поэтому оба вызова печатают 3."
+   }
+  ]
+ },
+ {
+  "id": "FE-J-P-005",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "javascript",
+  "difficulty": 2,
+  "question": "Нужно получить массив имён активных пользователей. Какой вариант кода решает задачу корректно?",
+  "language": "javascript",
+  "code": "const users = [\n  { name: 'Ира', active: true },\n  { name: 'Олег', active: false },\n  { name: 'Нина', active: true }\n];\n// нужен массив ['Ира', 'Нина']",
+  "options": [
+   {
+    "id": "A",
+    "text": "users.filter(u => u.active).map(u => u.name)"
+   },
+   {
+    "id": "B",
+    "text": "users.map(u => u.active).filter(u => u.name !== undefined)"
+   },
+   {
+    "id": "C",
+    "text": "users.forEach(u => u.active && u.name).filter(Boolean)"
+   },
+   {
+    "id": "D",
+    "text": "users.find(u => u.active === true).map(u => u.name)"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "Сначала фильтруем по признаку active, затем преобразуем объекты в имена. map по active превращает массив в набор логических значений, forEach ничего не возвращает, а find возвращает один объект, у которого нет метода map.",
+  "tags": [
+   "javascript",
+   "arrays",
+   "filter-map"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-P-006",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "javascript",
+  "difficulty": 3,
+  "question": "Чему будет равна длина массива после выполнения кода? Введите число.",
+  "language": "javascript",
+  "code": "const items = ['a', 'b', 'c', 'd', 'e'];\nitems.splice(1, 2);\nitems.push('f');\nconsole.log(items.length);",
+  "options": [],
+  "correct_answer": [
+   "4"
+  ],
+  "score": 1,
+  "explanation": "splice(1, 2) удаляет два элемента начиная с индекса 1, оставляя 3 элемента, затем push добавляет один — итого 4. Важно, что splice изменяет исходный массив.",
+  "tags": [
+   "javascript",
+   "arrays",
+   "splice",
+   "numeric"
+  ],
+  "version_group": "FE-JP-SPLICE-LEN",
+  "seedable": true,
+  "seed_parameters": [
+   "input_values",
+   "array_length"
+  ],
+  "validation_type": "numeric",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "const items = [1, 2, 3, 4, 5, 6];\nitems.splice(2, 3);\nitems.unshift(0);\nconsole.log(items.length);",
+    "options": [],
+    "correct_answer": [
+     "4"
+    ],
+    "explanation": "splice(2, 3) удаляет три элемента начиная с индекса 2, остаётся [1, 2, 6]; unshift добавляет элемент в начало — длина 4."
+   },
+   {
+    "variant_id": "v3",
+    "code": "const items = ['x', 'y', 'z'];\nitems.splice(0, 1);\nitems.push('w', 'v');\nconsole.log(items.length);",
+    "options": [],
+    "correct_answer": [
+     "4"
+    ],
+    "explanation": "splice(0, 1) удаляет первый элемент, остаются два; push добавляет ещё два — длина 4."
+   },
+   {
+    "variant_id": "v4",
+    "code": "const items = [10, 20, 30, 40];\nitems.splice(1, 1);\nconsole.log(items.length);",
+    "options": [],
+    "correct_answer": [
+     "3"
+    ],
+    "explanation": "splice(1, 1) удаляет один элемент, из четырёх остаётся три."
+   }
+  ]
+ },
+ {
+  "id": "FE-J-P-007",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "css",
+  "difficulty": 2,
+  "question": "Нужно задать стиль только тем элементам с классом item, которые находятся непосредственно внутри .list. Какой селектор подходит?",
+  "language": "css",
+  "code": "<ul class=\"list\">\n  <li class=\"item\">1</li>\n  <li class=\"item\">\n    <ul><li class=\"item\">вложенный</li></ul>\n  </li>\n</ul>",
+  "options": [
+   {
+    "id": "A",
+    "text": ".list + .item"
+   },
+   {
+    "id": "B",
+    "text": ".list > .item"
+   },
+   {
+    "id": "C",
+    "text": ".list .item"
+   },
+   {
+    "id": "D",
+    "text": ".list ~ .item"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 1,
+  "explanation": "Комбинатор > выбирает только прямых потомков, поэтому вложенный элемент списка не попадёт под правило. Пробел выбирает любых потомков на любой глубине, + и ~ работают с соседями, а не с вложенными элементами.",
+  "tags": [
+   "css",
+   "selectors",
+   "combinators"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-P-008",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "css",
+  "difficulty": 3,
+  "question": "Какую итоговую ширину займёт элемент на странице вместе с отступами и рамкой? Введите число в пикселях.",
+  "language": "css",
+  "code": ".box {\n  box-sizing: content-box;\n  width: 300px;\n  padding: 0 15px;\n  border: 2px solid #333;\n  margin: 0 10px;\n}",
+  "options": [],
+  "correct_answer": [
+   "354"
+  ],
+  "score": 1,
+  "explanation": "При content-box ширина рамки элемента равна 300 + 2·15 + 2·2 = 334px. Внешние отступы добавляют по 10px с каждой стороны, поэтому занимаемое место равно 354px. Сами margin в ширину элемента не входят, но занимают место в потоке.",
+  "tags": [
+   "css",
+   "box-model",
+   "numeric"
+  ],
+  "version_group": "FE-JP-BOXMODEL",
+  "seedable": true,
+  "seed_parameters": [
+   "input_values"
+  ],
+  "validation_type": "numeric",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": ".box {\n  box-sizing: content-box;\n  width: 200px;\n  padding: 0 20px;\n  border: 1px solid #333;\n  margin: 0 5px;\n}",
+    "options": [],
+    "correct_answer": [
+     "252"
+    ],
+    "explanation": "При content-box ширина элемента с рамкой равна 200 + 2·20 + 2·1 = 242px, внешние отступы добавляют по 5px с каждой стороны — всего 252px."
+   },
+   {
+    "variant_id": "v3",
+    "code": ".box {\n  box-sizing: border-box;\n  width: 300px;\n  padding: 0 15px;\n  border: 2px solid #333;\n  margin: 0 10px;\n}",
+    "options": [],
+    "correct_answer": [
+     "320"
+    ],
+    "explanation": "При border-box заданная ширина 300px уже включает padding и border, внешние отступы добавляют по 10px с каждой стороны — всего 320px."
+   }
+  ]
+ },
+ {
+  "id": "FE-J-P-009",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "css",
+  "difficulty": 2,
+  "question": "Блок .card нужно отцентрировать по горизонтали и вертикали внутри .wrapper высотой 400px. Какой набор свойств для .wrapper это сделает?",
+  "language": "css",
+  "code": ".wrapper { height: 400px; /* ? */ }\n.card { width: 200px; height: 100px; }",
+  "options": [
+   {
+    "id": "A",
+    "text": "position: relative; top: 50%; left: 50%; transform: translate(-50%, -50%);"
+   },
+   {
+    "id": "B",
+    "text": "margin: auto; padding-top: 150px; box-sizing: border-box; text-align: center;"
+   },
+   {
+    "id": "C",
+    "text": "display: flex; align-items: center; justify-content: center;"
+   },
+   {
+    "id": "D",
+    "text": "text-align: center; vertical-align: middle; line-height: 400px; display: block;"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 1,
+  "explanation": "Flex-контейнер центрирует дочерний элемент по обеим осям двумя свойствами выравнивания. text-align влияет на строчное содержимое, vertical-align — на строчные элементы и ячейки таблиц, position со смещением сдвигает сам контейнер, а подбор padding ломается при изменении размеров.",
+  "tags": [
+   "css",
+   "flexbox",
+   "centering"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-P-010",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "html",
+  "difficulty": 2,
+  "question": "В этой разметке есть ошибка, из-за которой на сервер уйдёт пустое значение поля. Какая строка её содержит?",
+  "language": "html",
+  "code": "1  <form action=\"/subscribe\" method=\"post\">\n2    <label for=\"email\">Email</label>\n3    <input id=\"email\" type=\"email\" required>\n4    <button type=\"submit\">Подписаться</button>\n5  </form>",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 4: у кнопки не указан атрибут form"
+   },
+   {
+    "id": "B",
+    "text": "Строка 1: нет enctype"
+   },
+   {
+    "id": "C",
+    "text": "Строка 3: у поля нет атрибута name"
+   },
+   {
+    "id": "D",
+    "text": "Строка 2: у label нужен атрибут name для связи с полем"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 1,
+  "explanation": "В данные формы попадают только элементы управления с заданным name — он становится ключом в отправляемых данных, тогда как id нужен для связи с label и для скриптов. Для обычной формы enctype и атрибут form у кнопки не требуются.",
+  "tags": [
+   "html",
+   "forms",
+   "bug-finding"
+  ],
+  "version_group": "FE-JP-FORM-NAME",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "1  <form action=\"/login\" method=\"post\">\n2    <label for=\"login\">Логин</label>\n3    <input id=\"login\" name=\"login\" type=\"text\">\n4    <label for=\"pass\">Пароль</label>\n5    <input id=\"pass\" type=\"password\">\n6    <button type=\"submit\">Войти</button>\n7  </form>",
+    "options": [
+     {
+      "id": "A",
+      "text": "Строка 6: кнопке нужен атрибут value"
+     },
+     {
+      "id": "B",
+      "text": "Строка 3: у текстового поля не должно быть одновременно id и name"
+     },
+     {
+      "id": "C",
+      "text": "Строка 1: method должен быть указан заглавными буквами"
+     },
+     {
+      "id": "D",
+      "text": "Строка 5: у пароля нет name"
+     }
+    ],
+    "correct_answer": [
+     "D"
+    ],
+    "explanation": "В данные формы попадают только поля с атрибутом name. У поля пароля его нет, поэтому пароль не будет отправлен; id нужен только для связи с label."
+   }
+  ]
+ },
+ {
+  "id": "FE-J-P-011",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "html",
+  "difficulty": 2,
+  "question": "Какой из вариантов разметки корректно описывает список ссылок навигации?",
+  "language": "html",
+  "code": "<!-- выберите корректный вариант -->",
+  "options": [
+   {
+    "id": "A",
+    "text": "<ul><nav><li><a href=\"/\">Главная</a></li></nav><nav><li><a href=\"/about\">О нас</a></li></nav></ul>"
+   },
+   {
+    "id": "B",
+    "text": "<nav><div><a href=\"/\">Главная</a><a href=\"/about\">О нас</a></div></nav>"
+   },
+   {
+    "id": "C",
+    "text": "<nav><li><a href=\"/\">Главная</a></li><li><a href=\"/about\">О нас</a></li></nav>"
+   },
+   {
+    "id": "D",
+    "text": "<nav><ul><li><a href=\"/\">Главная</a></li><li><a href=\"/about\">О нас</a></li></ul></nav>"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 1,
+  "explanation": "Навигация оформляется как список внутри nav: li допустимы только внутри ul или ol, а nav не может находиться внутри ul между элементами списка. Вариант с div работает, но теряет сообщение о количестве пунктов для вспомогательных технологий.",
+  "tags": [
+   "html",
+   "semantics",
+   "navigation"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-P-012",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "react",
+  "difficulty": 3,
+  "question": "Этот компонент выбрасывает ошибку при переключении isLoggedIn. В какой строке причина?",
+  "language": "javascript",
+  "code": "1  function Profile({ isLoggedIn }) {\n2    if (!isLoggedIn) {\n3      return <p>Войдите в аккаунт</p>;\n4    }\n5    const [name, setName] = useState('');\n6    return <input value={name} onChange={e => setName(e.target.value)} />;\n7  }",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 6: value и onChange нельзя задавать одновременно"
+   },
+   {
+    "id": "B",
+    "text": "Строка 1: деструктуризация props недопустима в функциональном компоненте React"
+   },
+   {
+    "id": "C",
+    "text": "Строка 3: компонент не может возвращать разные типы элементов"
+   },
+   {
+    "id": "D",
+    "text": "Строка 5: хук вызывается после условного возврата, не на каждом рендере"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 1,
+  "explanation": "Хуки должны вызываться безусловно и в одном и том же порядке при каждом рендере, иначе React не может сопоставить состояние с вызовом. Объявление useState нужно перенести выше условия.",
+  "tags": [
+   "react",
+   "hooks",
+   "rules-of-hooks",
+   "bug-finding"
+  ],
+  "version_group": "FE-JP-HOOK-ORDER",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "1  function Widget({ items }) {\n2    if (items.length === 0) return null;\n3    const [open, setOpen] = useState(false);\n4    return (\n5      <button onClick={() => setOpen(!open)}>{open ? 'Скрыть' : 'Показать'}</button>\n6    );\n7  }",
+    "options": [
+     {
+      "id": "A",
+      "text": "Строка 1: props нужно принимать одним объектом без деструктуризации"
+     },
+     {
+      "id": "B",
+      "text": "Строка 3: хук после раннего возврата"
+     },
+     {
+      "id": "C",
+      "text": "Строка 2: компонент не может возвращать null"
+     },
+     {
+      "id": "D",
+      "text": "Строка 5: в обработчик нельзя передавать стрелочную функцию"
+     }
+    ],
+    "correct_answer": [
+     "B"
+    ],
+    "question": "Этот компонент выбрасывает ошибку, когда список items становится пустым и затем снова заполняется. В какой строке причина?",
+    "explanation": "При пустом списке компонент возвращается раньше, чем вызывается useState, и число хуков между рендерами меняется. Хуки нужно вызывать безусловно до любого раннего возврата."
+   },
+   {
+    "variant_id": "v3",
+    "code": "1  function Counter({ enabled }) {\n2    for (let i = 0; i < 1; i++) {\n3      const [count, setCount] = useState(0);\n4      if (enabled) return <span>{count}</span>;\n5    }\n6    return null;\n7  }",
+    "options": [
+     {
+      "id": "A",
+      "text": "Строка 6: компонент обязан возвращать элемент, а не null"
+     },
+     {
+      "id": "B",
+      "text": "Строка 4: return внутри цикла недопустим"
+     },
+     {
+      "id": "C",
+      "text": "Строка 2: цикл for нельзя использовать внутри функционального компонента"
+     },
+     {
+      "id": "D",
+      "text": "Строка 3: хук вызывается внутри цикла, что нарушает требование постоянного порядка вызовов"
+     }
+    ],
+    "correct_answer": [
+     "D"
+    ],
+    "question": "Проверка правил хуков сообщает об ошибке в этом компоненте. В какой строке нарушение?",
+    "explanation": "Хуки нельзя вызывать внутри циклов, условий и вложенных функций: React сопоставляет состояние с хуком по порядку вызовов, и он должен быть одинаковым при каждом рендере. useState нужно вызвать на верхнем уровне компонента."
+   }
+  ]
+ },
+ {
+  "id": "FE-J-P-013",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "react",
+  "difficulty": 2,
+  "question": "Какой вариант строки корректно рендерит список и не вызывает предупреждений React?",
+  "language": "javascript",
+  "code": "const products = [{ id: 'p1', title: 'Чай' }, { id: 'p2', title: 'Кофе' }];\n\nreturn (\n  <ul>\n    {/* ? */}\n  </ul>\n);",
+  "options": [
+   {
+    "id": "A",
+    "text": "{products.forEach(p => <li key={p.id}>{p.title}</li>)}"
+   },
+   {
+    "id": "B",
+    "text": "{products.map(p => <li key={p.id}>{p.title}</li>)}"
+   },
+   {
+    "id": "C",
+    "text": "{products.map(p => <li id={p.id}>{p.title}</li>)}"
+   },
+   {
+    "id": "D",
+    "text": "{products.map((p, i) => <li key={i}>{p.title}</li>)}"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 1,
+  "explanation": "key задаётся стабильным идентификатором элемента данных. Индекс формально убирает предупреждение, но ломает сопоставление при изменении порядка; forEach ничего не возвращает; атрибут id не заменяет key.",
+  "tags": [
+   "react",
+   "lists",
+   "keys"
+  ],
+  "version_group": "FE-REACT-KEYS-J",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-P-014",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "react",
+  "difficulty": 3,
+  "question": "Сколько раз сработает эффект за первые две секунды после монтирования, если компонент больше не обновляется извне? Введите число.",
+  "language": "javascript",
+  "code": "function Clock() {\n  const [tick, setTick] = useState(0);\n\n  useEffect(() => {\n    console.log('effect');\n  }, []);\n\n  useEffect(() => {\n    const id = setTimeout(() => setTick(t => t + 1), 1000);\n    return () => clearTimeout(id);\n  }, [tick]);\n\n  return <span>{tick}</span>;\n}",
+  "options": [],
+  "correct_answer": [
+   "1"
+  ],
+  "score": 1,
+  "explanation": "Вопрос про первый эффект с пустым массивом зависимостей: он выполняется один раз после монтирования и больше не вызывается, несмотря на обновления tick. Второй эффект к выводу 'effect' отношения не имеет.",
+  "tags": [
+   "react",
+   "useEffect",
+   "numeric"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "input_values"
+  ],
+  "validation_type": "numeric",
+  "variants": []
+ },
+ {
+  "id": "FE-J-P-015",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "react",
+  "difficulty": 2,
+  "question": "При загрузке страницы функция удаления срабатывает сама, хотя кнопку никто не нажимал. Какое исправление нужно?",
+  "language": "javascript",
+  "code": "<button onClick={deleteItem(item.id)}>Удалить</button>",
+  "options": [
+   {
+    "id": "A",
+    "text": "<button onClick={await deleteItem(item.id)} type=\"button\">Удалить</button>"
+   },
+   {
+    "id": "B",
+    "text": "<button onClick={() => deleteItem(item.id)}>Удалить</button>"
+   },
+   {
+    "id": "C",
+    "text": "<button onClick={deleteItem(item.id)()} type=\"button\">Удалить</button>"
+   },
+   {
+    "id": "D",
+    "text": "<button onClick=\"deleteItem(item.id)\" type=\"button\">Удалить</button>"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 1,
+  "explanation": "В текущем коде функция вызывается во время рендера, а в onClick попадает её результат. Нужно передать функцию, которая вызовет deleteItem при клике. Вариант с вызовом результата вызовет функцию ещё раз, await в разметке недопустим, а строка в onClick в React обработчиком не станет.",
+  "tags": [
+   "react",
+   "events",
+   "bug-finding"
+  ],
+  "version_group": "FE-JP-HANDLER-CALL",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-P-016",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "typescript",
+  "difficulty": 3,
+  "question": "Какая строка вызовет ошибку компиляции при включённом strict?",
+  "language": "typescript",
+  "code": "1  type User = { id: number; name: string; email?: string };\n2  const user: User = { id: 1, name: 'Ира' };\n3  const len: number = user.email.length;\n4  const label: string = `${user.id}: ${user.name}`;",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 2: отсутствует обязательное поле email"
+   },
+   {
+    "id": "B",
+    "text": "Строка 1: необязательное свойство нельзя объявлять после обязательных"
+   },
+   {
+    "id": "C",
+    "text": "Строка 4: число нельзя подставлять в шаблонную строку без String()"
+   },
+   {
+    "id": "D",
+    "text": "Строка 3: email может быть undefined — нужна проверка"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 1,
+  "explanation": "Необязательное поле имеет тип string | undefined, и при strictNullChecks компилятор требует проверки перед обращением к свойствам. Порядок свойств в типе не важен, поле email не обязательно, а подстановка числа в шаблонную строку допустима.",
+  "tags": [
+   "typescript",
+   "optional",
+   "strict",
+   "bug-finding"
+  ],
+  "version_group": "FE-JP-TS-OPTIONAL",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "1  type Order = { id: string; total: number; comment?: string };\n2  function show(order: Order) {\n3    console.log(order.comment.trim());\n4    console.log(order.total.toFixed(2));\n5  }",
+    "options": [
+     {
+      "id": "A",
+      "text": "Строка 1: id должен быть числом"
+     },
+     {
+      "id": "B",
+      "text": "Строка 2: параметр функции не может иметь объектный тип, описанный через ключевое слово type"
+     },
+     {
+      "id": "C",
+      "text": "Строка 4: у числа нет метода toFixed"
+     },
+     {
+      "id": "D",
+      "text": "Строка 3: comment может быть undefined, вызов trim без проверки недопустим"
+     }
+    ],
+    "correct_answer": [
+     "D"
+    ],
+    "explanation": "Необязательное поле comment имеет тип string | undefined, и при strictNullChecks вызов trim без проверки — ошибка компиляции. У числа метод toFixed есть, поэтому четвёртая строка корректна."
+   }
+  ]
+ },
+ {
+  "id": "FE-J-P-017",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "typescript",
+  "difficulty": 3,
+  "question": "Нужно описать тип функции, которая принимает идентификатор и возвращает промис с пользователем или null. Какой вариант корректен?",
+  "language": "typescript",
+  "code": "type User = { id: number; name: string };\n// type FindUser = ?",
+  "options": [
+   {
+    "id": "A",
+    "text": "type FindUser = (id: number) => User | null"
+   },
+   {
+    "id": "B",
+    "text": "type FindUser = (id: number) => Promise<User | null>"
+   },
+   {
+    "id": "C",
+    "text": "type FindUser = async (id: number) => User | null"
+   },
+   {
+    "id": "D",
+    "text": "type FindUser = Promise<(id: number) => User>"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 1,
+  "explanation": "Асинхронность выражается типом возвращаемого значения: Promise<User | null>. Ключевое слово async в описании типа не используется, тип без Promise описывает синхронную функцию, а Promise<(id: number) => User> — промис, который разрешается функцией.",
+  "tags": [
+   "typescript",
+   "functions",
+   "promise"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-P-018",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "api_integration",
+  "difficulty": 3,
+  "question": "Функция должна вернуть объект пользователя, но всегда возвращает undefined. В какой строке ошибка?",
+  "language": "javascript",
+  "code": "1  async function loadUser(id) {\n2    const response = await fetch(`/api/users/${id}`);\n3    const data = response.json();\n4    return data.user;\n5  }",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 3: response.json() возвращает промис, перед ним нужен await"
+   },
+   {
+    "id": "B",
+    "text": "Строка 1: функция не должна быть async, если внутри есть await"
+   },
+   {
+    "id": "C",
+    "text": "Строка 4: нужно возвращать response, а не data.user"
+   },
+   {
+    "id": "D",
+    "text": "Строка 2: await перед fetch не нужен"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "Метод json() читает тело асинхронно и возвращает промис, поэтому без await в data оказывается объект Promise, у которого нет поля user, и функция возвращает undefined. Нужно const data = await response.json().",
+  "tags": [
+   "api_integration",
+   "fetch",
+   "async",
+   "bug-finding"
+  ],
+  "version_group": "FE-JP-FETCH-JSON",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "1  function loadOrders() {\n2    return fetch('/api/orders')\n3      .then(res => res.json)\n4      .then(data => data.items);\n5  }",
+    "options": [
+     {
+      "id": "A",
+      "text": "Строка 2: fetch нельзя возвращать из функции напрямую, его нужно сначала дождаться"
+     },
+     {
+      "id": "B",
+      "text": "Строка 3: json передан как свойство, а не вызван как метод — нужно res.json()"
+     },
+     {
+      "id": "C",
+      "text": "Строка 4: data.items недопустимо без проверки"
+     },
+     {
+      "id": "D",
+      "text": "Строка 1: функция обязана быть async"
+     }
+    ],
+    "correct_answer": [
+     "B"
+    ],
+    "question": "Функция должна вернуть промис со списком заказов, но он всегда разрешается в undefined. В какой строке ошибка?",
+    "explanation": "В третьей строке метод json не вызывается, а передаётся дальше как функция, поэтому следующий then получает функцию, у которой нет поля items. Нужно res => res.json()."
+   },
+   {
+    "variant_id": "v3",
+    "code": "1  async function loadProfile() {\n2    const res = await fetch('/api/profile');\n3    const profile = await res.text();\n4    return profile.name;\n5  }",
+    "options": [
+     {
+      "id": "A",
+      "text": "Строка 4: нужен profile?.name"
+     },
+     {
+      "id": "B",
+      "text": "Строка 2: нельзя вызывать fetch без параметров запроса"
+     },
+     {
+      "id": "C",
+      "text": "Строка 3: тело прочитано как текст, а не как JSON"
+     },
+     {
+      "id": "D",
+      "text": "Строка 1: async-функция не может возвращать поле объекта"
+     }
+    ],
+    "correct_answer": [
+     "C"
+    ],
+    "question": "Функция должна вернуть имя из профиля, но всегда возвращает undefined. В какой строке ошибка?",
+    "explanation": "res.text() возвращает тело строкой, а у строки нет поля name. Ответ в формате JSON нужно читать через await res.json()."
+   }
+  ]
+ },
+ {
+  "id": "FE-J-P-019",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "api_integration",
+  "difficulty": 3,
+  "question": "Нужно отправить JSON на сервер методом POST. Какой вызов корректен?",
+  "language": "javascript",
+  "code": "const payload = { title: 'Новая задача', done: false };",
+  "options": [
+   {
+    "id": "A",
+    "text": "fetch('/api/tasks?body=' + encodeURIComponent(JSON.stringify(payload)), { method: 'POST', headers: { 'Content-Type': 'application/json' } })"
+   },
+   {
+    "id": "B",
+    "text": "fetch('/api/tasks', { method: 'POST', body: payload })"
+   },
+   {
+    "id": "C",
+    "text": "fetch('/api/tasks', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })"
+   },
+   {
+    "id": "D",
+    "text": "fetch('/api/tasks', { method: 'POST', json: payload })"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 1,
+  "explanation": "Тело запроса должно быть строкой, а тип содержимого нужно объявить заголовком, иначе сервер не распознает формат. Объект в body превратится в строку \"[object Object]\", опции json у fetch нет, а передача данных в адресе противоречит смыслу POST и попадает в логи.",
+  "tags": [
+   "api_integration",
+   "fetch",
+   "post"
+  ],
+  "version_group": "FE-JP-FETCH-POST",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-P-020",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "http",
+  "difficulty": 3,
+  "question": "На вкладке сети виден запрос. Какой код ответа должен вернуть сервер, если тело запроса не прошло валидацию по бизнес-правилам?",
+  "language": "http",
+  "code": "POST /api/orders HTTP/1.1\nContent-Type: application/json\n\n{ \"items\": [], \"address\": \"\" }",
+  "options": [
+   {
+    "id": "A",
+    "text": "401"
+   },
+   {
+    "id": "B",
+    "text": "500"
+   },
+   {
+    "id": "C",
+    "text": "404"
+   },
+   {
+    "id": "D",
+    "text": "400"
+   }
+  ],
+  "correct_answer": [
+   "D"
+  ],
+  "score": 1,
+  "explanation": "Некорректные данные запроса — ошибка клиента, для неё предназначен 400 (часто с детализацией полей; иногда применяют 422). 401 относится к аутентификации, 404 — к отсутствию ресурса, 500 означает сбой на сервере, а не неверные входные данные.",
+  "tags": [
+   "http",
+   "status_codes",
+   "validation"
+  ],
+  "version_group": "FE-JP-HTTP-CODE",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "DELETE /api/orders/8421 HTTP/1.1\nAuthorization: Bearer <валидный токен обычного пользователя>\n\n(заказ принадлежит другому пользователю)",
+    "options": [
+     {
+      "id": "A",
+      "text": "403"
+     },
+     {
+      "id": "B",
+      "text": "409"
+     },
+     {
+      "id": "C",
+      "text": "400"
+     },
+     {
+      "id": "D",
+      "text": "404"
+     }
+    ],
+    "correct_answer": [
+     "A"
+    ],
+    "question": "На вкладке сети виден запрос. Какой код ответа должен вернуть сервер, если существование чужих заказов не скрывается?",
+    "explanation": "Пользователь аутентифицирован, но прав на удаление чужого заказа у него нет — для этого предназначен 403. Если факт существования чужих ресурсов нужно скрывать, отвечают 404, но в условии такого требования нет. 400 и 409 относятся к ошибке в запросе и к конфликту состояния."
+   },
+   {
+    "variant_id": "v3",
+    "code": "GET /api/orders/999999 HTTP/1.1\nAuthorization: Bearer <валидный токен>\n\n(заказа с таким идентификатором не существует)",
+    "options": [
+     {
+      "id": "A",
+      "text": "410"
+     },
+     {
+      "id": "B",
+      "text": "204"
+     },
+     {
+      "id": "C",
+      "text": "400"
+     },
+     {
+      "id": "D",
+      "text": "404"
+     }
+    ],
+    "correct_answer": [
+     "D"
+    ],
+    "question": "На вкладке сети виден запрос. Какой код ответа должен вернуть сервер в этой ситуации?",
+    "explanation": "Ресурса с таким идентификатором нет — это 404. 410 означает, что ресурс существовал и удалён навсегда, 204 — успешный ответ без тела, 400 — ошибку в самом запросе."
+   }
+  ]
+ },
+ {
+  "id": "FE-J-P-021",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "browser",
+  "difficulty": 2,
+  "question": "Код должен скрыть все элементы с классом banner, но падает с ошибкой «Cannot read properties of null». Что исправить?",
+  "language": "javascript",
+  "code": "const banners = document.querySelector('.banner');\nbanners.forEach(el => { el.style.display = 'none'; });",
+  "options": [
+   {
+    "id": "A",
+    "text": "Обернуть результат в Array.from и оставить querySelector, чтобы у результата появился метод forEach"
+   },
+   {
+    "id": "B",
+    "text": "Заменить querySelector на querySelectorAll, который возвращает коллекцию всех совпадений"
+   },
+   {
+    "id": "C",
+    "text": "Добавить проверку if (banners) перед вызовом forEach"
+   },
+   {
+    "id": "D",
+    "text": "Заменить forEach на for..in"
+   }
+  ],
+  "correct_answer": [
+   "B"
+  ],
+  "score": 1,
+  "explanation": "querySelector возвращает первый найденный элемент или null, и метода forEach у него нет. Для коллекции нужен querySelectorAll, у возвращаемого NodeList метод forEach есть. Проверка на null устранит только падение, но элементы останутся видимыми.",
+  "tags": [
+   "browser",
+   "dom",
+   "bug-finding"
+  ],
+  "version_group": "FE-JP-QUERYSELECTOR",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-P-022",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "components",
+  "difficulty": 2,
+  "question": "Компонент Card должен отображать переданное внутрь содержимое, но на экране видна только рамка. Какое исправление нужно?",
+  "language": "javascript",
+  "code": "function Card(props) {\n  return <div className=\"card\"></div>;\n}\n\n// использование:\n// <Card><p>Текст внутри</p></Card>",
+  "options": [
+   {
+    "id": "A",
+    "text": "Передавать содержимое через проп content и выводить {props.content}"
+   },
+   {
+    "id": "B",
+    "text": "Вызвать props.children() внутри div"
+   },
+   {
+    "id": "C",
+    "text": "Добавить внутрь div вывод {props.children}, чтобы отрисовать вложенное содержимое"
+   },
+   {
+    "id": "D",
+    "text": "Добавить в div атрибут dangerouslySetInnerHTML={{ __html: props.children }}"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 1,
+  "explanation": "Вложенное содержимое приходит в компонент как props.children и выводится как обычное значение в разметке. Вариант с content потребовал бы менять все места использования, children не является функцией, а вставка HTML строкой здесь неуместна и опасна.",
+  "tags": [
+   "components",
+   "children",
+   "react"
+  ],
+  "version_group": null,
+  "seedable": true,
+  "seed_parameters": [
+   "option_order"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-P-023",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "state_management",
+  "difficulty": 3,
+  "question": "Переключение флага выполненности не обновляет интерфейс. Какой вариант исправления корректен?",
+  "language": "javascript",
+  "code": "const [task, setTask] = useState({ id: 1, title: 'Отчёт', done: false });\n\nfunction toggle() {\n  task.done = !task.done;\n  setTask(task);\n}",
+  "options": [
+   {
+    "id": "A",
+    "text": "setTask(prev => ({ ...prev, done: !prev.done }))"
+   },
+   {
+    "id": "B",
+    "text": "setTask(task); forceUpdate();"
+   },
+   {
+    "id": "C",
+    "text": "setTask(Object.assign(task, { done: !done }))"
+   },
+   {
+    "id": "D",
+    "text": "setTask(task.done = !task.done)"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "Нужен новый объект, иначе ссылка не меняется и React считает состояние прежним. Object.assign с тем же первым аргументом изменяет исходный объект, повторная передача того же task ничего не меняет даже с принудительным обновлением, а присваивание внутри вызова мутирует состояние и передаёт сеттеру логическое значение вместо объекта.",
+  "tags": [
+   "state_management",
+   "immutability",
+   "react"
+  ],
+  "version_group": "FE-STATE-MUTATION",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-P-024",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "state_management",
+  "difficulty": 3,
+  "question": "Какое значение покажет счётчик после одного клика по кнопке? Введите число.",
+  "language": "javascript",
+  "code": "function Counter() {\n  const [count, setCount] = useState(0);\n\n  function handleClick() {\n    setCount(count + 1);\n    setCount(count + 1);\n    setCount(prev => prev + 1);\n  }\n\n  return <button onClick={handleClick}>{count}</button>;\n}",
+  "options": [],
+  "correct_answer": [
+   "2"
+  ],
+  "score": 1,
+  "explanation": "Первые два вызова используют count из текущего рендера, то есть оба ставят в очередь значение 1. Третий вызов получает актуальное состояние из очереди (1) и увеличивает его до 2. Итог — 2.",
+  "tags": [
+   "state_management",
+   "react",
+   "updater",
+   "numeric"
+  ],
+  "version_group": "FE-STATE-UPDATER",
+  "seedable": true,
+  "seed_parameters": [
+   "input_values"
+  ],
+  "validation_type": "numeric",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "function Counter() {\n  const [count, setCount] = useState(5);\n\n  function handleClick() {\n    setCount(count + 2);\n    setCount(prev => prev + 3);\n  }\n\n  return <button onClick={handleClick}>{count}</button>;\n}",
+    "options": [],
+    "correct_answer": [
+     "10"
+    ],
+    "explanation": "Первый вызов ставит в очередь значение 5 + 2 = 7, второй получает его через функцию обновления и прибавляет 3. Итог — 10."
+   },
+   {
+    "variant_id": "v3",
+    "code": "function Counter() {\n  const [count, setCount] = useState(0);\n\n  function handleClick() {\n    setCount(prev => prev + 1);\n    setCount(prev => prev + 1);\n    setCount(count + 10);\n  }\n\n  return <button onClick={handleClick}>{count}</button>;\n}",
+    "options": [],
+    "correct_answer": [
+     "10"
+    ],
+    "explanation": "Две функции обновления дают 1 и 2, но третий вызов ставит готовое значение count + 10, вычисленное из count текущего рендера (0), и заменяет результат. Итог — 10."
+   }
+  ]
+ },
+ {
+  "id": "FE-J-P-025",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "accessibility",
+  "difficulty": 3,
+  "question": "Кнопка содержит только иконку. Какой вариант разметки даст пользователю скринридера понятное название действия?",
+  "language": "html",
+  "code": "<!-- кнопка закрытия диалога, внутри только значок -->",
+  "options": [
+   {
+    "id": "A",
+    "text": "<button aria-label=\"Закрыть\"><svg aria-hidden=\"true\">…</svg></button>"
+   },
+   {
+    "id": "B",
+    "text": "<button class=\"close\" alt=\"Закрыть\" type=\"button\"><svg>…</svg></button>"
+   },
+   {
+    "id": "C",
+    "text": "<button><svg title=\"Закрыть\">…</svg></button>"
+   },
+   {
+    "id": "D",
+    "text": "<div class=\"close\" onclick=\"close()\" title=\"Закрыть\"><svg>…</svg></div>"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "Надёжный приём — визуально скрытый текст внутри кнопки плюс скрытие декоративной иконки от вспомогательных технологий; подойдёт и aria-label на кнопке. Элемент title у svg поддерживается неодинаково, div без роли и клавиатурной активации недоступен, а атрибут alt у кнопки не применяется.",
+  "tags": [
+   "accessibility",
+   "icon-button",
+   "aria"
+  ],
+  "version_group": "FE-A11Y-ICONBTN",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ },
+ {
+  "id": "FE-J-P-026",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "security",
+  "difficulty": 3,
+  "question": "Какая строка кода создаёт уязвимость XSS?",
+  "language": "javascript",
+  "code": "1  const params = new URLSearchParams(location.search);\n2  const query = params.get('q') ?? '';\n3  document.title = `Поиск: ${query}`;\n4  document.getElementById('result').innerHTML = `Вы искали: ${query}`;\n5  console.log('search', query);",
+  "options": [
+   {
+    "id": "A",
+    "text": "Строка 4: вставка непроверенного значения как HTML"
+   },
+   {
+    "id": "B",
+    "text": "Строка 2: чтение параметра из адреса страницы"
+   },
+   {
+    "id": "C",
+    "text": "Строка 5: вывод значения в консоль"
+   },
+   {
+    "id": "D",
+    "text": "Строка 3: подстановка значения в заголовок документа"
+   }
+  ],
+  "correct_answer": [
+   "A"
+  ],
+  "score": 1,
+  "explanation": "innerHTML разбирает строку как разметку, поэтому значение из адреса может внедрить исполняемый код. Нужно использовать textContent или экранирование. Запись в document.title и вывод в консоль разметку не интерпретируют.",
+  "tags": [
+   "security",
+   "xss",
+   "bug-finding"
+  ],
+  "version_group": "FE-XSS-SINK",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names",
+   "input_values"
+  ],
+  "validation_type": "single_choice",
+  "variants": [
+   {
+    "variant_id": "v2",
+    "code": "1  const name = document.getElementById('name').value;\n2  const box = document.getElementById('greeting');\n3  box.textContent = `Привет, ${name}`;\n4  box.insertAdjacentHTML('beforeend', `<small>${name}</small>`);\n5  box.setAttribute('data-user', name);",
+    "options": [
+     {
+      "id": "A",
+      "text": "Строка 5: запись введённого значения в data-атрибут"
+     },
+     {
+      "id": "B",
+      "text": "Строка 1: чтение значения из поля ввода без экранирования"
+     },
+     {
+      "id": "C",
+      "text": "Строка 3: присваивание строки свойству textContent"
+     },
+     {
+      "id": "D",
+      "text": "Строка 4: значение вставляется как HTML"
+     }
+    ],
+    "correct_answer": [
+     "D"
+    ],
+    "explanation": "insertAdjacentHTML разбирает строку как разметку, поэтому введённое значение может внедрить исполняемый код. textContent и setAttribute с data-атрибутом разметку не интерпретируют."
+   },
+   {
+    "variant_id": "v3",
+    "code": "1  const comment = await loadComment(id);\n2  const el = document.createElement('div');\n3  el.className = 'comment';\n4  el.innerText = comment.author;\n5  el.innerHTML += comment.text;",
+    "options": [
+     {
+      "id": "A",
+      "text": "Строка 2: создание нового элемента через createElement"
+     },
+     {
+      "id": "B",
+      "text": "Строка 3: присваивание className"
+     },
+     {
+      "id": "C",
+      "text": "Строка 5: добавление текста комментария как HTML"
+     },
+     {
+      "id": "D",
+      "text": "Строка 4: запись имени автора комментария через innerText"
+     }
+    ],
+    "correct_answer": [
+     "C"
+    ],
+    "explanation": "Добавление к innerHTML разбирает текст комментария как разметку — это XSS. Имя автора записано через innerText безопасно; текст нужно выводить через textContent или очищать по разрешённому списку тегов."
+   }
+  ]
+ },
+ {
+  "id": "FE-J-P-027",
+  "specialization": "frontend",
+  "level": "junior",
+  "type": "practical",
+  "competency": "git",
+  "difficulty": 2,
+  "question": "Вы случайно изменили файл src/app.css и хотите вернуть его к состоянию последнего коммита, не трогая остальные изменённые файлы. Файл не добавлен в индекс. Какая команда подходит?",
+  "language": "bash",
+  "code": "$ git status --short\n M src/app.css\n M src/index.js",
+  "options": [
+   {
+    "id": "A",
+    "text": "git reset --hard"
+   },
+   {
+    "id": "B",
+    "text": "git revert HEAD -- src/app.css"
+   },
+   {
+    "id": "C",
+    "text": "git restore --worktree src/app.css"
+   },
+   {
+    "id": "D",
+    "text": "git clean -fd src/app.css"
+   }
+  ],
+  "correct_answer": [
+   "C"
+  ],
+  "score": 1,
+  "explanation": "git restore возвращает содержимое указанного файла из последнего коммита, не затрагивая другие файлы. reset --hard отменит изменения во всех файлах, clean удаляет только неотслеживаемые файлы, а revert создаёт коммит, отменяющий уже зафиксированные изменения.",
+  "tags": [
+   "git",
+   "restore",
+   "commands"
+  ],
+  "version_group": "FE-JP-GIT-RESTORE",
+  "seedable": true,
+  "seed_parameters": [
+   "option_order",
+   "variable_names"
+  ],
+  "validation_type": "single_choice",
+  "variants": []
+ }
+]

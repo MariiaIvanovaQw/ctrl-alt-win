@@ -442,8 +442,7 @@ pydantic-settings 2.15.0 (MIT), SQLAlchemy 2.0.54 (MIT), psycopg 3.3.6
 (LGPL-3.0), PyJWT 2.15.1 (MIT), cryptography 50.0.2 (Apache-2.0 / BSD),
 HTTPX 0.28.1 (BSD-3-Clause), email-validator 2.3.0 (Unlicense),
 python-multipart 0.0.32 (Apache-2.0), ReportLab 5.0.1 (BSD), pypdf 6.19.0
-(BSD-3-Clause). Для разработки: pytest 9.1.1 (MIT), ruff 0.16.10 (MIT),
-python-docx 1.2.0 (MIT).
+(BSD-3-Clause). Для разработки: pytest 9.1.1 (MIT), ruff 0.16.10 (MIT).
 
 **Веб-приложение** (Node.js 20+): React и React DOM 19.3.0 (MIT),
 React Router 7.18.4 (MIT), Vite 8.3.3 (MIT), TypeScript 5.9.3 (Apache-2.0),

@@ -36,12 +36,12 @@ docker compose exec api cat /data/demo_accounts.json
 | [`backend/`](backend/README.md) | API на FastAPI: вход в формате Keycloak, профили, тестирование и грейд, подбор с объяснением, приглашения и отклики, задания, ФСП ID, 152-ФЗ; демо-данные, валидация, автотесты |
 | [`frontend/`](frontend/README.md) | веб-приложение на React и TypeScript: кабинеты кандидата, работодателя и модератора в фирменном стиле ФСП |
 | [`it-assessment-bank/`](it-assessment-bank/README.md) | банк из 720 заданий и алгоритмы: сборка теста по сиду, подсчёт баллов, грейд, валидатор, симулятор |
-| [`docs/`](docs/documentation.md) | пояснительная записка (PDF, DOCX, Markdown) и спецификация OpenAPI |
+| [`docs/`](docs/documentation.md) | пояснительная записка (PDF и исходник в Markdown) и спецификация OpenAPI |
 
 ## Документация
 
 Пояснительная записка по разделу 3.4 ТЗ – [`docs/documentation.pdf`](docs/documentation.pdf)
-(также `.docx` и исходник [`documentation.md`](docs/documentation.md)):
+(исходник – [`documentation.md`](docs/documentation.md)):
 архитектура, механика тестирования и подбора, валидация и её результаты,
 интеграция с ФСП, API, компоненты с версиями, запуск, безопасность и
 сверка с ТЗ. Спецификация API – [`docs/openapi.json`](docs/openapi.json)

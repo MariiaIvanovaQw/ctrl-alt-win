@@ -1,15 +1,11 @@
 """
-Сборка пояснительной записки docs/documentation.md в PDF и DOCX (ТЗ,
-раздел 5.2: документация в формате doc или pdf).
+Сборка пояснительной записки docs/documentation.md в PDF (ТЗ, раздел 5.2:
+документация в формате doc или pdf).
 
 Запуск (из каталога backend):
-    python -m scripts.build_docs          # docs/documentation.pdf и docs/documentation.docx
-    python -m scripts.build_docs --pdf    # только PDF
-
-Для DOCX нужен python-docx из requirements-dev.txt.
+    python -m scripts.build_docs          # docs/documentation.pdf
 """
 
-import argparse
 from datetime import datetime, timezone
 from pathlib import Path
 from xml.sax.saxutils import escape
@@ -162,23 +158,9 @@ def build_pdf(parts: list[tuple[str, list[Block]]], out: Path, date_text: str) -
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Сборка пояснительной записки в PDF и DOCX")
-    parser.add_argument("--pdf", action="store_true", help="только PDF")
-    args = parser.parse_args()
-    parts = sections()
-    date_text = datetime.now(timezone.utc).strftime("%d.%m.%Y")
-    outputs = [REPO / "docs" / "documentation.pdf"]
-    build_pdf(parts, outputs[0], date_text)
-    if not args.pdf:
-        try:
-            from scripts.build_docx import build_docx
-        except ImportError:
-            print("DOCX пропущен: pip install -r requirements-dev.txt")
-        else:
-            outputs.append(REPO / "docs" / "documentation.docx")
-            build_docx(parts, outputs[1], date_text)
-    for out in outputs:
-        print("%s: %d КБ" % (out.relative_to(REPO).as_posix(), out.stat().st_size // 1024))
+    out = REPO / "docs" / "documentation.pdf"
+    build_pdf(sections(), out, datetime.now(timezone.utc).strftime("%d.%m.%Y"))
+    print("%s: %d КБ" % (out.relative_to(REPO).as_posix(), out.stat().st_size // 1024))
 
 
 if __name__ == "__main__":

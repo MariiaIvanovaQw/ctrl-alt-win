@@ -76,7 +76,7 @@ Code + PKCE). API в этом режиме только проверяет то�
 | `python -m scripts.item_analysis` | трудность и различающая сила заданий → `reports/item_analysis.md` |
 | `python -m scripts.benchmark` | нагрузочная проверка запущенного сервера → `reports/benchmark.md` |
 | `python -m scripts.export_openapi` | `../docs/openapi.json` |
-| `python -m scripts.build_docs` | `../docs/documentation.pdf` и `.docx` из `documentation.md` |
+| `python -m scripts.build_docs` | `../docs/documentation.pdf` из `documentation.md` |
 | `python -m scripts.make_sample_resume` | вымышленное резюме `samples/resume-demo.pdf` для проверки распознавания |
 
 ```bash
